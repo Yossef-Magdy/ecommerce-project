@@ -1,1 +1,25 @@
-<p>register works!</p>
+<div class="tracking-wider flex flex-col gap-6 lg:max-w-[544px] lg:mx-0 lg:ms-16 lg:px-14 md:max-w-[767px] md:py-16 px-9 py-10 max-w-full mx-auto">
+    <h1 class="text-4xl uppercase font-light">welcome!</h1>
+    <form class="grid md:grid-cols-2 gap-6" [formGroup]="registerForm">
+        <div class="flex flex-col gap-2 group">
+            <app-label for="fname" text="first name*"/>
+            <input type="text" id="fname" placeholder="Enter your first name" class="group-hover:border-black border px-4 text-xs h-12 outline-none" formControlName="firstName">
+        </div>
+        <div class="flex flex-col gap-2 group">
+            <app-label for="lname" text="last name*"/>
+            <input type="text" id="lname" placeholder="Enter your last name" class="group-hover:border-black border px-4 text-xs h-12" formControlName="lastName">
+        </div>
+        <div class="flex flex-col gap-2 group md:col-span-full">
+            <app-label for="email" text="email*"/>
+            <input type="email" id="email" placeholder="Enter your email" class="group-hover:border-black border px-4 text-xs h-12" formControlName="email">
+        </div>
+        <div class="flex flex-col gap-2 group md:col-span-full">
+            <app-label for="password" text="password*"/>
+            <input type="password" id="password" placeholder="Enter your password" class="group-hover:border-black border px-4 text-xs h-12" formControlName="password">
+        </div>
+        <app-form-button text="create account"/>
+    </form>
+    <hr class="my-6">
+    <h2 class="text-2xl uppercase font-light">already have an account?</h2>
+    <a routerLink="/auth/login" class="uppercase underline underline-offset-8 font-light text-sm">login</a>
+</div>
