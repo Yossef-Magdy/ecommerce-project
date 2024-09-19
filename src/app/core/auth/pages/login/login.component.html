@@ -1,1 +1,18 @@
-<p>login works!</p>
+<div class="tracking-wider flex flex-col gap-6 lg:max-w-[544px] lg:mx-0 lg:ms-16 lg:px-14 md:max-w-[767px] md:py-16 px-9 py-10 max-w-full mx-auto">
+    <h1 class="text-4xl uppercase font-light">welcome back!</h1>
+    <form class="flex flex-col gap-6" [formGroup]="loginForm">
+        <div class="flex flex-col gap-2 group">
+            <app-label for="email" text="email*"/>
+            <input type="email" id="email" placeholder="Enter your email" class="group-hover:border-black border px-4 text-xs h-12" formControlName="email">
+        </div>
+        <div class="flex flex-col gap-2 group">
+            <app-label for="password" text="password*"/>
+            <input type="password" id="password" placeholder="Enter your password" class="group-hover:border-black border px-4 text-xs h-12" formControlName="password">
+        </div>
+        <app-form-button text="login"/>
+        <a href="#" class="uppercase underline underline-offset-8 font-light text-sm">forgot your password</a>
+    </form>
+    <hr class="my-6">
+    <h2 class="text-2xl uppercase font-light">don't have an account yet?</h2>
+    <a routerLink="/auth/register" class="uppercase underline underline-offset-8 font-light text-sm">create an account</a>
+</div>
