@@ -1,1 +1,17 @@
-<p>header works!</p>
+<header class="sticky top-0 bg-white py-5 lg:px-14 md:px-10 px-6">
+    <nav class="grid grid-cols-3">
+        <ul class="flex gap-6 capitalize font-light">
+            <li><a routerLink="/home">home</a></li>
+            <li><a routerLink="/collections">shop</a></li>
+            <li><a routerLink="/contact">contact</a></li>
+        </ul>
+        <div class="flex justify-center">
+            logo
+        </div>
+        <ul class="flex gap-6 capitalize font-light justify-end">
+            <li><a href="#">search</a></li>
+            <li><a routerLink="/auth/login">login</a></li>
+            <li><a routerLink="/cart">cart</a></li>
+        </ul>
+    </nav>
+</header>
