@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { FormButtonComponent } from "../../components/form-button/form-button.component";
+import { ButtonComponent } from '../../../../shared/button/button.component';
 import { LabelComponent } from "../../components/label/label.component";
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, FormButtonComponent, RouterLink, LabelComponent],
+  imports: [ReactiveFormsModule, ButtonComponent, RouterLink, LabelComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
