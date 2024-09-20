@@ -9,5 +9,7 @@ import { StarRatingComponent } from "../../shared/star-rating/star-rating.compon
   styleUrl: './product-details.component.css'
 })
 export class ProductDetailsComponent {
+  colors = ["red", "black", "grey", "beige"];
+  sizes = ["S", "M", "L", "XL"];
 
 }

@@ -6,3 +6,83 @@
     text-transform: uppercase;
     
 }
+
+.visually-hidden{
+    position: absolute !important;
+    overflow: hidden;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+    clip: rect(0 0 0 0);
+    word-wrap: normal !important;
+}
+
+.swatch{
+    position: relative;
+    margin: 0;
+    border: 1px solid rgb(210, 209, 209);
+    border-radius: 0;
+    display: block;
+    width: 2.2rem;
+    height: 2.2rem;
+    background-size: cover;
+    background-position: 50% 50%;
+    overflow: hidden;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: opacity 0.5s, border-color 0.5s, transform 0.5s;
+}
+
+.swatch_active{
+    border-color: black;
+}
+
+.swatch:hover{
+    border-color: black;
+}
+
+.btn-add, .btn-notify{
+    background-color: black;
+    color: white;
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid black;
+    transition: all 0.3s;
+    margin: 0.7rem 0;
+}
+
+.btn-add:hover{
+    background-color: white;
+    color: black;
+}
+
+.btn-notify:hover{
+    color: rgb(99, 99, 99);
+}
+
+.quantity-container{
+    border: 1px solid rgb(210, 209, 209);
+    padding: 0.5rem;
+    color: rgb(62, 62, 62);
+}
+
+.fa-plus{
+    font-weight: 100;
+    font-size: 10px;
+}
+.minus{
+    font-weight: 100;
+    font-size: 25px;
+}
+
+.size{
+    width: 100%;
+    height: 100%;
+    font-size: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
