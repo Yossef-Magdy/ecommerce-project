@@ -64,7 +64,7 @@
 
 .quantity-container{
     border: 1px solid rgb(210, 209, 209);
-    padding: 0.5rem;
+    padding: 0.1rem;
     color: rgb(62, 62, 62);
 }
 
@@ -86,6 +86,6 @@
     align-items: center;
 }
 
-.main-img{
-    height: 100vh;
+input[type=text]{
+    border: none !important;
 }
