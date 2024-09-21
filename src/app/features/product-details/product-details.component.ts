@@ -3,11 +3,12 @@ import { StarRatingComponent } from "../../shared/star-rating/star-rating.compon
 import { ButtonComponent } from '../../shared/button/button.component';
 import { GallerySwiperComponent } from "../gallery-swiper/gallery-swiper.component";
 import { RouterLink } from '@angular/router';
+import { SizeChartComponent } from '../../core/auth/components/label/size-chart/size-chart.component';
 
 @Component({
   selector: 'app-product-details',
   standalone: true,
-  imports: [StarRatingComponent, StarRatingComponent, ButtonComponent, GallerySwiperComponent, GallerySwiperComponent, RouterLink],
+  imports: [StarRatingComponent, StarRatingComponent, ButtonComponent, GallerySwiperComponent, GallerySwiperComponent, RouterLink, SizeChartComponent],
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.css'
 })
