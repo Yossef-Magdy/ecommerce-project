@@ -1,10 +1,11 @@
-
-
 .product_title{
     font-family: var(--font-heading);
     font-size: 30px;
     text-transform: uppercase;
-    
+}
+
+.product_details{
+    font-family: var(--font-body-family);
 }
 
 .visually-hidden{
@@ -51,6 +52,9 @@
     border: 1px solid black;
     transition: all 0.3s;
     margin: 0.7rem 0;
+    font-family: var(--font-body-family);
+    text-transform: uppercase;
+    font-size: 0.8rem;
 }
 
 .btn-add:hover{
@@ -64,7 +68,7 @@
 
 .quantity-container{
     border: 1px solid rgb(210, 209, 209);
-    padding: 0.1rem;
+    padding: 0.2rem;
     color: rgb(62, 62, 62);
 }
 
@@ -88,4 +92,20 @@
 
 input[type=text]{
     border: none !important;
+}
+
+.shipping{
+    font-size: 0.7rem;
+    font-weight: 300;
+}
+
+.shipping a{
+    text-decoration: underline;
+}
+
+.size-chart{
+    display: flex;
+    flex-direction: row;
+    cursor: pointer;
+    text-decoration: underline;
 }
