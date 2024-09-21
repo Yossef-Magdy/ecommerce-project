@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { StarRatingComponent } from "../../shared/star-rating/star-rating.component";
 import { ButtonComponent } from '../../shared/button/button.component';
-import { GallerySwiperComponent } from "../../gallery-swiper/gallery-swiper.component";
+import { GallerySwiperComponent } from "../gallery-swiper/gallery-swiper.component";
 
 @Component({
   selector: 'app-product-details',
