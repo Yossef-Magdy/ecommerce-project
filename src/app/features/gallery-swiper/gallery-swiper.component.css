@@ -3,3 +3,8 @@
     flex-direction: column;
     
 }
+
+.gallery-img{
+    height: 100vh;
+    margin: auto;
+}

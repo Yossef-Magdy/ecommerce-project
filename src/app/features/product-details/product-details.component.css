@@ -8,6 +8,10 @@
     font-family: var(--font-body-family);
 }
 
+.product_gallery{
+    height: 100vh;
+}
+
 .visually-hidden{
     position: absolute !important;
     overflow: hidden;
