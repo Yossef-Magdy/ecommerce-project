@@ -35,11 +35,5 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "typescript": "~5.4.2"
-  },
-  "overrides": {
-    "@angular-devkit/build-angular": {
-      "undici": "latest",
-      "vite": "latest"
-    }
   }
 }
