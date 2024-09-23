@@ -1,11 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import Swiper from 'swiper';
+import { Navigation, Pagination } from 'swiper/modules';
+
 
 @Component({
   selector: 'app-gallery-swiper',
   standalone: true,
   imports: [],
   templateUrl: './gallery-swiper.component.html',
-  styleUrl: './gallery-swiper.component.css'
+  styleUrl: './gallery-swiper.component.css',
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class GallerySwiperComponent {
   images = [
@@ -31,5 +35,6 @@ export class GallerySwiperComponent {
       "src": "assets/1.jpg" 
     },
   ]
+
 
 }

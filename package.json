@@ -20,6 +20,7 @@
     "@angular/router": "^17.3.0",
     "flowbite": "^2.5.1",
     "rxjs": "~7.8.0",
+    "swiper": "^11.1.14",
     "tailwindcss": "^3.4.12",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"

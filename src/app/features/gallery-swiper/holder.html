@@ -1,66 +1,21 @@
 <div id="default-carousel" class="relative w-50 flex justify-start items-center" data-carousel="static">
     <!-- Sidebar for Thumbnails -->
     <div class="flex flex-col gap-2 selector-wrapper">
+        @for(img of images; track img.id){
         <div class="gallery-img-select">
-            <button type="button" class="w-20 h-20 " aria-label="Slide 1" data-carousel-slide-to="0">
-                <img src="assets/1.jpg" class="object-contain h-full w-full" alt="thumbnail 1">
+            <button type="button" class="w-20 h-20" [attr.aria-label]="img.id" [attr.data-carousel-slide-to]="img.id">
+                <img [src]="img.src" class="object-contain h-full w-full" alt="thumbnail {{img.id}}" />
             </button>
         </div>
-        <div class="gallery-img-select">
-            <button type="button" class="w-20 h-20 " aria-label="Slide 2" data-carousel-slide-to="1">
-                <img src="assets/2.jpg" class="object-contain h-full w-full" alt="thumbnail 2">
-            </button>
-        </div>
-        <div class="gallery-img-select">
-            <button type="button" class="w-20 h-20 " aria-label="Slide 3" data-carousel-slide-to="2">
-                <img src="assets/3.jpg" class="object-contain h-full w-full" alt="thumbnail 3">
-            </button>
-        </div>
-        <div class="gallery-img-select">
-            <button type="button" class="w-20 h-20 " aria-label="Slide 4" data-carousel-slide-to="3">
-                <img src="assets/1.jpg" class="object-contain h-full w-full" alt="thumbnail 4">
-            </button>
-        </div>
-        <div class="gallery-img-select">
-            <button type="button" class="w-20 h-20 " aria-label="Slide 4" data-carousel-slide-to="1">
-                <img src="assets/5.jpg" class="object-contain h-full w-full" alt="thumbnail 4">
-            </button>
-        </div>
-        <div class="gallery-img-select">
-            <button type="button" class="w-20 h-20 " aria-label="Slide 4" data-carousel-slide-to="2">
-                <img src="assets/1.jpg" class="object-contain h-full w-full" alt="thumbnail 4">
-            </button>
-        </div>
-        <div class="gallery-img-select">
-            <button type="button" class="w-20 h-20 " aria-label="Slide 4" data-carousel-slide-to="3">
-                <img src="assets/5.jpg" class="object-contain h-full w-full" alt="thumbnail 4">
-            </button>
-        </div>
-        <div class="gallery-img-select">
-            <button type="button" class="w-20 h-20 " aria-label="Slide 4" data-carousel-slide-to="1">
-                <img src="assets/1.jpg" class="object-contain h-full w-full" alt="thumbnail 4">
-            </button>
-        </div>
+        }
     </div>
 
     <!-- Main Image Carousel -->
     <div class="relative overflow-hidden m-auto rounded-lg w-[300px] h-[400px]">
-        <!-- Item 1 -->
+        @for(img of images; track img.id){
         <div class="hidden duration-700 ease-in-out w-full m-auto" data-carousel-item>
-            <img src="assets/6.jpg" class="block w-full h-full object-cover" alt="product image 1">
+            <img [src]="img.src" class="block w-full h-full object-cover" alt="product image {{img.id}}" />
         </div>
-        <!-- Item 2 -->
-        <div class="hidden duration-700 ease-in-out" data-carousel-item>
-            <img src="assets/2.jpg" class="block w-full h-full object-cover" alt="product image 2">
-        </div>
-        <!-- Item 3 -->
-        <div class="hidden duration-700 ease-in-out" data-carousel-item>
-            <img src="assets/3.jpg" class="block w-full h-full object-cover" alt="product image 3">
-        </div>
-        <!-- Item 4 -->
-        <div class="hidden duration-700 ease-in-out" data-carousel-item>
-            <img src="assets/5.jpg" class="block w-full h-full object-cover" alt="product image 4">
-        </div>
-    </div> 
+        }
+    </div>
 </div>
-
