@@ -4,7 +4,30 @@
     
 }
 
-.gallery-img{
+.selector-wrapper{
+    position: absolute;
+    overflow: hidden;
+    width: 6rem;
     height: 100vh;
-    margin: auto;
+    max-width: 6rem;
+    max-height: 385px;
+    top: 7.2rem;
+}
+
+.gallery-img-select{
+    transform: translate3d(0px, -86.75px, 0px);
+    transition-duration: 0ms;
+    transition-timing-function: ease-out;
+    margin: 0 auto;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    display: flex;
+    transition-property: transform;
+    box-sizing: content-box;
+}
+
+.gallery-img-select button{
+    border: 1px solid var(--light-gray);
 }
