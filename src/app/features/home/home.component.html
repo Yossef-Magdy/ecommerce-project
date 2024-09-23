@@ -1,1 +1,59 @@
-<p>home works!</p>
+<section class="hero">
+  <div class="hero-content">
+    <h4>For Everyone</h4>
+    <h1>QUALITY MEETS AFFORDABILITY</h1>
+  </div>
+  <div class="buttons">
+    <a href="#">SHOP now</a>
+  </div>
+</section>
+
+<h1 class="title">Our Collections</h1>
+
+<div class="cards-wrapper">
+  <div class="flex" [style.transform]="getTransform()">
+    @for (card of categoryCards; track $index) {
+      <a href="#" class="card">
+        <img [src]="card.image" [alt]="card.title">
+        <div class="overlay">
+          <h2>{{ card.title }}</h2>
+          <span class="explore-button">EXPLORE</span>
+        </div>
+      </a>
+    }
+  </div>
+
+  <app-arrows [cards]="categoryCards" [currentIndex]="categoryCurrentIndex" [maxVisibleCards]="maxCategoryVisibleCards" (arrowClick)="onCategoryArrowClick($event)"></app-arrows>
+
+  <div class="swiper-buttons">
+    <app-button text="explore all"></app-button>
+  </div>
+</div>
+
+<h1 class="title">Best Sellers</h1>
+
+<div class="product-slider">
+  <div class="product-cards" [style.transform]="getClothsTransform()">
+    @for (item of clothsCards; track $index) {
+      <div class="product-card">
+        <a href="#">
+          <img [src]="item.image" [alt]="item.title">
+          <h3 class="mt-3">{{ item.title }}</h3>
+          <span class="me-2 price">{{ item.newPrice }}</span>
+          <span class="old-price">{{ item.oldPrice }}</span>
+        </a>
+        <div class="colors">
+          @for (color of item.colors; track $index) {
+            <span class="color" [style.background-color]="color"></span>
+          }
+        </div>
+      </div>
+    }
+  </div>
+</div>
+<app-arrows [cards]="clothsCards" [currentIndex]="clothsCurrentIndex" [maxVisibleCards]="maxClothsVisibleCards" (arrowClick)="onClothsArrowClick($event)"></app-arrows>
+
+<div class="swiper-buttons">
+  <app-button text="View All"></app-button>
+</div>
+
