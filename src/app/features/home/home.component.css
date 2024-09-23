@@ -1,3 +1,4 @@
+
 .hero {
   background-image: url("https://images.unsplash.com/photo-1500462918059-b1a0cb512f1d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80");
   background-size: cover;
@@ -24,7 +25,6 @@
   font-size: 2rem;
   text-transform: capitalize;
   letter-spacing: 2px;
-
 }
 
 .hero-content h4 {
@@ -60,6 +60,7 @@
   letter-spacing: 2px;
   font-weight: 400;
 }
+
 .cards-wrapper {
   width: 85%;
   margin: 0 auto;
@@ -130,50 +131,67 @@
   padding-bottom: 20px;
 }
 
-/* arrows */
 .swiper-buttons {
   margin-top: 3rem;
   transform: translateY(-50%);
   width: 100%;
   display: flex;
-  justify-content:center;
+  justify-content: center;
   gap: 2.5rem;
   z-index: 1;
 }
 
-.swiper-button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  transition: transform 0.3s ease;
-}
-
-.swiper-button:hover {
-  transform: scale(1.1);
-}
-
-
-
-
-.product-slider {
+/* .product-slider {
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 0 auto;
   width: 90%;
+} */
+
+.product-slider {
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  align-items: center;
+  width: 85%;
+  margin: 0 auto;
 }
 
-.product-cards {
+/* .product-cards {
   display: flex;
   overflow: hidden;
   width: 95%;
+  transition: transform 0.5s ease; 
+} */
+
+.product-cards {
+  display: flex;
+  width: 100%;
+  transition: transform 0.5s ease;
 }
 
-.product-card {
-  flex: 0 0 25%;
+/* .product-card {
+  flex: calc(100% / 4) 0 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
   column-gap: 2rem;
-  margin-bottom: 100px;
+} */
+
+
+.product-card {
+  flex: calc(100% / 4) 0 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  column-gap: 2rem;
+  /* margin: 0 1rem; */
+  position: relative;
 }
 
 .product-card img {
@@ -186,12 +204,12 @@
   justify-content: center;
   gap: 12px;
   padding: 15px;
-  margin-top: 10px;
 }
+
 .product-card a {
   display: block;
-  margin-bottom: 10px;
 }
+
 .color {
   width: 15px;
   height: 15px;
@@ -200,16 +218,7 @@
   display: inline-block;
 }
 
-.color.black { background-color: black; }
-.color.blue { background-color: blue; }
-.color.white { background-color: white; }
-.color.gray { background-color: gray; }
-.color.green { background-color: green; }
-.color.beige { background-color: beige; }
-.color.cream { background-color: #f5f5dc; }
-
-.price{
-
+.price {
   font-size: 12px;
 }
 

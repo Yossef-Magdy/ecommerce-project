@@ -1,0 +1,20 @@
+.swiper-buttons {
+    margin-top: 3rem;
+    transform: translateY(-50%);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 2.5rem;
+    z-index: 1;
+}
+
+.swiper-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.swiper-button:hover {
+    transform: scale(1.1);
+}
