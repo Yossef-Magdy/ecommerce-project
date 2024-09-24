@@ -4,6 +4,7 @@
   align-items: center;
   margin: 0 auto;
   width: 90%;
+  overflow: hidden;
 }
 
 .product-cards {
@@ -75,3 +76,10 @@
   text-decoration: line-through;
   margin-right: 5px;
 }
+
+.flex {
+  display: flex;
+  transition: transform 0.5s ease;
+  gap: 2px;
+}
+

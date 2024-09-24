@@ -1,5 +1,5 @@
 <div class="product-slider">
-  <div class="product-cards" [style.transform]="getClothsTransform()">
+  <div class="product-cards flex" [style.transform]="getClothsTransform()">
     @for (item of clothsCards; track $index) {
     <div class="product-card">
       <a href="#">

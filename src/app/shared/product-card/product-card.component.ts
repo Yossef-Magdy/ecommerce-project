@@ -10,7 +10,7 @@ import { ArrowsComponent } from "../arrows/arrows.component";
 })
 export class ProductCardComponent {
   clothsCurrentIndex = 0;
-  maxClothsVisibleCards = 6;
+  maxClothsVisibleCards = 4;
 
   clothsCards = [
     {
