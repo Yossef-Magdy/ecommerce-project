@@ -1,1 +1,24 @@
-<p>product-card works!</p>
+<div class="product-slider">
+  <div class="product-cards">
+    @for (item of clothsCards; track $index) {
+    <div class="product-card">
+      <a href="#">
+        <img [src]="item.image" [alt]="item.title" />
+        <h3>{{ item.title }}</h3>
+        <!--In case of discount-->
+        @if (item.isSale) {
+        <span class="me-2 price">{{ item.newPrice }}</span>
+        <span class="old-price">{{ item.oldPrice }}</span>
+        } @else {
+        <span class="me-2 price">{{ item.price }}</span>
+        }
+      </a>
+      <div class="colors">
+        @for (color of item.colors; track $index) {
+        <span class="color" [style.background-color]="color"></span>
+        }
+      </div>
+    </div>
+    }
+  </div>
+</div>
