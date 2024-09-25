@@ -122,3 +122,8 @@ input[type=text]{
     letter-spacing: 2px;
     font-weight: 400;
 }
+
+.container{
+    width: 100vw;
+    padding: 10px;
+}
