@@ -1,0 +1,8 @@
+.item-wrapper:hover .arrow{
+        translate: 10px;
+        transition: 0.3s;
+}
+
+.item-wrapper{
+    padding: 1.3rem 0;
+}
