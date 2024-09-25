@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-right-drawer',
@@ -8,5 +8,6 @@ import { Component } from '@angular/core';
   styleUrl: './right-drawer.component.css'
 })
 export class RightDrawerComponent {
+  @Input() title!: string;
 
 }

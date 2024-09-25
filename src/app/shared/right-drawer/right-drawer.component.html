@@ -1,25 +1,24 @@
 <!-- drawer init and toggle -->
 <div class="cursor-pointer flex flex-row justify-between item-wrapper" type="button" data-drawer-target="drawer-right-example"
     data-drawer-show="drawer-right-example" data-drawer-placement="right" aria-controls="drawer-right-example">
-    <div>Description</div>
+    <div class="item-title">{{title}}</div>
     <div><i class="fa-solid fa-chevron-right arrow"></i></div>
 </div>
 
 <!-- drawer component -->
 <div id="drawer-right-example"
-    class="fixed top-0 right-0 z-40 h-screen p-4 overflow-y-auto transition-transform translate-x-full bg-white w-2/5 dark:bg-gray-800"
+    class="fixed top-0 right-0 z-40 h-screen px-16 py-5 overflow-y-auto transition-transform translate-x-full bg-white w-2/5 dark:bg-gray-800"
     tabindex="-1" aria-labelledby="drawer-right-label">
-    <h5 id="drawer-right-label"
-        class="inline-flex items-center mb-4 text-base font-semibold text-gray-500 dark:text-gray-400">Description</h5>
-    <button type="button" data-drawer-hide="drawer-right-example" aria-controls="drawer-right-example"
-        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 absolute top-2.5 end-2.5 inline-flex items-center justify-center dark:hover:bg-gray-600 dark:hover:text-white">
+    <div type="button" data-drawer-hide="drawer-right-example" aria-controls="drawer-right-example"
+        class="text-red-400 bg-transparent cursor-pointer mb-5 top-2.5 end-2.5 dark:hover:bg-gray-600 dark:hover:text-white">
 
-        <svg width="42" height="40" viewBox="0 0 42 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0 20H39.5675" stroke="#111111"></path>
-            <path
-                d="M31.2383 29.3713C33.565 24.2506 35.4083 22.1009 40.0008 20.0141C35.3058 17.7032 33.4834 15.5456 31.2383 10.6288"
-                data-ignore-fill="" stroke="#111111"></path>
+        <svg width="66" height="64" viewBox="0 0 66 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 32H63.3079" stroke="#111111"></path>
+            <path d="M49.98 46.9938C53.7027 38.8007 56.6521 35.3612 64 32.0224C56.4879 28.3248 53.5721 24.8728 49.98 17.0059" data-ignore-fill="" stroke="#111111"></path>
         </svg>
         <span class="sr-only">Close menu</span>
-    </button>
+    </div>
+
+    <h5 id="drawer-right-label"
+        class=" drawer-title inline-flex items-center text-base dark:text-gray-400">{{title}}</h5>
 </div>
