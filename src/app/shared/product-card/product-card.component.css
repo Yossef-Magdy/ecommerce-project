@@ -9,8 +9,8 @@
 
 .product-cards {
   display: flex;
-  overflow: hidden;
-  width: 95%;
+  overflow:scroll;
+  width: 100%;
 }
 
 .product-card {
@@ -82,4 +82,3 @@
   transition: transform 0.5s ease;
   gap: 2px;
 }
-
