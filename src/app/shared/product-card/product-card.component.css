@@ -1,23 +1,20 @@
-.product-slider {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0 auto;
+.cards-wrapper {
   width: 90%;
+  margin: 0 auto;
   overflow: hidden;
+  position: relative;
 }
 
-.product-cards {
+.flex {
   display: flex;
-  overflow:scroll;
-  width: 100%;
+  transition: transform 0.5s ease;
+  gap: 2px;
 }
 
 .product-card {
   flex: 0 0 25%;
   text-align: center;
   column-gap: 2rem;
-  padding: 0 1px;
 }
 
 .product-card img {
@@ -75,10 +72,4 @@
   color: red;
   text-decoration: line-through;
   margin-right: 5px;
-}
-
-.flex {
-  display: flex;
-  transition: transform 0.5s ease;
-  gap: 2px;
 }
