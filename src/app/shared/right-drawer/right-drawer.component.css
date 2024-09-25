@@ -1,0 +1,16 @@
+.item-wrapper:hover .arrow{
+        translate: 5px;
+        transition: 0.3s;
+}
+
+.item-wrapper{
+    padding: 1.3rem 0;
+    font-family: var(--font-heading);
+    font-size: 1rem;
+}
+
+.drawer-title{
+    text-transform: uppercase;
+    font-family: var(--font-heading);
+    font-size: 2rem;
+}

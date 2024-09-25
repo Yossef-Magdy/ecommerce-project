@@ -7,6 +7,7 @@ import { HomeComponent } from './features/home/home.component';
 import { LoginComponent } from './core/auth/pages/login/login.component';
 import { RegisterComponent } from './core/auth/pages/register/register.component';
 import { NotFoundComponent } from './features/not-found/not-found.component';
+import { ProductDetailsComponent } from './features/product-details/product-details.component';
 
 export const routes: Routes = [
     {
@@ -43,6 +44,11 @@ export const routes: Routes = [
         path: 'auth/register',
         component: RegisterComponent,
         title: 'Register',
+    },
+    {
+        path: 'products/product-slug',
+        component: ProductDetailsComponent,
+        title: 'products',
     },
     {
         path: '**',

@@ -1,0 +1,21 @@
+<div class="slider-wrapper">
+    <swiper-container style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff;" class="mySwiper"
+        thumbs-swiper=".mySwiper2" space-between="10" controller-control=".mySwiper2">
+        @for(img of images; track img.id){
+            <swiper-slide>
+                <img [src]="img.src"/>
+            </swiper-slide>
+        }
+    </swiper-container>
+    
+    <div>
+        <swiper-container class="mySwiper2" space-between="10" slides-per-view="5" free-mode="true"
+        watch-slides-progress="true" direction="vertical" mousewheel-force-to-axis="true" style="width: 200px; height: 500px;">
+            @for(img of images; track img.id){
+                <swiper-slide>
+                    <img [src]="img.src" class="object-contain"/>
+                </swiper-slide>
+            }
+        </swiper-container>
+    </div>
+</div>

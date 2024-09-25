@@ -1,0 +1,21 @@
+<div id="default-carousel" class="relative w-50 flex justify-start items-center" data-carousel="static">
+    <!-- Sidebar for Thumbnails -->
+    <div class="flex flex-col gap-2 selector-wrapper">
+        @for(img of images; track img.id){
+        <div class="gallery-img-select">
+            <button type="button" class="w-20 h-20" [attr.aria-label]="img.id" [attr.data-carousel-slide-to]="img.id">
+                <img [src]="img.src" class="object-contain h-full w-full" alt="thumbnail {{img.id}}" />
+            </button>
+        </div>
+        }
+    </div>
+
+    <!-- Main Image Carousel -->
+    <div class="relative overflow-hidden m-auto rounded-lg w-[300px] h-[400px]">
+        @for(img of images; track img.id){
+        <div class="hidden duration-700 ease-in-out w-full m-auto" data-carousel-item>
+            <img [src]="img.src" class="block w-full h-full object-cover" alt="product image {{img.id}}" />
+        </div>
+        }
+    </div>
+</div>

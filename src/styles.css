@@ -2,6 +2,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root{
+    --font-heading: Montserrat, sans-serif;
+    --font-body-family: "DM Sans", sans-serif;
+    --light-gray: "#F0F0F0";
+}
+
 app-root {
     display: grid;
     grid-template-rows: auto 1fr auto;
