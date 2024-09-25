@@ -28,9 +28,6 @@ export class GallerySwiperComponent {
     {"id": 5,
       "src": "assets/5.jpg" 
     },
-    {"id": 6,
-      "src": "assets/6.jpg" 
-    },
     {"id": 1,
       "src": "assets/1.jpg" 
     },
