@@ -1,0 +1,13 @@
+.profile{
+    max-width: 83rem;
+}
+
+
+.logout{
+    border-bottom: 2px solid #d6d3d1;
+    padding-bottom: 0.5rem;
+}
+
+a, svg{
+    cursor: pointer;
+}

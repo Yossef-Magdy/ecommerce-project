@@ -1,0 +1,72 @@
+<div class="profile mt-20 mx-auto w-full">
+    <h1 class="text-3xl font-normal mb-10 ">WELCOME, {{ name }}</h1>
+
+    <!-- Section with full width -->
+    <section class="border border-stone-300 p-8 w-full mx-auto min-h-[600px]">
+        
+        <!-- Tabs stacked vertically -->
+        <div class="w-full mb-8">
+            <ul id="tabs" class="flex flex-col gap-4">
+                <li class="flex justify-between items-center">
+                    <a (click)="selectedTab = 'overview'" class="tab-link text-lg font-light">Account overview</a>
+                    <a (click)="selectedTab = 'overview'" class="ml-auto">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 19L15.5 12C12.9616 9.26633 11.5384 7.73367 9 5" stroke="#111111"
+                                  stroke-linecap="square" data-ignore-fill=""></path>
+                        </svg>
+                    </a>
+                </li>
+                <hr>
+                <li class="flex justify-between items-center">
+                    <a (click)="selectedTab = 'history'" class="tab-link text-lg font-light">Order history</a>
+                    <a (click)="selectedTab = 'history'" class="ml-auto">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 19L15.5 12C12.9616 9.26633 11.5384 7.73367 9 5" stroke="#111111"
+                                  stroke-linecap="square" data-ignore-fill=""></path>
+                        </svg>
+                    </a>
+                </li>
+                <hr>
+                <li class="flex justify-between items-center">
+                    <a (click)="selectedTab = 'address'" class="tab-link text-lg font-light">Address book</a>
+                    <a (click)="selectedTab = 'address'" class="ml-auto">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 19L15.5 12C12.9616 9.26633 11.5384 7.73367 9 5" stroke="#111111"
+                                  stroke-linecap="square" data-ignore-fill=""></path>
+                        </svg>
+                    </a>
+                </li>
+                <hr>
+            </ul>
+        </div>
+
+            <!-- Account Details -->
+            <div class="flex flex-col md:flex-row ">
+                <!-- Display Components Based on Selected Tab -->
+               <div class="w-full md:w-2/3">
+                @if (selectedTab === 'overview') {
+                    <div>
+                        <app-account-overview [selectedTab]="selectedTab" (tabChange)="selectedTab = $event"></app-account-overview>
+                    </div>
+                    }@else if (selectedTab === 'history') {
+                    <div>
+                        <app-order-history></app-order-history>
+                    </div>
+                    }@else if (selectedTab === 'address') {
+                    <div>
+                        <app-address-book (tabChange)="selectedTab = $event"></app-address-book>
+                    </div>
+                    }@else if (selectedTab === 'add-address') {
+                        <div>
+                            <app-add-address [selectedTab]="selectedTab" (tabChange)="selectedTab = $event"></app-add-address>
+                        </div>
+                    }@else if (selectedTab === 'edit-address') {
+                        <div>
+                            <app-edit-address [selectedTab]="selectedTab" (tabChange)="selectedTab = $event"></app-edit-address>
+                        </div>
+                    }
+               </div>
+
+            </div>
+        
+    </section>
