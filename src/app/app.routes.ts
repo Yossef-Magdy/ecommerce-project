@@ -9,6 +9,8 @@ import { RegisterComponent } from './core/auth/pages/register/register.component
 import { NotFoundComponent } from './features/not-found/not-found.component';
 import { ProfileComponent } from './features/profile/profile.component';
 import { AccountOverviewComponent } from './features/account-overview/account-overview.component';
+import { ProductDetailsComponent } from './features/product-details/product-details.component';
+
 
 export const routes: Routes = [
     {
@@ -47,9 +49,15 @@ export const routes: Routes = [
         title: 'Register',
     },
     {
+
         path: 'profile',
         component: ProfileComponent,
         title: 'Profile',
+
+        path: 'products/product-slug',
+        component: ProductDetailsComponent,
+        title: 'products',
+
     },
     {
         path: '**',

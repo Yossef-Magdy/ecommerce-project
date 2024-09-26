@@ -1,0 +1,129 @@
+.product_title{
+    font-family: var(--font-heading);
+    font-size: 30px;
+    text-transform: uppercase;
+}
+
+.product_details{
+    font-family: var(--font-body-family);
+}
+
+.product_gallery{
+    height: 100vh;
+}
+
+.visually-hidden{
+    position: absolute !important;
+    overflow: hidden;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+    clip: rect(0 0 0 0);
+    word-wrap: normal !important;
+}
+
+.swatch{
+    position: relative;
+    margin: 0;
+    border: 1px solid rgb(210, 209, 209);
+    border-radius: 0;
+    display: block;
+    width: 2.2rem;
+    height: 2.2rem;
+    background-size: cover;
+    background-position: 50% 50%;
+    overflow: hidden;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: opacity 0.5s, border-color 0.5s, transform 0.5s;
+}
+
+.swatch_active{
+    border-color: black;
+}
+
+.swatch:hover{
+    border-color: black;
+}
+
+.btn-add, .btn-notify{
+    background-color: black;
+    color: white;
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid black;
+    transition: all 0.3s;
+    margin: 0.7rem 0;
+    font-family: var(--font-body-family);
+    text-transform: uppercase;
+    font-size: 0.8rem;
+}
+
+.btn-add:hover{
+    background-color: white;
+    color: black;
+}
+
+.btn-notify:hover{
+    color: rgb(99, 99, 99);
+}
+
+.quantity-container{
+    border: 1px solid rgb(210, 209, 209);
+    padding: 0.2rem;
+    color: rgb(62, 62, 62);
+}
+
+.fa-plus{
+    font-weight: 100;
+    font-size: 10px;
+}
+.minus{
+    font-weight: 100;
+    font-size: 25px;
+}
+
+.size{
+    width: 100%;
+    height: 100%;
+    font-size: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+input[type=text]{
+    border: none !important;
+}
+
+.shipping{
+    font-size: 0.7rem;
+    font-weight: 300;
+}
+
+.shipping a{
+    text-decoration: underline;
+}
+
+.size-chart{
+    display: flex;
+    flex-direction: row;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.title {
+    text-align: center;
+    margin: 50px 0;
+    font-size: 30px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 400;
+}
+
+.container{
+    width: 100%;
+    padding: 0 6rem;
+}

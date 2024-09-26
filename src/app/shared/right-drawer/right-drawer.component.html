@@ -1,0 +1,24 @@
+<!-- drawer init and toggle -->
+<div class="cursor-pointer flex flex-row justify-between item-wrapper" type="button" data-drawer-target="drawer-right-example"
+    data-drawer-show="drawer-right-example" data-drawer-placement="right" aria-controls="drawer-right-example">
+    <div class="item-title">{{title}}</div>
+    <div><i class="fa-solid fa-chevron-right arrow"></i></div>
+</div>
+
+<!-- drawer component -->
+<div id="drawer-right-example"
+    class="fixed top-0 right-0 z-40 h-screen px-16 py-5 overflow-y-auto transition-transform translate-x-full bg-white w-2/5 dark:bg-gray-800"
+    tabindex="-1" aria-labelledby="drawer-right-label">
+    <div type="button" data-drawer-hide="drawer-right-example" aria-controls="drawer-right-example"
+        class="text-red-400 bg-transparent cursor-pointer mb-5 top-2.5 end-2.5 dark:hover:bg-gray-600 dark:hover:text-white">
+
+        <svg width="66" height="64" viewBox="0 0 66 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 32H63.3079" stroke="#111111"></path>
+            <path d="M49.98 46.9938C53.7027 38.8007 56.6521 35.3612 64 32.0224C56.4879 28.3248 53.5721 24.8728 49.98 17.0059" data-ignore-fill="" stroke="#111111"></path>
+        </svg>
+        <span class="sr-only">Close menu</span>
+    </div>
+
+    <h5 id="drawer-right-label"
+        class=" drawer-title inline-flex items-center text-base dark:text-gray-400">{{title}}</h5>
+</div>
