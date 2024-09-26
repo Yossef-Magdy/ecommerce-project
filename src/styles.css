@@ -2,7 +2,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@tailwind utilities;
 
 :root{
     --font-heading: Montserrat, sans-serif;
