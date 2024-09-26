@@ -1,0 +1,23 @@
+<section class="cart-section container">
+    <h1 class="mb-3">My Cart</h1>
+    <a routerLink="/" class="block text-center text-black underline underline-offset-8 text-sm hover:underline-offset-[9px]">Continue Shopping</a>
+    
+    @if (data.length > 0) {
+    <div class="cart flex flex-row">
+        <div class="products basis-1/2">
+    
+        </div>
+        <div class="total basis-1/2"></div>
+    </div>
+    }
+    @else {
+    <div class="flex min-h-[50dvh] w-full flex-col items-center justify-center">
+        <div class="">
+            <img src="assets/emptycart.png" alt="empty cart" />
+        </div>
+        <p class="text-gray-900">
+            Please start adding items by visiting home page.
+        </p>
+    </div>
+    }
+</section>
