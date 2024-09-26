@@ -1,0 +1,11 @@
+.details a {
+    text-decoration: none;
+    color: #111111;
+    border-bottom: 1px solid #111111;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+a:hover {
+    color: #696969;
+}
