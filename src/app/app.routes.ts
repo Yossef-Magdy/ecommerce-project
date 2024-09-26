@@ -53,11 +53,11 @@ export const routes: Routes = [
         path: 'profile',
         component: ProfileComponent,
         title: 'Profile',
-
+    },
+    {
         path: 'products/product-slug',
         component: ProductDetailsComponent,
         title: 'products',
-
     },
     {
         path: '**',
