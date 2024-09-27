@@ -5,7 +5,7 @@ import { GallerySwiperComponent } from './gallery-swiper/gallery-swiper.componen
 import { RouterLink } from '@angular/router';
 import { SizeChartComponent } from '../../core/auth/components/label/size-chart/size-chart.component';
 import { ProductCardComponent } from '../../shared/product-card/product-card.component';
-import { ZoomComponent } from '../zoom/zoom.component';
+import { ZoomComponent } from './zoom/zoom.component';
 import { RightDrawerComponent } from '../../shared/right-drawer/right-drawer.component';
 
 @Component({
