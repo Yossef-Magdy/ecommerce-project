@@ -4,15 +4,15 @@
             <img src="assets/1.jpg" class="">
         </a>
     </div>
-    <div class="product-details w-full basis-2/3 p-5 text-sm">
-        <h2 class="text-lg">Product Name</h2>
-        <p>Color: product.color</p>
-        <p>Size: product.size</p>
-        <span class="block">
+    <div class="product-details w-full basis-2/3 px-5 py-1 text-sm">
+        <h2 class="text-lg my-2">Product Name</h2>
+        <p class="my-2">Color: product.color</p>
+        <p class="my-2">Size: product.size</p>
+        <span class="block my-2">
             Price
         </span>
         <!-- counter -->
-        <div class="inline-flex items-center gap-4 border p-3">
+        <div class="inline-flex items-center gap-4 border p-2 my-2">
             <button aria-label="minus-btn">
                 <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="none"
                     viewBox="0 0 24 24">
@@ -20,7 +20,8 @@
                         d="M5 12h14" />
                 </svg>
             </button>
-            <span> cartItem.quantity </span>
+            <span> 4 </span>
+            <!-- <span> {{cartItem.quantity}} </span> -->
             <button aria-label="plus-btn">
                 <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="none"
                     viewBox="0 0 24 24">
@@ -29,6 +30,11 @@
                 </svg>
             </button>
         </div>
+
+        <!-- remove -->
+        <button class="block border-b text-xs border-black hover:text-red-600 hover:border-red-600 hover:border-none my-3">
+            Remove
+        </button>
 
     </div>
 </div>
