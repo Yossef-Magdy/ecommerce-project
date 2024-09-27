@@ -8,8 +8,18 @@
             <div class="products basis-full md:basis-1/2">
                 <app-cart-item></app-cart-item>
             </div>
-            <div class="total basis-full md:basis-1/2 bg-gray-100">
-                <h3>Subtotal:</h3>
+            <div class="total basis-full md:basis-1/2 p-4">
+                <div class="border-b">
+                    <div class="flex flex-row justify-between text-lg mb-5">
+                        <span>Subtotal:</span>
+                        <span>LE 400</span>
+                    </div>
+                    <p class="shipping my-3"><a [routerLink]="['/shipping-policy']"
+                        routerLinkActive="router-link-active">Shipping</a> calculated at checkout.</p>
+                </div>
+                <button class="checkout-btn">
+                    Checkout
+                </button>
             </div>
         </div>
         }
