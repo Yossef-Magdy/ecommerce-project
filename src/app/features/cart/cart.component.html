@@ -1,23 +1,27 @@
-<section class="cart-section container">
-    <h1 class="mb-3">My Cart</h1>
-    <a routerLink="/" class="block text-center text-black underline underline-offset-8 text-sm hover:underline-offset-[9px] mb-3">Continue Shopping</a>
+<section class="cart-section px-6 md:px-28">
+    <h1 class="mb-3 capitalize">My Cart</h1>
+    <a routerLink="/" class="block capitalize text-center text-black underline underline-offset-8 text-xs hover:no-underline mb-3">Continue Shopping</a>
     
-    @if (data.length > 0) {
-    <div class="cart flex flex-row">
-        <div class="products basis-1/2">
-            <app-cart-item></app-cart-item>
+    <div class="my-10">
+        @if (data.length > 0) {
+        <div class="cart flex flex-row flex-wrap">
+            <div class="products basis-full md:basis-1/2">
+                <app-cart-item></app-cart-item>
+            </div>
+            <div class="total basis-full md:basis-1/2 bg-gray-100">
+                <h3>Subtotal:</h3>
+            </div>
         </div>
-        <div class="total basis-1/2"></div>
-    </div>
-    }
-    @else {
-    <div class="flex min-h-[50dvh] w-full flex-col items-center justify-center">
-        <div class="">
-            <img src="assets/emptycart.png" alt="empty cart" />
+        }
+        @else {
+        <div class="flex min-h-[50dvh] w-full flex-col items-center justify-center">
+            <div class="">
+                <img src="assets/emptycart.png" alt="empty cart" />
+            </div>
+            <p class="text-gray-900">
+                Please start adding items by visiting home page.
+            </p>
         </div>
-        <p class="text-gray-900">
-            Please start adding items by visiting home page.
-        </p>
+        }
     </div>
-    }
 </section>
