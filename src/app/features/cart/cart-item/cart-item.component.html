@@ -1,0 +1,34 @@
+<div class="cart-item flex flex-row mt-2 h-56">
+    <div class="product-img w-full basis-1/3 overflow-hidden relative">
+        <a [routerLink]="['/products' , productSlug]" routerLinkActive="router-link-active">
+            <img src="assets/1.jpg" class="">
+        </a>
+    </div>
+    <div class="product-details w-full basis-2/3 p-5 text-sm">
+        <h2 class="text-lg">Product Name</h2>
+        <p>Color: product.color</p>
+        <p>Size: product.size</p>
+        <span class="block">
+            Price
+        </span>
+        <!-- counter -->
+        <div class="inline-flex items-center gap-4 border p-3">
+            <button aria-label="minus-btn">
+                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="none"
+                    viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M5 12h14" />
+                </svg>
+            </button>
+            <span> cartItem.quantity </span>
+            <button aria-label="plus-btn">
+                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="none"
+                    viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M5 12h14m-7 7V5" />
+                </svg>
+            </button>
+        </div>
+
+    </div>
+</div>

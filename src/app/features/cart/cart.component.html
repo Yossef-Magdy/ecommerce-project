@@ -1,11 +1,11 @@
 <section class="cart-section container">
     <h1 class="mb-3">My Cart</h1>
-    <a routerLink="/" class="block text-center text-black underline underline-offset-8 text-sm hover:underline-offset-[9px]">Continue Shopping</a>
+    <a routerLink="/" class="block text-center text-black underline underline-offset-8 text-sm hover:underline-offset-[9px] mb-3">Continue Shopping</a>
     
     @if (data.length > 0) {
     <div class="cart flex flex-row">
         <div class="products basis-1/2">
-    
+            <app-cart-item></app-cart-item>
         </div>
         <div class="total basis-1/2"></div>
     </div>
