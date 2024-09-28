@@ -11,7 +11,7 @@ import { BlackButtonComponent } from "../../shared/black-button/black-button.com
   styleUrl: './cart.component.css'
 })
 export class CartComponent {
-  data = ["ay7aga"];
+  data = ["m"];
   totalPrice: number = 0;
 
 }
