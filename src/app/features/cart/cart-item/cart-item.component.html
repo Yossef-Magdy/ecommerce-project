@@ -13,7 +13,7 @@
         </span>
         <!-- counter -->
         <div class="inline-flex items-center gap-4 border p-2 my-2">
-            <button aria-label="minus-btn">
+            <button aria-label="minus-btn" (click)="decreaseQuantity()">
                 <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="none"
                     viewBox="0 0 24 24">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -22,7 +22,7 @@
             </button>
             <span> 4 </span>
             <!-- <span> {{cartItem.quantity}} </span> -->
-            <button aria-label="plus-btn">
+            <button aria-label="plus-btn" (click)="increaseQuantity()">
                 <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="none"
                     viewBox="0 0 24 24">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -32,7 +32,7 @@
         </div>
 
         <!-- remove -->
-        <button class="block border-b text-xs border-black hover:text-red-600 hover:border-red-600 hover:border-none my-3">
+        <button (click)="deleteItem()" class="block border-b text-xs border-black hover:text-red-600 hover:border-red-600 hover:border-none my-3">
             Remove
         </button>
 

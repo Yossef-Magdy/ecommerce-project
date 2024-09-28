@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { CartItemComponent } from "./cart-item/cart-item.component";
+import { CartEmitter, CartItemComponent } from "./cart-item/cart-item.component";
 import { BlackButtonComponent } from "../../shared/black-button/black-button.component";
+import { CartService, CartItem } from '../../services/cart.service';
 
 @Component({
   selector: 'app-cart',
@@ -11,7 +12,28 @@ import { BlackButtonComponent } from "../../shared/black-button/black-button.com
   styleUrl: './cart.component.css'
 })
 export class CartComponent {
-  data = ["m"];
+  data : CartItem[] = [];
   totalPrice: number = 0;
+  constructor(private cartService: CartService){}
 
+  updateQuantity(info: CartEmitter){
+    this.cartService.updateQuantity(
+      this.data[info.index].product.id,
+      info.quantity
+    );
+    // calculateTotalPrice();
+  }
+
+  deleteItem(productId: number){
+    this.cartService.deleteItem(productId);
+    // calculateTotalPrice();
+  }
+
+
+  ngOnInit(){
+    this.cartService.getItems().subscribe((items)=>{
+      this.data = items;
+      // calculateTotalPrice();
+    })
+  }
 }

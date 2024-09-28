@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output} from '@angular/core';
 import { StarRatingComponent } from '../../shared/star-rating/star-rating.component';
 import { ButtonComponent } from '../../shared/button/button.component';
 import { GallerySwiperComponent } from './gallery-swiper/gallery-swiper.component';
@@ -7,15 +7,14 @@ import { SizeChartComponent } from '../../core/auth/components/label/size-chart/
 import { ProductCardComponent } from '../../shared/product-card/product-card.component';
 import { ZoomComponent } from './zoom/zoom.component';
 import { RightDrawerComponent } from '../../shared/right-drawer/right-drawer.component';
+import { cartItem, CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-product-details',
   standalone: true,
   imports: [
     StarRatingComponent,
-    StarRatingComponent,
     ButtonComponent,
-    GallerySwiperComponent,
     GallerySwiperComponent,
     RouterLink,
     SizeChartComponent,
@@ -27,10 +26,17 @@ import { RightDrawerComponent } from '../../shared/right-drawer/right-drawer.com
   styleUrl: './product-details.component.css',
 })
 export class ProductDetailsComponent {
-  product = {
+  cartItems: cartItem[] = [];
+  quantity: number = 1;
+  @Output() addedToCartProduct = new EventEmitter<any>();
+  isAdded = false;
+  data = {
+    id: 1,
+    stock: 5,
     slug: 'slug',
-    name: 'name',
+    name: 'T-Shirt',
     description: 'desc',
+    price: 190,
     images: [
       'assets/1.jpg',
       'assets/2.jpg',
@@ -38,7 +44,46 @@ export class ProductDetailsComponent {
       'assets/4.jpg',
       'assets/5.jpg',
     ],
+    colors: ['red', 'black', 'grey', 'beige'],
+    sizes : ['S', 'M', 'L', 'XL'],
+    rating: 4.5,
+    reviews: 76,
   };
-  colors = ['red', 'black', 'grey', 'beige'];
-  sizes = ['S', 'M', 'L', 'XL'];
+  
+
+  constructor(private cartService: CartService){}
+
+  onAddToCart() {
+    this.cartService.addToCart(this.data, this.quantity);
+  }
+
+  decreaseQuantity() {
+    if (this.quantity > 0) {
+      this.quantity--;
+      this.cartService.updateQuantity(this.data.id, this.quantity);
+    }
+  }
+
+  increaseQuantity() {
+    if (this.quantity < this.data.stock) {
+      this.quantity++;
+      this.cartService.updateQuantity(this.data.id, this.quantity);
+    }
+  }
+
+  ngOnInit(){
+    // const routeId = this.activatedRoute.snapshot.params['id'];
+    // this.productRequestsService
+    //   .getProductDetails(routeId)
+    //   .subscribe((product: any) => {
+    //     this.data = product;
+    //     this.quantity = this.cartService.getQuantity(this.data.id);
+    //   });
+
+      this.cartService.getItems().subscribe((items) => {
+        this.cartItems = items;
+      });
+  }
+
+
 }

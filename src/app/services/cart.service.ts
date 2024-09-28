@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
-export interface cartItem{
+export interface CartItem{
   product: any;
   quantity: number;
 }
@@ -11,7 +11,7 @@ export interface cartItem{
 })
 export class CartService {
   constructor() { }
-  private items = new BehaviorSubject<cartItem[]>([]);
+  private items = new BehaviorSubject<CartItem[]>([]);
 
   addToCart(product: any, quantity: number = 1){
     const updatedItems = this.items.value.map((item) => {
@@ -57,7 +57,7 @@ export class CartService {
     return item? item.quantity : 0;
   }
 
-  removeItem(productId: number){
+  deleteItem(productId: number){
     const updatedItems = this.items.value.filter((item) => item.product.id !== productId);
 
     this.items.next(updatedItems);

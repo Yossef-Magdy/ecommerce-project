@@ -6,7 +6,14 @@
         @if (data.length > 0) {
         <div class="cart flex flex-row flex-wrap">
             <div class="products basis-full lg:basis-1/2">
-                <app-cart-item></app-cart-item>
+                @for(cartItem of data; track cartItem.product.id){
+                    <app-cart-item
+                    [cartItem]="cartItem"
+                    [index]="$index"
+                    (quantityChangeEmitter)="updateQuantity($event)"
+                    (deleteItemEmitter)="deleteItem($event)"
+                    ></app-cart-item>
+                }
             </div>
             <div class="total basis-full lg:basis-1/2 p-10">
                 <div class="border-b">
