@@ -3,10 +3,6 @@ h1{
     text-align: center;
 }
 
-.capitalize{
-    font-family: var(--font-heading);
-    text-transform: uppercase;
-}
 
 .shipping{
     font-size: 0.9rem;

@@ -8,3 +8,8 @@
     --font-body-family: "DM Sans", sans-serif;
     --light-gray: "#F0F0F0";
 }
+
+.capitalizee{
+    font-family: var(--font-heading);
+    text-transform: uppercase;
+}
