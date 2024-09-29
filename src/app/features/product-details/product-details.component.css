@@ -76,13 +76,10 @@
     color: rgb(62, 62, 62);
 }
 
-.fa-plus{
-    font-weight: 100;
-    font-size: 10px;
-}
-.minus{
-    font-weight: 100;
+.minus, .plus{
+    font-weight: 200;
     font-size: 25px;
+    color: black !important;
 }
 
 .size{
@@ -94,9 +91,6 @@
     align-items: center;
 }
 
-input[type=text]{
-    border: none !important;
-}
 
 .shipping{
     font-size: 0.7rem;

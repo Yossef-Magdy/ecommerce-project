@@ -11,7 +11,18 @@
         <ul class="flex gap-6 capitalize font-light justify-end">
             <li><a href="#">search</a></li>
             <li><a routerLink="/auth/login">login</a></li>
-            <li><a routerLink="/cart">cart</a></li>
+            <li class="flex flex-row">
+                <a routerLink="/cart" class="relative inline-flex items-center">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20.5 20.5H3.5V9H20.5V20.5Z" stroke="#111111" data-ignore-fill=""></path>
+                        <path d="M16.5 7.5C16.5 5.01472 14.4853 3 12 3C9.51472 3 7.5 5.01472 7.5 7.5" stroke="#111111" data-ignore-fill=""></path>
+                    </svg>
+                    <span class="sr-only">quantity</span>
+                    @if (totalQuantity > 0){
+                        <div class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-black border-2 border-white rounded-full -top-2 -end-4 dark:border-gray-900">{{ totalQuantity }}</div>
+                    }
+                </a>
+            </li>
         </ul>
     </nav>
 </header>

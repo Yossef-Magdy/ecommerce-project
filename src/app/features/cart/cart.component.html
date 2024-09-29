@@ -1,0 +1,44 @@
+<section class="cart-section py-6">
+    <h1 class="mb-3 capitalizee">My Cart</h1>
+    <a routerLink="/" class="block capitalizee text-center text-black underline underline-offset-8 text-xs hover:no-underline mb-3">Continue Shopping</a>
+    
+    <div class="my-10 px-2 md:px-10 lg:px-28">
+        @if (data.length > 0) {
+        <div class="cart flex flex-row flex-wrap">
+            <div class="products basis-full lg:basis-1/2">
+                @for(cartItem of data; track cartItem.product.id){
+                    <app-cart-item
+                    [cartItem]="cartItem"
+                    [index]="$index"
+                    (quantityChangeEmitter)="updateQuantity($event)"
+                    (deleteItemEmitter)="deleteItem($event)"
+                    ></app-cart-item>
+                }
+            </div>
+            <div class="total basis-full lg:basis-1/2 p-10">
+                <div class="border-b">
+                    <div class="flex flex-row justify-between text-lg mb-5">
+                        <span>Subtotal:</span>
+                        <span>{{ totalPrice }} LE</span>
+                    </div>
+                    <p class="shipping my-3"><a [routerLink]="['/shipping-policy']"
+                        routerLinkActive="router-link-active">Shipping</a> calculated at checkout.</p>
+                </div>
+                <button class="checkout-btn">
+                    Checkout
+                </button>
+            </div>
+        </div>
+        }
+        @else {
+        <div class="flex min-h-[50dvh] w-full flex-col items-center justify-center">
+            <div class="">
+                <img src="assets/emptycart.png" alt="empty cart" />
+            </div>
+            <p class="text-gray-900">
+                Please start adding items by visiting home page.
+            </p>
+        </div>
+        }
+    </div>
+</section>
