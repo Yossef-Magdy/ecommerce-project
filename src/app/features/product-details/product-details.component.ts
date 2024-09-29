@@ -7,7 +7,7 @@ import { SizeChartComponent } from '../../core/auth/components/label/size-chart/
 import { ProductCardComponent } from '../../shared/product-card/product-card.component';
 import { ZoomComponent } from './zoom/zoom.component';
 import { RightDrawerComponent } from '../../shared/right-drawer/right-drawer.component';
-import { cartItem, CartService } from '../../services/cart.service';
+import { CartItem, CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-product-details',
@@ -26,7 +26,7 @@ import { cartItem, CartService } from '../../services/cart.service';
   styleUrl: './product-details.component.css',
 })
 export class ProductDetailsComponent {
-  cartItems: cartItem[] = [];
+  cartItems: CartItem[] = [];
   quantity: number = 1;
   @Output() addedToCartProduct = new EventEmitter<any>();
   isAdded = false;
