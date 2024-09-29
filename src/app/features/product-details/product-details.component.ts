@@ -2,12 +2,13 @@ import { Component, EventEmitter, Output} from '@angular/core';
 import { StarRatingComponent } from '../../shared/star-rating/star-rating.component';
 import { ButtonComponent } from '../../shared/button/button.component';
 import { GallerySwiperComponent } from './gallery-swiper/gallery-swiper.component';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { SizeChartComponent } from '../../core/auth/components/label/size-chart/size-chart.component';
 import { ProductCardComponent } from '../../shared/product-card/product-card.component';
 import { ZoomComponent } from './zoom/zoom.component';
 import { RightDrawerComponent } from '../../shared/right-drawer/right-drawer.component';
 import { CartItem, CartService } from '../../services/cart.service';
+import { IProduct } from '../../data-interfaces';
 
 @Component({
   selector: 'app-product-details',
@@ -26,10 +27,10 @@ import { CartItem, CartService } from '../../services/cart.service';
   styleUrl: './product-details.component.css',
 })
 export class ProductDetailsComponent {
+  // data !: IProduct;
   cartItems: CartItem[] = [];
   quantity: number = 1;
-  @Output() addedToCartProduct = new EventEmitter<any>();
-  isAdded = false;
+;
   data = {
     id: 1,
     stock: 5,
@@ -51,7 +52,7 @@ export class ProductDetailsComponent {
   };
   
 
-  constructor(private cartService: CartService){}
+  constructor(private cartService: CartService, private activatedRoute: ActivatedRoute){}
 
   onAddToCart() {
     this.cartService.addToCart(this.data, this.quantity);
@@ -72,12 +73,12 @@ export class ProductDetailsComponent {
   }
 
   ngOnInit(){
-    // const routeId = this.activatedRoute.snapshot.params['id'];
+    const routeId = this.activatedRoute.snapshot.params['id'];
     // this.productRequestsService
     //   .getProductDetails(routeId)
     //   .subscribe((product: any) => {
     //     this.data = product;
-    //     this.quantity = this.cartService.getQuantity(this.data.id);
+          this.quantity = this.cartService.getQuantity(this.data.id);
     //   });
 
       this.cartService.getItems().subscribe((items) => {

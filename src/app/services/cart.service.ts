@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { IProduct } from '../data-interfaces';
 
 export interface CartItem{
-  product: any;
+  product: IProduct;
   quantity: number;
 }
 
@@ -59,7 +60,6 @@ export class CartService {
 
   deleteItem(productId: number){
     const updatedItems = this.items.value.filter((item) => item.product.id !== productId);
-
     this.items.next(updatedItems);
   }
 }
