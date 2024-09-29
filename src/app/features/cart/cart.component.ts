@@ -21,19 +21,29 @@ export class CartComponent {
       this.data[info.index].product.id,
       info.quantity
     );
-    // calculateTotalPrice();
+    this.calculateTotalPrice();
+  }
+
+  calculateTotalPrice(): void{
+    this.totalPrice = Number(
+      this.data.reduce((total, cartItem) => {
+        const discount = cartItem.product.discountPercentage ? 1 - cartItem.product.discountPercentage / 100 : 1;
+        return (total + cartItem.quantity * (cartItem.product.price * discount));
+
+      }, 0).toFixed(2),
+    );
   }
 
   deleteItem(productId: number){
     this.cartService.deleteItem(productId);
-    // calculateTotalPrice();
+    this.calculateTotalPrice();
   }
 
 
   ngOnInit(){
     this.cartService.getItems().subscribe((items)=>{
       this.data = items;
-      // calculateTotalPrice();
-    })
+      this.calculateTotalPrice();
+    });
   }
 }
