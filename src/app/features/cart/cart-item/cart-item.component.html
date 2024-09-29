@@ -5,11 +5,11 @@
         </a>
     </div>
     <div class="product-details w-full basis-2/3 px-5 py-1 text-sm">
-        <h2 class="text-lg my-2">Product Name</h2>
+        <h2 class="text-lg my-2">{{cartItem.product.name}}</h2>
         <p class="my-2">Color: product.color</p>
         <p class="my-2">Size: product.size</p>
         <span class="block my-2">
-            Price
+            {{cartItem.product.price}}
         </span>
         <!-- counter -->
         <div class="inline-flex items-center gap-4 border p-2 my-2">
@@ -20,7 +20,7 @@
                         d="M5 12h14" />
                 </svg>
             </button>
-            <span> 4 </span>
+            <span> {{cartItem.quantity}} </span>
             <!-- <span> {{cartItem.quantity}} </span> -->
             <button aria-label="plus-btn" (click)="increaseQuantity()">
                 <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="none"

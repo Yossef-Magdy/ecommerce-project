@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { CartItem } from '../../../services/cart.service';
 
 export interface CartEmitter {
   index: number;
@@ -14,7 +15,7 @@ export interface CartEmitter {
   styleUrl: './cart-item.component.css',
 })
 export class CartItemComponent {
-  @Input() cartItem!: any;
+  @Input() cartItem!: CartItem;
   @Input() index!: number;
   @Output() quantityChangeEmitter = new EventEmitter<CartEmitter>();
   @Output() deleteItemEmitter = new EventEmitter<number>();
