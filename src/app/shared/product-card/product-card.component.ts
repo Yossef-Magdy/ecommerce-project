@@ -74,7 +74,7 @@ export class ProductCardComponent {
   }
 
   onClothsArrowClick(newIndex: number) {
-    this.clothsCurrentIndex = newIndex; // استخدام المتغير الجديد هنا
+    this.clothsCurrentIndex = newIndex;
   }
 
 }
