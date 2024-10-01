@@ -55,7 +55,7 @@ export class CartService {
   
   getQuantity(productId: number): number{
     const item = this.items.value.find((item)=> item.product.id === productId);
-    return item? item.quantity : 0;
+    return item? item.quantity : 1;
   }
 
   deleteItem(productId: number){

@@ -23,7 +23,7 @@ export class CartItemComponent {
   productSlug = 'product-slug';
 
   decreaseQuantity(){
-    if (this.cartItem.quantity > 0){
+    if (this.cartItem.quantity > 1){
       this.cartItem.quantity--;
       this.onUpdateQuantity();
     }
