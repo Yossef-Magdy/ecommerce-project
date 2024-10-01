@@ -59,7 +59,7 @@ export class ProductDetailsComponent {
   }
 
   decreaseQuantity() {
-    if (this.quantity > 0) {
+    if (this.quantity > 1) {
       this.quantity--;
       this.cartService.updateQuantity(this.data.id, this.quantity);
     }
