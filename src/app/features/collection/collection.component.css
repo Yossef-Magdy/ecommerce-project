@@ -33,6 +33,7 @@
     justify-content: center;
     padding: 50px;
     width: 100%;
+    gap: 3px;
 }
 
 .product-card {
@@ -143,6 +144,6 @@ p{
 
 @media (max-width: 768px) {
     .product-card {
-        flex: 0 1 100%;
+        flex: 0 1 75%;
     }
 }
