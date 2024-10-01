@@ -4,7 +4,7 @@
     <h1>QUALITY MEETS AFFORDABILITY</h1>
   </div>
   <div class="buttons">
-    <a href="#">SHOP now</a>
+    <a routerLink="collections">SHOP now</a>
   </div>
 </section>
 
@@ -54,6 +54,6 @@
 <app-arrows [cards]="clothsCards" [currentIndex]="clothsCurrentIndex" [maxVisibleCards]="maxClothsVisibleCards" (arrowClick)="onClothsArrowClick($event)"></app-arrows>
 
 <div class="swiper-buttons">
-  <app-button text="View All"></app-button>
+  <app-button text="View All" routerLink="collections"></app-button>
 </div>
 

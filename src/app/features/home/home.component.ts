@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { ButtonComponent } from '../../shared/button/button.component';
 import { ArrowsComponent } from '../../shared/arrows/arrows.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [ButtonComponent, ArrowsComponent],
+  imports: [ButtonComponent, ArrowsComponent, RouterLink],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
