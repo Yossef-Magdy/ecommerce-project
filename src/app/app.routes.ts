@@ -10,6 +10,8 @@ import { NotFoundComponent } from './features/not-found/not-found.component';
 import { ProfileComponent } from './features/profile/profile.component';
 import { AccountOverviewComponent } from './features/account-overview/account-overview.component';
 import { ProductDetailsComponent } from './features/product-details/product-details.component';
+import { ForbiddenComponent } from './features/forbidden/forbidden.component';
+import { DashboardComponent } from './features/dashboard/dashboard.component';
 
 
 export const routes: Routes = [
@@ -58,6 +60,16 @@ export const routes: Routes = [
         path: 'products/product-slug',
         component: ProductDetailsComponent,
         title: 'products',
+    },
+    {
+        path: 'dashboard',
+        component: DashboardComponent,
+        title: 'dashboard',
+    },
+    {
+        path: 'forbidden',
+        component: ForbiddenComponent,
+        title: 'forbidden',
     },
     {
         path: '**',
