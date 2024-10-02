@@ -10,6 +10,9 @@ import { NotFoundComponent } from './features/not-found/not-found.component';
 import { ProfileComponent } from './features/profile/profile.component';
 import { AccountOverviewComponent } from './features/account-overview/account-overview.component';
 import { ProductDetailsComponent } from './features/product-details/product-details.component';
+import { ForbiddenComponent } from './features/forbidden/forbidden.component';
+import { DashboardComponent } from './features/dashboard/dashboard.component';
+import { ControlHeaderComponent } from './core/layout/control-header/control-header.component';
 
 
 export const routes: Routes = [
@@ -58,6 +61,23 @@ export const routes: Routes = [
         path: 'products/product-slug',
         component: ProductDetailsComponent,
         title: 'products',
+    },
+    {
+        path: 'dashboard',
+        component: DashboardComponent,
+        title: 'dashboard',
+        children: [
+            {
+                path: 'test',
+                component: ControlHeaderComponent,
+                title: 'hamada',
+            }
+        ]
+    },
+    {
+        path: 'forbidden',
+        component: ForbiddenComponent,
+        title: 'forbidden',
     },
     {
         path: '**',
