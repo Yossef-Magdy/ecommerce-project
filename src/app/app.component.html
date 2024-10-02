@@ -1,3 +1,7 @@
-<app-header/>
-<router-outlet/>
-<app-footer/>
+@if (inDashboard()) {
+    
+} @else {
+    <app-header/>
+    <router-outlet/>
+    <app-footer/>
+}
