@@ -9,7 +9,7 @@
 }
 
 .product_gallery{
-    height: calc( 100vh - 100px);
+    height: 100vh;
 }
 
 .visually-hidden{
@@ -119,11 +119,21 @@
 
 .container{
     width: 100%;
-    padding: 0 6rem;
+    padding: 0 10%;
+}
+
+.drawer-item{
+    margin: 0 10%;
 }
 
 @media (max-width: 768px) {
     .zoom-btn{
         display: none;
+    }
+    .drawer-item{
+        margin: 0;
+    }
+    .container{
+        padding: 0 20px;
     }
 }

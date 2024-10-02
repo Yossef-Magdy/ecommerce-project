@@ -1,16 +1,31 @@
-.item-wrapper:hover .arrow{
-        translate: 5px;
-        transition: 0.3s;
+.item-wrapper:hover .arrow {
+    translate: 5px;
+    transition: 0.3s;
 }
 
-.item-wrapper{
+.item-wrapper:hover .item-title {
+    scale: 1.1;
+    transition: 0.3s;
+}
+
+.item-wrapper {
     padding: 1.3rem 0;
     font-family: var(--font-heading);
-    font-size: 1rem;
+    font-size: 1.2rem;
 }
 
-.drawer-title{
+.drawer-title {
     text-transform: uppercase;
     font-family: var(--font-heading);
     font-size: 2rem;
+}
+
+@media (max-width: 768px) {
+    svg {
+        width: 50px;
+        height: 58px;
+    }
+    .drawer-title {
+        font-size: 1.5rem;
+    }
 }
