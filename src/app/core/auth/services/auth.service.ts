@@ -4,7 +4,7 @@ import {
   HttpErrorResponse,
   HttpStatusCode,
 } from '@angular/common/http';
-import { catchError, concatMap, Observable, of, tap, throwError } from 'rxjs';
+import { catchError, Observable, tap, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root',
@@ -17,7 +17,7 @@ export class AuthService {
   login(userData: any) {
     return this.http.post('/login', userData).pipe(
       tap((response: any) => {
-        this.savaToken(response);
+        this.saveToken(response);
         this.goHome();
       })
     );
@@ -26,7 +26,7 @@ export class AuthService {
   register(userData: any) {
     return this.http.post('/register', userData).pipe(
       tap((response: any) => {
-        this.savaToken(response);
+        this.saveToken(response);
         this.goHome();
       })
     );
@@ -66,7 +66,7 @@ export class AuthService {
     this.router.navigate(['/']);
   }
 
-  private savaToken(response: any) {
+  private saveToken(response: any) {
     const authToken = `${response.token_type} ${response.access_token}`;
     localStorage.setItem('token', authToken);
   }
