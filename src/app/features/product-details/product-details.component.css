@@ -9,7 +9,7 @@
 }
 
 .product_gallery{
-    height: 100vh;
+    height: calc( 100vh - 100px);
 }
 
 .visually-hidden{

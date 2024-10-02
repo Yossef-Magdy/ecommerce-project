@@ -22,11 +22,9 @@ export class GallerySwiperComponent {
   ];
 
   constructor() {
-    // Set initial direction and styles based on the screen size
     this.updateDirectionBasedOnScreenSize();
   }
 
-  // Listen for window resize events to dynamically change direction and styles
   @HostListener('window:resize', ['$event'])
   onResize() {
     this.updateDirectionBasedOnScreenSize();
@@ -42,7 +40,7 @@ export class GallerySwiperComponent {
     } else {
       // Set horizontal view for smaller screens
       this.direction = 'horizontal';
-      this.swiperStyle = { width: '400px', height: '100px', position: 'static'};
+      this.swiperStyle = { width: '90%', height: '100px', position: 'static', overflow: 'hidden'};
     }
   }
 }

@@ -2,7 +2,7 @@
 .mySwiper {
     width: 300px;
     height: 900px;
-    padding: 10px auto;
+    margin: 10px auto;
 }
 
   .mySwiper2 {
@@ -32,11 +32,13 @@
     width: 100%;
     object-fit:contain;
     object-position: center center;
+    margin: 2rem 0;
   }
 
   .mySwiper2 swiper-slide img{
     object-fit:cover;
     height: 100%;
+    margin: 0;
   }
 
   .slider-wrapper{
@@ -50,7 +52,7 @@
       height: 500px;
     }
     .mySwiper2 {
-      width: 600px;
+      width: 900px;
     }
     .mySwiper2 swiper-slide {
       width: 20%;
