@@ -4,13 +4,21 @@
             <li><a routerLink="/">home</a></li>
             <li><a routerLink="/collections">shop</a></li>
             <li><a routerLink="/contact">contact</a></li>
+            @if (hasRolesOrPermissions()) {
+                <li><a routerLink="/dashboard">dashboard</a></li>
+            }
         </ul>
         <div class="flex justify-center">
             logo
         </div>
         <ul class="flex gap-6 capitalize font-light justify-end">
             <li><a href="#">search</a></li>
-            <li><a routerLink="/auth/login">login</a></li>
+            @if (validLogin) {
+                <li><a routerLink="">{{userData.first_name}}</a></li>
+                <li><button (click)="logout()">logout</button></li>
+            } @else {
+                <li><a routerLink="/auth/login">login</a></li>
+            }
             <li class="flex flex-row">
                 <a routerLink="/cart" class="relative inline-flex items-center">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
