@@ -10,7 +10,9 @@
   @for (card of clothsCards; track $index) {
     <div class="product-card">
       <a href="#">
-        <img [src]="card.image" [alt]="card.title" />
+        <div class="img">
+          <img [src]="card.image" [alt]="card.title" />
+        </div>
         <h3 class="mt-3">{{ card.title }}</h3>
         <!--In case of discount-->
         @if (card.isSale) {
