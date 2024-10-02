@@ -3,7 +3,7 @@ import { StarRatingComponent } from '../../shared/star-rating/star-rating.compon
 import { ButtonComponent } from '../../shared/button/button.component';
 import { GallerySwiperComponent } from './gallery-swiper/gallery-swiper.component';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { SizeChartComponent } from '../../core/auth/components/label/size-chart/size-chart.component';
+import { SizeChartComponent } from './size-chart/size-chart.component';
 import { ProductCardComponent } from '../../shared/product-card/product-card.component';
 import { ZoomComponent } from './zoom/zoom.component';
 import { RightDrawerComponent } from '../../shared/right-drawer/right-drawer.component';
