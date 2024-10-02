@@ -12,6 +12,7 @@ import { AccountOverviewComponent } from './features/account-overview/account-ov
 import { ProductDetailsComponent } from './features/product-details/product-details.component';
 import { ForbiddenComponent } from './features/forbidden/forbidden.component';
 import { DashboardComponent } from './features/dashboard/dashboard.component';
+import { ControlHeaderComponent } from './core/layout/control-header/control-header.component';
 
 
 export const routes: Routes = [
@@ -65,6 +66,13 @@ export const routes: Routes = [
         path: 'dashboard',
         component: DashboardComponent,
         title: 'dashboard',
+        children: [
+            {
+                path: 'test',
+                component: ControlHeaderComponent,
+                title: 'hamada',
+            }
+        ]
     },
     {
         path: 'forbidden',

@@ -49,7 +49,7 @@ export class AuthService {
     this.userData = userData;
   }
 
-  getToken(): string | null {
+  getToken() {
     return localStorage.getItem('token');
   }
   

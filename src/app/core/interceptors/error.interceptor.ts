@@ -1,4 +1,4 @@
-import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
+import { HttpErrorResponse, HttpInterceptorFn, HttpStatusCode } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, throwError } from 'rxjs';
@@ -8,15 +8,15 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
       switch (error.status) {
-        case 401:
+        case HttpStatusCode.Unauthorized:
           if (router.url != '/auth/login') {
             router.navigate(['/auth/login']);
           }
           break;
-        case 403:
+        case HttpStatusCode.Forbidden:
           router.navigate(['/forbidden']);
           break;
-        case 404:
+        case HttpStatusCode.NotFound:
           router.navigate(['/not-found']);
           break;
         default:
