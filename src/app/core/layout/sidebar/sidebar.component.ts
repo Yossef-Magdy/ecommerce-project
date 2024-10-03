@@ -10,55 +10,38 @@ import { RouterLink } from '@angular/router';
   styleUrl: './sidebar.component.css'
 })
 export class SidebarComponent {
-  curToken: string | null  = null;
   validLogin: boolean = false;
   userData?: any;
-  firstName?: string;
   
   constructor(private authService: AuthService){}
 
   ngOnInit(){
-    this.curToken = this.authService.getToken();
-    this.isLoggedIn(this.curToken);
-  }
-
-  ngDoCheck() {
-    if (this.curToken != this.authService.getToken()) {
-      this.curToken = this.authService.getToken();
-      this.isLoggedIn(this.curToken);
-    }
-  }
-
-  isLoggedIn(token: string | null) {
-    this.authService.isLoggedIn(token).then((result) => {
-      this.validLogin = result;
-      this.userData = this.authService.getUserData();
-      this.firstName = this.userData.first_name;
-    }).catch((error) => {
-      console.log('error', error);
+    this.authService.checkUser().subscribe({
+      next: (response) => {
+        this.validLogin = true;
+        this.userData = this.authService.getUserData();
+      },
+      error: (error) => {
+        console.error('Error:', error);
+      }
     });
   }
 
-  hasRole(role: string) {
-    return true;
+  isAdmin(): boolean {
+    if (!this.userData) {
+      return false;
+    }
+    const result = this.userData.roles.find((role: any) => role.name == 'admin');
+    return result !== undefined;
   }
 
-  hasRolesOrPermissions() {
+  hasRoles(): boolean {
     if (this.userData == null) {
       return false;
     }
-    return this.userData.roles.length || this.userData.permissions.length;
+    return this.userData.roles.length != 0;
   }
-  // getUserFirstName() {
-  //   return this.userData ? this.userData.first_name : "";
-  // }
-  hasRoles() {
-    if (this.userData == null) {
-      return false;
-    }
-    return this.userData.roles.length;
-  }
-  getRoles() {
+  getRoles(): string {
     if (this.userData == null) {
       return "";
     }
