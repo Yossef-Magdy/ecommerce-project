@@ -21,6 +21,8 @@
     height: 100%;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    transform: rotateX(0deg)
 }
 
 .card-front {
