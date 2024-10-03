@@ -70,4 +70,24 @@ export class AuthService {
     const authToken = `${response.token_type} ${response.access_token}`;
     localStorage.setItem('token', authToken);
   }
+
+  isLoggedIn(token: string | null) {
+    return new Promise <boolean> ((resolve, reject) => {
+      if (!this.tokenExists()) {
+        resolve(true);
+      }
+      this.getUser().subscribe({
+        next: (response) => {
+          this.setUserData(response);
+          resolve(true);
+        },
+        error: (error) => {
+          if (error.status == HttpStatusCode.Unauthorized) {
+            this.logout();
+            resolve(false);
+          }
+        }
+      });
+    });
+  }
 }
