@@ -1,6 +1,8 @@
 @if (inDashboard()) {
-    <app-control-header/>
-    <router-outlet/>
+    <div class="grid grid-cols-[minmax(20%,260px),_auto,_1fr]">
+        <app-sidebar/>
+        <router-outlet/>
+    </div>
 } @else {
     <app-header/>
     <router-outlet/>
