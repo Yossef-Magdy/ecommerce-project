@@ -4,14 +4,14 @@
       <h1>PRODUCTS</h1>
     </div>
 </main>
-<!-- <p>{{clothsCards.length}} PRODUCTS</p> -->
+<p>{{clothsCards.length}} PRODUCTS</p>
 <hr>
 <section class="container product-grid">
   @for (card of clothsCards; track $index) {
     <div class="product-card">
-      <a href="#">
+      <a [routerLink]="['/products', card.slug]">
         <div class="img">
-          <img [src]="card.cover_image" [alt]="card.name" />
+          <img class="trans_img" [src]="card.current_image || card.cover_image" [alt]="card.name" (mouseover)="changeImage(card, card.hover_image)" (mouseout)="changeImage(card, card.cover_image)" />
         </div>
         <h3 class="mt-3">{{ card.name }}</h3>
         <!--In case of discount-->
