@@ -11,38 +11,28 @@ import { HttpStatusCode } from '@angular/common/http';
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
-export class HeaderComponent implements DoCheck {
+export class HeaderComponent {
   cartItems: CartItem[] = [];
   totalQuantity: number = 0;
-  curToken: string | null  = null;
   validLogin?: boolean;
   hasRolesOrPermissions?: boolean;
 
   constructor(private cartService:CartService, private authService: AuthService){}
 
   ngOnInit(){
-    this.curToken = this.authService.getToken();
-    this.isLoggedIn(this.curToken);
     this.cartService.getItems().subscribe((items) => {
       this.cartItems = items;
       this.calculateTotalQuantity();
     });
-  }
-
-  ngDoCheck() {
-    if (this.curToken != this.authService.getToken()) {
-      this.curToken = this.authService.getToken();
-      this.isLoggedIn(this.curToken);
-    }
-  }
-
-  isLoggedIn(token: string | null) {
-    this.authService.isLoggedIn(token).then((result) => {
-      this.validLogin = result;
-      const userData = this.authService.getUserData();
-      this.hasRolesOrPermissions = userData.roles.length || userData.permissions.length;
-    }).catch((error) => {
-      console.log('error', error);
+    this.authService.checkUser().subscribe({
+      next: (response) => {
+        this.validLogin = true;
+        const userData = this.authService.getUserData();
+        this.hasRolesOrPermissions = userData.roles.length || userData.permissions.length;
+      },
+      error: (error) => {
+        console.error('Error:', error);
+      }
     });
   }
 
