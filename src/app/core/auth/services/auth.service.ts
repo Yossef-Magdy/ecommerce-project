@@ -1,16 +1,16 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import {
   HttpClient,
   HttpErrorResponse,
   HttpStatusCode,
 } from '@angular/common/http';
-import { catchError, Observable, tap, throwError } from 'rxjs';
+import { BehaviorSubject, catchError, Observable, tap, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private userData: any;
+  private userData: any = signal(undefined);
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -37,16 +37,26 @@ export class AuthService {
     this.setUserData(null);
   }
   
-  getUser() {
-    return this.http.get('/user');
+  checkUser() {
+    return this.http.get('/user').pipe(
+      tap((respons: any) => {
+        this.setUserData(respons);
+      }), catchError((error: HttpErrorResponse) => {
+        if (error.status == HttpStatusCode.Unauthorized) {
+          this.removeToken();
+        }
+        this.setUserData(null);
+        return throwError(() => error);
+      })
+    );
   }
 
   getUserData() {
-    return this.userData;
+    return this.userData();
   }
   
   setUserData(userData: any) {
-    this.userData = userData;
+    this.userData.set(userData);
   }
 
   getToken() {
@@ -69,25 +79,5 @@ export class AuthService {
   private saveToken(response: any) {
     const authToken = `${response.token_type} ${response.access_token}`;
     localStorage.setItem('token', authToken);
-  }
-
-  isLoggedIn(token: string | null) {
-    return new Promise <boolean> ((resolve, reject) => {
-      if (!this.tokenExists()) {
-        resolve(true);
-      }
-      this.getUser().subscribe({
-        next: (response) => {
-          this.setUserData(response);
-          resolve(true);
-        },
-        error: (error) => {
-          if (error.status == HttpStatusCode.Unauthorized) {
-            this.logout();
-            resolve(false);
-          }
-        }
-      });
-    });
   }
 }
