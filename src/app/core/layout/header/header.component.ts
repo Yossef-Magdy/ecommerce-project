@@ -2,6 +2,7 @@ import { Component, CSP_NONCE, DoCheck, EventEmitter, Output } from '@angular/co
 import { RouterLink } from '@angular/router';
 import { CartItem, CartService } from '../../../services/cart.service';
 import { AuthService } from '../../auth/services/auth.service';
+import { HttpStatusCode } from '@angular/common/http';
 
 @Component({
   selector: 'app-header',
@@ -14,8 +15,8 @@ export class HeaderComponent implements DoCheck {
   cartItems: CartItem[] = [];
   totalQuantity: number = 0;
   curToken: string | null  = null;
-  validLogin: boolean = false;
-  userData: any;
+  validLogin?: boolean;
+  hasRolesOrPermissions?: boolean;
 
   constructor(private cartService:CartService, private authService: AuthService){}
 
@@ -36,32 +37,17 @@ export class HeaderComponent implements DoCheck {
   }
 
   isLoggedIn(token: string | null) {
-    if (!this.authService.tokenExists()) {
-      this.validLogin = false;
-      return;
-    }
-    this.authService.getUser().subscribe({
-      next: (response) => {
-        this.userData = response;
-        this.authService.setUserData(response);
-        this.validLogin = true;
-      },
-      error: (error) => {
-        this.logout();
-        this.validLogin = false;
-      }
+    this.authService.isLoggedIn(token).then((result) => {
+      this.validLogin = result;
+      const userData = this.authService.getUserData();
+      this.hasRolesOrPermissions = userData.roles.length || userData.permissions.length;
+    }).catch((error) => {
+      console.log('error', error);
     });
   }
 
   logout() {
     this.authService.logout();
-  }
-
-  hasRolesOrPermissions() {
-    if (this.userData == null) {
-      return false;
-    }
-    return this.userData.roles.length || this.userData.permissions.length;
   }
 
   calculateTotalQuantity(): void{

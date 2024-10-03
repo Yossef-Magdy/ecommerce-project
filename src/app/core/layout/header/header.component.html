@@ -4,7 +4,7 @@
             <li><a routerLink="/">home</a></li>
             <li><a routerLink="/collections">shop</a></li>
             <li><a routerLink="/contact">contact</a></li>
-            @if (hasRolesOrPermissions()) {
+            @if (hasRolesOrPermissions) {
                 <li><a routerLink="/dashboard">dashboard</a></li>
             }
         </ul>
