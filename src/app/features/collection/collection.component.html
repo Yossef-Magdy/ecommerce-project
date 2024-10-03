@@ -9,15 +9,17 @@
 <section class="container product-grid">
   @for (card of clothsCards; track $index) {
     <div class="product-card">
-      <a href="#">
-        <img [src]="card.image" [alt]="card.title" />
-        <h3 class="mt-3">{{ card.title }}</h3>
+      <a [routerLink]="['/products', card.slug]">
+        <div class="img">
+          <img class="trans_img" [src]="card.current_image || card.cover_image" [alt]="card.name" (mouseover)="changeImage(card, card.hover_image)" (mouseout)="changeImage(card, card.cover_image)" />
+        </div>
+        <h3 class="mt-3">{{ card.name }}</h3>
         <!--In case of discount-->
         @if (card.isSale) {
         <span class="me-2 price">{{ card.newPrice }}</span>
         <span class="old-price">{{ card.oldPrice }}</span>
         } @else {
-        <span class="me-2 price">{{ card.price }}</span>
+        <span class="me-2 price">LE {{ card.price }}</span>
         }
       </a>
       <div class="colors">

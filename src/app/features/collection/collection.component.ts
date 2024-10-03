@@ -1,255 +1,33 @@
 import { Component } from '@angular/core';
 import { ButtonComponent } from "../../shared/button/button.component";
+import { AllProductsService } from './all-products.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-collection',
   standalone: true,
-  imports: [ButtonComponent],
+  imports: [ButtonComponent, RouterLink],
   templateUrl: './collection.component.html',
   styleUrl: './collection.component.css'
 })
 export class CollectionComponent{
-  clothsCards = [
-    {
-      title: 'Ripped Thick Strap Basic Top',
-      oldPrice: 'LE 190',
-      newPrice: 'LE 150',
-      isSale: true,
-      colors: ['black', 'blue', 'white', 'gray'],
-      image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-    },
-    {
-      title: 'Ripped Fitted Half Sleeve Top',
-      isSale: false,
-      price: 'LE 69',
-      colors: ['black', 'white', 'gray'],
-      image: 'https://images.unsplash.com/photo-1500462918059-b1a0cb512f1d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-    },
-    {
-      title: 'Swim Shorts',
-      isSale: true,
-      oldPrice: 'LE 190',
-      newPrice: 'LE 150',
-      colors: ['black', 'pink', 'green', 'yellow'],
-      image: 'https://images.unsplash.com/photo-1500462918059-b1a0cb512f1d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-    },
-    {
-      title: 'Leggings',
-      isSale: true,
-      oldPrice: 'LE 190',
-      newPrice: 'LE 150',
-      colors: ['black', 'blue', 'white', 'gray'],
-      image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-    },
-    {
-      title: 'T-shirt',
-      isSale: true,
-      oldPrice: 'LE 190',
-      colors: ['black', 'blue', 'white', 'gray'],
-      image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-    },
-    {
-      title: 'Swim Shorts',
-      isSale: true,
-      oldPrice: 'LE 190',
-      newPrice: 'LE 150',
-      colors: ['black', 'pink', 'green', 'yellow'],
-      image: 'https://images.unsplash.com/photo-1500462918059-b1a0cb512f1d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-    },
-    {
-      title: 'Leggings',
-      isSale: true,
-      oldPrice: 'LE 190',
-      newPrice: 'LE 150',
-      colors: ['black', 'blue', 'white', 'gray'],
-      image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-    },
-    {
-      title: 'T-shirt',
-      isSale: true,
-      oldPrice: 'LE 190',
-      colors: ['black', 'blue', 'white', 'gray'],
-      image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-    },
-    {
-      title: 'Swim Shorts',
-      isSale: true,
-      oldPrice: 'LE 190',
-      newPrice: 'LE 150',
-      colors: ['black', 'pink', 'green', 'yellow'],
-      image: 'https://images.unsplash.com/photo-1500462918059-b1a0cb512f1d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-    },
-    {
-      title: 'Leggings',
-      isSale: true,
-      oldPrice: 'LE 190',
-      newPrice: 'LE 150',
-      colors: ['black', 'blue', 'white', 'gray'],
-      image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-    },
-    {
-      title: 'T-shirt',
-      isSale: true,
-      oldPrice: 'LE 190',
-      colors: ['black', 'blue', 'white', 'gray'],
-      image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-    },
-    {
-      title: 'Swim Shorts',
-      isSale: true,
-      oldPrice: 'LE 190',
-      newPrice: 'LE 150',
-      colors: ['black', 'pink', 'green', 'yellow'],
-      image: 'https://images.unsplash.com/photo-1500462918059-b1a0cb512f1d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-    },
-    {
-      title: 'Leggings',
-      isSale: true,
-      oldPrice: 'LE 190',
-      newPrice: 'LE 150',
-      colors: ['black', 'blue', 'white', 'gray'],
-      image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-    },
-    {
-      title: 'T-shirt',
-      isSale: true,
-      oldPrice: 'LE 190',
-      colors: ['black', 'blue', 'white', 'gray'],
-      image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-    },
-    {
-      title: 'Swim Shorts',
-      isSale: true,
-      oldPrice: 'LE 190',
-      newPrice: 'LE 150',
-      colors: ['black', 'pink', 'green', 'yellow'],
-      image: 'https://images.unsplash.com/photo-1500462918059-b1a0cb512f1d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-    },
-    {
-      title: 'Leggings',
-      isSale: true,
-      oldPrice: 'LE 190',
-      newPrice: 'LE 150',
-      colors: ['black', 'blue', 'white', 'gray'],
-      image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-    },
-    {
-      title: 'T-shirt',
-      isSale: true,
-      oldPrice: 'LE 190',
-      colors: ['black', 'blue', 'white', 'gray'],
-      image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-    },
-    {
-      title: 'Swim Shorts',
-      isSale: true,
-      oldPrice: 'LE 190',
-      newPrice: 'LE 150',
-      colors: ['black', 'pink', 'green', 'yellow'],
-      image: 'https://images.unsplash.com/photo-1500462918059-b1a0cb512f1d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-    },
-    {
-      title: 'Leggings',
-      isSale: true,
-      oldPrice: 'LE 190',
-      newPrice: 'LE 150',
-      colors: ['black', 'blue', 'white', 'gray'],
-      image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-    },
-    {
-      title: 'T-shirt',
-      isSale: true,
-      oldPrice: 'LE 190',
-      colors: ['black', 'blue', 'white', 'gray'],
-      image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-    },
-    {
-      title: 'Swim Shorts',
-      isSale: true,
-      oldPrice: 'LE 190',
-      newPrice: 'LE 150',
-      colors: ['black', 'pink', 'green', 'yellow'],
-      image: 'https://images.unsplash.com/photo-1500462918059-b1a0cb512f1d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-    },
-    {
-      title: 'Leggings',
-      isSale: true,
-      oldPrice: 'LE 190',
-      newPrice: 'LE 150',
-      colors: ['black', 'blue', 'white', 'gray'],
-      image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-    },
-    {
-      title: 'T-shirt',
-      isSale: true,
-      oldPrice: 'LE 190',
-      colors: ['black', 'blue', 'white', 'gray'],
-      image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-    },
-    {
-      title: 'Swim Shorts',
-      isSale: true,
-      oldPrice: 'LE 190',
-      newPrice: 'LE 150',
-      colors: ['black', 'pink', 'green', 'yellow'],
-      image: 'https://images.unsplash.com/photo-1500462918059-b1a0cb512f1d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-    },
-    {
-      title: 'Leggings',
-      isSale: true,
-      oldPrice: 'LE 190',
-      newPrice: 'LE 150',
-      colors: ['black', 'blue', 'white', 'gray'],
-      image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-    },
-    {
-      title: 'T-shirt',
-      isSale: true,
-      oldPrice: 'LE 190',
-      colors: ['black', 'blue', 'white', 'gray'],
-      image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-    },
-    {
-      title: 'Swim Shorts',
-      isSale: true,
-      oldPrice: 'LE 190',
-      newPrice: 'LE 150',
-      colors: ['black', 'pink', 'green', 'yellow'],
-      image: 'https://images.unsplash.com/photo-1500462918059-b1a0cb512f1d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-    },
-    {
-      title: 'Leggings',
-      isSale: true,
-      oldPrice: 'LE 190',
-      newPrice: 'LE 150',
-      colors: ['black', 'blue', 'white', 'gray'],
-      image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-    },
-    {
-      title: 'T-shirt',
-      isSale: true,
-      oldPrice: 'LE 190',
-      colors: ['black', 'blue', 'white', 'gray'],
-      image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-    },
-    {
-      title: 'Swim Shorts',
-      isSale: true,
-      oldPrice: 'LE 190',
-      newPrice: 'LE 150',
-      colors: ['black', 'pink', 'green', 'yellow'],
-      image: 'https://images.unsplash.com/photo-1500462918059-b1a0cb512f1d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-    },
-    {
-      title: 'Leggings',
-      isSale: true,
-      oldPrice: 'LE 190',
-      newPrice: 'LE 150',
-      colors: ['black', 'blue', 'white', 'gray'],
-      image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-    },
-  ]
 
+  clothsCards !: any[];
+  constructor(private allProducts:AllProductsService){}
 
+  ngOnInit(){
+    this.allProducts.getProducts().subscribe(
+      (data) => {
+        console.log(data.data);
+        this.clothsCards = data.data;
+        this.clothsCards.forEach((card) => {
+          card.current_image = card.cover_image;
+        });
+      }
+    );
+  }
+  changeImage(card: any, newImage: string){
+    card.current_image = newImage;
+  }
 
 }

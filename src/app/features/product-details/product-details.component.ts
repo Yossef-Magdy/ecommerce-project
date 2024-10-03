@@ -9,6 +9,7 @@ import { ZoomComponent } from './zoom/zoom.component';
 import { RightDrawerComponent } from '../../shared/right-drawer/right-drawer.component';
 import { CartItem, CartService } from '../../services/cart.service';
 import { IProduct } from '../../data-interfaces';
+import { ProductDetailsService } from './product-details.service';
 
 @Component({
   selector: 'app-product-details',
@@ -27,32 +28,32 @@ import { IProduct } from '../../data-interfaces';
   styleUrl: './product-details.component.css',
 })
 export class ProductDetailsComponent {
-  // data !: IProduct;
+  data !: IProduct;
   cartItems: CartItem[] = [];
   quantity: number = 1;
 ;
-  data = {
-    id: 1,
-    stock: 5,
-    slug: 'slug',
-    name: 'T-Shirt',
-    description: 'desc',
-    price: 190,
-    images: [
-      'assets/1.jpg',
-      'assets/2.jpg',
-      'assets/3.jpg',
-      'assets/4.jpg',
-      'assets/5.jpg',
-    ],
-    colors: ['red', 'black', 'grey', 'beige'],
-    sizes : ['S', 'M', 'L', 'XL'],
-    rating: 4.5,
-    reviews: 76,
-  };
+  // data = {
+  //   id: 1,
+  //   stock: 5,
+  //   slug: 'slug',
+  //   name: 'T-Shirt',
+  //   description: 'desc',
+  //   price: 190,
+  //   images: [
+  //     'assets/1.jpg',
+  //     'assets/2.jpg',
+  //     'assets/3.jpg',
+  //     'assets/4.jpg',
+  //     'assets/5.jpg',
+  //   ],
+  //   colors: ['red', 'black', 'grey', 'beige'],
+  //   sizes : ['S', 'M', 'L', 'XL'],
+  //   rating: 4.5,
+  //   reviews: 76,
+  // };
   
 
-  constructor(private cartService: CartService, private activatedRoute: ActivatedRoute){}
+  constructor(private cartService: CartService, private activatedRoute: ActivatedRoute, private productDetails: ProductDetailsService){}
 
   onAddToCart() {
     this.cartService.addToCart(this.data, this.quantity);
@@ -74,12 +75,14 @@ export class ProductDetailsComponent {
 
   ngOnInit(){
     const routeId = this.activatedRoute.snapshot.params['id'];
-    // this.productRequestsService
-    //   .getProductDetails(routeId)
-    //   .subscribe((product: any) => {
-    //     this.data = product;
+    this.productDetails
+      .getProductById(routeId)
+      .subscribe((product: any) => {
+        console.log(product.data);
+        
+          this.data = product.data;
           this.quantity = this.cartService.getQuantity(this.data.id);
-    //   });
+      });
 
       this.cartService.getItems().subscribe((items) => {
         this.cartItems = items;
