@@ -8,10 +8,8 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
       switch (error.status) {
-        case HttpStatusCode.Unauthorized:
-          if (router.url != '/auth/login') {
-            router.navigate(['/auth/login']);
-          }
+        case HttpStatusCode.InternalServerError:
+          console.error('An error occured in the backend server');
           break;
         case HttpStatusCode.Forbidden:
           router.navigate(['/forbidden']);
@@ -20,7 +18,7 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
           router.navigate(['/not-found']);
           break;
         default:
-          console.log('HTTP error:', error);
+          console.error('HTTP error:', error);
       }
       return throwError(() => error);
     })
