@@ -4,7 +4,7 @@ import {
   HttpErrorResponse,
   HttpStatusCode,
 } from '@angular/common/http';
-import { BehaviorSubject, catchError, Observable, tap, throwError } from 'rxjs';
+import { catchError, map, Observable, of, tap } from 'rxjs';
 import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root',
@@ -35,18 +35,33 @@ export class AuthService {
   logout() {
     this.removeToken();
     this.setUserData(null);
+    this.goHome();
   }
-  
-  checkUser() {
+  checkUser(): Observable<boolean> {
     return this.http.get('/user').pipe(
-      tap((respons: any) => {
-        this.setUserData(respons);
+      map((response: any) => {
+        this.setUserData(response);
+        return true;
       }), catchError((error: HttpErrorResponse) => {
         if (error.status == HttpStatusCode.Unauthorized) {
           this.removeToken();
         }
         this.setUserData(null);
-        return throwError(() => error);
+        return of(false);
+      })
+    );
+  }
+
+  hasRolesOrPermissions(): Observable<boolean> {
+    return this.http.get('/user').pipe(
+      map((response: any) => {
+        return response.roles.length != 0 || response.permissions.length != 0;
+      }), catchError((error: HttpErrorResponse) => {
+        if (error.status == HttpStatusCode.Unauthorized) {
+          this.removeToken();
+        }
+        this.setUserData(null);
+        return of(false);
       })
     );
   }
