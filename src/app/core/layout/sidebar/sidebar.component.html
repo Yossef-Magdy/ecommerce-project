@@ -14,6 +14,13 @@
             </a>
         </li>
         <li>
+            <a class="flex p-2 rounded-lg dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 group"
+                routerLink="dashboard">
+                <img src="assets/icons/dashboard.svg" class="size-6 me-2" alt="">
+                Dashboard
+            </a>
+        </li>
+        <li>
             <button type="button"
                 class="flex items-center w-full p-2 text-base font-normal transition duration-75 rounded-lg group hover:bg-gray-200 dark:text-white dark:hover:bg-gray-700"
                 aria-controls="users-dropdown" data-collapse-toggle="users-dropdown">
@@ -88,31 +95,6 @@
         <li>
             <button type="button"
                 class="flex items-center w-full p-2 text-base font-normal transition duration-75 rounded-lg group hover:bg-gray-200 dark:text-white dark:hover:bg-gray-700"
-                aria-controls="subcategories-dropdown" data-collapse-toggle="subcategories-dropdown">
-                <img src="assets/icons/category.svg" class="size-6 me-2" alt="">      
-                <span class="text-left whitespace-nowrap" sidebar-toggle-item>subcategories</span>
-                <img src="assets/icons/chevron-down.svg" class="size-5" alt="">
-
-
-            </button>
-            <ul id="subcategories-dropdown" class="hidden py-2 space-y-2 ms-8">
-                <li>
-                    <a class="flex items-center w-full p-2 rounded-lg dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 group"
-                        href="">
-                        Add new subcategory
-                    </a>
-                </li>
-                <li>
-                    <a class="flex items-center w-full p-2 rounded-lg dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 group"
-                        href="">
-                        Manage subcategories
-                    </a>
-                </li>
-            </ul>
-        </li>
-        <li>
-            <button type="button"
-                class="flex items-center w-full p-2 text-base font-normal transition duration-75 rounded-lg group hover:bg-gray-200 dark:text-white dark:hover:bg-gray-700"
                 aria-controls="orders-dropdown" data-collapse-toggle="orders-dropdown">
                 <img src="assets/icons/shopping-bag.svg" class="size-6 me-2" alt="">      
                 <span class="text-left whitespace-nowrap" sidebar-toggle-item>orders</span>
@@ -156,6 +138,7 @@
     <ul class="py-4 px-4 border-t border-gray-300">
         <li>
             <button type="button"
+                (click)="logout()"
                 class="flex items-center w-full p-2 text-base font-normal transition duration-75 rounded-lg group hover:bg-gray-200 dark:text-white dark:hover:bg-gray-700">
                 <img src="assets/icons/logout.svg" class="size-6 me-2" alt="">      
                 logout

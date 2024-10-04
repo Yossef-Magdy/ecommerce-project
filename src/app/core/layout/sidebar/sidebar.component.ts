@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../auth/services/auth.service';
 import { RouterLink } from '@angular/router';
+import { initFlowbite } from 'flowbite';
 
 @Component({
   selector: 'app-sidebar',
@@ -16,13 +17,11 @@ export class SidebarComponent {
   constructor(private authService: AuthService){}
 
   ngOnInit(){
-    this.authService.checkUser().subscribe({
-      next: (response) => {
-        this.validLogin = true;
+    initFlowbite();
+    this.authService.checkUser().subscribe((response) => {
+      this.validLogin = response;
+      if (this.validLogin) {
         this.userData = this.authService.getUserData();
-      },
-      error: (error) => {
-        console.error('Error:', error);
       }
     });
   }
@@ -47,5 +46,9 @@ export class SidebarComponent {
     }
     const roles = this.userData.roles;
     return roles.length == 1 ? roles[0].name : roles[0].name + " ...";
+  }
+
+  logout() {
+    this.authService.logout();
   }
 }
