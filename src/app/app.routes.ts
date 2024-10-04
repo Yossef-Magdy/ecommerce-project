@@ -12,74 +12,75 @@ import { AccountOverviewComponent } from './features/account-overview/account-ov
 import { ProductDetailsComponent } from './features/product-details/product-details.component';
 import { ForbiddenComponent } from './features/forbidden/forbidden.component';
 import { DashboardComponent } from './features/dashboard/dashboard.component';
-
-const appName = 'Temp';
+import { authGuard } from './core/auth/guards/auth.guard';
+import { dashboardGuard } from './features/dashboard/guards/dashboard.guard';
 
 export const routes: Routes = [
     {
         path: '',
         component: HomeComponent,
-        title: `Home - ${appName}`,
+        title: 'Home',
     },
     {
         path: 'cart',
         component: CartComponent,
-        title: `Cart - ${appName}`,
+        title: 'Cart',
     },
     {
         path: 'checkout',
         component: CheckoutComponent,
-        title: `Checkout - ${appName}`,
+        title: 'Checkout',
     },
     {
         path: 'collections',
         component: CollectionComponent,
-        title: `Collections - ${appName}`,
+        title: 'Collections',
     },
     {
         path: 'contact',
         component: ContactComponent,
-        title: `Contact - ${appName}`,
+        title: 'Contact',
     },
     {
         path: 'auth/login',
         component: LoginComponent,
-        title: `Login - ${appName}`,
+        title: 'Login',
     },
     {
         path: 'auth/register',
         component: RegisterComponent,
-        title: `Register - ${appName}`,
+        title: 'Register',
     },
     {
 
         path: 'profile',
         component: ProfileComponent,
-        title: `Profile - ${appName}`,
+        title: 'Profile',
     },
     {
         path: 'products/:id',
         component: ProductDetailsComponent,
-        title: `Products - ${appName}`,
+        title: 'Products',
     },
     {
         path: 'dashboard',
+        canActivate: [dashboardGuard],
         children: [
             {
                 path: '',
                 component: DashboardComponent,
-                title: `Dashboard - ${appName}`,
+                title: 'Dashboard',
             },
         ]
     },
     {
         path: 'forbidden',
         component: ForbiddenComponent,
-        title: `Forbidden - ${appName}`,
+        title: 'Forbidden',
     },
     {
         path: '**',
         component: NotFoundComponent,
-        title: `404 Not Found - ${appName}`,
+        title: '404 Not Found',
     }
 ];
