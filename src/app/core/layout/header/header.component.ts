@@ -14,8 +14,8 @@ import { HttpStatusCode } from '@angular/common/http';
 export class HeaderComponent {
   cartItems: CartItem[] = [];
   totalQuantity: number = 0;
-  validLogin?: boolean;
-  hasRolesOrPermissions?: boolean;
+  validLogin: boolean = false;
+  hasRolesOrPermissions?: boolean = false;
 
   constructor(private cartService:CartService, private authService: AuthService){}
 
@@ -24,14 +24,11 @@ export class HeaderComponent {
       this.cartItems = items;
       this.calculateTotalQuantity();
     });
-    this.authService.checkUser().subscribe({
-      next: (response) => {
-        this.validLogin = true;
+    this.authService.checkUser().subscribe((isValid: boolean) => {
+      this.validLogin = isValid;
+      if (this.validLogin) {
         const userData = this.authService.getUserData();
         this.hasRolesOrPermissions = userData.roles.length || userData.permissions.length;
-      },
-      error: (error) => {
-        console.error('Error:', error);
       }
     });
   }
