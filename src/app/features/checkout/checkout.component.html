@@ -1,1 +1,328 @@
-<p>checkout works!</p>
+<div class="px-6 mx-auto max-w-7xl py-8">
+    <div class="flex flex-col md:flex-row gap-8">
+        <div class="w-full md:w-1/2 mb-8 md:mb-0">
+            <div class="flex-col justify-between">
+                @if (!isUserLoggedIn) {
+                <div class="mb-2 w-full">
+                    <label for="default-input"
+                        class="flex justify-between mb-2 text-xl font-medium text-gray-900 dark:text-white">
+                        Contact
+                        <a routerLink="/auth/login" class="text-sm text-blue-500 underline">Log in</a>
+                    </label>
+                    <input type="text" id="default-input"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="Email or mobile number">
+                </div>
+                <div class="flex mb-6 mt-4">
+                    <div class="h-5">
+                        <input id="remember" type="checkbox" value=""
+                            class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800" />
+                    </div>
+                    <label for="remember" class="ms-2 mt-1 text-sm font-medium text-gray-900 dark:text-gray-300">Email
+                        me
+                        with news and offers.</label>
+                </div>
+                } @else {
+                <div>
+                    <a class="flex justify-between items-center mb-2 text-sm text-gray-500 hover:text-blue-500 "
+                        (click)="toggleDropdown()">
+                        Account
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14" focusable="false" aria-hidden="true"
+                            class="a8x1wu10 a8x1wuz _1fragem1y _1fragemod _1fragemkk _1fragemka _1fragemnm"
+                            style="width: 16px; height: 16px;">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="m11.9 5.6-4.653 4.653a.35.35 0 0 1-.495 0L2.1 5.6"></path>
+                        </svg>
+                    </a>
+                    <p class="mb-3">{{ userEmail }}</p>
+
+                    @if (dropdownVisible) {
+                    <span>
+                        <a class="text-sm text-blue-500 underline" (click)="onLogout()">Logout</a>
+                    </span>
+                    }
+
+                </div>
+                }
+
+            </div>
+            <hr class="mt-3">
+
+            <h3 class="text-xl font-medium mb-2 mt-4">Delivery</h3>
+
+            <form>
+                <div class="grid gap-6 mb-6 md:grid-cols-2">
+                    <div>
+                        <input type="text" id="first_name"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="First Name" required />
+                    </div>
+                    <div>
+                        <input type="text" id="last_name"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="Last Name" required />
+                    </div>
+                    <div class="col-span-2">
+                        <input type="text" id="address"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="Address" required />
+                    </div>
+                    <div class="col-span-2">
+                        <input type="tel" id="apartment"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="Apartment, suite, etc." required />
+                    </div>
+                    <div class="grid grid-cols-3 gap-4 col-span-2">
+                        <div>
+                            <input type="text" id="city"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                placeholder="City" required />
+                        </div>
+                        <div>
+                            <select id="Governorate"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <option disabled selected>Governorate</option>
+                                <option value="Cairo">Cairo</option>
+                                <option value="Giza">Giza</option>
+                                <option value="Alexandria">Alexandria</option>
+                                <option value="Aswan">Aswan</option>
+                            </select>
+                        </div>
+                        <div>
+                            <input type="text" id="zip_code"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                placeholder="Zip Code (optional)" />
+                        </div>
+                    </div>
+                    <div class="col-span-2">
+                        <input type="tel" id="phone"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="Phone" required />
+                    </div>
+                    <div class="flex col-span-2">
+                        <div class="h-5">
+                            <input id="remember" type="checkbox" value=""
+                                class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800" />
+                        </div>
+                        <label for="remember"
+                            class="ms-2 mt-1 text-sm font-medium text-gray-900 dark:text-gray-300">Save this information
+                            for next time.</label>
+                    </div>
+                </div>
+                <div>
+
+                </div>
+                <h3 class="text-base font-medium mb-2">Shipping Method</h3>
+                <div id="accordion-arrow-icon" class="mb-8">
+                    <h2 id="accordion-arrow-icon-heading-1">
+                        <button type="button"
+                            class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-900 bg-gray-100 border border-b-0 border-gray-200 rounded-t-xl focus:ring-4 focus:ring-cyan-700 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3"
+                            data-accordion-target="#accordion-arrow-icon-body-1" aria-expanded="true"
+                            aria-controls="accordion-arrow-icon-body-1">
+                            <span>Standard Shipping</span>
+                            <span>LE 55.00</span>
+                        </button>
+                    </h2>
+                </div>
+                <h3 class="text-xl font-medium">Payment</h3>
+                <span class="text-gray-500 text-sm">All transactions are secure and encrypted.</span>
+
+                <div class="mt-4">
+                    <div class="accordion-item">
+                        <input type="radio" id="credit-card" name="payment-method" value="credit-card"
+                            (change)="onPaymentMethodChange('credit-card')" checked>
+                        <label for="credit-card" class="accordion-label">
+                            <span class="custom-radio"></span>
+                            <span class="payment-span">Credit card</span>
+                            <div class="payment-logos">
+                                <img src="https://cdn.shopify.com/shopifycloud/checkout-web/assets/c1.en/assets/mada.B18Lw7s7.svg"
+                                    alt="Visa">
+                                <img src="https://cdn.shopify.com/shopifycloud/checkout-web/assets/c1.en/assets/omannet.DA0vueZ7.svg"
+                                    alt="Mastercard">
+                                <img src="https://cdn.shopify.com/shopifycloud/checkout-web/assets/c1.en/assets/mastercard.1c4_lyMp.svg"
+                                    alt="Mada">
+                            </div>
+                        </label>
+                        <div class="accordion-content">
+                            <div class="payment-form">
+                                <input class="payment-input" id="card-number" type="text" placeholder="Card number">
+                                <div class="flex gap-6">
+                                    <input class="payment-input" id="card-expiration" type="text"
+                                        placeholder="Expiration date (MM / YY)">
+                                    <input class="payment-input" id="card-security-code" type="text"
+                                        placeholder="Security code">
+                                </div>
+                                <input class="payment-input" id="card-name" type="text" placeholder="Name on card">
+                                <div class="flex">
+                                    <div class="h-5">
+                                        <input id="remember2" type="checkbox" value=""
+                                            (change)="onShippingOptionChange($event)" checked
+                                            class=" w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800" />
+                                    </div>
+                                    <label for="remember2"
+                                        class="ms-2 mt-1 text-sm font-medium text-gray-900 dark:text-gray-300">Use
+                                        shipping address as billing address</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <input type="radio" id="wallets" name="payment-method" value="wallets"
+                            (change)="onPaymentMethodChange('wallets')">
+                        <label for="wallets" class="accordion-label">
+                            <span class="custom-radio"></span>
+                            <span class="payment-span">Pay via (Debit/Credit cards/Wallets/Installments)</span>
+                            <div class="payment-logos">
+                                <img src="https://cdn.shopify.com/shopifycloud/checkout-web/assets/c1.en/assets/mada.B18Lw7s7.svg"
+                                    alt="Visa">
+                                <img src="https://cdn.shopify.com/shopifycloud/checkout-web/assets/c1.en/assets/omannet.DA0vueZ7.svg"
+                                    alt="Mastercard">
+                                <img src="https://cdn.shopify.com/shopifycloud/checkout-web/assets/c1.en/assets/mastercard.1c4_lyMp.svg"
+                                    alt="Mada">
+                            </div>
+                        </label>
+                        <div class="accordion-content">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="-270.8 371 102 52" class="zjrzY">
+                                <path fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2"
+                                    d="M-182 404v16.8c0 .7-.4 1.2-1 1.2h-75.7c-.7 0-1.2-.6-1.2-1.2v-47.6c0-.7.6-1.2 1.2-1.2h75.7c.7 0 1 .6 1 1.2V395m-78-14h78m-17 18h27m-3.9-4.6 4.5 4.6-4.5 4.6">
+                                </path>
+                                <circle cx="-255.5" cy="376.5" r="1.5" fill="currentColor"></circle>
+                                <circle cx="-250.5" cy="376.5" r="1.5" fill="currentColor"></circle>
+                                <circle cx="-245.5" cy="376.5" r="1.5" fill="currentColor"></circle>
+                            </svg>
+                            <p class="text-center mt-6">After clicking “Pay now”, you will be redirected to Pay via
+                                (Debit/Credit cards/Wallets/Installments) to complete your purchase securely.</p>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <input type="radio" id="cod" name="payment-method" value="cod"
+                            (change)="onPaymentMethodChange('cod')">
+                        <label for="cod" class="accordion-label">
+                            <span class="custom-radio"></span>
+                            <span class="payment-span">Cash on Delivery (COD)</span>
+                        </label>
+                        <div class="accordion-content">
+                            <p>Cash On Delivery(Extra 10 EGP will be applied).</p>
+                        </div>
+                    </div>
+                </div>
+
+                @if (showBillingAddress) {
+                <h3 class="text-base font-medium mb-2 mt-6 ">Billing Address</h3>
+
+                <div id="billing-address" class="mb-2">
+                    <label for="sameAddress" class="accordion-label">
+                        <input type="radio" id="sameAddress" name="billing-option"
+                            (change)="onBillingOptionChange('same')" [checked]="selectedBillingOption === 'same'">
+                        <span class="payment-span">Same as shipping address</span>
+                    </label>
+
+                    <label for="differentAddress" class="accordion-label">
+                        <input type="radio" id="differentAddress" name="billing-option"
+                            (change)="onBillingOptionChange('different')"
+                            [checked]="selectedBillingOption === 'different'">
+                        <span class="payment-span">Use a different billing address</span>
+                    </label>
+
+                    @if (selectedBillingOption === 'different') {
+                    <div class="billing-form mb-9">
+                        <form>
+                            <div class="grid gap-6 mb-6 md:grid-cols-2">
+                                <div>
+                                    <input type="text" id="first_name"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        placeholder="First Name" required />
+                                </div>
+                                <div>
+                                    <input type="text" id="last_name"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        placeholder="Last Name" required />
+                                </div>
+                                <div class="col-span-2">
+                                    <input type="text" id="address"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        placeholder="Address" required />
+                                </div>
+                                <div class="col-span-2">
+                                    <input type="tel" id="apartment"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        placeholder="Apartment, suite, etc." required />
+                                </div>
+                                <div class="grid grid-cols-3 gap-4 col-span-2">
+                                    <div>
+                                        <input type="text" id="city"
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            placeholder="City" required />
+                                    </div>
+                                    <div>
+                                        <select id="Governorate"
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                            <option disabled selected>Governorate</option>
+                                            <option value="Cairo">Cairo</option>
+                                            <option value="Giza">Giza</option>
+                                            <option value="Alexandria">Alexandria</option>
+                                            <option value="Aswan">Aswan</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <input type="text" id="zip_code"
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            placeholder="Zip Code (optional)" />
+                                    </div>
+                                </div>
+                                <div class="col-span-2">
+                                    <input type="tel" id="phone"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        placeholder="Phone" required />
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    }
+                </div>
+                }
+
+
+                <button type="submit"
+                    class="btn w-full text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-lg px-5 py-2.5 text-center">Pay
+                    Now</button>
+            </form>
+        </div>
+        <div class="second w-full md:w-1/2 bg-gray-100">
+            <div class="order-summary p-10 ">
+                <div class="flex justify-between items-center border-b pb-4 mb-4">
+                    <div class="flex items-center space-x-4">
+                        <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1740&amp;q=80"
+                            alt="Ribbed Fitted Half Sleeve Top" class="w-16 h-16 object-cover">
+                        <div>
+                            <p class="text-sm font-medium">Ribbed Fitted Half Sleeve Top</p>
+                            <p class="text-gray-500 text-sm">Black / XS</p>
+                        </div>
+                    </div>
+                    <p class="text-sm">£510.00</p>
+                </div>
+                <div class="flex justify-between items-center mb-4">
+                    <input type="text" placeholder="Discount code"
+                        class="w-3/4 bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <button disabled
+                        class="btn w-1/4 ml-4 text-white bg-blue-700  focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Apply</button>
+                </div>
+                <div class="flex justify-between items-center border-b pb-4 mb-4">
+                    <p class="text-sm">Subtotal</p>
+                    <p class="text-sm">£510.00</p>
+                </div>
+                <div class="flex justify-between items-center border-b pb-4 mb-4">
+                    <p class="text-sm">Shipping</p>
+                    <p class="text-sm">Free</p>
+                </div>
+                <div class="flex justify-between items-center mb-4">
+                    <p class="text-lg font-medium">Total</p>
+                    <p class="text-lg font-medium">£490.00</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

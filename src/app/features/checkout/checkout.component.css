@@ -1,0 +1,169 @@
+.form {
+  margin-top: 1rem;
+  justify-content: space-evenly;
+}
+
+.second {
+  height: 100vh;
+
+}
+
+.order-summary {
+  position: sticky;
+  top: 20px;
+  max-height: calc(100vh - 300px);
+  overflow-y: auto;
+}
+
+.btn {
+  background-color: hsl(203.92deg 76.88% 39.02%);
+}
+
+.btn:hover {
+  background-color: hsl(204, 79%, 30%);
+}
+
+
+.accordion-item {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  background-color: #f9f9f9;
+  transition: border 0.3s ease, background-color 0.3s ease;
+}
+
+.accordion-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 15px;
+  font-size: 16px;
+  background-color: #ffffff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.accordion-item input[type="radio"] {
+  display: none;
+}
+
+.accordion-item input[type="radio"]:checked+.accordion-label {
+  background-color: #e0f0ff;
+  border: 2px solid #007bff;
+}
+
+
+.payment-logos {
+  display: flex;
+  gap: 5px;
+}
+
+.payment-logos img {
+  width: 40px;
+}
+
+.accordion-content {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  padding: 15px;
+  border-top: 1px solid #ddd;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+svg {
+  width: 35%;
+  height: 20%;
+}
+
+.accordion-item input[type="radio"]:checked+.accordion-label+.accordion-content {
+  display: flex;
+}
+
+.payment-input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.billing-checkbox {
+  display: flex;
+  align-items: center;
+}
+
+.billing-checkbox input {
+  margin-right: 10px;
+}
+
+.custom-radio {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #007bff;
+  border-radius: 50%;
+  position: relative;
+}
+
+.custom-radio::before {
+  content: '';
+  width: 10px;
+  height: 10px;
+  background-color: #007bff;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.accordion-item input[type="radio"]:checked+.accordion-label .custom-radio::before {
+  opacity: 1;
+}
+
+.payment-span {
+  margin-right: auto;
+  margin-left: 10px;
+}
+
+.accordion-label:hover {
+  background-color: #f0f8ff;
+  border-color: #007bff;
+}
+
+.billing-form {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border: 1px solid #ddd;
+
+}
+
+
+a {
+  cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+
+  .form {
+    flex-direction: column;
+  }
+
+  .order-summary {
+    width: 100%;
+  }
+
+  .second {
+    height: auto;
+  }
+
+  .payment-logos img {
+    width: 30px;
+  }
+  
+}
