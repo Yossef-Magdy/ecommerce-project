@@ -64,7 +64,7 @@ export class ProductDetailsComponent {
         this.data = product.data;
         this.quantity = this.cartService.getQuantity(this.data.id);
 
-        console.log(this.data);
+        console.log(this.data.images);
         
         this.colors = [... new Set(this.data.details.map((detail: IProductDetail) => detail.color))];
         this.sizes = [... new Set(this.data.details.map((detail: IProductDetail) => detail.size))];
