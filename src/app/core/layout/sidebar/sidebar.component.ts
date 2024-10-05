@@ -20,9 +20,9 @@ export class SidebarComponent {
     initFlowbite();
     this.authService.checkUser().subscribe((response) => {
       this.validLogin = response;
-      if (this.validLogin) {
-        this.userData = this.authService.getUserData();
-      }
+    });
+    this.authService.userData.subscribe((response: any) => {
+      this.userData = response;
     });
   }
 
