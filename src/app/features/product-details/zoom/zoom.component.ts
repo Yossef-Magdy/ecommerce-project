@@ -10,4 +10,13 @@ import { GallerySwiperComponent } from '../gallery-swiper/gallery-swiper.compone
 })
 export class ZoomComponent {
   @Input() images!: any;
+
+  ngOnInit(){
+    if (!this.images || !Array.isArray(this.images) || this.images.length === 0) {
+      console.error('No images available for the zoom component.');
+      return;
+    }
+    console.log(this.images);
+  }
+  
 }
