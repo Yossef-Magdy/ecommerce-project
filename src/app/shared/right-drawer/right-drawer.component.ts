@@ -9,5 +9,5 @@ import { Component, Input } from '@angular/core';
 })
 export class RightDrawerComponent {
   @Input() title!: string;
-
+  @Input() text!: string;
 }
