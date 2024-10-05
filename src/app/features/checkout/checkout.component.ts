@@ -32,11 +32,18 @@ export class CheckoutComponent {
       this.selectedBillingOption = 'same';
     }
   }
+  onShippingOptionChange(event: Event) {
+    const target = event.target as HTMLInputElement;
+    if (target) {
+      this.showBillingAddress = !target.checked;
+    }
+  }
 
   onBillingOptionChange(option: string) {
     this.selectedBillingOption = option;
-  }
 
+    this.showBillingAddress = (option === 'different');
+  }
 
   onLogout() {
     this.isUserLoggedIn = false;

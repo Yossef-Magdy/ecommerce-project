@@ -1,51 +1,54 @@
-
 <div class="px-6 mx-auto max-w-7xl py-8">
     <div class="flex flex-col md:flex-row gap-8">
         <div class="w-full md:w-1/2 mb-8 md:mb-0">
-            <div class="flex">
+            <div class="flex-col justify-between">
                 @if (!isUserLoggedIn) {
-                    <div class="mb-2 w-full">
-                        <label for="default-input"
-                            class="flex justify-between mb-2 text-xl font-medium text-gray-900 dark:text-white">
-                            Contact 
-                            <a routerLink="/auth/login" class="text-sm text-blue-500 underline">Log in</a>
-                        </label>
-                        <input type="text" id="default-input"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            placeholder="Email or mobile number">
-                    </div>
-                } @else {
-                    <div>
-                        <a class="flex justify-between items-center mb-2 text-sm text-gray-500 hover:text-blue-500 " (click)="toggleDropdown()">
-                            Account
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14" focusable="false" aria-hidden="true"
-                                class="a8x1wu10 a8x1wuz _1fragem1y _1fragemod _1fragemkk _1fragemka _1fragemnm" 
-                                style="width: 16px; height: 16px;">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="m11.9 5.6-4.653 4.653a.35.35 0 0 1-.495 0L2.1 5.6"></path>
-                            </svg>
-                        </a>
-                        <p class="mb-3">{{ userEmail }}</p>
-            
-                        @if (dropdownVisible) {
-                            <span>
-                                <a class="text-sm text-blue-500 underline" (click)="onLogout()">Logout</a>
-                            </span>
-                        }
-                        <hr>
-                    </div>
-                }
-            </div>
-            
-            <div class="flex mb-6 mt-4">
-                <div class="h-5">
-                    <input id="remember" type="checkbox" value=""
-                        class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800" />
+                <div class="mb-2 w-full">
+                    <label for="default-input"
+                        class="flex justify-between mb-2 text-xl font-medium text-gray-900 dark:text-white">
+                        Contact
+                        <a routerLink="/auth/login" class="text-sm text-blue-500 underline">Log in</a>
+                    </label>
+                    <input type="text" id="default-input"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="Email or mobile number">
                 </div>
-                <label for="remember" class="ms-2 mt-1 text-sm font-medium text-gray-900 dark:text-gray-300">Email me
-                    with news and offers.</label>
+                <div class="flex mb-6 mt-4">
+                    <div class="h-5">
+                        <input id="remember" type="checkbox" value=""
+                            class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800" />
+                    </div>
+                    <label for="remember" class="ms-2 mt-1 text-sm font-medium text-gray-900 dark:text-gray-300">Email
+                        me
+                        with news and offers.</label>
+                </div>
+                } @else {
+                <div>
+                    <a class="flex justify-between items-center mb-2 text-sm text-gray-500 hover:text-blue-500 "
+                        (click)="toggleDropdown()">
+                        Account
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14" focusable="false" aria-hidden="true"
+                            class="a8x1wu10 a8x1wuz _1fragem1y _1fragemod _1fragemkk _1fragemka _1fragemnm"
+                            style="width: 16px; height: 16px;">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="m11.9 5.6-4.653 4.653a.35.35 0 0 1-.495 0L2.1 5.6"></path>
+                        </svg>
+                    </a>
+                    <p class="mb-3">{{ userEmail }}</p>
+
+                    @if (dropdownVisible) {
+                    <span>
+                        <a class="text-sm text-blue-500 underline" (click)="onLogout()">Logout</a>
+                    </span>
+                    }
+
+                </div>
+                }
+
             </div>
-            <h3 class="text-xl font-medium mb-2">Delivery</h3>
+            <hr class="mt-3">
+
+            <h3 class="text-xl font-medium mb-2 mt-4">Delivery</h3>
 
             <form>
                 <div class="grid gap-6 mb-6 md:grid-cols-2">
@@ -131,7 +134,7 @@
                         <label for="credit-card" class="accordion-label">
                             <span class="custom-radio"></span>
                             <span class="payment-span">Credit card</span>
-                            <div class="payment-logos space-x-2">
+                            <div class="payment-logos">
                                 <img src="https://cdn.shopify.com/shopifycloud/checkout-web/assets/c1.en/assets/mada.B18Lw7s7.svg"
                                     alt="Visa">
                                 <img src="https://cdn.shopify.com/shopifycloud/checkout-web/assets/c1.en/assets/omannet.DA0vueZ7.svg"
@@ -153,6 +156,7 @@
                                 <div class="flex">
                                     <div class="h-5">
                                         <input id="remember2" type="checkbox" value=""
+                                            (change)="onShippingOptionChange($event)" checked
                                             class=" w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800" />
                                     </div>
                                     <label for="remember2"
@@ -169,7 +173,7 @@
                         <label for="wallets" class="accordion-label">
                             <span class="custom-radio"></span>
                             <span class="payment-span">Pay via (Debit/Credit cards/Wallets/Installments)</span>
-                            <div class="payment-logos space-x-2">
+                            <div class="payment-logos">
                                 <img src="https://cdn.shopify.com/shopifycloud/checkout-web/assets/c1.en/assets/mada.B18Lw7s7.svg"
                                     alt="Visa">
                                 <img src="https://cdn.shopify.com/shopifycloud/checkout-web/assets/c1.en/assets/omannet.DA0vueZ7.svg"
