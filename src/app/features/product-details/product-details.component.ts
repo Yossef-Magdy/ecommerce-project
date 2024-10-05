@@ -8,7 +8,7 @@ import { ProductCardComponent } from '../../shared/product-card/product-card.com
 import { ZoomComponent } from './zoom/zoom.component';
 import { RightDrawerComponent } from '../../shared/right-drawer/right-drawer.component';
 import { CartItem, CartService } from '../../services/cart.service';
-import { IProduct } from '../../data-interfaces';
+import { IProduct, IProductDetail } from '../../data-interfaces';
 import { ProductDetailsService } from './product-details.service';
 
 @Component({
@@ -31,27 +31,9 @@ export class ProductDetailsComponent {
   data !: IProduct;
   cartItems: CartItem[] = [];
   quantity: number = 1;
-;
-  // data = {
-  //   id: 1,
-  //   stock: 5,
-  //   slug: 'slug',
-  //   name: 'T-Shirt',
-  //   description: 'desc',
-  //   price: 190,
-  //   images: [
-  //     'assets/1.jpg',
-  //     'assets/2.jpg',
-  //     'assets/3.jpg',
-  //     'assets/4.jpg',
-  //     'assets/5.jpg',
-  //   ],
-  //   colors: ['red', 'black', 'grey', 'beige'],
-  //   sizes : ['S', 'M', 'L', 'XL'],
-  //   rating: 4.5,
-  //   reviews: 76,
-  // };
-  
+  colors: string[] = [];
+  sizes: string[] = [];
+
 
   constructor(private cartService: CartService, private activatedRoute: ActivatedRoute, private productDetails: ProductDetailsService){}
 
@@ -74,14 +56,18 @@ export class ProductDetailsComponent {
   }
 
   ngOnInit(){
-    const routeId = this.activatedRoute.snapshot.params['id'];
+    const routeSlug = this.activatedRoute.snapshot.params['slug'];
     this.productDetails
-      .getProductById(routeId)
+      .getProductById(routeSlug)
       .subscribe((product: any) => {
-        console.log(product.data);
         
-          this.data = product.data;
-          this.quantity = this.cartService.getQuantity(this.data.id);
+        this.data = product.data;
+        this.quantity = this.cartService.getQuantity(this.data.id);
+
+        console.log(this.data.images);
+        
+        this.colors = [... new Set(this.data.details.map((detail: IProductDetail) => detail.color))];
+        this.sizes = [... new Set(this.data.details.map((detail: IProductDetail) => detail.size))];
       });
 
       this.cartService.getItems().subscribe((items) => {

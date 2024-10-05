@@ -1,4 +1,4 @@
-import { Component, HostListener, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Component, HostListener, CUSTOM_ELEMENTS_SCHEMA, Input } from '@angular/core';
 
 @Component({
   selector: 'app-gallery-swiper',
@@ -12,14 +12,20 @@ export class GallerySwiperComponent {
   direction: 'horizontal' | 'vertical' = 'vertical';
   swiperStyle: any = {};  // Store styles dynamically
 
-  images = [
-    { id: 1, src: "assets/1.jpg" },
-    { id: 2, src: "assets/2.jpg" },
-    { id: 3, src: "assets/3.jpg" },
-    { id: 4, src: "assets/4.jpg" },
-    { id: 5, src: "assets/5.jpg" },
-    { id: 6, src: "assets/1.jpg" },
-  ];
+  @Input() images!: any[];
+
+  ngOnInit(){
+
+    console.log(this.images);
+  }
+  // images = [
+  //   { id: 1, src: "assets/1.jpg" },
+  //   { id: 2, src: "assets/2.jpg" },
+  //   { id: 3, src: "assets/3.jpg" },
+  //   { id: 4, src: "assets/4.jpg" },
+  //   { id: 5, src: "assets/5.jpg" },
+  //   { id: 6, src: "assets/1.jpg" },
+  // ];
 
   constructor() {
     this.updateDirectionBasedOnScreenSize();

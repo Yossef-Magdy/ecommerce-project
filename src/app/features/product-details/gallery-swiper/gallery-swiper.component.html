@@ -2,9 +2,9 @@
     <div class="slider-wrapper">
         <swiper-container style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff;" class="mySwiper"
             thumbs-swiper=".mySwiper2" space-between="10" controller-control=".mySwiper2">
-            @for(img of images; track img.id){
+            @for(img of images; track $index){
                 <swiper-slide>
-                    <img [src]="img.src"/>
+                    <img [src]="img"/>
                 </swiper-slide>
             }
         </swiper-container>
@@ -12,9 +12,9 @@
         <div>
             <swiper-container class="mySwiper2" space-between="10" slides-per-view="5" free-mode="true"
             watch-slides-progress="true" [direction]="direction" mousewheel-force-to-axis="true" [style]="swiperStyle">
-                @for(img of images; track img.id){
+                @for(img of images; track $index){
                     <swiper-slide>
-                        <img [src]="img.src" class="object-contain"/>
+                        <img [src]="img" class="object-contain"/>
                     </swiper-slide>
                 }
             </swiper-container>
