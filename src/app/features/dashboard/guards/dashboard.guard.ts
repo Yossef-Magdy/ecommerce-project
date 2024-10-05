@@ -6,8 +6,8 @@ import { map } from 'rxjs';
 export const dashboardGuard: CanActivateFn = (route, state) => {
   const authService = inject(AuthService);
   const router = inject(Router);
-  return authService.hasRolesOrPermissions().pipe(
-    map(response => {
+  return authService.canAccessDashboard().pipe(
+    map((response) => {
       if (response) {
         return true;
       }

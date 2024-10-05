@@ -11,10 +11,9 @@ import { AuthService } from '../../core/auth/services/auth.service';
 export class DashboardComponent {
   userData: any;
   constructor(private authService: AuthService) {}
-  ngAfterInit() {
-    this.userData = this.authService.getUserData();
-    console.log(this.userData);
-  }
   ngOnInit() {
+    this.authService.userData.subscribe((response: any) => {
+      this.userData = response;
+    });
   }
 }
