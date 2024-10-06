@@ -13,6 +13,7 @@ import { RouterLink } from '@angular/router';
 export class CollectionComponent{
 
   clothsCards !: any[];
+  length!:number;
   constructor(private allProducts:AllProductsService){}
 
   ngOnInit(){
@@ -20,6 +21,7 @@ export class CollectionComponent{
       (data) => {
         console.log(data.data);
         this.clothsCards = data.data;
+        this.length = this.clothsCards.length;
         this.clothsCards.forEach((card) => {
           card.current_image = card.cover_image;
         });
