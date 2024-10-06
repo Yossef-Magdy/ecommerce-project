@@ -1,6 +1,6 @@
 <!-- Main modal -->
 <div id="static-modal" data-modal-backdrop="static" tabindex="-1" aria-hidden="true"
-    class="hidden fixed inset-0 z-50 flex justify-center items-center w-full h-full">
+    class="hidden fixed inset-0 z-50 flex justify-center items-center w-full h-full backdrop-filter backdrop-blur">
     
     <div class="relative w-full h-full p-4">
         <div class="absolute top-0 right-0 p-4 z-50">
@@ -20,7 +20,7 @@
                 <!-- product images -->
                 @for(image of images; track $index){
                     <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                        <img [src]="image" class="absolute block w-full h-full object-contain">
+                        <img [src]="image" class="absolute block w-full h-full object-contain" loading="lazy">
                     </div>
                 }
             </div>
