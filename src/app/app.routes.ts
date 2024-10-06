@@ -14,6 +14,9 @@ import { ForbiddenComponent } from './features/forbidden/forbidden.component';
 import { DashboardComponent } from './features/dashboard/dashboard.component';
 import { authGuard } from './core/auth/guards/auth.guard';
 import { dashboardGuard } from './features/dashboard/guards/dashboard.guard';
+import { AddCategoryComponent } from './features/dashboard/pages/add-category/add-category.component';
+import { AddCouponComponent } from './features/dashboard/pages/add-coupon/add-coupon.component';
+import { AddProductComponent } from './features/dashboard/pages/add-product/add-product.component';
 import { AddUserComponent } from './features/dashboard/pages/add-user/add-user.component';
 
 export const routes: Routes = [
@@ -76,7 +79,22 @@ export const routes: Routes = [
                 path: 'new-user',
                 component: AddUserComponent,
                 title: 'Add New User'
-            }
+            },
+            {
+                path: 'new-coupon',
+                component: AddCouponComponent,
+                title: 'Add New Coupon'
+            },
+            {
+                path: 'new-category',
+                component: AddCategoryComponent,
+                title: 'Add New Category'
+            },
+            {
+                path: 'new-product',
+                component: AddProductComponent,
+                title: 'Add New Product'
+            },
         ]
     },
     {
