@@ -1,33 +1,50 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import {
   HttpClient,
   HttpErrorResponse,
   HttpStatusCode,
 } from '@angular/common/http';
-import { catchError, Observable, tap, throwError } from 'rxjs';
+import { BehaviorSubject, catchError, concatMap, map, Observable, of, tap } from 'rxjs';
 import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private userData: any;
+  private userDataSubject: any = new BehaviorSubject<any>(null);
+  private hasRolesOrPermissionsSubject = new BehaviorSubject<boolean>(false);
+
+  userData = this.userDataSubject.asObservable();
+  hasRolesOrPermissions = this.hasRolesOrPermissionsSubject.asObservable();
+
 
   constructor(private http: HttpClient, private router: Router) {}
 
   login(userData: any) {
     return this.http.post('/login', userData).pipe(
-      tap((response: any) => {
-        this.saveToken(response);
+      concatMap((token: any) => {
+        this.saveToken(token);
         this.goHome();
+        return this.http.get('/user').pipe(
+          tap((response: any) => {
+            this.setUserData(response);
+            this.setHasRolesOrPermissions(response.roles.length || response.permissions.length);
+          })
+        );
       })
     );
   }
 
   register(userData: any) {
     return this.http.post('/register', userData).pipe(
-      tap((response: any) => {
-        this.saveToken(response);
+      concatMap((token: any) => {
+        this.saveToken(token);
         this.goHome();
+        return this.http.get('/user').pipe(
+          tap((response: any) => {
+            this.setUserData(response);
+            this.setHasRolesOrPermissions(response.roles.length || response.permissions.length);
+          })
+        );
       })
     );
   }
@@ -35,18 +52,41 @@ export class AuthService {
   logout() {
     this.removeToken();
     this.setUserData(null);
+    this.goHome();
+  }
+  checkUser(): Observable<boolean> {
+    return this.http.get('/user').pipe(
+      map((response: any) => {
+        this.setUserData(response);
+        this.setHasRolesOrPermissions(response.roles.length || response.permissions.length);
+        return true;
+      }), catchError((error: HttpErrorResponse) => {
+        if (error.status == HttpStatusCode.Unauthorized) {
+          this.removeToken();
+        }
+        this.setUserData(null);
+        return of(false);
+      })
+    );
   }
   
-  getUser() {
-    return this.http.get('/user');
+  canAccessDashboard(): Observable<boolean> {
+    return this.http.get('/user').pipe(
+      map((response: any) => {
+        this.setHasRolesOrPermissions(response.roles.length || response.permissions.length);
+        return response.roles.length || response.permissions.length;
+      }), catchError((error: HttpErrorResponse) => {
+        return of(false);
+      })
+    );
   }
 
-  getUserData() {
-    return this.userData;
-  }
-  
   setUserData(userData: any) {
-    this.userData = userData;
+    this.userDataSubject.next(userData);
+  }
+
+  setHasRolesOrPermissions(value: boolean) {
+    this.hasRolesOrPermissionsSubject.next(value);
   }
 
   getToken() {
