@@ -1,7 +1,9 @@
 <div class="details_container flex flex-col md:flex-row my-5">
     <div class="product_gallery basis-full md:basis-2/3">
         <div class="w-full">
+            @if (data.images) {
             <app-gallery-swiper [images]="data.images"></app-gallery-swiper>
+            }
             <!-- Modal toggle -->
             <button data-modal-target="static-modal" data-modal-toggle="static-modal"
                 class="zoom-btn absolute bottom-16 left-8 py-2.5 px-5 ms-3 text-sm font-medium text-white focus:outline-none bg-black rounded-lg border border-black hover:bg-white hover:text-black focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
@@ -77,7 +79,7 @@
 
 <div class="flex flex-col justify-center container m-auto">
     <div class="drawer-item border-b">
-        <app-right-drawer [title]="'Description'"></app-right-drawer>
+        <app-right-drawer [title]="'Description'" [text]="data.description"></app-right-drawer>
     </div>
 </div>
 

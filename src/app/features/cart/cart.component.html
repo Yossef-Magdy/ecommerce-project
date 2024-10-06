@@ -24,9 +24,11 @@
                     <p class="shipping my-3"><a [routerLink]="['/shipping-policy']"
                         routerLinkActive="router-link-active">Shipping</a> calculated at checkout.</p>
                 </div>
-                <button class="checkout-btn">
-                    Checkout
-                </button>
+                <a [routerLink]="['/checkout']" routerLinkActive="router-link-active">
+                    <button class="checkout-btn">
+                        checkout
+                    </button>
+                </a>
             </div>
         </div>
         }
