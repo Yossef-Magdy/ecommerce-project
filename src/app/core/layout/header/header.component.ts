@@ -23,16 +23,13 @@ export class HeaderComponent {
       this.cartItems = items;
       this.calculateTotalQuantity();
     });
-    this.authService.checkUser().subscribe((isValid: boolean) => {
-      this.validLogin = isValid;
-    });
+    this.authService.checkUser().subscribe();
+    this.authService.validLogin.subscribe((value: boolean) => {
+      this.validLogin = value;
+    })
     this.authService.hasRolesOrPermissions.subscribe((value: boolean) => {
       this.hasRolesOrPermissions = value;
     });
-  }
-
-  logout() {
-    this.authService.logout();
   }
 
   calculateTotalQuantity(): void{

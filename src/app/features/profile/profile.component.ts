@@ -5,6 +5,7 @@ import { AddressBookComponent } from "../address-book/address-book.component";
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { AddAddressComponent } from "../add-address/add-address.component";
 import { EditAddressComponent } from "../edit-address/edit-address.component";
+import { AuthService } from '../../core/auth/services/auth.service';
 
 @Component({
   selector: 'app-profile',
@@ -15,6 +16,12 @@ import { EditAddressComponent } from "../edit-address/edit-address.component";
 })
 export class ProfileComponent {
 
+  constructor(private authService: AuthService) {}
+
   name = 'Hadeer'.toUpperCase();
   selectedTab: string = 'overview';
+
+  logout() {
+    this.authService.logout();
+  }
 }

@@ -12,10 +12,11 @@ import { Router } from '@angular/router';
 export class AuthService {
   private userDataSubject: any = new BehaviorSubject<any>(null);
   private hasRolesOrPermissionsSubject = new BehaviorSubject<boolean>(false);
+  private validLoginSubject = new BehaviorSubject<boolean>(false);
 
   userData = this.userDataSubject.asObservable();
   hasRolesOrPermissions = this.hasRolesOrPermissionsSubject.asObservable();
-
+  validLogin = this.validLoginSubject.asObservable();
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -28,6 +29,7 @@ export class AuthService {
           tap((response: any) => {
             this.setUserData(response);
             this.setHasRolesOrPermissions(response.roles.length || response.permissions.length);
+            this.setValidLogin(true);
           })
         );
       })
@@ -52,17 +54,21 @@ export class AuthService {
   logout() {
     this.removeToken();
     this.setUserData(null);
+    this.setHasRolesOrPermissions(false);
+    this.setValidLogin(false);
     this.goHome();
   }
   checkUser(): Observable<boolean> {
     return this.http.get('/user').pipe(
-      map((response: any) => {
+      tap((response: any) => {
         this.setUserData(response);
         this.setHasRolesOrPermissions(response.roles.length || response.permissions.length);
+        this.setValidLogin(true);
         return true;
       }), catchError((error: HttpErrorResponse) => {
         if (error.status == HttpStatusCode.Unauthorized) {
           this.removeToken();
+          this.setValidLogin(false);
         }
         this.setUserData(null);
         return of(false);
@@ -87,6 +93,10 @@ export class AuthService {
 
   setHasRolesOrPermissions(value: boolean) {
     this.hasRolesOrPermissionsSubject.next(value);
+  }
+
+  setValidLogin(value: boolean) {
+    this.validLoginSubject.next(value);
   }
 
   getToken() {
