@@ -14,6 +14,7 @@ import { ForbiddenComponent } from './features/forbidden/forbidden.component';
 import { DashboardComponent } from './features/dashboard/dashboard.component';
 import { authGuard } from './core/auth/guards/auth.guard';
 import { dashboardGuard } from './features/dashboard/guards/dashboard.guard';
+import { AddUserComponent } from './features/dashboard/pages/add-user/add-user.component';
 
 export const routes: Routes = [
     {
@@ -71,6 +72,11 @@ export const routes: Routes = [
                 component: DashboardComponent,
                 title: 'Dashboard',
             },
+            {
+                path: 'new-user',
+                component: AddUserComponent,
+                title: 'Add New User'
+            }
         ]
     },
     {
