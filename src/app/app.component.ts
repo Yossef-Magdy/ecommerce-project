@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { NavigationEnd, RouterOutlet } from '@angular/router';
 import { HeaderComponent } from "./core/layout/header/header.component";
 import { FooterComponent } from './core/layout/footer/footer.component';
 import { initFlowbite } from 'flowbite';
@@ -20,6 +20,11 @@ export class AppComponent {
 
   ngOnInit(): void {
     initFlowbite();
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        window.scrollTo(0, 0); // Scrolls to the top-left corner when route changes
+      }
+    });
   }
 
   inDashboard() {
