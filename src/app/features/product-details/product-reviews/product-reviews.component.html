@@ -1,0 +1,34 @@
+<h1>Product Reviews</h1>
+<div class="review-container">
+    <div *ngFor="let review of reviews" class="review">
+        <div class="review-card">
+            <div class="profile">
+                <img src="https://via.placeholder.com/50" alt="Reviewer Profile" class="profile-img">
+                <div class="profile-info">
+                    <h4>{{review.reviewer}}</h4>
+                </div>
+            </div>
+            <div class="rating">
+                <app-star-rating [rating]="review.rating"></app-star-rating>
+            </div>
+            <div class="review-date">
+                <p>06/09/2022</p>
+            </div>
+            <div class="review-content">
+                <h5>Satisfactorio</h5>
+                <p>{{ review.comment }}</p>
+            </div>
+        </div>
+    </div>
+    <!-- <h1>Product Reviews</h1>
+    <div *ngFor="let review of reviews" class="review">
+      <div class="review-header">
+        <h3>{{ review.user }}</h3>
+        <span class="rating">
+            <app-star-rating [rating]="review.rating"></app-star-rating>
+        </span>
+      </div>
+      <p>{{ review.comment }}</p> -->
+    </div>
+  
+  

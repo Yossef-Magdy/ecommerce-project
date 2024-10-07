@@ -19,7 +19,9 @@
         <h2 class="product_title my-2">{{data.name}}</h2>
         <div class="rating flex flex-row my-2">
             <span class="mx-1"><app-star-rating [rating]="data.rating"></app-star-rating></span>
-            <span class="">{{data.reviews.length}} reviews</span>
+            <a [routerLink]="['/reviews', data.id]">
+                <span class="">{{data.reviews.length}} reviews</span>
+            </a>
         </div>
         <p class="my-2">LE {{data.price}}</p>
         <p class="shipping my-3"><a [routerLink]="['/shipping-policy']"

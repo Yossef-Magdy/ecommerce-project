@@ -18,6 +18,7 @@ import { AddCategoryComponent } from './features/dashboard/pages/add-category/ad
 import { AddCouponComponent } from './features/dashboard/pages/add-coupon/add-coupon.component';
 import { AddProductComponent } from './features/dashboard/pages/add-product/add-product.component';
 import { AddUserComponent } from './features/dashboard/pages/add-user/add-user.component';
+import { ProductReviewsComponent } from './features/product-details/product-reviews/product-reviews.component';
 
 export const routes: Routes = [
     {
@@ -65,6 +66,11 @@ export const routes: Routes = [
         path: 'products/:slug',
         component: ProductDetailsComponent,
         title: 'Products',
+    },
+    {
+        path: 'reviews/:id',
+        component: ProductReviewsComponent,
+        title: 'Reviews',
     },
     {
         path: 'dashboard',

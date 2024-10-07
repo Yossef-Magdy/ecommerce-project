@@ -11,6 +11,7 @@ import { CartItem, CartService } from '../../services/cart.service';
 import { IProduct, IProductDetail } from '../../data-interfaces';
 import { ProductDetailsService } from './product-details.service';
 import { initFlowbite } from 'flowbite';
+import { ProductReviewsComponent } from "./product-reviews/product-reviews.component";
 
 @Component({
   selector: 'app-product-details',
@@ -24,7 +25,8 @@ import { initFlowbite } from 'flowbite';
     ProductCardComponent,
     ZoomComponent,
     RightDrawerComponent,
-  ],
+    ProductReviewsComponent
+],
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.css',
 })
