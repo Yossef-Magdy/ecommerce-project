@@ -12,7 +12,7 @@ import { StarRatingComponent } from "../../../shared/star-rating/star-rating.com
   styleUrl: './product-reviews.component.css'
 })
 export class ProductReviewsComponent {
-  reviews : any[] = [];
+  reviews !: any[];
   constructor(private productReviewsService:ProductReviewsServiceService, private activatedRoute: ActivatedRoute){}
 
   ngOnInit(){

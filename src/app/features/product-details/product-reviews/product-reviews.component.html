@@ -3,24 +3,30 @@
     <a routerLink="/" class="block capitalizee text-center text-black underline underline-offset-8 text-xs hover:no-underline mb-3">Continue Shopping</a>
 
     <div class="my-10 px-2 md:px-10 lg:px-28">
-        @if (reviews.length > 0) {
+        @if (reviews.length) {
             @for(review of reviews; track $index){
                 <div class="review">
                     <div class="review-card">
-                        <div class="profile">
-                            <img src="https://via.placeholder.com/50" alt="Reviewer Profile" class="profile-img">
-                            <div class="profile-info">
-                                <h4>{{review.reviewer}}</h4>
+                        <div class="flex flex-row justify-between">
+                            <div class="profile">
+                                <div class="profile-img">
+                                    <i class="fa-solid fa-user absolute top-1/3 right-1/3"></i>
+                                </div>
+                                <div class="profile-info">
+                                    <h4>{{review.reviewer}}</h4>
+                                </div>
+                            </div>
+                            <div class="review-date">
+                                <p>06/09/2022</p>
                             </div>
                         </div>
-                        <div class="rating">
-                            <app-star-rating [rating]="review.rating"></app-star-rating>
-                        </div>
-                        <div class="review-date">
-                            <p>06/09/2022</p>
+                        <div class="rating flex flex-row my-2">
+                            <span class="mx-1">
+                                <app-star-rating [rating]="review.rating"></app-star-rating>
+                            </span>
+                            <span>( {{review.rating}} )</span>
                         </div>
                         <div class="review-content">
-                            <h5>Satisfactorio</h5>
                             <p>{{ review.comment }}</p>
                         </div>
                     </div>
