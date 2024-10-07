@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ControlHeaderComponent } from './control-header.component';
+import { ManageCouponsComponent } from './manage-coupons.component';
 
-describe('ControlHeaderComponent', () => {
-  let component: ControlHeaderComponent;
-  let fixture: ComponentFixture<ControlHeaderComponent>;
+describe('ManageCouponsComponent', () => {
+  let component: ManageCouponsComponent;
+  let fixture: ComponentFixture<ManageCouponsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ControlHeaderComponent]
+      imports: [ManageCouponsComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(ControlHeaderComponent);
+    fixture = TestBed.createComponent(ManageCouponsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

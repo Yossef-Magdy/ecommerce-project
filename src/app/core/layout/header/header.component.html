@@ -4,12 +4,23 @@
             <li><a routerLink="/">home</a></li>
             <li><a routerLink="/collections">shop</a></li>
             <li><a routerLink="/contact">contact</a></li>
-            @if (hasRolesOrPermissions()) {
+            @if (hasRolesOrPermissions) {
                 <li><a routerLink="/dashboard">dashboard</a></li>
             }
         </ul>
         <div class="flex justify-center">
-            logo
+            <span class="logo">
+                <span class="elegant">ELEGANT</span>
+                <span class="wear">wear</span>
+            </span>
+            
+            <style>
+                .logo svg {
+                    max-width: 150px;  /* Set the max width to fit well in the header */
+                    max-height: 100px; /* Set the max height to fit within header height */
+                }
+            </style>
+            
         </div>
         <ul class="flex gap-6 capitalize font-light justify-end">
             <li>

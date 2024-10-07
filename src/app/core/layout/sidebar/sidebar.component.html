@@ -1,0 +1,145 @@
+<aside class="min-h-dvh max-h-dvh text-gray-900 overflow-y-auto scrollbar-hide grid grid-rows-[auto,1fr,auto] border-e border-gray-300">
+    <div class="py-4 px-6 border-b border-gray-300 h-20 flex justify-center items-center">
+        <h2>Ecommerce</h2>
+    </div>
+    <ul class="flex flex-col gap-0 h-100 py-4 px-4">
+        <li>
+            <a class="flex p-2 rounded-lg dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 group"
+                routerLink="/">
+                <img src="assets/icons/home.svg" class="size-6 me-2" alt="">
+                Home
+            </a>
+        </li>
+        <li>
+            <a class="flex p-2 rounded-lg dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 group"
+                routerLink="dashboard">
+                <img src="assets/icons/dashboard.svg" class="size-6 me-2" alt="">
+                Dashboard
+            </a>
+        </li>
+        <li>
+            <button type="button"
+                class="flex items-center w-full p-2 text-base font-normal transition duration-75 rounded-lg group hover:bg-gray-200 dark:text-white dark:hover:bg-gray-700"
+                aria-controls="users-dropdown" data-collapse-toggle="users-dropdown">
+                <img src="assets/icons/users.svg" class="size-6 me-2" alt="">      
+                <span class="text-left whitespace-nowrap" sidebar-toggle-item>users</span>
+                <img src="assets/icons/chevron-down.svg" class="size-5" alt="">
+            </button>
+            <ul id="users-dropdown" class="hidden py-2 space-y-2 ms-8">
+                <li>
+                    <a class="flex items-center w-full p-2 rounded-lg dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 group"
+                        routerLink="dashboard/new-user">
+                        Add new user
+                    </a>
+                </li>
+                <li>
+                    <a class="flex items-center w-full p-2 rounded-lg dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 group"
+                        href="">
+                        Manage users
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <button type="button"
+                class="flex items-center w-full p-2 text-base font-normal transition duration-75 rounded-lg group hover:bg-gray-200 dark:text-white dark:hover:bg-gray-700"
+                aria-controls="products-dropdown" data-collapse-toggle="products-dropdown">
+                <img src="assets/icons/box.svg" class="size-6 me-2" alt="">      
+                <span class="text-left whitespace-nowrap" sidebar-toggle-item>products</span>
+                <img src="assets/icons/chevron-down.svg" class="size-5" alt="">
+
+            </button>
+            <ul id="products-dropdown" class="hidden py-2 space-y-2 ms-8">
+                <li>
+                    <a class="flex items-center w-full p-2 rounded-lg dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 group"
+                        routerLink="dashboard/new-product">
+                        Add new product
+                    </a>
+                </li>
+                <li>
+                    <a class="flex items-center w-full p-2 rounded-lg dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 group"
+                        href="">
+                        Manage products
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <button type="button"
+                class="flex items-center w-full p-2 text-base font-normal transition duration-75 rounded-lg group hover:bg-gray-200 dark:text-white dark:hover:bg-gray-700"
+                aria-controls="categories-dropdown" data-collapse-toggle="categories-dropdown">
+                <img src="assets/icons/category.svg" class="size-6 me-2" alt="">      
+                <span class="text-left whitespace-nowrap" sidebar-toggle-item>categories</span>
+                <img src="assets/icons/chevron-down.svg" class="size-5" alt="">
+
+
+            </button>
+            <ul id="categories-dropdown" class="hidden py-2 space-y-2 ms-8">
+                <li>
+                    <a class="flex items-center w-full p-2 rounded-lg dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 group"
+                        routerLink="dashboard/new-category">
+                        Add new category
+                    </a>
+                </li>
+                <li>
+                    <a class="flex items-center w-full p-2 rounded-lg dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 group"
+                        href="">
+                        Manage categories
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <button type="button"
+                class="flex items-center w-full p-2 text-base font-normal transition duration-75 rounded-lg group hover:bg-gray-200 dark:text-white dark:hover:bg-gray-700"
+                aria-controls="orders-dropdown" data-collapse-toggle="orders-dropdown">
+                <img src="assets/icons/shopping-bag.svg" class="size-6 me-2" alt="">      
+                <span class="text-left whitespace-nowrap" sidebar-toggle-item>orders</span>
+                <img src="assets/icons/chevron-down.svg" class="size-5" alt="">
+            </button>
+            <ul id="orders-dropdown" class="hidden py-2 space-y-2 ms-8">
+                <li>
+                    <a class="flex items-center w-full p-2 rounded-lg dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 group"
+                        href="">
+                        Manage orders
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+        <li>
+            <button type="button"
+                class="flex items-center w-full p-2 text-base font-normal transition duration-75 rounded-lg group hover:bg-gray-200 dark:text-white dark:hover:bg-gray-700"
+                aria-controls="coupons-dropdown" data-collapse-toggle="coupons-dropdown">
+                <img src="assets/icons/tag.svg" class="size-6 me-2" alt="">      
+                <span class="text-left whitespace-nowrap" sidebar-toggle-item>coupons</span>
+                <img src="assets/icons/chevron-down.svg" class="size-5" alt="">
+            </button>
+            <ul id="coupons-dropdown" class="hidden py-2 space-y-2 ms-8">
+                <li>
+                    <a class="flex items-center w-full p-2 rounded-lg dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 group"
+                        routerLink="dashboard/new-coupon">
+                        Add new coupon
+                    </a>
+                </li>
+                <li>
+                    <a class="flex items-center w-full p-2 rounded-lg dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 group"
+                        href="">
+                        Manage coupons
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+    </ul>
+    <ul class="py-4 px-4 border-t border-gray-300">
+        <li>
+            <button type="button"
+                (click)="logout()"
+                class="flex items-center w-full p-2 text-base font-normal transition duration-75 rounded-lg group hover:bg-gray-200 dark:text-white dark:hover:bg-gray-700">
+                <img src="assets/icons/logout.svg" class="size-6 me-2" alt="">      
+                logout
+            </button>
+        </li>
+    </ul>
+</aside>

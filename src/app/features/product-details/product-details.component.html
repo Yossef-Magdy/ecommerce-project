@@ -24,14 +24,6 @@
         <p class="my-2">LE {{data.price}}</p>
         <p class="shipping my-3"><a [routerLink]="['/shipping-policy']"
                 routerLinkActive="router-link-active">Shipping</a> calculated at checkout.</p>
-        <div class="size-chart mt-3 mb-5" data-modal-target="default-modal" data-modal-toggle="default-modal">
-            <span><img src="assets/measuring-tape.svg" class="w-5 h-6"></span>
-            <span class="mx-1">Size Chart</span>
-        </div>
-        <div id="default-modal" tabindex="-1" aria-hidden="true"
-            class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-            <app-size-chart></app-size-chart>
-        </div>
 
         <!-- colors -->
         @if (colors){
@@ -73,7 +65,7 @@
             </button>
         </div>
 
-        <button type="submit" class="btn-add" (click)="onAddToCart()">Add To Cart</button>
+        <button type="submit" class="btn-add my-56" (click)="onAddToCart()">Add To Cart</button>
     </div>
 </div>
 

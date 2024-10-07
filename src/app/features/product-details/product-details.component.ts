@@ -10,6 +10,7 @@ import { RightDrawerComponent } from '../../shared/right-drawer/right-drawer.com
 import { CartItem, CartService } from '../../services/cart.service';
 import { IProduct, IProductDetail } from '../../data-interfaces';
 import { ProductDetailsService } from './product-details.service';
+import { initFlowbite } from 'flowbite';
 
 @Component({
   selector: 'app-product-details',
@@ -73,6 +74,10 @@ export class ProductDetailsComponent {
       this.cartService.getItems().subscribe((items) => {
         this.cartItems = items;
       });
+  }
+
+  ngAfterViewInit() {
+    initFlowbite();
   }
 
 
