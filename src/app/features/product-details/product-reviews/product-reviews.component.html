@@ -1,34 +1,41 @@
-<h1>Product Reviews</h1>
-<div class="review-container">
-    <div *ngFor="let review of reviews" class="review">
-        <div class="review-card">
-            <div class="profile">
-                <img src="https://via.placeholder.com/50" alt="Reviewer Profile" class="profile-img">
-                <div class="profile-info">
-                    <h4>{{review.reviewer}}</h4>
+<section class="reviews-section py-6">
+    <h1 class="mb-3 capitalizee">Product Reviews</h1>
+    <a routerLink="/" class="block capitalizee text-center text-black underline underline-offset-8 text-xs hover:no-underline mb-3">Continue Shopping</a>
+
+    <div class="my-10 px-2 md:px-10 lg:px-28">
+        @if (reviews.length > 0) {
+            @for(review of reviews; track $index){
+                <div class="review">
+                    <div class="review-card">
+                        <div class="profile">
+                            <img src="https://via.placeholder.com/50" alt="Reviewer Profile" class="profile-img">
+                            <div class="profile-info">
+                                <h4>{{review.reviewer}}</h4>
+                            </div>
+                        </div>
+                        <div class="rating">
+                            <app-star-rating [rating]="review.rating"></app-star-rating>
+                        </div>
+                        <div class="review-date">
+                            <p>06/09/2022</p>
+                        </div>
+                        <div class="review-content">
+                            <h5>Satisfactorio</h5>
+                            <p>{{ review.comment }}</p>
+                        </div>
+                    </div>
                 </div>
+            }
+        }
+        @else {
+            <div class="flex min-h-[50dvh] w-full flex-col items-center justify-center">
+                <div class="w-80">
+                    <img src="assets/noreviews.png" alt="no reviews" loading="lazy" />
+                </div>
+                <p class="text-gray-900 text-lg">
+                    There is no reviews yet.
+                </p>
             </div>
-            <div class="rating">
-                <app-star-rating [rating]="review.rating"></app-star-rating>
-            </div>
-            <div class="review-date">
-                <p>06/09/2022</p>
-            </div>
-            <div class="review-content">
-                <h5>Satisfactorio</h5>
-                <p>{{ review.comment }}</p>
-            </div>
-        </div>
+        }
     </div>
-    <!-- <h1>Product Reviews</h1>
-    <div *ngFor="let review of reviews" class="review">
-      <div class="review-header">
-        <h3>{{ review.user }}</h3>
-        <span class="rating">
-            <app-star-rating [rating]="review.rating"></app-star-rating>
-        </span>
-      </div>
-      <p>{{ review.comment }}</p> -->
-    </div>
-  
-  
+</section>

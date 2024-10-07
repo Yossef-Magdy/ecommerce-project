@@ -1,5 +1,5 @@
-body {
-    background-color: #e0e0e0;
+.review-section{
+    font-family: var(--font-body-family);
 }
 
 h1 {
