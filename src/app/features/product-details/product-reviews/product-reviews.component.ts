@@ -12,14 +12,14 @@ import { StarRatingComponent } from "../../../shared/star-rating/star-rating.com
   styleUrl: './product-reviews.component.css'
 })
 export class ProductReviewsComponent {
-  reviews !: any[];
+  reviews: any[] = [];
   constructor(private productReviewsService:ProductReviewsServiceService, private activatedRoute: ActivatedRoute){}
 
   ngOnInit(){
     const routeId = this.activatedRoute.snapshot.params['id'];
     this.productReviewsService.getReviewsById(routeId).subscribe((reviews:any)=>{
-      console.log(reviews);
-      this.reviews = reviews;
+      console.log(reviews.data);
+      this.reviews = reviews.data;
     })
   }
 }
