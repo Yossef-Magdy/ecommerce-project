@@ -1,11 +1,11 @@
-<div class="cards-wrapper">
+<!-- <div class="cards-wrapper">
   <div class="flex" [style.transform]="getClothsTransform()">
     @for (item of clothsCards; track $index) {
     <div class="product-card">
       <a href="#">
         <img [src]="item.image" [alt]="item.title" />
         <h3>{{ item.title }}</h3>
-        <!--In case of discount-->
+        In case of discount
         @if (item.isSale) {
         <span class="me-2 price">{{ item.newPrice }}</span>
         <span class="old-price">{{ item.oldPrice }}</span>
@@ -24,4 +24,4 @@
 </div>
 <div>
   <app-arrows [cards]="clothsCards" [currentIndex]="clothsCurrentIndex" [maxVisibleCards]="maxClothsVisibleCards" (arrowClick)="onClothsArrowClick($event)"></app-arrows>
-</div>
+</div> -->

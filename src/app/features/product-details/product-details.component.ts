@@ -13,6 +13,7 @@ import { ProductDetailsService } from './product-details.service';
 import { initFlowbite } from 'flowbite';
 import { ProductReviewsComponent } from "./product-reviews/product-reviews.component";
 import { NgFor, NgIf } from '@angular/common';
+import { RecentlyViewedServiceService } from '../../services/recently-viewed-service.service';
 
 @Component({
   selector: 'app-product-details',
@@ -48,10 +49,13 @@ export class ProductDetailsComponent {
   selectedStock: number = 0;  // Add stock
   discountPrice: number | null = null;
 
+  recentlyViewedProducts: IProduct[] = [];
+
   constructor(
     private cartService: CartService,
     private activatedRoute: ActivatedRoute,
-    private productDetails: ProductDetailsService
+    private productDetails: ProductDetailsService,
+    private recentlyViewedService: RecentlyViewedServiceService
   ) {}
 
   onAddToCart() {
@@ -110,16 +114,17 @@ export class ProductDetailsComponent {
         this.selectedColor = this.colors[0];
         this.availableSizes = this.getSizesByColor(this.selectedColor);
         this.selectedSize = this.availableSizes[0];
-        this.updatePrice();  // Initialize price
+        this.updatePrice(); 
 
         console.log(product);
+
+        this.recentlyViewedService.addToRecentlyViewed(this.data); // Add product to recently viewed
+        this.loadRecentlyViewedProducts(); // Load recently viewed products
       });
 
     this.cartService.getItems().subscribe((items) => {
       this.cartItems = items;
     });
-
-    
   }
 
   ngAfterViewInit() {
@@ -187,5 +192,14 @@ export class ProductDetailsComponent {
         this.discountPrice = this.data.price - this.data.discount_value;
       }
     }
+  }
+  
+  loadRecentlyViewedProducts() {
+    this.recentlyViewedProducts = this.recentlyViewedService.loadRecentlyViewed();
+  }
+
+  clearRecentlyViewed() {
+    this.recentlyViewedService.clearRecentlyViewed();
+    this.recentlyViewedProducts = [];
   }
 }
