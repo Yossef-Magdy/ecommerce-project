@@ -40,8 +40,8 @@
     transition: opacity 0.5s, border-color 0.5s, transform 0.5s;
 }
 
-.swatch_active{
-    border-color: black;
+input[type="radio"]:checked + label {
+    border: 2px solid black;
 }
 
 .swatch:hover{
@@ -120,6 +120,10 @@
 
 .drawer-item{
     margin: 0 10%;
+}
+
+.sold-out{
+    background: linear-gradient(to top right, #fff calc(50% - 1px), #aaa, #fff calc(50% + 1px))
 }
 
 @media (max-width: 768px) {
