@@ -34,8 +34,20 @@
                 </li>
                 <li>
                     <a class="flex items-center w-full p-2 rounded-lg dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 group"
-                        href="">
+                        routerLink="dashboard/new-role">
+                        Add new role
+                    </a>
+                </li>
+                <li>
+                    <a class="flex items-center w-full p-2 rounded-lg dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 group"
+                        routerLink="dashboard/manage-users">
                         Manage users
+                    </a>
+                </li>
+                <li>
+                    <a class="flex items-center w-full p-2 rounded-lg dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 group"
+                        routerLink="dashboard/manage-roles">
+                        Manage roles
                     </a>
                 </li>
             </ul>
@@ -58,7 +70,7 @@
                 </li>
                 <li>
                     <a class="flex items-center w-full p-2 rounded-lg dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 group"
-                        href="">
+                        routerLink="dashboard/manage-products">
                         Manage products
                     </a>
                 </li>
@@ -83,7 +95,13 @@
                 </li>
                 <li>
                     <a class="flex items-center w-full p-2 rounded-lg dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 group"
-                        href="">
+                        routerLink="dashboard/new-subcategory">
+                        Add new subcategory
+                    </a>
+                </li>
+                <li>
+                    <a class="flex items-center w-full p-2 rounded-lg dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 group"
+                        routerLink="dashboard/manage-categories">
                         Manage categories
                     </a>
                 </li>
@@ -100,7 +118,7 @@
             <ul id="orders-dropdown" class="hidden py-2 space-y-2 ms-8">
                 <li>
                     <a class="flex items-center w-full p-2 rounded-lg dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 group"
-                        href="">
+                        routerLink="dashboard/manage-orders">
                         Manage orders
                     </a>
                 </li>
@@ -124,8 +142,32 @@
                 </li>
                 <li>
                     <a class="flex items-center w-full p-2 rounded-lg dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 group"
-                        href="">
+                        routerLink="dashboard/manage-coupons">
                         Manage coupons
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+        <li>
+            <button type="button"
+                class="flex items-center w-full p-2 text-base font-normal transition duration-75 rounded-lg group hover:bg-gray-200 dark:text-white dark:hover:bg-gray-700"
+                aria-controls="locations-dropdown" data-collapse-toggle="locations-dropdown">
+                <img src="assets/icons/location.svg" class="size-6 me-2" alt="">      
+                <span class="text-left whitespace-nowrap" sidebar-toggle-item>locations</span>
+                <img src="assets/icons/chevron-down.svg" class="size-5" alt="">
+            </button>
+            <ul id="locations-dropdown" class="hidden py-2 space-y-2 ms-8">
+                <li>
+                    <a class="flex items-center w-full p-2 rounded-lg dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 group"
+                        routerLink="dashboard/new-location">
+                        Add new location
+                    </a>
+                </li>
+                <li>
+                    <a class="flex items-center w-full p-2 rounded-lg dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 group"
+                        routerLink="dashboard/manage-locations">
+                        Manage locations
                     </a>
                 </li>
             </ul>
