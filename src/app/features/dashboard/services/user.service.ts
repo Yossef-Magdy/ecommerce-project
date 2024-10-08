@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpStatusCode } from '@angular/common/http';
-import { catchError, map, Observable, of } from 'rxjs';
+import { catchError, map, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -27,10 +27,6 @@ export class UserService {
     return this.http.get(this.baseURL);
   }
 
-  getUser(userId: number) {
-    return this.http.get(`${this.baseURL}/${userId}`);
-  }
-
   updateUser(userData: any , userId: number) {
     userData = this.prepareUserData(userData);
     return this.http.put(`${this.baseURL}/${userId}`, userData);
@@ -45,6 +41,30 @@ export class UserService {
       'roles': userData.roles,
       'permissions': userData.permissions,
     };
+  }
+
+  getRoles() {
+    return this.http.get('/control/roles').pipe(
+      catchError ((error) => {
+        console.log('an error occurred when getting roles')
+        return of ([])
+      })
+    )
+  }
+
+  getPermissions() {
+    return this.http.get('/control/permissions').pipe(
+      map((permissions: any) => {
+        permissions.data.map((permission: any) => {
+          permission.name = permission.name.replace('-', ' ');
+        });
+        return permissions;
+      }),
+      catchError ((error) => {
+        console.log('an error occurred when getting permissions')
+        return of ([])
+      })
+    )
   }
 
 }
