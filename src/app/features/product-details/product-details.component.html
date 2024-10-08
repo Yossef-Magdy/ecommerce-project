@@ -18,7 +18,7 @@
     <div class="product_details basis-full md:basis-1/3 px-5 my-10">
         <h2 class="product_title my-2">{{data.name}}</h2>
         <div class="rating flex flex-row my-2">
-            <span class="mx-1"><app-star-rating [rating]="data.rating"></app-star-rating></span>
+            <span class="mx-1"><app-star-rating [rating]="data.rating || 0" [totalStars]="5"></app-star-rating></span>
             <a [routerLink]="['/reviews', data.id]">
                 <span class="">{{data.reviews.length}} reviews</span>
             </a>

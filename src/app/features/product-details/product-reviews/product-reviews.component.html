@@ -7,7 +7,7 @@
             @for(review of reviews; track $index){
                 <div class="review">
                     <div class="review-card">
-                        <div class="flex flex-row justify-between">
+                        <div class="flex flex-row justify-between items-center">
                             <div class="profile">
                                 <div class="profile-img">
                                     <i class="fa-solid fa-user absolute top-1/3 right-1/3"></i>
@@ -20,9 +20,9 @@
                                 <p> {{ review.created_at | date }} </p>
                             </div>
                         </div>
-                        <div class="rating flex flex-row my-2">
+                        <div class="rating flex flex-row my-2 items-center">
                             <span class="mx-1">
-                                <app-star-rating [rating]="review.rating"></app-star-rating>
+                                <app-star-rating [rating]="review.rating || 0" [totalStars]="5"></app-star-rating>
                             </span>
                             <span>( {{review.rating}} )</span>
                         </div>
