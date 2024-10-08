@@ -46,6 +46,7 @@ export class ProductDetailsComponent {
   availableSizes: string[] = [];
   availableColors: string[] = [];
   selectedStock: number = 0;  // Add stock
+  discountPrice: number | null = null;
 
   constructor(
     private cartService: CartService,
@@ -90,11 +91,15 @@ export class ProductDetailsComponent {
         this.availableSizes = this.getSizesByColor(this.selectedColor);
         this.selectedSize = this.availableSizes[0];
         this.updatePrice();  // Initialize price
+
+        console.log(product);
       });
 
     this.cartService.getItems().subscribe((items) => {
       this.cartItems = items;
     });
+
+    
   }
 
   ngAfterViewInit() {
@@ -151,9 +156,16 @@ export class ProductDetailsComponent {
     if (selectedDetail) {
       this.selectedPrice = selectedDetail.price;
       this.selectedStock = selectedDetail.stock;  // Update the stock
+      if (this.data.discount_value !== 0){
+        this.discountPrice = this.selectedPrice - this.data.discount_value;
+      }
+
     } else {
       this.selectedPrice = 0;
       this.selectedStock = 0;
+      if (this.data.discount_value !== 0){
+        this.discountPrice = this.data.price - this.data.discount_value;
+      }
     }
   }
 }

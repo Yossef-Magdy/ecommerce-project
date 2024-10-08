@@ -27,7 +27,20 @@
         </div>
 
         <!-- Display Selected Price -->
-        <p class="my-2">LE {{ selectedPrice || data.price }}</p>
+        <div class="my-2 flex flex-row justify-between">
+            @if(data.discount_value !== 0){
+                <div>
+                    <span class="line-through text-gray-600 text-sm">LE {{ selectedPrice || data.price }}</span>
+                    <span class="ml-1 text-red-500">LE {{ discountPrice }}</span>
+                </div>
+                <div>
+                    <span class="text-red-500 text-xs capitalizee mx-2 font-semibold">sale</span>
+                </div>
+            }
+            @else {
+                <p>LE {{ selectedPrice || data.price }}</p>
+            }
+        </div>
         <p class="shipping my-3">
             <a [routerLink]="['/shipping-policy']" routerLinkActive="router-link-active">
                 Shipping
@@ -115,11 +128,11 @@
     </div>
 </div>
 
-<!-- Recommended Products -->
+<!-- 
 <div class="w-full">
     <h2 class="title">You may also like</h2>
     <app-product-card></app-product-card>
-</div>
+</div> -->
 
 <!-- Recently Viewed Products -->
 <div class="w-full">
