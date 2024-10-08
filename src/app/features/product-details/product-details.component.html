@@ -81,7 +81,7 @@
         <div class="my-5" *ngIf="selectedStock > 0">
             <p>
                 Only
-                <span class="text-indigo-700">{{ selectedStock }}</span>
+                <span class="text-indigo-800">{{ selectedStock }}</span>
                 Left, Don't Miss It.
             </p>
         </div>
@@ -91,11 +91,11 @@
 
         <!-- Quantity Controls -->
         <div class="quantity-container flex">
-            <button type="button" class="basis-1/3 text-center" (click)="decreaseQuantity()" [disabled]="quantity <= 1">
+            <button type="button" class="basis-1/3 text-center inc" (click)="decreaseQuantity()" [disabled]="quantity <= 1">
                 <span class="minus">-</span>
             </button>
             <span class="basis-1/3 text-center py-1">{{ quantity }}</span>
-            <button type="button" class="basis-1/3 text-center" (click)="increaseQuantity()" [disabled]="quantity >= selectedStock">
+            <button type="button" class="basis-1/3 text-center dec" (click)="increaseQuantity()" [disabled]="quantity >= selectedStock">
                 <span class="plus">+</span>
             </button>
         </div>

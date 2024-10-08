@@ -66,6 +66,16 @@ input[type="radio"]:checked + label {
     color: black;
 }
 
+.btn-add:disabled{
+    color: white;
+    background-color: rgb(82, 82, 82);
+    pointer-events: none;
+}
+
+.inc:disabled, .dec:disabled{
+    pointer-events: none;
+}
+
 .quantity-container{
     border: 1px solid rgb(210, 209, 209);
     padding: 0.2rem;
