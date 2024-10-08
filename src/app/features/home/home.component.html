@@ -12,14 +12,17 @@
 
 <div class="cards-wrapper">
   <div class="flex" [style.transform]="getTransform()">
-    @for (card of categoryCards; track $index) {
-      <a href="#" class="card">
-        <img [src]="card.image" [alt]="card.title">
-        <div class="overlay">
-          <h2>{{ card.title }}</h2>
-          <span class="explore-button">EXPLORE</span>
-        </div>
-      </a>
+    @if (categoryCards) {
+
+      @for (category of categoryCards; track $index) {
+        <a href="#" class="card">
+          <img [src]="category.image" [alt]="category.name">
+          <div class="overlay">
+            <h2>{{category.name}}</h2>
+            <span class="explore-button">EXPLORE</span>
+          </div>
+        </a>
+      }
     }
   </div>
 
