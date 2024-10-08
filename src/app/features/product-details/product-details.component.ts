@@ -55,7 +55,27 @@ export class ProductDetailsComponent {
   ) {}
 
   onAddToCart() {
-    this.cartService.addToCart(this.data, this.quantity);
+    if (this.selectedColor && this.selectedSize && this.quantity > 0) {
+      if (this.quantity <= this.selectedStock) {
+        const cartItem: CartItem = {
+          productId: this.data.id,
+          productSlug:this.data.slug,
+          coverImg: this.data.cover_image,
+          name: this.data.name,
+          color: this.selectedColor,
+          size: this.selectedSize,
+          price: this.selectedPrice,
+          stock: this.selectedStock,
+          quantity: this.quantity,
+        };
+
+        this.cartService.addToCart(cartItem);
+      } else {
+        alert('Not enough stock available');
+      }
+    } else {
+      alert('Please select a valid color and size');
+    }
   }
 
   decreaseQuantity() {
@@ -66,7 +86,7 @@ export class ProductDetailsComponent {
   }
 
   increaseQuantity() {
-    if (this.quantity < this.selectedStock) {  // Check with stock
+    if (this.quantity < this.selectedStock) {  
       this.quantity++;
       this.cartService.updateQuantity(this.data.id, this.quantity);
     }

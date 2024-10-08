@@ -1,5 +1,5 @@
 .product-img img{
-    object-fit: contain;
+    object-fit: cover;
     object-position: center center;
     display: block;
     max-width: 100%;
