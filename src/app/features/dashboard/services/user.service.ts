@@ -15,10 +15,21 @@ export class UserService {
     userData = this.prepareUserData(userData);
     return this.http.post(this.baseURL, userData).pipe(
       catchError((error) => {
-        if (error.status == HttpStatusCode.BadRequest) {
+        if (error.status == HttpStatusCode.BadRequest || error.status == HttpStatusCode.UnprocessableEntity) {
           return of(error.error.errors);
         }
         return of("an error occured when adding the user");
+      })
+    );
+  }
+
+  addRole(data: any) {
+    return this.http.post('/control/roles', data).pipe(
+      catchError((error) => {
+        if (error.status == HttpStatusCode.BadRequest || error.status == HttpStatusCode.UnprocessableEntity) {
+          return of(error.error.errors);
+        }
+        return of("an error occured when adding the role");
       })
     );
   }
