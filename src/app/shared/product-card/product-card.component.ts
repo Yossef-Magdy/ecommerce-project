@@ -2,25 +2,26 @@ import { Component } from '@angular/core';
 import { ArrowsComponent } from "../arrows/arrows.component";
 import { RecentlyViewedServiceService } from '../../services/recently-viewed-service.service';
 import { IProduct } from '../../data-interfaces';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-product-card',
   standalone: true,
-  imports: [ArrowsComponent],
+  imports: [ArrowsComponent, RouterLink],
   templateUrl: './product-card.component.html',
   styleUrl: './product-card.component.css'
 })
 export class ProductCardComponent {
   clothsCurrentIndex = 0;
   maxClothsVisibleCards = 4;
-  products:IProduct[] = [];
+  clothsCards:IProduct[] = [];
 
   constructor(private recentlyViewedService: RecentlyViewedServiceService){}
 
   ngOnInit(){
     this.recentlyViewedService.getRecentlyViewed().subscribe((products: IProduct[]) => {
-      this.products = products; // Update the component state
-      console.log(this.products); // Log for debugging
+      this.clothsCards = products; // Update the component state
+      console.log(this.clothsCards); // Log for debugging
     });
   }
   

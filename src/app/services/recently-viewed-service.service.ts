@@ -40,7 +40,6 @@ export class RecentlyViewedServiceService {
     return this.getRecentlyViewedFromStorage() || [];
   }
 
-  // Get from storage
   private getRecentlyViewedFromStorage(): IProduct[] | null {
     const storedProducts = localStorage.getItem(this.STORAGE_KEY);
     return storedProducts ? JSON.parse(storedProducts) : null;
@@ -48,6 +47,6 @@ export class RecentlyViewedServiceService {
 
   clearRecentlyViewed(): void {
     localStorage.removeItem(this.STORAGE_KEY);
-    this.recentlyViewedSubject.next([]); // Emit an empty array
+    this.recentlyViewedSubject.next([]); 
   }
 }
