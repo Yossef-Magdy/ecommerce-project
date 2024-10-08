@@ -27,6 +27,7 @@ export class CollectionComponent{
         });
       }
     );
+    
   }
   changeImage(card: any, newImage: string){
     card.current_image = newImage;
