@@ -1,6 +1,5 @@
 <div class="cards-wrapper">
-  <!-- <div class="flex justify-center"> -->
-  <div class="cards-container" [style.transform]="getClothsTransform()">
+  <div class="cards-container" [ngClass]="{'justify-center': clothsCards.length <= 2}" [style.transform]="getClothsTransform()">
     @for (item of clothsCards; track $index) {
     <div class="product-card">
       <a [routerLink]="['/products', item.slug]">
