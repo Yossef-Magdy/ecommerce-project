@@ -2,7 +2,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { StarRatingComponent } from '../../shared/star-rating/star-rating.component';
 import { ButtonComponent } from '../../shared/button/button.component';
 import { GallerySwiperComponent } from './gallery-swiper/gallery-swiper.component';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, NavigationStart, Router, RouterLink } from '@angular/router';
 import { SizeChartComponent } from './size-chart/size-chart.component';
 import { ProductCardComponent } from '../../shared/product-card/product-card.component';
 import { ZoomComponent } from './zoom/zoom.component';
@@ -48,6 +48,7 @@ export class ProductDetailsComponent {
   availableColors: string[] = [];
   selectedStock: number = 0;  // Add stock
   discountPrice: number | null = null;
+  selectedProductDetailId!: number;
 
   recentlyViewedProducts: IProduct[] = [];
 
@@ -55,7 +56,8 @@ export class ProductDetailsComponent {
     private cartService: CartService,
     private activatedRoute: ActivatedRoute,
     private productDetails: ProductDetailsService,
-    private recentlyViewedService: RecentlyViewedServiceService
+    private recentlyViewedService: RecentlyViewedServiceService,
+    private router: Router
   ) {}
 
   onAddToCart() {
@@ -96,9 +98,11 @@ export class ProductDetailsComponent {
     }
   }
 
-  ngOnInit() {
-    const routeSlug = this.activatedRoute.snapshot.params['slug'];
-    this.productDetails
+  getProduct(){
+    let routeSlug = this.activatedRoute.snapshot.params['slug'];
+    this.activatedRoute.params.subscribe((url:any) => {
+      routeSlug = url.slug;
+      this.productDetails
       .getProductById(routeSlug)
       .subscribe((product: any) => {
         this.data = product.data;
@@ -125,6 +129,14 @@ export class ProductDetailsComponent {
     this.cartService.getItems().subscribe((items) => {
       this.cartItems = items;
     });
+    });
+    console.log("slug",routeSlug);
+    
+    
+  }
+
+  ngOnInit() {
+    this.getProduct();
   }
 
   ngAfterViewInit() {
@@ -181,6 +193,9 @@ export class ProductDetailsComponent {
     if (selectedDetail) {
       this.selectedPrice = selectedDetail.price;
       this.selectedStock = selectedDetail.stock;  // Update the stock
+      this.selectedProductDetailId = selectedDetail.product_detail_id;
+      console.log(this.selectedProductDetailId);
+      
       if (this.data.discount_value !== 0){
         this.discountPrice = this.selectedPrice - this.data.discount_value;
       }

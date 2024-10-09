@@ -1,130 +1,134 @@
+
+
 <div class="details_container flex flex-col md:flex-row my-5">
     <div class="product_gallery basis-full md:basis-2/3">
         <div class="w-full">
-            @if (data.images) {
-            <app-gallery-swiper [images]="data.images"></app-gallery-swiper>
-            }
+            <!-- @if (data?.images) { -->
+            <app-gallery-swiper [images]="data?.images || ['https://eagle-sensors.com/wp-content/uploads/unavailable-image.jpg']"></app-gallery-swiper>
+            <!-- } -->
             <!-- Modal toggle -->
             <button data-modal-target="static-modal" data-modal-toggle="static-modal"
                 class="zoom-btn absolute bottom-16 left-8 py-2.5 px-5 ms-3 text-sm font-medium text-white focus:outline-none bg-black rounded-lg border border-black hover:bg-white hover:text-black focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
                 type="button">
                 <i class="fa-solid fa-magnifying-glass-plus"></i>
             </button>
-            @if (data.images) {
-            <app-zoom [images]="data.images"></app-zoom>
-            }
+            <!-- @if (data?.images) { -->
+            <app-zoom [images]="data?.images || ['https://eagle-sensors.com/wp-content/uploads/unavailable-image.jpg']"></app-zoom>
+            <!-- } -->
         </div>
     </div>
 
-    <div class="product_details basis-full md:basis-1/3 px-5 my-10">
-        <h2 class="product_title my-2">{{ data.name }}</h2>
-        
-        <div class="rating flex flex-row my-2 items-center">
-            <span class="mx-1"><app-star-rating [rating]="data.rating || 0" [totalStars]="5"></app-star-rating></span>
-            <a [routerLink]="['/reviews', data.id]">
-                <span class="">{{ data.reviews.length }} reviews</span>
-            </a>
-        </div>
-
-        <!-- Display Selected Price -->
-        <div class="my-2 flex flex-row justify-between">
-            @if(data.discount_value){
-                <div>
-                    <span class="line-through text-gray-600 text-sm">LE {{ selectedPrice || data.price }}</span>
-                    <span class="ml-1 text-red-500">LE {{ discountPrice }}</span>
-                </div>
-                <div>
-                    <span class="text-red-500 text-xs capitalizee mx-2 font-semibold">sale</span>
-                </div>
-            }
-            @else {
-                <p>LE {{ selectedPrice || data.price }}</p>
-            }
-        </div>
-        <p class="shipping my-3">
-            <a [routerLink]="['/shipping-policy']" routerLinkActive="router-link-active">
-                Shipping
-            </a> calculated at checkout.
-        </p>
-
-        <!-- Colors -->
-        @if (colors) {
-        <label for="color">Color</label>
-        <ul class="flex flex-row gap-1 my-3">
-            @for (color of colors; track $index) {
-            <li>
-                <input type="radio" class="visually-hidden" name="color" [id]="color" [value]="color"
-                    (change)="onColorSelect(color)" [checked]="color === selectedColor" />
-                <label [for]="color" class="swatch" [title]="color" [style.background-color]="color">
-                    <span class="visually-hidden">{{ color }}</span>
-                </label>
-            </li>
-            }
-        </ul>
-        }
-
-        <!-- Sizes -->
-        @if (availableSizes.length > 0) {
-        <label for="size">Size</label>
-        <ul class="flex flex-row gap-1 my-3">
-            @for(size of sizes; track $index){
-                @if (availableSizes.includes(size)){
-                    <li class="size_icon">
-                        <input type="radio" class="visually-hidden" name="size" [id]="size" [value]="size"
-                            (change)="onSizeSelect(size)" [checked]="size === selectedSize" />
-                        <label [for]="size" class="swatch" [title]="size">
-                            <span class="size">{{ size }}</span>
-                        </label>
-                    </li>
+    @if (data){
+        <div class="product_details basis-full md:basis-1/3 px-5 my-10">
+            <h2 class="product_title my-2">{{ data.name }}</h2>
+            
+            <div class="rating flex flex-row my-2 items-center">
+                <span class="mx-1"><app-star-rating [rating]="data.rating || 0" [totalStars]="5"></app-star-rating></span>
+                <a [routerLink]="['/reviews', data.id]">
+                    <span class="">{{ data.reviews.length }} reviews</span>
+                </a>
+            </div>
+    
+            <!-- Display Selected Price -->
+            <div class="my-2 flex flex-row justify-between">
+                @if(data.discount_value){
+                    <div>
+                        <span class="line-through text-gray-600 text-sm">LE {{ selectedPrice || data.price }}</span>
+                        <span class="ml-1 text-red-500">LE {{ discountPrice }}</span>
+                    </div>
+                    <div>
+                        <span class="text-red-500 text-xs capitalizee mx-2 font-semibold">sale</span>
+                    </div>
                 }
                 @else {
-                    <li class="size_icon">
-                        <input type="radio" class="visually-hidden" name="size" [id]="size" [value]="size"
-                            (change)="onSizeSelect(size)" [checked]="size === selectedSize" />
-                        <label [for]="size" class="swatch sold-out" [title]="size">
-                            <span class="size">{{ size }}</span>
-                        </label>
-                    </li>
+                    <p>LE {{ selectedPrice || data.price }}</p>
                 }
-            }
-        </ul>
-        }
-
-        <!-- Stock Availability -->
-        <div class="my-5" *ngIf="selectedStock > 0">
-            <p>
-                Only
-                <span class="text-indigo-800">{{ selectedStock }}</span>
-                Left, Don't Miss It.
+            </div>
+            <p class="shipping my-3">
+                <a [routerLink]="['/shipping-policy']" routerLinkActive="router-link-active">
+                    Shipping
+                </a> calculated at checkout.
             </p>
-        </div>
-        <p class="my-5 text-red-500" *ngIf="selectedStock === 0">
-            Out of Stock
-        </p>
-
-        <!-- Quantity Controls -->
-        <div class="quantity-container flex">
-            <button type="button" class="basis-1/3 text-center inc" (click)="decreaseQuantity()" [disabled]="quantity <= 1">
-                <span class="minus">-</span>
+    
+            <!-- Colors -->
+            @if (colors) {
+            <label for="color">Color</label>
+            <ul class="flex flex-row gap-1 my-3">
+                @for (color of colors; track $index) {
+                <li>
+                    <input type="radio" class="visually-hidden" name="color" [id]="color" [value]="color"
+                        (change)="onColorSelect(color)" [checked]="color === selectedColor" />
+                    <label [for]="color" class="swatch" [title]="color" [style.background-color]="color">
+                        <span class="visually-hidden">{{ color }}</span>
+                    </label>
+                </li>
+                }
+            </ul>
+            }
+    
+            <!-- Sizes -->
+            @if (availableSizes.length > 0) {
+            <label for="size">Size</label>
+            <ul class="flex flex-row gap-1 my-3">
+                @for(size of sizes; track $index){
+                    @if (availableSizes.includes(size)){
+                        <li class="size_icon">
+                            <input type="radio" class="visually-hidden" name="size" [id]="size" [value]="size"
+                                (change)="onSizeSelect(size)" [checked]="size === selectedSize" />
+                            <label [for]="size" class="swatch" [title]="size">
+                                <span class="size">{{ size }}</span>
+                            </label>
+                        </li>
+                    }
+                    @else {
+                        <li class="size_icon">
+                            <input type="radio" class="visually-hidden" name="size" [id]="size" [value]="size"
+                                (change)="onSizeSelect(size)" [checked]="size === selectedSize" />
+                            <label [for]="size" class="swatch sold-out" [title]="size">
+                                <span class="size">{{ size }}</span>
+                            </label>
+                        </li>
+                    }
+                }
+            </ul>
+            }
+    
+            <!-- Stock Availability -->
+            <div class="my-5" *ngIf="selectedStock > 0">
+                <p>
+                    Only
+                    <span class="text-indigo-800">{{ selectedStock }}</span>
+                    Left, Don't Miss It.
+                </p>
+            </div>
+            <p class="my-5 text-red-500" *ngIf="selectedStock === 0">
+                Out of Stock
+            </p>
+    
+            <!-- Quantity Controls -->
+            <div class="quantity-container flex">
+                <button type="button" class="basis-1/3 text-center inc" (click)="decreaseQuantity()" [disabled]="quantity <= 1">
+                    <span class="minus">-</span>
+                </button>
+                <span class="basis-1/3 text-center py-1">{{ quantity }}</span>
+                <button type="button" class="basis-1/3 text-center dec" (click)="increaseQuantity()" [disabled]="quantity >= selectedStock">
+                    <span class="plus">+</span>
+                </button>
+            </div>
+    
+            <!-- Add to Cart Button -->
+            
+            <button type="submit" class="btn-add my-56" (click)="onAddToCart()" [disabled]="selectedStock === 0">
+                Add To Cart
             </button>
-            <span class="basis-1/3 text-center py-1">{{ quantity }}</span>
-            <button type="button" class="basis-1/3 text-center dec" (click)="increaseQuantity()" [disabled]="quantity >= selectedStock">
-                <span class="plus">+</span>
-            </button>
         </div>
-
-        <!-- Add to Cart Button -->
-        
-        <button type="submit" class="btn-add my-56" (click)="onAddToCart()" [disabled]="selectedStock === 0">
-            Add To Cart
-        </button>
-    </div>
+    }
 </div>
 
 <!-- Product Description Drawer -->
 <div class="flex flex-col justify-center container m-auto">
     <div class="drawer-item border-b">
-        <app-right-drawer [title]="'Description'" [text]="data.description"></app-right-drawer>
+        <app-right-drawer [title]="'Description'" [text]="data?.description || ''"></app-right-drawer>
     </div>
 </div>
 
@@ -134,3 +138,4 @@
     <h2 class="title">Recently viewed</h2>
     <app-product-card></app-product-card>
 </div>
+
