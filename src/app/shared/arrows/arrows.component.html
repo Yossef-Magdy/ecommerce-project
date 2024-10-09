@@ -9,8 +9,9 @@
       </svg>
     </button>
 
-    <button class="swiper-button swiper-button--next" (click)="nextCard()"
-      [disabled]="currentIndex >= cards.length - 3" aria-label="Next slide">
+    @if (cards) {
+      <button class="swiper-button swiper-button--next" (click)="nextCard()"
+      [disabled]="currentIndex >= cards.length - maxVisibleCards" aria-label="Next slide">
       <svg width="42" height="40" viewBox="0 0 42 40" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M0 20H39.5675" stroke="#111111"></path>
         <path
@@ -18,4 +19,5 @@
           data-ignore-fill="" stroke="#111111"></path>
       </svg>
     </button>
+  }
   </div>

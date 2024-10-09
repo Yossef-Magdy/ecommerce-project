@@ -1,80 +1,64 @@
 import { Component } from '@angular/core';
 import { ArrowsComponent } from "../arrows/arrows.component";
+import { RecentlyViewedServiceService } from '../../services/recently-viewed-service.service';
+import { RouterLink } from '@angular/router';
+import { NgClass } from '@angular/common';
+import { ArrowsUpdatedComponent } from "../arrows-updated/arrows-updated.component";
 
 @Component({
   selector: 'app-product-card',
   standalone: true,
-  imports: [ArrowsComponent],
+  imports: [ArrowsComponent, RouterLink, NgClass, ArrowsUpdatedComponent],
   templateUrl: './product-card.component.html',
   styleUrl: './product-card.component.css'
 })
 export class ProductCardComponent {
+  clothsCards!: any[];
+  colors: string[] = [];
   clothsCurrentIndex = 0;
   maxClothsVisibleCards = 4;
 
-  clothsCards = [
-    {
-      title: 'Ripped Thick Strap Basic Top',
-      oldPrice: 'LE 190',
-      newPrice: 'LE 150',
-      isSale: true,
-      colors: ['black', 'blue', 'white', 'gray'],
-      image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-    },
-    {
-      title: 'Ripped Fitted Half Sleeve Top',
-      isSale: false,
-      price: 'LE 69',
-      colors: ['black', 'white', 'gray'],
-      image: 'https://images.unsplash.com/photo-1500462918059-b1a0cb512f1d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-    },
-    {
-      title: 'Swim Shorts',
-      isSale: true,
-      oldPrice: 'LE 190',
-      newPrice: 'LE 150',
-      colors: ['black', 'pink', 'green', 'yellow'],
-      image: 'https://images.unsplash.com/photo-1500462918059-b1a0cb512f1d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-    },
-    {
-      title: 'Leggings',
-      isSale: true,
-      oldPrice: 'LE 190',
-      newPrice: 'LE 150',
-      colors: ['black', 'blue', 'white', 'gray'],
-      image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-    },
-    {
-      title: 'T-shirt',
-      isSale: 'true',
-      oldPrice: 'LE 190',
-      colors: ['black', 'blue', 'white', 'gray'],
-      image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-    },
-    {
-      title: 'Swim Shorts',
-      isSale: true,
-      oldPrice: 'LE 190',
-      newPrice: 'LE 150',
-      colors: ['black', 'pink', 'green', 'yellow'],
-      image: 'https://images.unsplash.com/photo-1500462918059-b1a0cb512f1d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-    },
-    {
-      title: 'Leggings',
-      isSale: true,
-      oldPrice: 'LE 190',
-      newPrice: 'LE 150',
-      colors: ['black', 'blue', 'white', 'gray'],
-      image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-    },
-  ]
+  constructor(private recentlyViewedService: RecentlyViewedServiceService){}
+
+  ngOnInit(){
+    this.recentlyViewedService.getRecentlyViewed().subscribe((products: any) => {
+      this.clothsCards = products; 
+      console.log(this.clothsCards);
+      this.clothsCards.forEach((card) => {
+        card.current_image = card.cover_image;
+      });
+    });
+
+    this.updateMaxVisibleCards(); 
+    window.addEventListener('resize', this.updateMaxVisibleCards.bind(this)); 
+  }
   
+  changeImage(card: any, newImage: string){
+    card.current_image = newImage;
+  }
+
   getClothsTransform() {
     return `translateX(-${this.clothsCurrentIndex * (100 / this.maxClothsVisibleCards)}%)`;
   }
 
   onClothsArrowClick(newIndex: number) {
-    this.clothsCurrentIndex = newIndex;
+    const maxIndex = this.clothsCards.length - this.maxClothsVisibleCards;
+    if (newIndex >= 0 && newIndex <= maxIndex) {
+      this.clothsCurrentIndex = newIndex;
+    }
   }
 
+  // Update the number of visible cards based on screen size
+  updateMaxVisibleCards() {
+    const screenWidth = window.innerWidth;
+    if (screenWidth >= 1200) {
+      this.maxClothsVisibleCards = 4; // Large screens
+    } else if (screenWidth >= 768) {
+      this.maxClothsVisibleCards = 3; // Medium screens
+    } else {
+      this.maxClothsVisibleCards = 2; // Small and XS screens
+    }
+
+    console.log('Max visible cards: ', this.maxClothsVisibleCards);
+  }
 }
