@@ -3,11 +3,12 @@ import { ArrowsComponent } from "../arrows/arrows.component";
 import { RecentlyViewedServiceService } from '../../services/recently-viewed-service.service';
 import { RouterLink } from '@angular/router';
 import { NgClass } from '@angular/common';
+import { ArrowsUpdatedComponent } from "../arrows-updated/arrows-updated.component";
 
 @Component({
   selector: 'app-product-card',
   standalone: true,
-  imports: [ArrowsComponent, RouterLink, NgClass],
+  imports: [ArrowsComponent, RouterLink, NgClass, ArrowsUpdatedComponent],
   templateUrl: './product-card.component.html',
   styleUrl: './product-card.component.css'
 })
