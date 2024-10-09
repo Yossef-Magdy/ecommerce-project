@@ -12,8 +12,8 @@ import { RouterLink } from '@angular/router';
 })
 export class CollectionComponent{
 
-  clothsCards !: any[];
-  length!:number;
+  clothsCards: any[] = [];
+  length:number = 0;
   constructor(private allProducts:AllProductsService){}
 
   ngOnInit(){

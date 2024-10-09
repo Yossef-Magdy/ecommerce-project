@@ -19,6 +19,7 @@ import { AddCouponComponent } from './features/dashboard/pages/add-coupon/add-co
 import { AddProductComponent } from './features/dashboard/pages/add-product/add-product.component';
 import { AddUserComponent } from './features/dashboard/pages/add-user/add-user.component';
 import { ProductReviewsComponent } from './features/product-details/product-reviews/product-reviews.component';
+import { SubCategoriesComponent } from './features/sub-categories/sub-categories.component';
 
 export const routes: Routes = [
     {
@@ -73,6 +74,11 @@ export const routes: Routes = [
         title: 'Reviews',
     },
     {
+        path: 'subcategories',
+        component: SubCategoriesComponent,
+        title: 'SubCategories',
+    }
+    ,{
         path: 'dashboard',
         canActivate: [dashboardGuard],
         children: [

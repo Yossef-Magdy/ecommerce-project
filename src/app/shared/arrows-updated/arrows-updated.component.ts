@@ -1,12 +1,13 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'app-arrows',
+  selector: 'app-arrows-updated',
   standalone: true,
-  templateUrl: './arrows.component.html',
-  styleUrls: ['./arrows.component.css']
+  imports: [],
+  templateUrl: './arrows-updated.component.html',
+  styleUrl: './arrows-updated.component.css'
 })
-export class ArrowsComponent {
+export class ArrowsUpdatedComponent {
   @Input() cards: any[] = [];
   @Input() currentIndex = 0;
   @Input() maxVisibleCards !: number;
@@ -28,5 +29,4 @@ export class ArrowsComponent {
       this.arrowClick.emit(this.currentIndex);
     }
   }
-
 }
