@@ -15,7 +15,7 @@
     @if (categoryCards) {
 
       @for (category of categoryCards; track $index) {
-        <a href="#" class="card">
+        <a routerLink="collections" class="card">
           <img [src]="category.image" [alt]="category.name">
           <div class="overlay">
             <h2>{{category.name}}</h2>
