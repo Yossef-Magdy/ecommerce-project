@@ -18,3 +18,7 @@
 .swiper-button:hover {
     transform: scale(1.1);
 }
+
+.swiper-button:disabled {
+opacity: 0.3;
+}

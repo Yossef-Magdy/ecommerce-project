@@ -20,12 +20,15 @@ export class ProductCardComponent {
 
   ngOnInit(){
     this.recentlyViewedService.getRecentlyViewed().subscribe((products: any) => {
-      this.clothsCards = products; // Update the component state
-      console.log(this.clothsCards); // Log for debugging
+      this.clothsCards = products; 
+      console.log(this.clothsCards);
       this.clothsCards.forEach((card) => {
         card.current_image = card.cover_image;
       });
     });
+
+    this.updateMaxVisibleCards(); 
+    window.addEventListener('resize', this.updateMaxVisibleCards.bind(this)); 
   }
   
   changeImage(card: any, newImage: string){
@@ -37,6 +40,23 @@ export class ProductCardComponent {
   }
 
   onClothsArrowClick(newIndex: number) {
-    this.clothsCurrentIndex = newIndex;
+    const maxIndex = this.clothsCards.length - this.maxClothsVisibleCards;
+    if (newIndex >= 0 && newIndex <= maxIndex) {
+      this.clothsCurrentIndex = newIndex;
+    }
+  }
+
+  // Update the number of visible cards based on screen size
+  updateMaxVisibleCards() {
+    const screenWidth = window.innerWidth;
+    if (screenWidth >= 1200) {
+      this.maxClothsVisibleCards = 4; // Large screens
+    } else if (screenWidth >= 768) {
+      this.maxClothsVisibleCards = 3; // Medium screens
+    } else {
+      this.maxClothsVisibleCards = 2; // Small and XS screens
+    }
+
+    console.log('Max visible cards: ', this.maxClothsVisibleCards);
   }
 }
