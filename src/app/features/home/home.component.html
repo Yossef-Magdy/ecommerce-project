@@ -12,21 +12,24 @@
 
 <div class="cards-wrapper">
   <div class="flex" [style.transform]="getTransform()">
-    @for (card of categoryCards; track $index) {
-      <a href="#" class="card">
-        <img [src]="card.image" [alt]="card.title">
-        <div class="overlay">
-          <h2>{{ card.title }}</h2>
-          <span class="explore-button">EXPLORE</span>
-        </div>
-      </a>
+    @if (categoryCards) {
+
+      @for (category of categoryCards; track $index) {
+        <a routerLink="collections" class="card">
+          <img [src]="category.image" [alt]="category.name">
+          <div class="overlay">
+            <h2>{{category.name}}</h2>
+            <span class="explore-button">EXPLORE</span>
+          </div>
+        </a>
+      }
     }
   </div>
 
   <app-arrows [cards]="categoryCards" [currentIndex]="categoryCurrentIndex" [maxVisibleCards]="maxCategoryVisibleCards" (arrowClick)="onCategoryArrowClick($event)"></app-arrows>
 
   <div class="swiper-buttons">
-    <app-button text="explore all"></app-button>
+    <app-button routerLink="subcategories" text="explore all"></app-button>
   </div>
 </div>
 

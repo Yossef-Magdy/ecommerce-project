@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ButtonComponent } from '../../shared/button/button.component';
 import { ArrowsComponent } from '../../shared/arrows/arrows.component';
 import { RouterLink } from '@angular/router';
+import { CategoriesService } from './categories.service';
 
 @Component({
   selector: 'app-home',
@@ -16,24 +17,16 @@ export class HomeComponent {
   maxCategoryVisibleCards = 3;
   maxClothsVisibleCards = 4;
 
-  categoryCards = [
-    {
-      title: 'Summer Collection',
-      image: 'https://images.unsplash.com/photo-1500462918059-b1a0cb512f1d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80'
-    },
-    {
-      title: 'Winter Collection',
-      image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80'
-    },
-    {
-      title: 'Kids Collection',
-      image: 'https://images.unsplash.com/photo-1533090161767-e6ffed986c88?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80'
-    },
-    {
-      title: 'Formal Collection',
-      image: 'https://images.unsplash.com/photo-1533090161767-e6ffed986c88?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80'
-    }
-  ];
+  categoryCards?: any;
+  constructor(private categoryService: CategoriesService) {}
+  ngOnInit() {
+    this.categoryService.getAllCategories().subscribe((res) => {
+      console.log(res.data);
+      this.categoryCards = res.data;
+
+    });
+  }
+  
 
   clothsCards = [
     {
