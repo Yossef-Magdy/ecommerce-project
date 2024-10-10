@@ -11,9 +11,11 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
   styleUrl: './collection.component.css'
 })
 export class CollectionComponent {
-
+  
   clothsCards: any[] = [];
   length: number = 0;
+  heroTitle: string = 'PRODUCTS';
+
   constructor(private allProducts: AllProductsService, private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -30,34 +32,19 @@ export class CollectionComponent {
 
     this.route.params.subscribe(params => {
       let categoryName = params['category_name'];
+      let subcategoryName = params['subcategory_name'];
+
       if (categoryName) {
         categoryName = categoryName.replace(/\s+/g, '-');
-        categoryName = encodeURIComponent(categoryName);
-
-        this.allProducts.getProductsByCategoryName(categoryName).subscribe(
-          (data) => {
-            this.clothsCards = data.data;
-            this.length = this.clothsCards.length;
-            this.clothsCards.forEach((card) => {
-              card.current_image = card.cover_image;
-            });
-          },
-          (error) => {
-            console.error('Error fetching products by category:', error);
-          }
-        );
-      }
-    });
-
-
-    this.route.params.subscribe(params => {
-      let subcategoryName = params['category_name'];
-      if (subcategoryName) {
+        this.heroTitle = categoryName;
+      } else if (subcategoryName) {
         subcategoryName = subcategoryName.replace(/\s+/g, '-');
-        subcategoryName = encodeURIComponent(subcategoryName);
-        console.log('Encoded subcategory name:', subcategoryName);
+        this.heroTitle = subcategoryName;
+      }
 
-        this.allProducts.getProductsByCategoryName(subcategoryName).subscribe(
+      if (categoryName || subcategoryName) {
+        const nameToFetch = categoryName || subcategoryName;
+        this.allProducts.getProductsByCategoryName(nameToFetch).subscribe(
           (data) => {
             this.clothsCards = data.data;
             this.length = this.clothsCards.length;
@@ -66,15 +53,14 @@ export class CollectionComponent {
             });
           },
           (error) => {
-            console.error('Error fetching products by subcategory:', error);
+            console.error('Error fetching products:', error);
           }
         );
       }
     });
-
   }
+
   changeImage(card: any, newImage: string) {
     card.current_image = newImage;
   }
-
 }
