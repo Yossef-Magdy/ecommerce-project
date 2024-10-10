@@ -23,9 +23,7 @@ export class CartService {
   addToCart(cartItem: CartItem) {
     const updatedItems = this.items.value.map((item) => {
       if (
-        item.productDetailId === cartItem.productDetailId &&
-        item.color === cartItem.color &&
-        item.size === cartItem.size
+        item.productDetailId === cartItem.productDetailId
       ) {
         const newQuantity = item.quantity + cartItem.quantity;
         return {
@@ -40,9 +38,7 @@ export class CartService {
     if (
       !updatedItems.find(
         (item) =>
-          item.productDetailId === cartItem.productDetailId &&
-          item.color === cartItem.color &&
-          item.size === cartItem.size
+          item.productDetailId === cartItem.productDetailId
       )
     ) {
       updatedItems.push(cartItem);
