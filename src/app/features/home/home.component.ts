@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import { ButtonComponent } from '../../shared/button/button.component';
 import { ArrowsComponent } from '../../shared/arrows/arrows.component';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CategoriesService } from './categories.service';
 import { AllProductsService } from '../collection/all-products.service';
+import { IProduct } from '../../data-interfaces';
+import { ProductDetailsService } from '../product-details/product-details.service';
 
 @Component({
   selector: 'app-home',
@@ -18,19 +20,22 @@ export class HomeComponent {
   maxCategoryVisibleCards = 3;
   maxClothsVisibleCards = 4;
   categoryCards?: any;
-  products?: any;
-  constructor(private categoryService: CategoriesService, private productsService: AllProductsService) {}
+  products: any = [];
+  colors: string[] = [];
+
+
+  constructor(private categoryService: CategoriesService, private productsService: AllProductsService
+    , private detailsService: ProductDetailsService, private activatedRoute: ActivatedRoute) {}
   ngOnInit() {
-    this.categoryService.getAllCategories().subscribe((res) => {
+    this.categoryService.getAllCategories().subscribe((res:any) => {
       console.log(res.data);
       this.categoryCards = res.data;
 
     });
-
-    this.productsService.getProducts().subscribe((res) => {
+    this.productsService.getProducts().subscribe((res:any)=>{
       console.log(res.data);
       this.products = res.data;
-    });
+  });
   }
   
 
@@ -52,4 +57,8 @@ export class HomeComponent {
     this.clothsCurrentIndex = newIndex;
   }
 
+
+  changeImage(card: any, newImage: string){
+    card.current_image = newImage;
+  }
 }
