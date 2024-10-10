@@ -16,8 +16,8 @@ export class CartComponent {
   totalPrice: number = 0;
   constructor(private cartService: CartService){}
 
-  updateQuantity(updatedItem: { productId: number, quantity: number }) {
-    this.cartService.updateQuantity(updatedItem.productId, updatedItem.quantity);
+  updateQuantity(updatedItem: { productDetailId: number, quantity: number }) {
+    this.cartService.updateQuantity(updatedItem.productDetailId, updatedItem.quantity);
     this.calculateTotalPrice();
   }
 
@@ -27,18 +27,8 @@ export class CartComponent {
     }, 0);
   }
 
-  // calculateTotalPrice(): void{
-  //   this.totalPrice = Number(
-  //     this.data.reduce((total, cartItem) => {
-  //       const discount = cartItem.product.discountPercentage ? 1 - cartItem.product.discountPercentage / 100 : 1;
-  //       return (total + cartItem.quantity * (cartItem.product.price * discount));
-
-  //     }, 0).toFixed(2),
-  //   );
-  // }
-
-  deleteItem(productId: number){
-    this.cartService.deleteItem(productId);
+  deleteItem(productDetailId: number){
+    this.cartService.deleteItem(productDetailId);
     this.calculateTotalPrice();
   }
 

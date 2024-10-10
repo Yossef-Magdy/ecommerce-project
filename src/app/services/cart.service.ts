@@ -3,7 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import { IProduct } from '../data-interfaces';
 
 export interface CartItem {
-  productId: number;
+  productDetailId: number;
   productSlug: string;
   coverImg:string;
   name: string;
@@ -23,7 +23,7 @@ export class CartService {
   addToCart(cartItem: CartItem) {
     const updatedItems = this.items.value.map((item) => {
       if (
-        item.productId === cartItem.productId &&
+        item.productDetailId === cartItem.productDetailId &&
         item.color === cartItem.color &&
         item.size === cartItem.size
       ) {
@@ -40,7 +40,7 @@ export class CartService {
     if (
       !updatedItems.find(
         (item) =>
-          item.productId === cartItem.productId &&
+          item.productDetailId === cartItem.productDetailId &&
           item.color === cartItem.color &&
           item.size === cartItem.size
       )
@@ -51,9 +51,9 @@ export class CartService {
     this.items.next(updatedItems);
   }
 
-  updateQuantity(productId: number, quantity: number) {
+  updateQuantity(productDetailId: number, quantity: number) {
     const updatedItems = this.items.value.map((item) => {
-      if (item.productId === productId) {
+      if (item.productDetailId === productDetailId) {
         return {
           ...item,
           quantity:
@@ -70,16 +70,16 @@ export class CartService {
     return this.items.asObservable();
   }
 
-  getQuantity(productId: number): number {
+  getQuantity(productDetailId: number): number {
     const item = this.items.value.find(
-      (item) => item.productId === productId
+      (item) => item.productDetailId === productDetailId
     );
     return item ? item.quantity : 1;
   }
 
-  deleteItem(productId: number) {
+  deleteItem(productDetailId: number) {
     const updatedItems = this.items.value.filter(
-      (item) => item.productId !== productId
+      (item) => item.productDetailId !== productDetailId
     );
     this.items.next(updatedItems);
   }

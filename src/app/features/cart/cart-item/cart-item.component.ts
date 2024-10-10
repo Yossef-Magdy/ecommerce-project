@@ -17,7 +17,7 @@ export interface CartEmitter {
 export class CartItemComponent {
   @Input() cartItem!: CartItem;
   @Input() index!: number;
-  @Output() quantityChangeEmitter = new EventEmitter<{ productId: number, quantity: number }>();
+  @Output() quantityChangeEmitter = new EventEmitter<{ productDetailId: number, quantity: number }>();
   @Output() deleteItemEmitter = new EventEmitter<number>();
 
   decreaseQuantity(){
@@ -35,10 +35,10 @@ export class CartItemComponent {
   }
 
   deleteItem() {
-    this.deleteItemEmitter.emit(this.cartItem.productId);
+    this.deleteItemEmitter.emit(this.cartItem.productDetailId);
   }
 
   onUpdateQuantity() {
-    this.quantityChangeEmitter.emit({ productId: this.cartItem.productId, quantity: this.cartItem.quantity });
+    this.quantityChangeEmitter.emit({ productDetailId: this.cartItem.productDetailId, quantity: this.cartItem.quantity });
   }
 }

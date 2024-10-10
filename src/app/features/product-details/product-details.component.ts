@@ -64,7 +64,7 @@ export class ProductDetailsComponent {
     if (this.selectedColor && this.selectedSize && this.quantity > 0) {
       if (this.quantity <= this.selectedStock) {
         const cartItem: CartItem = {
-          productId: this.data.id,
+          productDetailId: this.selectedProductDetailId,
           productSlug:this.data.slug,
           coverImg: this.data.cover_image,
           name: this.data.name,
