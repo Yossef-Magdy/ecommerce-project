@@ -28,23 +28,26 @@
 }
 
 .cards-wrapper {
-    width: 85%;
-    margin: 50px auto;
-
+    width: 100%;
+    margin: 80px auto;
+    display: flex;
+    justify-content: start;
 }
 
 .flex {
     display: flex;
     flex-wrap: wrap;
-    transition: transform 0.5s ease;
-    gap: 3px;
+    justify-content: center;
+    gap: 7px;
 }
 
 .card {
     position: relative;
+    flex: 1 1 calc(33.333% - 20px);
+    max-width: 450px;
     height: 550px;
-    flex: 1 1 calc(33.333% - 6px);
     box-sizing: border-box;
+    transition: transform 0.3s ease;
 }
 
 .card img {
@@ -96,4 +99,28 @@
 
 .card:hover .overlay {
     padding-bottom: 20px;
+}
+
+@media (max-width: 1200px) {
+    .card {
+        flex: 1 1 calc(50% - 20px);
+    }
+}
+
+@media (max-width: 768px) {
+    .card {
+        flex: 1 1 calc(100% - 20px);
+        max-width: 75%;
+
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+
+    .card {
+        height: 400px;
+    }
 }
