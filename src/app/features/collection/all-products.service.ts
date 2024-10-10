@@ -17,4 +17,8 @@ export class AllProductsService {
   getProductsByCategoryName(categoryName: string): Observable<any> {
     return this.http.get(`/collections/${categoryName}`);
   }
+
+  getProductsBySubCategoryName(subcategoryName: string): Observable<any> {
+    return this.http.get(`/collections/${subcategoryName}`);
+  }
 }

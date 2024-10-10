@@ -74,6 +74,11 @@ export const routes: Routes = [
         title: 'Collections',
     },
     {
+        path: 'collections/:subcategory_name',
+        component: CollectionComponent,
+        title: 'Collections',
+    },
+    {
         path: 'reviews/:id',
         component: ProductReviewsComponent,
         title: 'Reviews',

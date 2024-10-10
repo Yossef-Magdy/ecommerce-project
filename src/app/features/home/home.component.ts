@@ -24,8 +24,7 @@ export class HomeComponent {
   colors: string[] = [];
 
 
-  constructor(private categoryService: CategoriesService, private productsService: AllProductsService
-    , private detailsService: ProductDetailsService, private activatedRoute: ActivatedRoute) {}
+  constructor(private categoryService: CategoriesService, private productsService: AllProductsService) {}
   ngOnInit() {
     this.categoryService.getAllCategories().subscribe((res:any) => {
       console.log(res.data);

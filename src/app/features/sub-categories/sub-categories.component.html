@@ -9,7 +9,7 @@
       @if (subcategoryCards) {
   
         @for (subcategory of subcategoryCards; track $index) {
-          <a routerLink="/collections" class="card">
+          <a [routerLink]="['/collections', subcategory.name]" class="card">
             <img [src]="subcategory.image" [alt]="subcategory.name">
             <div class="overlay">
               <h2>{{subcategory.name}}</h2>
