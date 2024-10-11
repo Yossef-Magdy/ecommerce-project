@@ -35,8 +35,8 @@
 
 <h1 class="title">On Sale</h1>
 
-<div class="product-slider">
-  <div class="product-cards" [style.transform]="getClothsTransform()">
+<div class="cards-wrapper">
+  <div class="product-cards" class="cards-container" [ngClass]="{'justify-center': products.length <= 2}" [style.transform]="getClothsTransform()">
     @if (products && products.length > 0) {
     @for (product of products; track $index) {
     <div class="product-card">
