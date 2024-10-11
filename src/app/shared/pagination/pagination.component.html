@@ -1,0 +1,7 @@
+<div class="px-1.5 py-2 flex items-center justify-between">
+    <p>Showing {{from}} to {{to}} from {{total}} results</p>
+    <div class="flex gap-2">
+        <button class="capitalize border border-slate-500 py-1.5 px-2 hover:bg-slate-100 disabled:hover:bg-inherit disabled:text-gray-500" (click)="load(prev)" [disabled]="prev == null">previous</button>
+        <button class="capitalize border border-slate-500 py-1.5 px-2 hover:bg-slate-100 disabled:hover:bg-inherit disabled:text-gray-500" (click)="load(next)" [disabled]="next == null">next</button>
+    </div>
+</div>
