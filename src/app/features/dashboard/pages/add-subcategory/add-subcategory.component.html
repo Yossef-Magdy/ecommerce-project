@@ -1,0 +1,30 @@
+<div class="p-4">
+    <h1 class="text-4xl uppercase font-light mb-4">create a new subcategory</h1>
+    <form class="grid items-start gap-6" [formGroup]="subcategoryForm">
+        <div class="flex flex-col gap-2 group">
+            <app-label for="name" text="subcategory name*"/>
+            <input type="text" id="name" placeholder="Name" class="group-hover:border-black border px-4 text-xs h-12" formControlName="name">
+            @if ((name.touched || name.dirty) && name.hasError('required')) {
+                <p role="alert" class="text-red-800 text-xs">Name is required</p>
+            }
+        </div>
+        <div class="flex flex-col gap-2 group">
+            <app-label for="category-name" text="category name*"/>
+            <select id="category-name" class="group-hover:border-black border px-4 text-xs h-12" formControlName="categoryName">
+                <option value="" disabled>Select Category</option>
+                @for (category of categories; track $index) {
+                    <option value="{{category.id}}">{{category.name}}</option>
+                }
+            </select>
+        </div>
+        
+        @if (message) {
+            @if (isErrorMessage) {
+                <p role="alert" class="text-red-800 text-xs col-span-full">{{message}}</p>
+            } @else {
+                <p role="alert" class="text-green-800 text-xs col-span-full">{{message}}</p>
+            }
+        }
+        <app-black-button text="create" (click)="submit()"/>
+    </form>  
+</div>
