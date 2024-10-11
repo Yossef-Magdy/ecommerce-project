@@ -20,6 +20,7 @@ import { AddProductComponent } from './features/dashboard/pages/add-product/add-
 import { AddUserComponent } from './features/dashboard/pages/add-user/add-user.component';
 import { ProductReviewsComponent } from './features/product-details/product-reviews/product-reviews.component';
 import { SubCategoriesComponent } from './features/sub-categories/sub-categories.component';
+import { ShippingComponent } from './features/shipping/shipping.component';
 
 export const routes: Routes = [
     {
@@ -87,6 +88,16 @@ export const routes: Routes = [
         path: 'subcategories',
         component: SubCategoriesComponent,
         title: 'SubCategories',
+    },
+    {
+        path: 'policies',
+        children: [
+            {
+                path: 'shipping-policy',
+                component: ShippingComponent,
+                title: 'Shipping',
+            }
+        ]
     }
     ,{
         path: 'dashboard',
