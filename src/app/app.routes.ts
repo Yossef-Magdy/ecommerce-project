@@ -28,6 +28,7 @@ import { ManageCategoriesComponent } from './features/dashboard/pages/manage-cat
 import { ManageProductsComponent } from './features/dashboard/pages/manage-products/manage-products.component';
 import { ManageGovernorateComponent } from './features/dashboard/pages/manage-governorate/manage-governorate.component';
 import { ManageOrdersComponent } from './features/dashboard/pages/manage-orders/manage-orders.component';
+import { ManageSubcategoriesComponent } from './features/dashboard/pages/manage-subcategories/manage-subcategories.component';
 
 export const routes: Routes = [
     {
@@ -70,6 +71,7 @@ export const routes: Routes = [
         path: 'profile',
         component: ProfileComponent,
         title: 'Profile',
+        canActivate: [authGuard],
     },
     {
         path: 'products/:slug',
@@ -129,6 +131,11 @@ export const routes: Routes = [
                 path: 'manage-categories',
                 component: ManageCategoriesComponent,
                 title: 'Manage Categories'
+            },
+            {
+                path: 'manage-subcategories',
+                component: ManageSubcategoriesComponent,
+                title: 'Manage Subcategories'
             },
             {
                 path: 'new-product',
