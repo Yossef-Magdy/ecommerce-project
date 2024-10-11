@@ -136,6 +136,12 @@ input[type="radio"]:checked + label {
     background: linear-gradient(to top right, #fff calc(50% - 1px), #aaa, #fff calc(50% + 1px))
 }
 
+@media (min-width: 768px) {
+    div.details_container.flex.flex-col.md\:flex-row.my-5{
+        height: 650px;;
+    }
+}
+
 @media (max-width: 768px) {
     .zoom-btn{
         display: none;
