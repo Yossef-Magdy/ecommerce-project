@@ -217,7 +217,14 @@
               </div>
             </label>
             <div class="accordion-content">
-              <div class="payment-form">
+              <!-- Stripe Initialization -->
+              <div id="card-element" class="payment-input flex flex-col"></div>
+              @if(paymentStatus && paymentMethod === 'credit-card') {
+                <span class="{{errorMessage ? 'text-red-500' : 'text-green-500'}} text-sm red">{{paymentStatus}}</span>
+              }
+
+              <!-- <div class="payment-form" id="card-element">
+                
                 <input
                   class="payment-input"
                   id="card-number"
@@ -261,7 +268,7 @@
                     >Use shipping address as billing address</label
                   >
                 </div>
-              </div>
+              </div> -->
             </div>
           </div>
 
@@ -467,9 +474,15 @@
         <button
           type="submit"
           class="btn w-full text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-lg px-5 py-2.5 text-center"
-        >
-          Pay Now
+          (click)="pay($event)"
+          [disabled]="isLoading"
+          >
+          {{ isLoading ? 'Processing...' : 'Pay Now' }}
         </button>
+
+        @if(paymentStatus && paymentMethod === 'cod') {
+          <span class="{{errorMessage ? 'text-red-500' : 'text-green-500'}} text-sm red">{{paymentStatus}}</span>
+        }
       </form>
     </div>
     <div class="second w-full md:w-1/2 bg-gray-100">
@@ -518,10 +531,10 @@
   </div>
 </div>
 
-<form (submit)="pay($event)" class="payment-form flex flex-col md:flex-row gap-8"  id="checkout-form">
+<!-- <form (submit)="pay($event)" class="payment-form flex flex-col md:flex-row gap-8"  id="checkout-form">
   <div id="card-element" class="payment-input flex flex-col"></div>
   <button type="submit" class="btn block w-1/4 text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-lg px-5 py-2.5 text-center" [disabled]="isLoading">{{ isLoading ? 'Processing...' : 'Pay Now' }}</button>
   @if(paymentStatus) {
     <span class="text-red-500 text-sm red">{{paymentStatus}}</span>
   }
-</form>
+</form> -->
