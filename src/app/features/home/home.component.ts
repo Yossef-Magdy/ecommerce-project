@@ -6,11 +6,12 @@ import { CategoriesService } from './categories.service';
 import { AllProductsService } from '../collection/all-products.service';
 import { IProduct } from '../../data-interfaces';
 import { ProductDetailsService } from '../product-details/product-details.service';
+import { ArrowsUpdatedComponent } from "../../shared/arrows-updated/arrows-updated.component";
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [ButtonComponent, ArrowsComponent, RouterLink],
+  imports: [ButtonComponent, ArrowsComponent, RouterLink, ArrowsUpdatedComponent],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })

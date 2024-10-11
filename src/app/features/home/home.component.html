@@ -8,7 +8,7 @@
   </div>
 </section>
 
-<h1 class="title">Our Collections</h1>
+<h1 class="title capitalizee">Our Collections</h1>
 
 <div class="cards-wrapper">
   <div class="flex" [style.transform]="getTransform()">
@@ -17,7 +17,7 @@
     <a [routerLink]="['/collections', category.name]" class="card">
       <img [src]="category.image" [alt]="category.name">
       <div class="overlay">
-        <h2>{{category.name}}</h2>
+        <h2 class="capitalizee">{{category.name}}</h2>
         <span class="explore-button">EXPLORE</span>
       </div>
     </a>
@@ -25,15 +25,15 @@
     }
   </div>
 
-  <app-arrows [cards]="categoryCards" [currentIndex]="categoryCurrentIndex" [maxVisibleCards]="maxCategoryVisibleCards"
-    (arrowClick)="onCategoryArrowClick($event)"></app-arrows>
+  <app-arrows-updated [cards]="categoryCards" [currentIndex]="categoryCurrentIndex" [maxVisibleCards]="maxCategoryVisibleCards"
+    (arrowClick)="onCategoryArrowClick($event)"></app-arrows-updated>
 
   <div class="swiper-buttons">
     <app-button routerLink="subcategories" text="explore all"></app-button>
   </div>
 </div>
 
-<h1 class="title">Sales</h1>
+<h1 class="title">On Sale</h1>
 
 <div class="product-slider">
   <div class="product-cards" [style.transform]="getClothsTransform()">
@@ -66,8 +66,8 @@
   </div>
 </div>
 
-<app-arrows [cards]="products" [currentIndex]="clothsCurrentIndex" [maxVisibleCards]="maxClothsVisibleCards"
-  (arrowClick)="onClothsArrowClick($event)"></app-arrows>
+<app-arrows-updated [cards]="products" [currentIndex]="clothsCurrentIndex" [maxVisibleCards]="maxClothsVisibleCards"
+  (arrowClick)="onClothsArrowClick($event)"></app-arrows-updated>
 
 <div class="swiper-buttons">
   <app-button text="View All" routerLink="collections"></app-button>
