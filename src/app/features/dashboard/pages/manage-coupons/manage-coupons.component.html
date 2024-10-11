@@ -1,1 +1,130 @@
-<p>manage-coupons works!</p>
+<div class="p-4 max-h-dvh overflow-x-auto">
+    <h1 class="text-4xl uppercase font-light mb-4">coupons Data</h1>
+    @if (coupons) {
+        <div class="border border-slate-500">
+            <table class="text-left overflow-y-auto w-full table-auto relative overflow-x-auto">
+                <thead class="capitalize">
+                    <th class="font-medium border-b border-slate-500 p-1.5">coupon code</th>
+                    <th class="font-medium border-b border-slate-500 p-1.5">uses count</th>
+                    <th class="font-medium border-b border-slate-500 p-1.5">discount</th>
+                    <th class="font-medium border-b border-slate-500 p-1.5">status</th>
+                    <th class="font-medium border-b border-slate-500 p-1.5">expiry date</th>
+                    <th class="font-medium border-b border-slate-500 p-1.5"></th>
+                </thead>
+                <tbody>
+                    @for (coupon of coupons; track $index) {
+                        <tr>
+                            <td class="border-b border-slate-500 p-1.5">{{coupon.coupon_code}}</td>
+                            <td class="border-b border-slate-500 p-1.5">{{coupon.uses_count}}</td>
+                            <td class="capitalize border-b border-slate-500 p-1.5">{{displayDiscount(coupon)}}</td>
+                            <td class="capitalize border-b border-slate-500 p-1.5">{{coupon.status}}</td>
+                            <td class="capitalize border-b border-slate-500 p-1.5">{{coupon.expiry_date | date}}</td>
+                            <td class="border-b border-slate-500 p-1.5">
+                                <div class="flex gap-1 justify-end min-w-max">
+                                    <button data-modal-target="update-modal" data-modal-toggle="update-modal" 
+                                    type="button" class="hover:bg-slate-200 rounded px-2 py-1"
+                                    (click)="selectCoupon(coupon)" (click)="updateForm()">
+                                        <img src="assets/icons/pen.svg" class="size-6"/>
+                                    </button>
+                                    <button data-modal-target="delete-modal" data-modal-toggle="delete-modal"
+                                    type="button" class="hover:bg-red-200 rounded p-1.5"
+                                    (click)="selectCoupon(coupon)">
+                                        <img src="assets/icons/trash.svg" class="size-6"/>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <app-pagination [from]="from" [to]="to" [total]="total" [next]="next" [prev]="prev" [load]="load"/>
+        </div>
+    }
+    <div id="update-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div class="relative p-4 w-full max-w-2xl max-h-full">
+            <div class="relative bg-white shadow dark:bg-gray-700">
+                <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                        Update location
+                    </h3>
+                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="update-modal">
+                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                        </svg>
+                        <span class="sr-only">Close modal</span>
+                    </button>
+                </div>
+                <div class="p-4 md:p-5 space-y-4">
+                    <form class="grid items-start md:grid-cols-2 gap-6" [formGroup]="couponForm">
+                        <input type="text" hidden formControlName="id">
+                        <div class="flex flex-col gap-2 group col-span-full">
+                            <app-label for="coupon-code" text="coupon code*"/>
+                            <input type="text" id="coupon-code" placeholder="Coupon Code" class="group-hover:border-black border px-4 text-xs h-12" formControlName="couponCode">
+                            @if ((couponCode.touched || couponCode.dirty) && couponCode.hasError('required')) {
+                                <p role="alert" class="text-red-800 text-xs">Coupon code is required</p>
+                            }
+                        </div>
+                
+                        <div class="flex flex-col gap-2 group col-span-full">
+                            <app-label for="uses-count" text="uses count"/>
+                            <input type="number" id="uses-count" placeholder="Uses Count" class="group-hover:border-black border px-4 text-xs h-12" formControlName="usesCount">
+                            @if ((usesCount.touched || usesCount.dirty) && usesCount.hasError('min')) {
+                                <p role="alert" class="text-red-800 text-xs">Uses count should not be less than 50</p>
+                            }
+                        </div>
+                
+                        <div class="flex flex-col gap-2 group">
+                            <app-label for="discount-type" text="discount type"/>
+                            <select id="discount-type" class="group-hover:border-black border px-4 text-xs h-12" formControlName="discountType">
+                                <option value="fixed">Fixed</option>
+                                <option value="percentage">Percentage</option>
+                            </select>
+                        </div>
+                
+                        <div class="flex flex-col gap-2 group">
+                            <app-label for="discount-value" text="discount value"/>
+                            <input type="number" id="discount-value" placeholder="Discount Value" class="group-hover:border-black border px-4 text-xs h-12" formControlName="discountValue">
+                            @if ((discountValue.touched || discountValue.dirty) && discountValue.hasError('invalidPercent')) {
+                                <p role="alert" class="text-red-800 text-xs">Discount value must not exceed 100</p>
+                            }
+                        </div>
+                
+                        <div class="flex flex-col gap-2 group col-span-full">
+                            <app-label for="expiry-date" text="expiry date"/>
+                            <input type="date" id="expiry-date" placeholder="Expiry Date" class="group-hover:border-black border px-4 text-xs h-12" formControlName="expiryDate">
+                            @if ((expiryDate.touched || expiryDate.dirty) && expiryDate.hasError('pastDate')) {
+                                <p role="alert" class="text-red-800 text-xs">Expiry date should be a future date</p>
+                            }
+                        </div>
+                    </form>
+                </div>
+                <div class="flex items-center gap-2 p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
+                    <app-black-button text="update" data-modal-hide="update-modal" (click)="updateCoupon()"/>
+                    <app-button text="cancel" data-modal-hide="update-modal"/>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="delete-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div class="relative p-4 w-full max-w-2xl max-h-full">
+            <div class="relative bg-white shadow dark:bg-gray-700">
+                <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                        Are you sure you want to remove this coupon?
+                    </h3>
+                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="delete-modal">
+                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                        </svg>
+                        <span class="sr-only">Close modal</span>
+                    </button>
+                </div>
+                <div class="flex items-center gap-2 p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
+                    <app-black-button text="yes" data-modal-hide="delete-modal" (click)="removeCoupon()"/>
+                    <app-button text="no" data-modal-hide="delete-modal"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
