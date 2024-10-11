@@ -4,7 +4,7 @@
     <div class="product_gallery basis-full md:basis-2/3">
         <div class="w-full">
             <!-- @if (data?.images) { -->
-            <app-gallery-swiper [images]="data?.images || ['https://eagle-sensors.com/wp-content/uploads/unavailable-image.jpg']"></app-gallery-swiper>
+            <app-gallery-swiper [images]="data ? data.images : ['https://eagle-sensors.com/wp-content/uploads/unavailable-image.jpg']"></app-gallery-swiper>
             <!-- } -->
             <!-- Modal toggle -->
             <button data-modal-target="static-modal" data-modal-toggle="static-modal"
@@ -13,7 +13,7 @@
                 <i class="fa-solid fa-magnifying-glass-plus"></i>
             </button>
             <!-- @if (data?.images) { -->
-            <app-zoom [images]="data?.images || ['https://eagle-sensors.com/wp-content/uploads/unavailable-image.jpg']"></app-zoom>
+            <app-zoom [images]="data ? data.images : ['https://eagle-sensors.com/wp-content/uploads/unavailable-image.jpg']"></app-zoom>
             <!-- } -->
         </div>
     </div>
@@ -128,7 +128,7 @@
 <!-- Product Description Drawer -->
 <div class="flex flex-col justify-center container m-auto">
     <div class="drawer-item border-b">
-        <app-right-drawer [title]="'Description'" [text]="data?.description || ''"></app-right-drawer>
+        <app-right-drawer [title]="'Description'" [text]="data ? data.description : ''"></app-right-drawer>
     </div>
 </div>
 
