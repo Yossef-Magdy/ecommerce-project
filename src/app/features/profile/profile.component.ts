@@ -6,6 +6,8 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 import { AddAddressComponent } from "../add-address/add-address.component";
 import { EditAddressComponent } from "../edit-address/edit-address.component";
 import { AuthService } from '../../core/auth/services/auth.service';
+import { AddressService } from './address.service';
+import { GovernorateService } from './governorate.service';
 
 @Component({
   selector: 'app-profile',
@@ -16,7 +18,10 @@ import { AuthService } from '../../core/auth/services/auth.service';
 })
 export class ProfileComponent {
 
+  addresses: any;
+  governorates: any;
   constructor(private authService: AuthService) {}
+
 
   name = 'Hadeer'.toUpperCase();
   selectedTab: string = 'overview';
