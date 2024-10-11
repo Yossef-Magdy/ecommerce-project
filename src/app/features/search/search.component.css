@@ -1,0 +1,47 @@
+.search {
+    border: none;
+    padding: 2rem 2rem 2rem 0;
+    font-size: 25px;
+    width: 100%;
+}
+
+input:focus {
+    outline: none;
+    box-shadow: none;
+    border-color: transparent;
+}
+
+.search::placeholder {
+    color: black;
+    font-size: 25px;
+}
+
+.search-field {
+    position: relative;
+    border-bottom: 1px solid #e6e2e1;
+
+}
+
+.search-btn {
+    position: absolute;
+    top: 30%;
+    right: 0;
+    height: auto;
+}
+
+.search-btn:hover {
+    scale: 1.2;
+    transition: 1s;
+}
+
+.flex {
+    display: flex;
+    transition: transform 0.5s ease;
+    gap: 2px;
+}
+
+.product-card {
+    flex: 0 0 25%;
+    text-align: center;
+    column-gap: 2rem;
+}
