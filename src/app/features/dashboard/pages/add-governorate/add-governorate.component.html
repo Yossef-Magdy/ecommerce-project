@@ -8,6 +8,19 @@
                 <p role="alert" class="text-red-800 text-xs">Name is required</p>
             }
         </div>
+
+        <div class="flex flex-col gap-2 group">
+            <app-label for="fee" text="shipping fee*"/>
+            <input type="number" id="fee" placeholder="Name" class="group-hover:border-black border px-4 text-xs h-12" formControlName="fee">
+            @if ((fee.touched || fee.dirty)) {
+                @if (fee.hasError('required')) {
+                    <p role="alert" class="text-red-800 text-xs">fee is required</p>
+                }
+                @if (fee.hasError('min')) {
+                    <p role="alert" class="text-red-800 text-xs">fee must be greater than 0</p>
+                }
+            }
+        </div>
         
         @if (message) {
             @if (isErrorMessage) {

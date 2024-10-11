@@ -17,6 +17,7 @@ export class AddGovernorateComponent {
   constructor(private governorateService: GovernorateService) {
     this.governorateForm = new FormGroup({
       name: new FormControl('', [Validators.required]),
+      fee: new FormControl(0, [Validators.required, Validators.min(0)]),
     });
   }
 
@@ -25,6 +26,10 @@ export class AddGovernorateComponent {
 
   get name() {
     return this.governorateForm.controls['name'];
+  }
+
+  get fee() {
+    return this.governorateForm.controls['fee'];
   }
 
   submit() {
