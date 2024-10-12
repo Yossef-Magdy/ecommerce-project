@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { SearchService } from './search.service';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router, ActivatedRoute, RouterLink } from '@angular/router';
-import { debounceTime, of, Subject, switchMap, takeUntil } from 'rxjs';
+import { debounceTime, isEmpty, of, Subject, switchMap, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-search',
@@ -15,8 +15,7 @@ export class SearchComponent {
   products:any[] = [];
   type!: string;
   query!: string;
-  length!: number;
-  found: boolean = true;
+  searched: boolean = false;
   private destroy$ = new Subject<void>();
 
   constructor(private searchService: SearchService, private router: Router, private activatedRoute: ActivatedRoute ){}
@@ -29,6 +28,10 @@ export class SearchComponent {
   ngOnInit(){
     this.activatedRoute.queryParams.pipe(
       switchMap((params: any) => {
+        if (Object.entries(params).length !== 0){
+          this.searched = true;
+        }
+        
         if (!params?.query){
           return of ({'data': []});
         }

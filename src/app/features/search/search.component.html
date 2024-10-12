@@ -12,9 +12,9 @@
             </button>
         </div>
     </form>
-    <!-- @if(products.length){ -->
+    @if(searched){
         <p class="text-indigo-800 text-2xl" >{{products.length}} Results Found</p>
-    <!-- } -->
+    }
 </section>
 
 <section class="container product-grid min-h-[14rem]">
@@ -44,10 +44,5 @@
             }
         </div>
     </div>
-    }
-    @empty {
-        @if (!found) {
-            <h2>Not found</h2>
-        }
     }
 </section>
