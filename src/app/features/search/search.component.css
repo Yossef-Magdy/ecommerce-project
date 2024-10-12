@@ -41,7 +41,18 @@ input:focus {
 }
 
 .product-card {
-    flex: 0 0 25%;
+    flex: 0 1 calc(25% - 20px);
     text-align: center;
-    column-gap: 2rem;
+    margin-bottom: 20px;
+    transition: scale 400ms ease-in-out;
+}
+
+.product-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 2rem;
+    width: 100%;
+    gap: 3px;
+    margin: auto;
 }

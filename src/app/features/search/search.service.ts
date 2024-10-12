@@ -10,11 +10,11 @@ export class SearchService {
 
   constructor(private http: HttpClient, private router: Router) { }
 
-  searchByCategory(query: string):Observable<any>{
+  searchByProduct(query: string):Observable<any>{
     const params = new HttpParams()
-    .set('type', 'category')
+    .set('type', 'product')
     .set('query', query);
 
-    return this.http.get<any>(`/search/${params}`);
+    return this.http.get<any>(`/search?${params}`);
   }
 }
