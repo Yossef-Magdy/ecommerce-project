@@ -21,6 +21,7 @@ import { AddUserComponent } from './features/dashboard/pages/add-user/add-user.c
 import { ProductReviewsComponent } from './features/product-details/product-reviews/product-reviews.component';
 import { SubCategoriesComponent } from './features/sub-categories/sub-categories.component';
 import { ShippingComponent } from './features/shipping/shipping.component';
+import { SearchComponent } from './features/search/search.component';
 
 export const routes: Routes = [
     {
@@ -88,6 +89,11 @@ export const routes: Routes = [
         path: 'subcategories',
         component: SubCategoriesComponent,
         title: 'SubCategories',
+    },
+    {
+        path: 'search',
+        component: SearchComponent,
+        title: 'Search Products',
     },
     {
         path: 'policies',
