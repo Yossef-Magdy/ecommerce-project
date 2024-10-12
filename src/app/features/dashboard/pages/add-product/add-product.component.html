@@ -17,18 +17,31 @@
         </div>
         <div class="flex flex-col gap-2 group col-span-full">
             <app-label for="description" text="description*"/>
-            <textarea id="description" placeholder="Description" class="group-hover:border-black border px-4 text-xs min-h-12" formControlName="description"></textarea>
+            <textarea id="description" rows="10" placeholder="Description" class="group-hover:border-black border px-4 text-xs min-h-12 resize-none" formControlName="description"></textarea>
             @if ((description.touched || description.dirty) && description.hasError('required')) {
                 <p role="alert" class="text-red-800 text-xs">Description is required</p>
             }
         </div>
-        <div class="flex flex-col gap-2 col-span-full">
-            <app-label for="cover-image" text="cover image*"/>
-            <input type="file" id="cover-image" class="px-4 text-xs h-12" (change)="handleFileInput($event)" formControlName="coverImage">
+        <div class="flex flex-col gap-2">
+            <app-label text="categories"/>
+            <ng-select 
+            [items]="categories"
+            [clearable]="true"
+            [multiple]="true"
+            bindLabel="name"
+            bindValue="id"
+            [closeOnSelect]="false"
+            placeholder="Categories"
+            formControlName="categories">
+            </ng-select>  
+        </div>
+        <div class="flex flex-col gap-2">
+            <app-label for="cover-image" text="cover image"/>
+            <input type="file" id="cover-image" [writeFile]="true" accept=".webp, .jpg, .png" class="px-4 text-xs h-12" (change)="handleFileInput($event)" formControlName="cover_image">
             @if (imageUrl) {
                 <img width="100%" [src]="imageUrl" class="border size-52">
             }
-        </div>
+        </div>    
         @if (message) {
             @if (isErrorMessage) {
                 <p role="alert" class="text-red-800 text-xs col-span-full">{{message}}</p>
