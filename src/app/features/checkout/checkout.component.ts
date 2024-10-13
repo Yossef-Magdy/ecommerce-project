@@ -20,6 +20,8 @@ export class CheckoutComponent implements OnInit {
   showBillingAddress: boolean = false;
   selectedBillingOption: string = 'same';
   orderSummary!: any;
+  items !:any[];
+  totalPrice :number = 0;
 
   constructor(private router: Router, private paymentService: PaymentService, private cartService: CartService) {}
 
@@ -68,10 +70,20 @@ export class CheckoutComponent implements OnInit {
 
   ngOnInit() {
     this.cartService.getItems().subscribe(items =>{
-      console.log(items);
       this.orderSummary = items;
+
+      this.items = [];
+
+      for (let item of this.orderSummary){
+        this.items.push({
+          product_detail_id: item.productDetailId,
+          quantity: item.quantity,
+        });
+        
+        this.totalPrice += (item.price * item.quantity);
+      }
       
-    })
+    });
 
     // Initialize Stripe.js
     const elements = this.stripe.elements();
@@ -85,21 +97,23 @@ export class CheckoutComponent implements OnInit {
     this.isLoading = true;
     this.paymentStatus = '';
 
+
     // Items to be ordered
-    const items = [
-      {
-        product_detail_id: 1, // Hardcoded product detail ID
-        quantity: 1,
-      },
-    ];
+
+    // let items = [
+    //   {
+    //     product_detail_id: 1, // Hardcoded product detail ID
+    //     quantity: 1,
+    //   },
+    // ];
 
     // Process payment
     switch(this.paymentMethod) {
       case 'credit-card':
-        this.stripePayment(items);
+        this.stripePayment(this.items);
         break;
       case 'cod':
-        this.codPayment(items);
+        this.codPayment(this.items);
         break;
     }
   }
@@ -124,7 +138,7 @@ export class CheckoutComponent implements OnInit {
 
     const order = {
       token: this.generateRandomToken(6), // Radnomly generated token
-      items: items,
+      items: this.items,
       shipping_detail_id: 1, // Hardcoded shipping detail ID
       coupon: null, // If coupon is applied !
       payment_method: 'stripe',
