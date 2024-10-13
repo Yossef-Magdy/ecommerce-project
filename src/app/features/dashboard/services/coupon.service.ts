@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpStatusCode } from '@angular/common/http';
-import { catchError, of } from 'rxjs';
+import { catchError, map, of } from 'rxjs';
+import { ToastService } from '../../../core/services/toast.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -8,43 +9,48 @@ export class CouponService {
 
   private baseURL = '/control/coupons';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private toastService: ToastService) { }
 
   addCoupon(coupon: any) {
     coupon = this.prepareCoupon(coupon); 
     return this.http.post('/control/coupons', coupon).pipe(
-      catchError((error) => {
-        if (error.status == HttpStatusCode.BadRequest || error.status == HttpStatusCode.UnprocessableEntity) {
-          return of(error.error.errors);
-        }
-        return of("an error occured when adding the coupon");
+      map((result: any) => {
+        this.toastService.showToast(result.message, 'success');
+        return true;
+      }), catchError((error: any) => {
+        return of(false);
       })
     );
   }
 
   getCoupons() {
-    return this.http.get('/control/coupons');
+    return this.http.get('/control/coupons').pipe(
+      catchError ((error) => {
+        this.toastService.showToast('an error occurred when getting coupons', 'error');
+        return of ([])
+      })
+    );
   }
 
   updateCoupon(coupon: any, couponId: number) {
     coupon = this.prepareCoupon(coupon);
     return this.http.put(`${this.baseURL}/${couponId}`, coupon).pipe(
-      catchError((error) => {
-        if (error.status == HttpStatusCode.BadRequest || error.status == HttpStatusCode.UnprocessableEntity) {
-          return of(error.error.errors);
-        }
-        return of("an error occured when updating the coupon");
+      map((result: any) => {
+        this.toastService.showToast(result.message, 'success');
+        return result;
+      }), catchError((error: any) => {
+        return of(false);
       })
     );
   }
 
   deleteCoupon(couponId: number) {
     return this.http.delete(`${this.baseURL}/${couponId}`).pipe(
-      catchError((error) => {
-        if (error.status == HttpStatusCode.BadRequest || error.status == HttpStatusCode.UnprocessableEntity) {
-          return of(error.error.errors);
-        }
-        return of("an error occured when deleting the coupon");
+      map((result: any) => {
+        this.toastService.showToast(result.message, 'success');
+        return true;
+      }), catchError((error: any) => {
+        return of(false);
       })
     );
   }

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpStatusCode } from '@angular/common/http';
-import { catchError, map, of } from 'rxjs';
+import { catchError, map, Observable, of } from 'rxjs';
+import { ToastService } from '../../../core/services/toast.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,54 +11,59 @@ export class UserService {
   private userURL = '/control/users';
   private roleURL = '/control/roles';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private toastService: ToastService) { }
 
-  addUser(userData: any) {
+  addUser(userData: any): Observable<boolean> {
     userData = this.prepareUserData(userData);
     return this.http.post(this.userURL, userData).pipe(
-      catchError((error) => {
-        if (error.status == HttpStatusCode.BadRequest || error.status == HttpStatusCode.UnprocessableEntity) {
-          return of(error.error.errors);
-        }
-        return of("an error occured when adding the user");
+      map((result: any) => {
+        this.toastService.showToast(result.message, 'success');
+        return result;
+      }), catchError((error: any) => {
+        return of(false);
       })
     );
   }
 
-  addRole(data: any) {
+  addRole(data: any): Observable<boolean> {
     return this.http.post(this.roleURL, data).pipe(
-      catchError((error) => {
-        if (error.status == HttpStatusCode.BadRequest || error.status == HttpStatusCode.UnprocessableEntity) {
-          return of(error.error.errors);
-        }
-        return of("an error occured when adding the role");
+      map((result: any) => {
+        this.toastService.showToast(result.message, 'success');
+        return true;
+      }), catchError((error: any) => {
+        return of(false);
       })
     );
   }
 
   getUsers() {
-    return this.http.get(this.userURL);
+    return this.http.get(this.userURL).pipe(
+      catchError ((error) => {
+        this.toastService.showToast('an error occurred when getting users', 'error');
+        return of ([])
+      })
+    );
   }
 
   updateUser(userData: any) {
     const userId: number = userData.id;
     return this.http.put(`${this.userURL}/${userId}`, userData).pipe(
-      catchError((error) => {
-        if (error.status == HttpStatusCode.BadRequest || error.status == HttpStatusCode.UnprocessableEntity) {
-          return of(error.error.errors);
-        }
-        return of("an error occured when updating the user");
+      map((result: any) => {
+        this.toastService.showToast(result.message, 'success');
+        return result;
+      }), catchError((error: any) => {
+        return of(false);
       })
     );
   }
 
-  deleteUser(userId: number) {
+  deleteUser(userId: number): Observable<boolean> {
     return this.http.delete(`${this.userURL}/${userId}`).pipe(
-      catchError((error) => {
-        if (error.status == HttpStatusCode.BadRequest || error.status == HttpStatusCode.UnprocessableEntity) {
-          return of(error.error.errors);
-        }
-        return of("an error occured when deleting the user");
+      map((result: any) => {
+        this.toastService.showToast(result.message, 'success');
+        return true;
+      }), catchError((error: any) => {
+        return of(false);
       })
     );  
   }
@@ -84,7 +90,7 @@ export class UserService {
         return roles;
       }),
       catchError ((error) => {
-        console.log('an error occurred when getting roles')
+        this.toastService.showToast('an error occurred when getting roles', 'error');
         return of ([])
       })
     )
@@ -92,22 +98,22 @@ export class UserService {
 
   updateRole(data: any, roleId: number) {
     return this.http.put(`${this.roleURL}/${roleId}`, data).pipe(
-      catchError((error) => {
-        if (error.status == HttpStatusCode.BadRequest || error.status == HttpStatusCode.UnprocessableEntity) {
-          return of(error.error.errors);
-        }
-        return of("an error occured when updating the role");
+      map((result: any) => {
+        this.toastService.showToast(result.message, 'success');
+        return result;
+      }), catchError((error: any) => {
+        return of(false);
       })
     );
   }
 
-  deleteRole(roleId: number) {
+  deleteRole(roleId: number): Observable<boolean> {
     return this.http.delete(`${this.roleURL}/${roleId}`).pipe(
-      catchError((error) => {
-        if (error.status == HttpStatusCode.BadRequest || error.status == HttpStatusCode.UnprocessableEntity) {
-          return of(error.error.errors);
-        }
-        return of("an error occured when deleting the role");
+      map((result: any) => {
+        this.toastService.showToast(result.message, 'success');
+        return true;
+      }), catchError((error: any) => {
+        return of(false);
       })
     );  
   }
@@ -121,10 +127,9 @@ export class UserService {
         return permissions;
       }),
       catchError ((error) => {
-        console.log('an error occurred when getting permissions')
+        this.toastService.showToast('an error occurred when getting permissions', 'error');
         return of ([])
       })
     )
   }
-
 }
