@@ -1,0 +1,95 @@
+<div class="p-4 max-h-dvh overflow-x-auto">
+    <h1 class="text-4xl uppercase font-light mb-4">Categories Data</h1>
+    @if (subcategories) {
+        <table class="border border-slate-500 text-left overflow-y-auto w-full table-auto relative overflow-x-auto">
+            <thead class="capitalize">
+                <th class="font-medium border-b border-slate-500 p-1.5">name</th>
+                <th class="font-medium border-b border-slate-500 p-1.5">category</th>
+                <th class="font-medium border-b border-slate-500 p-1.5"></th>
+            </thead>
+            <tbody>
+                @for (subcategory of subcategories; track $index) {
+                    <tr>
+                        <td class="capitalize border-b border-slate-500 p-1.5">{{subcategory.name}}</td>
+                        <td class="capitalize border-b border-slate-500 p-1.5">{{subcategory.category.name}}</td>
+                        <td class="border-b border-slate-500 p-1.5">
+                            <div class="flex gap-1 justify-end min-w-max">
+                                <button data-modal-target="update-modal" data-modal-toggle="update-modal" 
+                                type="button" class="hover:bg-slate-200 rounded px-2 py-1"
+                                (click)="selectSubcategory(subcategory)" (click)="updateForm()">
+                                    <img src="assets/icons/pen.svg" class="size-6"/>
+                                </button>
+                                <button data-modal-target="delete-modal" data-modal-toggle="delete-modal"
+                                type="button" class="hover:bg-red-200 rounded p-1.5"
+                                (click)="selectSubcategory(subcategory)">
+                                    <img src="assets/icons/trash.svg" class="size-6"/>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    <div id="update-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div class="relative p-4 w-full max-w-2xl max-h-full">
+            <div class="relative bg-white shadow dark:bg-gray-700">
+                <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                        Update subcategory
+                    </h3>
+                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="update-modal">
+                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                        </svg>
+                        <span class="sr-only">Close modal</span>
+                    </button>
+                </div>
+                <div class="p-4 md:p-5 space-y-4">
+                    <form class="grid items-start gap-6" [formGroup]="subcategoryForm">
+                    <input type="text" formControlName="id" hidden>                            
+                    <div class="flex flex-col gap-2 group">
+                        <app-label for="name" text="name"/>
+                        <input type="text" id="name" placeholder="Name" class="group-hover:border-black border px-4 text-xs h-12" formControlName="name">
+                    </div>
+                    <div class="flex flex-col gap-2 group">
+                        <app-label for="category-name" text="category"/>
+                        <select id="category-name" class="group-hover:border-black border px-4 text-xs h-12" formControlName="category_id">
+                            <option value="" disabled>Select Category</option>
+                            @for (category of categories; track $index) {
+                                <option value="{{category.id}}">{{category.name}}</option>
+                            }
+                        </select>
+                    </div>
+                    </form>
+                </div>
+                <div class="flex items-center gap-2 p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
+                    <app-black-button text="update" data-modal-hide="update-modal" (click)="updateSubcategory()"/>
+                    <app-button text="cancel" data-modal-hide="update-modal"/>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="delete-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div class="relative p-4 w-full max-w-2xl max-h-full">
+            <div class="relative bg-white shadow dark:bg-gray-700">
+                <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                        Are you sure you want to remove this subcategory?
+                    </h3>
+                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="delete-modal">
+                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                        </svg>
+                        <span class="sr-only">Close modal</span>
+                    </button>
+                </div>
+                <div class="flex items-center gap-2 p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
+                    <app-black-button text="yes" data-modal-hide="delete-modal" (click)="removeSubcategory()"/>
+                    <app-button text="no" data-modal-hide="delete-modal"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
