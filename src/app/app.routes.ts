@@ -18,10 +18,22 @@ import { AddCategoryComponent } from './features/dashboard/pages/add-category/ad
 import { AddCouponComponent } from './features/dashboard/pages/add-coupon/add-coupon.component';
 import { AddProductComponent } from './features/dashboard/pages/add-product/add-product.component';
 import { AddUserComponent } from './features/dashboard/pages/add-user/add-user.component';
+import { AddSubcategoryComponent } from './features/dashboard/pages/add-subcategory/add-subcategory.component';
+import { AddGovernorateComponent } from './features/dashboard/pages/add-governorate/add-governorate.component';
+import { ManageUsersComponent } from './features/dashboard/pages/manage-users/manage-users.component';
+import { ManageRolesComponent } from './features/dashboard/pages/manage-roles/manage-roles.component';
+import { AddRolesComponent } from './features/dashboard/pages/add-roles/add-roles.component';
+import { ManageCouponsComponent } from './features/dashboard/pages/manage-coupons/manage-coupons.component';
+import { ManageCategoriesComponent } from './features/dashboard/pages/manage-categories/manage-categories.component';
+import { ManageProductsComponent } from './features/dashboard/pages/manage-products/manage-products.component';
+import { ManageGovernorateComponent } from './features/dashboard/pages/manage-governorate/manage-governorate.component';
+import { ManageOrdersComponent } from './features/dashboard/pages/manage-orders/manage-orders.component';
+import { ManageSubcategoriesComponent } from './features/dashboard/pages/manage-subcategories/manage-subcategories.component';
 import { ProductReviewsComponent } from './features/product-details/product-reviews/product-reviews.component';
 import { SubCategoriesComponent } from './features/sub-categories/sub-categories.component';
 import { ShippingComponent } from './features/shipping/shipping.component';
 import { EditAddressComponent } from './features/edit-address/edit-address.component';
+import { SearchComponent } from './features/search/search.component';
 
 export const routes: Routes = [
     {
@@ -64,6 +76,7 @@ export const routes: Routes = [
         path: 'profile',
         component: ProfileComponent,
         title: 'Profile',
+        canActivate: [authGuard],
     },
     { 
         path: 'edit-address/:id', 
@@ -96,6 +109,11 @@ export const routes: Routes = [
         title: 'SubCategories',
     },
     {
+        path: 'search',
+        component: SearchComponent,
+        title: 'Search Products',
+    },
+    {
         path: 'policies',
         children: [
             {
@@ -120,9 +138,29 @@ export const routes: Routes = [
                 title: 'Add New User'
             },
             {
+                path: 'manage-users',
+                component: ManageUsersComponent,
+                title: 'Manage Users'
+            },
+            {
+                path: 'new-role',
+                component: AddRolesComponent,
+                title: 'Add New Role'
+            },
+            {
+                path: 'manage-roles',
+                component: ManageRolesComponent,
+                title: 'Manage Roles'
+            },
+            {
                 path: 'new-coupon',
                 component: AddCouponComponent,
                 title: 'Add New Coupon'
+            },
+            {
+                path: 'manage-coupons',
+                component: ManageCouponsComponent,
+                title: 'Manage Coupons'
             },
             {
                 path: 'new-category',
@@ -130,9 +168,44 @@ export const routes: Routes = [
                 title: 'Add New Category'
             },
             {
+                path: 'new-subcategory',
+                component: AddSubcategoryComponent,
+                title: 'Add New Subcategory'
+            },
+            {
+                path: 'manage-categories',
+                component: ManageCategoriesComponent,
+                title: 'Manage Categories'
+            },
+            {
+                path: 'manage-subcategories',
+                component: ManageSubcategoriesComponent,
+                title: 'Manage Subcategories'
+            },
+            {
                 path: 'new-product',
                 component: AddProductComponent,
                 title: 'Add New Product'
+            },
+            {
+                path: 'manage-products',
+                component: ManageProductsComponent,
+                title: 'Manage Products'
+            },
+            {
+                path: 'new-location',
+                component: AddGovernorateComponent,
+                title: 'Add New Location'
+            },
+            {
+                path: 'manage-locations',
+                component: ManageGovernorateComponent,
+                title: 'Manage Locations'
+            },
+            {
+                path: 'manage-orders',
+                component: ManageOrdersComponent,
+                title: 'Manage Orders'
             },
         ]
     },

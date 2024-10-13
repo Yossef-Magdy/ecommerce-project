@@ -18,3 +18,15 @@ button[aria-expanded="true"] svg {
 span {
     text-transform: capitalize;
 }
+
+.elegant{
+    font-family: "Playfair Display SC", serif;
+    font-weight: 700;
+    color: rebeccapurple;
+}
+.wear{
+    font-family: "Pacifico", cursive;
+    font-weight: 400;
+    font-size: 15px;
+    margin-left: -3px;
+}

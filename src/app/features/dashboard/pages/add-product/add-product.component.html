@@ -1,1 +1,55 @@
-<p>add-product works!</p>
+<div class="p-4">
+    <h1 class="text-4xl uppercase font-light mb-4">create a new product</h1>
+    <form class="grid items-start md:grid-cols-2 gap-6" [formGroup]="productForm">
+        <div class="flex flex-col gap-2 group ">
+            <app-label for="name" text="name*"/>
+            <input type="text" id="name" placeholder="Name" class="group-hover:border-black border px-4 text-xs h-12" formControlName="name">
+            @if ((name.touched || name.dirty) && name.hasError('required')) {
+                <p role="alert" class="text-red-800 text-xs">Name is required</p>
+            }
+        </div>
+        <div class="flex flex-col gap-2 group">
+            <app-label for="price" text="price*"/>
+            <input type="number" min="0" id="price" placeholder="Price" class="group-hover:border-black border px-4 text-xs h-12" formControlName="price">
+            @if ((price.touched || price.dirty) && price.hasError('required')) {
+                <p role="alert" class="text-red-800 text-xs">price is required</p>
+            }
+        </div>
+        <div class="flex flex-col gap-2 group col-span-full">
+            <app-label for="description" text="description*"/>
+            <textarea id="description" rows="10" placeholder="Description" class="group-hover:border-black border px-4 text-xs min-h-12 resize-none" formControlName="description"></textarea>
+            @if ((description.touched || description.dirty) && description.hasError('required')) {
+                <p role="alert" class="text-red-800 text-xs">Description is required</p>
+            }
+        </div>
+        <div class="flex flex-col gap-2">
+            <app-label text="categories"/>
+            <ng-select 
+            [items]="categories"
+            [clearable]="true"
+            [multiple]="true"
+            bindLabel="name"
+            bindValue="id"
+            [closeOnSelect]="false"
+            placeholder="Categories"
+            formControlName="categories">
+            </ng-select>  
+        </div>
+        <div class="flex flex-col gap-2">
+            <app-label for="cover-image" text="cover image"/>
+            <input type="file" id="cover-image" [writeFile]="true" accept=".webp, .jpg, .png" class="px-4 text-xs h-12" (change)="handleFileInput($event)" formControlName="cover_image">
+            @if (imageUrl) {
+                <img width="100%" [src]="imageUrl" class="border size-52">
+            }
+        </div>    
+        @if (message) {
+            @if (isErrorMessage) {
+                <p role="alert" class="text-red-800 text-xs col-span-full">{{message}}</p>
+            } @else {
+                <p role="alert" class="text-green-800 text-xs col-span-full">{{message}}</p>
+            }
+        }
+
+        <app-black-button text="create" (click)="submit()"/>
+    </form>  
+</div>

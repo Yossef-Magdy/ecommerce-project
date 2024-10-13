@@ -1,6 +1,6 @@
 <div class="p-4">
     <h1 class="text-4xl uppercase font-light mb-4">create a new user</h1>
-    <form class="flex flex-col gap-6" [formGroup]="userForm">
+    <form class="grid items-start md:grid-cols-2 gap-6" [formGroup]="userForm">
         <div class="flex flex-col gap-2 group">
             <app-label for="first_name" text="first name*"/>
             <input type="text" id="first_name" placeholder="First Name" class="group-hover:border-black border px-4 text-xs h-12" formControlName="firstName">
@@ -15,7 +15,7 @@
                 <p role="alert" class="text-red-800 text-xs">Last name is required</p>
             }
         </div>
-        <div class="flex flex-col gap-2 group">
+        <div class="flex flex-col gap-2 group col-span-full">
             <app-label for="email" text="email*"/>
             <input type="email" id="email" placeholder="Enter your email" class="group-hover:border-black border px-4 text-xs h-12" formControlName="email">
             @if (email.touched || email.dirty) {
@@ -28,20 +28,48 @@
             }
     
         </div>
-        <div class="flex flex-col gap-2 group">
+        <div class="flex flex-col gap-2 group col-span-full">
             <app-label for="password" text="password*"/>
             <input type="password" id="password" placeholder="Enter your password" class="group-hover:border-black border px-4 text-xs h-12" formControlName="password">
             @if ((password.touched || password.dirty) && password.hasError('required')) {
                 <p role="alert" class="text-red-800 text-xs">Password is required</p>
             }
         </div>
+        <div class="flex flex-col gap-2">
+            <app-label text="roles"/>
+            <ng-select 
+            [items]="roles"
+            [clearable]="true"
+            [multiple]="true"
+            bindLabel="name"
+            bindValue="id"
+            [closeOnSelect]="false"
+            placeholder="Roles"
+            formControlName="roles">
+            </ng-select>  
+        </div>
+        <div class="flex flex-col gap-2">
+            <app-label text="permissions"/>
+            <ng-select
+            [items]="permissions"
+            [clearable]="true"
+            [multiple]="true"
+            bindLabel="name"
+            bindValue="id"
+            [closeOnSelect]="false"
+            placeholder="Permissions"
+            formControlName="permissions">
+            </ng-select>        
+        </div>
+
         @if (message) {
             @if (isErrorMessage) {
-                <p role="alert" class="text-red-800 text-xs">{{message}}</p>
+                <p role="alert" class="text-red-800 text-xs col-span-full">{{message}}</p>
             } @else {
-                <p role="alert" class="text-green-800 text-xs">{{message}}</p>
+                <p role="alert" class="text-green-800 text-xs col-span-full">{{message}}</p>
             }
         }
+
         <app-black-button text="create" (click)="submit()"/>
     </form>  
 </div>

@@ -1,0 +1,56 @@
+<section class="search-section my-10">
+    <form [formGroup]="searchForm" (ngSubmit)="onSearch(searchForm.value.productName)">
+        <div class="search-field w-1/2 m-auto">
+            <input type="text" placeholder="Search" class="search capitalizee w-full" formControlName="productName" />
+            <button class="search-btn" type="submit">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M14.8398 15.1072L20.143 21" stroke="#111111"></path>
+                    <path
+                        d="M10.7146 16.7143C14.5017 16.7143 17.5717 13.6442 17.5717 9.85714C17.5717 6.07005 14.5017 3 10.7146 3C6.92747 3 3.85742 6.07005 3.85742 9.85714C3.85742 13.6442 6.92747 16.7143 10.7146 16.7143Z"
+                        stroke="#111111" data-ignore-fill=""></path>
+                </svg>
+            </button>
+        </div>
+    </form>
+</section>
+
+<section class="sort-section border px-2 capitalizee">
+    <select class="ml-[4rem] border-none hover:bg-gray-200 py-5" id="sortByPrice" (change)="sortProducts($event)">
+        <option class="bg-white shadow" value="asc">Price, Low to High</option>
+        <option class="bg-white shadow" value="desc">Price, High to Low</option>
+    </select>
+</section>
+
+@if(searched){
+    <p class="text-indigo-800 text-2xl">{{products.length}} Results Found</p>
+}
+
+<section class="container product-grid min-h-[14rem]">
+    @for (product of products; track product.id) {
+    <div class="product-card">
+        <a [routerLink]="['/products', product.slug]">
+            <div class="img relative">
+                <img class="trans_img" [src]="product.current_image || product.cover_image" [alt]="product.name"
+                    (mouseover)="changeImage(product, product.hover_image)"
+                    (mouseout)="changeImage(product, product.cover_image)" />
+                @if (product.discount_value){
+                <span class="absolute left-2 bottom-2 capitalizee text-xs">Sale</span>
+                }
+            </div>
+            <h3 class="mt-3">{{ product.name }}</h3>
+
+            @if (product.discount_value) {
+            <span class="me-2 old-price">LE {{ product.price }}</span>
+            <span class="price">LE {{ product.price - product.discount_value }}</span>
+            } @else {
+            <span class="me-2 price">LE {{ product.price }}</span>
+            }
+        </a>
+        <div class="colors">
+            @for (color of product.colors; track $index) {
+            <span class="color" [style.background-color]="color"></span>
+            }
+        </div>
+    </div>
+    }
+</section>

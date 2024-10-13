@@ -3,10 +3,12 @@ import { LabelComponent } from "../../../../core/auth/components/label/label.com
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BlackButtonComponent } from "../../../../shared/black-button/black-button.component";
 import { UserService } from '../../services/user.service';
+import { NgSelectModule } from '@ng-select/ng-select';
+
 @Component({
   selector: 'app-add-user',
   standalone: true,
-  imports: [LabelComponent, ReactiveFormsModule, BlackButtonComponent],
+  imports: [LabelComponent, ReactiveFormsModule, BlackButtonComponent, NgSelectModule],
   templateUrl: './add-user.component.html',
   styleUrl: './add-user.component.css'
 })
@@ -19,7 +21,21 @@ export class AddUserComponent {
     lastName: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required]),
+    roles: new FormControl([]),
+    permissions: new FormControl([]),
   });
+
+  roles?: any;
+  permissions?: any;
+
+  ngOnInit() {
+    this.userSerivce.getRoles().subscribe((value: any) => {
+      this.roles = value.data;
+    });
+    this.userSerivce.getPermissions().subscribe((value: any) => {
+      this.permissions = value.data;
+    });
+  }
 
   message?: string;
   isErrorMessage?: boolean;
@@ -45,7 +61,6 @@ export class AddUserComponent {
       return;
     }
     this.userSerivce.addUser(this.userForm.value).subscribe((response: any) => {
-      console.log('response is', response);
       if (response.message) {
         this.isErrorMessage = false;
         this.message = response.message;
