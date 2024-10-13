@@ -29,6 +29,10 @@ import { ManageProductsComponent } from './features/dashboard/pages/manage-produ
 import { ManageGovernorateComponent } from './features/dashboard/pages/manage-governorate/manage-governorate.component';
 import { ManageOrdersComponent } from './features/dashboard/pages/manage-orders/manage-orders.component';
 import { ManageSubcategoriesComponent } from './features/dashboard/pages/manage-subcategories/manage-subcategories.component';
+import { ProductReviewsComponent } from './features/product-details/product-reviews/product-reviews.component';
+import { SubCategoriesComponent } from './features/sub-categories/sub-categories.component';
+import { ShippingComponent } from './features/shipping/shipping.component';
+import { SearchComponent } from './features/search/search.component';
 
 export const routes: Routes = [
     {
@@ -79,6 +83,41 @@ export const routes: Routes = [
         title: 'Products',
     },
     {
+        path: 'collections/:category_name',
+        component: CollectionComponent,
+        title: 'Collections',
+    },
+    {
+        path: 'collections/:subcategory_name',
+        component: CollectionComponent,
+        title: 'Collections',
+    },
+    {
+        path: 'reviews/:id',
+        component: ProductReviewsComponent,
+        title: 'Reviews',
+    },
+    {
+        path: 'subcategories',
+        component: SubCategoriesComponent,
+        title: 'SubCategories',
+    },
+    {
+        path: 'search',
+        component: SearchComponent,
+        title: 'Search Products',
+    },
+    {
+        path: 'policies',
+        children: [
+            {
+                path: 'shipping-policy',
+                component: ShippingComponent,
+                title: 'Shipping',
+            }
+        ]
+    }
+    ,{
         path: 'dashboard',
         canActivate: [dashboardGuard],
         children: [

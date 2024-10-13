@@ -1,6 +1,6 @@
 <main class="hero">
   <div class="hero-content">
-    <h1>PRODUCTS</h1>
+    <h1>{{ heroTitle.toUpperCase() }}</h1>
   </div>
 </main>
 <div class="container mx-auto">
@@ -10,14 +10,17 @@
   @for (card of clothsCards; track $index) {
     <div class="product-card">
       <a [routerLink]="['/products', card.slug]">
-        <div class="img">
+        <div class="img relative">
           <img class="trans_img" [src]="card.current_image || card.cover_image" [alt]="card.name" (mouseover)="changeImage(card, card.hover_image)" (mouseout)="changeImage(card, card.cover_image)" />
+          @if (card.discount_value){
+            <span class="absolute left-2 bottom-2 capitalizee text-xs">Sale</span>
+          }
         </div>
         <h3 class="mt-3">{{ card.name }}</h3>
         <!--In case of discount-->
-        @if (card.isSale) {
-        <span class="me-2 price">{{ card.newPrice }}</span>
-        <span class="old-price">{{ card.oldPrice }}</span>
+        @if (card.discount_value) {
+        <span class="me-2 old-price">LE {{ card.price }}</span>
+        <span class="price">LE {{ card.price - card.discount_value }}</span>
         } @else {
         <span class="me-2 price">LE {{ card.price }}</span>
         }

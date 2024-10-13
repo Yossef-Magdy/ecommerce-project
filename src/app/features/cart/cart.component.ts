@@ -16,32 +16,25 @@ export class CartComponent {
   totalPrice: number = 0;
   constructor(private cartService: CartService){}
 
-  updateQuantity(info: CartEmitter){
-    this.cartService.updateQuantity(
-      this.data[info.index].product.id,
-      info.quantity
-    );
+  updateQuantity(updatedItem: { productDetailId: number, quantity: number }) {
+    this.cartService.updateQuantity(updatedItem.productDetailId, updatedItem.quantity);
     this.calculateTotalPrice();
   }
 
-  calculateTotalPrice(): void{
-    this.totalPrice = Number(
-      this.data.reduce((total, cartItem) => {
-        const discount = cartItem.product.discountPercentage ? 1 - cartItem.product.discountPercentage / 100 : 1;
-        return (total + cartItem.quantity * (cartItem.product.price * discount));
-
-      }, 0).toFixed(2),
-    );
+  calculateTotalPrice() {
+    this.totalPrice = this.data.reduce((total, item) => {
+      return total + item.price * item.quantity;
+    }, 0);
   }
 
-  deleteItem(productId: number){
-    this.cartService.deleteItem(productId);
+  deleteItem(productDetailId: number){
+    this.cartService.deleteItem(productDetailId);
     this.calculateTotalPrice();
   }
 
 
   ngOnInit(){
-    this.cartService.getItems().subscribe((items)=>{
+    this.cartService.getItems().subscribe((items:CartItem[])=>{
       this.data = items;
       this.calculateTotalPrice();
     });

@@ -1,15 +1,15 @@
 <div class="cart-item flex flex-row mt-2 h-56">
     <div class="product-img w-full basis-1/3 overflow-hidden relative">
-        <a [routerLink]="['/products' , productSlug]" routerLinkActive="router-link-active">
-            <img src="assets/1.jpg" class="">
+        <a [routerLink]="['/products' , cartItem.productSlug]" routerLinkActive="router-link-active">
+            <img [src]="cartItem.coverImg" class="">
         </a>
     </div>
     <div class="product-details w-full basis-2/3 px-5 py-1 text-sm">
-        <h2 class="text-lg my-2">{{cartItem.product.name}}</h2>
-        <p class="my-2">Color: product.color</p>
-        <p class="my-2">Size: product.size</p>
+        <h2 class="text-lg my-2">{{cartItem.name}}</h2>
+        <p class="my-2">Color: {{cartItem.color}}</p>
+        <p class="my-2">Size: {{cartItem.size}}</p>
         <span class="block my-2">
-            LE {{cartItem.product.price}}
+            LE {{cartItem.price}}
         </span>
         <!-- counter -->
         <div class="inline-flex items-center gap-4 border p-2 my-2">

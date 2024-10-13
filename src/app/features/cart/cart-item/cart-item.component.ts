@@ -17,10 +17,8 @@ export interface CartEmitter {
 export class CartItemComponent {
   @Input() cartItem!: CartItem;
   @Input() index!: number;
-  @Output() quantityChangeEmitter = new EventEmitter<CartEmitter>();
+  @Output() quantityChangeEmitter = new EventEmitter<{ productDetailId: number, quantity: number }>();
   @Output() deleteItemEmitter = new EventEmitter<number>();
-
-  productSlug = 'product-slug';
 
   decreaseQuantity(){
     if (this.cartItem.quantity > 1){
@@ -30,20 +28,17 @@ export class CartItemComponent {
   }
 
   increaseQuantity(){
-    if (this.cartItem.quantity < this.cartItem.product.stock){
+    if (this.cartItem.quantity < this.cartItem.stock){
       this.cartItem.quantity++;
       this.onUpdateQuantity();
     }
   }
 
   deleteItem() {
-    this.deleteItemEmitter.emit(this.cartItem.product.id);
+    this.deleteItemEmitter.emit(this.cartItem.productDetailId);
   }
 
   onUpdateQuantity() {
-    this.quantityChangeEmitter.emit({
-      index: this.index,
-      quantity: this.cartItem.quantity,
-    });
+    this.quantityChangeEmitter.emit({ productDetailId: this.cartItem.productDetailId, quantity: this.cartItem.quantity });
   }
 }

@@ -22,7 +22,7 @@ export class AppComponent {
     initFlowbite();
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
-        window.scrollTo(0, 0); // Scrolls to the top-left corner when route changes
+        window.scrollTo({top:0, left:0, behavior:'smooth'});  // Scrolls to the top-left corner when route changes
       }
     });
   }

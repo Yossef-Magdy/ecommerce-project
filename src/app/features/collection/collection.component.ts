@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ButtonComponent } from "../../shared/button/button.component";
 import { AllProductsService } from './all-products.service';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-collection',
@@ -10,13 +10,15 @@ import { RouterLink } from '@angular/router';
   templateUrl: './collection.component.html',
   styleUrl: './collection.component.css'
 })
-export class CollectionComponent{
+export class CollectionComponent {
+  
+  clothsCards: any[] = [];
+  length: number = 0;
+  heroTitle: string = 'PRODUCTS';
 
-  clothsCards !: any[];
-  length!:number;
-  constructor(private allProducts:AllProductsService){}
+  constructor(private allProducts: AllProductsService, private route: ActivatedRoute) { }
 
-  ngOnInit(){
+  ngOnInit() {
     this.allProducts.getProducts().subscribe(
       (data) => {
         console.log(data.data);
@@ -27,9 +29,38 @@ export class CollectionComponent{
         });
       }
     );
-  }
-  changeImage(card: any, newImage: string){
-    card.current_image = newImage;
+
+    this.route.params.subscribe(params => {
+      let categoryName = params['category_name'];
+      let subcategoryName = params['subcategory_name'];
+
+      if (categoryName) {
+        categoryName = categoryName.replace(/\s+/g, '-');
+        this.heroTitle = categoryName;
+      } else if (subcategoryName) {
+        subcategoryName = subcategoryName.replace(/\s+/g, '-');
+        this.heroTitle = subcategoryName;
+      }
+
+      if (categoryName || subcategoryName) {
+        const nameToFetch = categoryName || subcategoryName;
+        this.allProducts.getProductsByCategoryName(nameToFetch).subscribe(
+          (data) => {
+            this.clothsCards = data.data;
+            this.length = this.clothsCards.length;
+            this.clothsCards.forEach((card) => {
+              card.current_image = card.cover_image;
+            });
+          },
+          (error) => {
+            console.error('Error fetching products:', error);
+          }
+        );
+      }
+    });
   }
 
+  changeImage(card: any, newImage: string) {
+    card.current_image = newImage;
+  }
 }

@@ -40,22 +40,22 @@
     transition: opacity 0.5s, border-color 0.5s, transform 0.5s;
 }
 
-.swatch_active{
-    border-color: black;
+input[type="radio"]:checked + label {
+    border: 2px solid black;
 }
 
 .swatch:hover{
     border-color: black;
 }
 
-.btn-add, .btn-notify{
+.btn-add{
     background-color: black;
     color: white;
     width: 100%;
     padding: 1rem;
     border: 1px solid black;
     transition: all 0.3s;
-    margin: 0.7rem 0;
+    margin: 2rem 0;
     font-family: var(--font-body-family);
     text-transform: uppercase;
     font-size: 0.8rem;
@@ -66,8 +66,14 @@
     color: black;
 }
 
-.btn-notify:hover{
-    color: rgb(99, 99, 99);
+.btn-add:disabled{
+    color: white;
+    background-color: rgb(82, 82, 82);
+    pointer-events: none;
+}
+
+.inc:disabled, .dec:disabled{
+    pointer-events: none;
 }
 
 .quantity-container{
@@ -124,6 +130,16 @@
 
 .drawer-item{
     margin: 0 10%;
+}
+
+.sold-out{
+    background: linear-gradient(to top right, #fff calc(50% - 1px), #aaa, #fff calc(50% + 1px))
+}
+
+@media (min-width: 768px) {
+    div.details_container.flex.flex-col.md\:flex-row.my-5{
+        height: 650px;;
+    }
 }
 
 @media (max-width: 768px) {

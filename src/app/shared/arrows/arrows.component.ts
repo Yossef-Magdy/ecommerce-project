@@ -9,11 +9,13 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 export class ArrowsComponent {
   @Input() cards: any[] = [];
   @Input() currentIndex = 0;
-  @Input() maxVisibleCards = 4;
+  @Input() maxVisibleCards !: number;
   @Output() arrowClick = new EventEmitter<number>();
 
   nextCard() {
     const maxIndex = this.cards.length - this.maxVisibleCards;
+    console.log(this.maxVisibleCards);
+    
     if (this.currentIndex < maxIndex) {
       this.currentIndex++;
       this.arrowClick.emit(this.currentIndex);
@@ -26,4 +28,5 @@ export class ArrowsComponent {
       this.arrowClick.emit(this.currentIndex);
     }
   }
+
 }
