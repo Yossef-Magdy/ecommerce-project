@@ -14,37 +14,54 @@
 <div class=" p-6">
     <h3 class="text-2xl font-normal">ADD ADDRESS</h3>
 
-    <form class="mt-6 ">
+    <form class="mt-6" [formGroup]="addressForm" (ngSubmit)="onSubmit()">
         <div class="grid gap-6 mb-6 md:grid-cols-2">
             <div>
-                <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 ">Address 1</label>
-                <input type="text" id="first_name"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-                    placeholder="Enter your address" required />
-            </div>
-            <div>
-                <label for="last_name" class="block mb-2 text-sm font-medium text-gray-900 ">Address 2
-                    (optional)</label>
-                <input type="text" id="last_name"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                <label for="address" class="block mb-2 text-sm font-medium text-gray-900 ">Address</label>
+                <input type="text" id="address" formControlName="address"
+                    class="bg-gray-50 border border-black text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                     placeholder="Enter your address" />
             </div>
             <div>
-                <label for="company" class="block mb-2 text-sm font-medium text-gray-900 ">City</label>
-                <input type="text" id="company"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                <label for="apartment" class="block mb-2 text-sm font-medium text-gray-900 ">Apartment Number</label>
+                <input type="text" id="apartment" formControlName="apartment"
+                    class="bg-gray-50 border border-black text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                    placeholder="Enter your apartment number" />
+            </div>
+            <div>
+                <label for="city" class="block mb-2 text-sm font-medium text-gray-900 ">City</label>
+                <input type="text" id="city" formControlName="city"
+                    class="bg-gray-50 border border-black text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                     placeholder="Enter your city" required />
             </div>
+            <div>
+                <label for="governorate" class="block mb-2 text-sm font-medium text-gray-900">Governorate</label>
+                <select id="governorate" formControlName="governorate_id"
+                    class="bg-gray-50 border border-black text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                    <option value="" disabled selected>Select your governorate</option>
+                    @if (governorates) {
+                    @for (governorate of governorates; track $index) {
+                    <option [value]="governorate.id">{{ governorate.name }}</option>
+                    }
+                    }
 
+                </select>
+            </div>
             <div>
                 <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 ">Phone</label>
-                <input type="tel" id="phone"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-                    placeholder="123-45-678" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" required />
+                <input type="text" id="phone" formControlName="phone_number"
+                    class="bg-gray-50 border border-black text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                    placeholder="Enter valid phone number" />
+                @if (addressForm.get('phone_number')?.invalid && addressForm.get('phone_number')?.touched) {
+                <div>
+                    <small class="text-red-500">Please enter a valid phone number that starts with 010, 011, 012, or 015
+                        and has 11 digits.</small>
+                </div>
+                }
             </div>
 
             <div>
-                <label for="zip-input" class="block mb-2 text-sm font-medium text-gray-900">ZIP code</label>
+                <label for="zip-input" class="block mb-2 text-sm font-medium text-gray-900">ZIP code (optional)</label>
                 <div class="relative">
                     <div class="absolute inset-y-0 start-0 top-0 flex items-center ps-3.5 pointer-events-none">
                         <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
@@ -53,21 +70,22 @@
                                 d="M8 0a7.992 7.992 0 0 0-6.583 12.535 1 1 0 0 0 .12.183l.12.146c.112.145.227.285.326.4l5.245 6.374a1 1 0 0 0 1.545-.003l5.092-6.205c.206-.222.4-.455.578-.7l.127-.155a.934.934 0 0 0 .122-.192A8.001 8.001 0 0 0 8 0Zm0 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z" />
                         </svg>
                     </div>
-                    <input type="text" id="zip-input" aria-describedby="helper-text-explanation"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5"
-                        placeholder="12345 or 12345-6789" pattern="^\d{5}(-\d{4})?$" />
+                    <input type="text" id="zip-input" formControlName="postal_code"
+                        aria-describedby="helper-text-explanation"
+                        class="bg-gray-50 border border-black text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5"
+                        placeholder="Enter your ZIP code" />
                 </div>
             </div>
         </div>
 
         <div class="flex items-start mb-6">
             <div class="flex items-center h-5">
-                <input id="remember" type="checkbox" value=""
-                    class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800" />
+                <input id="remember" type="checkbox" formControlName="is_default"
+                    class="w-4 h-4 border border-black rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800" />
             </div>
             <label for="remember" class="ms-2 text-sm font-medium text-gray-900 ">Save As Default Address</label>
         </div>
-        <app-black-button text="Add Address"></app-black-button>
+        <app-black-button type="submit" text="Add Address"></app-black-button>
     </form>
 
 </div>

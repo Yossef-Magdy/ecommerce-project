@@ -32,6 +32,7 @@ import { ManageSubcategoriesComponent } from './features/dashboard/pages/manage-
 import { ProductReviewsComponent } from './features/product-details/product-reviews/product-reviews.component';
 import { SubCategoriesComponent } from './features/sub-categories/sub-categories.component';
 import { ShippingComponent } from './features/shipping/shipping.component';
+import { EditAddressComponent } from './features/edit-address/edit-address.component';
 import { SearchComponent } from './features/search/search.component';
 
 export const routes: Routes = [
@@ -77,6 +78,11 @@ export const routes: Routes = [
         title: 'Profile',
         canActivate: [authGuard],
     },
+    { 
+        path: 'edit-address/:id', 
+        component: EditAddressComponent,
+        title: 'Edit Address',
+    },
     {
         path: 'products/:slug',
         component: ProductDetailsComponent,
@@ -117,7 +123,7 @@ export const routes: Routes = [
             }
         ]
     }
-    ,{
+    , {
         path: 'dashboard',
         canActivate: [dashboardGuard],
         children: [

@@ -6,8 +6,17 @@
     <div class="flex items-start">
         <div class="p-6 border-l border-stone-300">
             <h3 class="text-lg font-light pb-2">Address details</h3>
-            <p class="text-md text-gray-500 mb-2">poho day581</p>
-            <p class="text-md text-gray-500 mb-6">Egypt</p>
+            @if (addresses) {
+            @for (address of addresses; track $index) {
+            @if (address.is_default) {
+            <p class="text-md text-gray-500 mb-2">{{address.address}}</p>
+            <p class="text-md text-gray-500 mb-6">{{address.city}}</p>
+            }
+            }
+
+            }@else {
+            <p class="text-md text-gray-500 mb-2">No addresses</p>
+            }
             <a (click)="changeTab('address')" class="text-sm">View addresses (1)</a>
         </div>
     </div>

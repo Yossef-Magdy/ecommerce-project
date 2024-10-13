@@ -1,15 +1,25 @@
 <div class="flex flex-col lg:flex-row p-6 w-full lg:justify-between">
     <div class="details p-6 w-full lg:w-auto">
         <h2 class="text-2xl font-normal pb-10">Address Book</h2>
-        <h3 class="text-lg font-light pb-5">Default Address</h3>
-        <p class="text-gray-500">poho day581</p>
-        <p class="text-gray-500">Egypt</p>
-        <div class="mt-10 flex gap-6">
-            <a (click)="tabChange.emit('edit-address')" class=" text-sm">Edit</a>
-            <a href="#" class=" text-sm">Delete</a>
+        <div *ngIf="addresses" class="flex gap-10 flex-wrap">
+            <div *ngFor="let address of addresses; let i = index" class="address-item border-r border-gray-300 pr-10"
+                [ngClass]="{'last:border-none': i === addresses.length - 1}">
+
+                <div *ngIf="address.is_default">
+                    <h3 class="text-lg font-light pb-5">Default Address</h3>
+                </div>
+                <div *ngIf="!address.is_default">
+                    <h3 class="text-lg font-light pb-5">Address {{i + 1}}</h3>
+                </div>
+                <p class="text-gray-500">{{ address.address }}</p>
+                <p class="text-gray-500">{{ address.city }}</p>
+                <div class="mt-10 flex gap-6">
+                    <a href="#" class="text-sm">Delete</a>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="button p-6 w-full lg:w-auto">
+    <div class="button p-6 w-full lg:w-auto lg:flex-shrink-0 lg:self-start">
         <a (click)="tabChange.emit('add-address')" class="block lg:inline-block">
             <app-black-button text="Add address" class="w-full lg:w-auto"></app-black-button>
         </a>
