@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Router } from '@angular/router';
 import { PaymentService } from './services/payment.service';
+import { CartService } from '../../services/cart.service';
 declare var Stripe: any;
 
 @Component({
@@ -18,8 +19,9 @@ export class CheckoutComponent implements OnInit {
   paymentMethod: string = 'credit-card';
   showBillingAddress: boolean = false;
   selectedBillingOption: string = 'same';
+  orderSummary!: any;
 
-  constructor(private router: Router, private paymentService: PaymentService) {}
+  constructor(private router: Router, private paymentService: PaymentService, private cartService: CartService) {}
 
   toggleDropdown() {
     this.dropdownVisible = !this.dropdownVisible;
@@ -65,6 +67,12 @@ export class CheckoutComponent implements OnInit {
   isLoading: boolean = false; // Loading state for payment
 
   ngOnInit() {
+    this.cartService.getItems().subscribe(items =>{
+      console.log(items);
+      this.orderSummary = items;
+      
+    })
+
     // Initialize Stripe.js
     const elements = this.stripe.elements();
     this.card = elements.create('card');
