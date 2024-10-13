@@ -24,11 +24,13 @@ export class ToastService {
     this.typeSubject.next(type);
   }
 
-  showToast() {
+  showToast(message: string, type: 'success' | 'error') {
+    this.setMessage(message);
+    this.setType(type);
     this.isVisibleSubject.next(true);
     setTimeout(() => {
       this.hideToast();
-    }, 3000);
+    }, 5000);
   }
 
   hideToast() {
