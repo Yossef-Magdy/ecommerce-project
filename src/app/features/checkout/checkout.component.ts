@@ -3,6 +3,7 @@ import { RouterLink } from '@angular/router';
 import { Router } from '@angular/router';
 import { PaymentService } from './services/payment.service';
 import { CartService } from '../../services/cart.service';
+import { AddressService } from '../account-overview/address.service';
 declare var Stripe: any;
 
 @Component({
@@ -23,7 +24,7 @@ export class CheckoutComponent implements OnInit {
   items !:any[];
   totalPrice :number = 0;
 
-  constructor(private router: Router, private paymentService: PaymentService, private cartService: CartService) {}
+  constructor(private router: Router, private paymentService: PaymentService, private cartService: CartService, private addressService: AddressService) {}
 
   toggleDropdown() {
     this.dropdownVisible = !this.dropdownVisible;
