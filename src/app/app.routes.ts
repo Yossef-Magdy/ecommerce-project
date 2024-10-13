@@ -21,6 +21,7 @@ import { AddUserComponent } from './features/dashboard/pages/add-user/add-user.c
 import { ProductReviewsComponent } from './features/product-details/product-reviews/product-reviews.component';
 import { SubCategoriesComponent } from './features/sub-categories/sub-categories.component';
 import { ShippingComponent } from './features/shipping/shipping.component';
+import { EditAddressComponent } from './features/edit-address/edit-address.component';
 
 export const routes: Routes = [
     {
@@ -64,6 +65,11 @@ export const routes: Routes = [
         component: ProfileComponent,
         title: 'Profile',
     },
+    { 
+        path: 'edit-address/:id', 
+        component: EditAddressComponent,
+        title: 'Edit Address',
+    },
     {
         path: 'products/:slug',
         component: ProductDetailsComponent,
@@ -99,7 +105,7 @@ export const routes: Routes = [
             }
         ]
     }
-    ,{
+    , {
         path: 'dashboard',
         canActivate: [dashboardGuard],
         children: [

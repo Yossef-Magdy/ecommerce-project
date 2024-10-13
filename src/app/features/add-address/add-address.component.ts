@@ -3,6 +3,7 @@ import { BlackButtonComponent } from "../../shared/black-button/black-button.com
 import { AddressService } from '../profile/address.service';
 import { GovernorateService } from '../profile/governorate.service';
 import { FormBuilder, FormGroup, NgModel, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-address',
@@ -36,6 +37,8 @@ export class AddAddressComponent {
       this.governorates = res.data;
       console.log(this.governorates);
     });
+
+
   }
 
   get postal_code(){
@@ -61,6 +64,8 @@ export class AddAddressComponent {
       console.log('Form is invalid');
     }
   }
+
+  
 
   changeTab(tab: string) {
     this.tabChange.emit(tab);

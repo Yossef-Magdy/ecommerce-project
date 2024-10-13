@@ -3,6 +3,7 @@ import { ProfileComponent } from '../profile/profile.component';
 import { BlackButtonComponent } from "../../shared/black-button/black-button.component";
 import { AddressService } from '../profile/address.service';
 import { NgClass, NgFor, NgIf } from '@angular/common';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-address-book',
@@ -16,7 +17,7 @@ export class AddressBookComponent {
   @Output() tabChange = new EventEmitter<string>();
   @Input() addresses: any;
 
-  constructor(private addressService: AddressService) { }
+  constructor(private addressService: AddressService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.addressService.getAddresses().subscribe((res: any) => {
@@ -25,5 +26,11 @@ export class AddressBookComponent {
     });
   }
 
+  changeTab(tab: string) {
+    this.tabChange.emit(tab);
+  }
+  onEditAddress(addressId: number) {
+    this.router.navigate(['/edit-address', addressId], { relativeTo: this.route });
+  }
 
 }

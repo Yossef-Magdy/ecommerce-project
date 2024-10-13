@@ -13,7 +13,18 @@ export class AddressService {
     return this.http.get('/shipping-details');
   }
 
+  getAddressById(addressId: number): Observable<any> {
+    return this.http.get(`/shipping-details/${addressId}`);
+  }
+
   addAddress(addressData: any): Observable<any> {
     return this.http.post('/shipping-details', addressData);
   }
+
+  updateAddress(addressId: number, addressData: any): Observable<any> {
+    return this.http.patch(`/shipping-details/${addressId}`, addressData);
+  }
+
+  
+  
 }
