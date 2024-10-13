@@ -3,11 +3,12 @@ import { SearchService } from './search.service';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router, ActivatedRoute, RouterLink } from '@angular/router';
 import { debounceTime, isEmpty, of, Subject, switchMap, takeUntil } from 'rxjs';
+import { NgFor } from '@angular/common';
 
 @Component({
   selector: 'app-search',
   standalone: true,
-  imports: [ReactiveFormsModule, FormsModule, RouterLink],
+  imports: [ReactiveFormsModule, FormsModule, RouterLink, NgFor],
   templateUrl: './search.component.html',
   styleUrl: './search.component.css'
 })
@@ -62,5 +63,16 @@ export class SearchComponent {
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  sortProducts(event: Event) {
+    const target = event.target as HTMLSelectElement;
+    const order = target.value;
+
+    if (order === 'asc') {
+      this.products.sort((a, b) => a.price - b.price); // Sort from low to high
+    } else if (order === 'desc') {
+      this.products.sort((a, b) => b.price - a.price); // Sort from high to low
+    }
   }
 }

@@ -114,6 +114,10 @@ p {
     font-size: 0.9rem;
 }
 
+select {
+    cursor: pointer;
+}
+
 @media (min-width: 1200px) {
     .product-card {
         flex: 0 1 calc(25% - 15px);

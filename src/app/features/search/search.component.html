@@ -12,10 +12,18 @@
             </button>
         </div>
     </form>
-    @if(searched){
-        <p class="text-indigo-800 text-2xl" >{{products.length}} Results Found</p>
-    }
 </section>
+
+<section class="sort-section border px-2 capitalizee">
+    <select class="ml-[4rem] border-none hover:bg-gray-200 py-5" id="sortByPrice" (change)="sortProducts($event)">
+        <option class="bg-white shadow" value="asc">Price, Low to High</option>
+        <option class="bg-white shadow" value="desc">Price, High to Low</option>
+    </select>
+</section>
+
+@if(searched){
+    <p class="text-indigo-800 text-2xl">{{products.length}} Results Found</p>
+}
 
 <section class="container product-grid min-h-[14rem]">
     @for (product of products; track product.id) {
@@ -40,7 +48,7 @@
         </a>
         <div class="colors">
             @for (color of product.colors; track $index) {
-                <span class="color" [style.background-color]="color"></span>
+            <span class="color" [style.background-color]="color"></span>
             }
         </div>
     </div>
