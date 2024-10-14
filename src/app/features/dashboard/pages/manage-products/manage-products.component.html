@@ -112,7 +112,7 @@
                         </div>
                         <div class="flex flex-col gap-2 col-span-full">
                             <app-label for="cover-image" text="cover image"/>
-                            <input type="file" [writeFile]="true" id="cover-image" class="px-4 text-xs h-12" (change)="handleFileInput($event)" formControlName="cover_image">
+                            <input type="file" [writeFile]="true" id="cover-image" class="px-4 text-xs h-12" (change)="handleFileInput($event)" #cover_image>
                             <div class="flex gap-4">
                                 @if (imageUrl) {
                                     <div>

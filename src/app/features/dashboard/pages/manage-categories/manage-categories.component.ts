@@ -48,15 +48,16 @@ export class ManageCategoriesComponent {
 
   updateCategory() {
     const id = this.currentCategory.id;
-    this.categoryService.updateCategory(this.categoryForm.value, id).subscribe((response) => {
-      console.log(response);
+    this.categoryService.updateCategory(this.categoryForm.value, id).subscribe((response: any) => {
+      const data = response.data;
+      this.categories = this.categories.map((category: any) => category.id == data.id ? data : category);
     })
   }
 
   removeCategory() {
     const id = this.currentCategory.id;
     this.categoryService.deleteCategory(id).subscribe((response) => {
-      console.log(response);
+      this.categories = this.categories.filter((category: any) => category.id != id);
     })
   }
 }

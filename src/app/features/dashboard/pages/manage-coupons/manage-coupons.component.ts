@@ -45,13 +45,7 @@ export class ManageCouponsComponent {
   ngOnInit() {
     this.couponService.getCoupons().subscribe((result: any) => {
       this.coupons = result.data;
-      this.currentPage = result.meta.current_page;
-      this.from = result.meta.from;
-      this.to = result.meta.to;
-      this.total = result.meta.total;
-      this.prev = result.links.prev;
-      this.next = result.links.next;
-      console.log(result);
+      this.buildPagination(result);
       setTimeout(() => {
         initModals();
       }, 50);
@@ -62,11 +56,7 @@ export class ManageCouponsComponent {
     if (url) {
         this.paginationService.load(url).subscribe((result: any) => {
         this.coupons = result.data;
-        this.currentPage = result.meta.current_page;
-        this.from = result.meta.from;
-        this.to = result.meta.to;
-        this.prev = result.links.prev;
-        this.next = result.links.next;
+        this.buildPagination(result);
         setTimeout(() => {
           initModals();
         }, 50);
@@ -140,15 +130,31 @@ export class ManageCouponsComponent {
 
   updateCoupon() {
     const id = this.currentCoupon.id;
-    this.couponService.updateCoupon(this.couponForm.value, id).subscribe((response) => {
-      console.log(response);
+    this.couponService.updateCoupon(this.couponForm.value, id).subscribe((response: any) => {
+      const data = response.data;
+      this.coupons = this.coupons.map((coupon: any) => coupon.id == data.id ? data : coupon);
     })
   }
 
   removeCoupon() {
     const id = this.currentCoupon.id;
     this.couponService.deleteCoupon(id).subscribe((response) => {
-      console.log(response);
+      this.couponService.getCoupons().subscribe((result: any) => {
+        this.coupons = result.data;
+        this.buildPagination(result);
+        setTimeout(() => {
+          initModals();
+        }, 50);
+      });
     })
+  }
+
+  buildPagination(data: any) {
+    this.currentPage = data.meta.current_page;
+    this.from = data.meta.from;
+    this.to = data.meta.to;
+    this.total = data.meta.total;
+    this.prev = data.links.prev;
+    this.next = data.links.next;
   }
 }

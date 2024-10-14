@@ -56,15 +56,16 @@ export class ManageSubcategoriesComponent {
 
   updateSubcategory() {
     const id = this.currentSubcategory.id;
-    this.categoryService.updateSubcategory(this.subcategoryForm.value, id).subscribe((response) => {
-      console.log(response);
+    this.categoryService.updateSubcategory(this.subcategoryForm.value, id).subscribe((response: any) => {
+      const data = response.data;
+      this.subcategories = this.subcategories.map((subcategory: any) => subcategory.id == data.id ? data : subcategory);
     })
   }
 
   removeSubcategory() {
     const id = this.currentSubcategory.id;
     this.categoryService.deleteSubcategory(id).subscribe((response) => {
-      console.log(response);
+      this.subcategories = this.subcategories.filter((subcategory: any) => subcategory.id != id);
     })
   }
 }

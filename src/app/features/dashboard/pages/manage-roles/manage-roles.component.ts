@@ -57,15 +57,16 @@ export class ManageRolesComponent {
 
   updateRole() {
     const id = this.currentRole.id;
-    this.userService.updateRole(this.roleForm.value, id).subscribe((response) => {
-      console.log(response);
+    this.userService.updateRole(this.roleForm.value, id).subscribe((response: any) => {
+      const data = response.data;
+      this.roles = this.roles.map((role: any) => role.id == data.id ? data : role);
     });
   }
 
   removeRole() {
     const id = this.currentRole.id;
     this.userService.deleteRole(id).subscribe((response) => {
-      console.log(response);
+      this.roles = this.roles.filter((role: any) => role.id != id);
     });
   }
 }

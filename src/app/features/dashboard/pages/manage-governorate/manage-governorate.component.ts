@@ -50,15 +50,16 @@ export class ManageGovernorateComponent {
 
   updateGovernorate() {
     const id = this.currentGovernorate.id;
-    this.governorateService.updateGovernorate(this.governorateForm.value, id).subscribe((response) => {
-      console.log(response);
+    this.governorateService.updateGovernorate(this.governorateForm.value, id).subscribe((response: any) => {
+      const data = response.data;
+      this.governorates = this.governorates.map((governorate: any) => governorate.id == data.id ? data : governorate);
     })
   }
 
   removeGovernorate() {
     const id = this.currentGovernorate.id;
     this.governorateService.deleteGovernorate(id).subscribe((response) => {
-      console.log(response);
+      this.governorates = this.governorates.filter((governorate: any) => governorate.id != id);
     })
   }
 }
