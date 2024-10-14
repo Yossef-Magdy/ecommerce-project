@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpStatusCode } from '@angular/common/http';
-import { catchError, map, Observable, of } from 'rxjs';
+import { catchError, map, Observable, of, share } from 'rxjs';
 import { ToastService } from '../../../core/services/toast.service';
 
 @Injectable({
@@ -41,7 +41,7 @@ export class UserService {
       catchError ((error) => {
         this.toastService.showToast('an error occurred when getting users', 'error');
         return of ([])
-      })
+      }), share()
     );
   }
 

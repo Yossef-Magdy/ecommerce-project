@@ -1,6 +1,6 @@
 import { HttpClient, HttpStatusCode } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, map, of } from 'rxjs';
+import { catchError, map, of, share } from 'rxjs';
 import { ToastService } from '../../../core/services/toast.service';
 
 @Injectable({
@@ -28,12 +28,13 @@ export class ProductService {
       catchError ((error) => {
         this.toastService.showToast('an error occurred when getting products', 'error');
         return of ([])
-      })
+      }),
+      share()
     );
   }
 
   updateProduct(data: any, productId: number) {
-    return this.http.put(`${this.baseURL}/${productId}`, data).pipe(
+    return this.http.post(`${this.baseURL}/${productId}`, data).pipe(
       map((result: any) => {
         this.toastService.showToast(result.message, 'success');
         return result;
