@@ -47,78 +47,82 @@
 
       <!-- Delivery Form -->
       <h3 class="text-xl font-medium mb-2 mt-4">Delivery</h3>
-@if (savedAddresses.length) {
-  <form>
-    @for (address of savedAddresses; track $index) {
-      <section class="flex mb-3 p-4 capitalize rounded-md">
-        <input [id]="address.id" type="radio" value="" name="default-radio" class="w-4 h-4 mr-3 text-indigo-800 border-gray-300 focus:ring-indigo-800" [checked]="address.is_default">
-        <label [for]="address.id" class="flex flex-col">
-          <span  class="w-full text-lg font-medium text-gray-900 dark:text-gray-300">{{address.apartment}}, {{address.address}}</span>
-          <span class="text-gray-400 text-sm">{{address.governorate}}, {{address.postal_code}}</span>
-        </label>
-      </section>
-    }
-  </form>
-}
-@else {
-  <div class="grid gap-6 mb-6 md:grid-cols-2">
-    <div>
-      <input type="text" id="first_name"
-        class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        placeholder="First Name" required />
-    </div>
-    <div>
-      <input type="text" id="last_name"
-        class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        placeholder="Last Name" required />
-    </div>
-    <div class="col-span-2">
-      <input type="text" id="address"
-        class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        placeholder="Address" required />
-    </div>
-    <div class="col-span-2">
-      <input type="tel" id="apartment"
-        class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        placeholder="Apartment, suite, etc." required />
-    </div>
-    <div class="grid grid-cols-3 gap-4 col-span-2">
-      <div>
-        <input type="text" id="city"
-          class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          placeholder="City" required />
-      </div>
-      <div>
-        <select id="Governorate"
-          class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-          <option disabled selected>Governorate</option>
-          <option value="Cairo">Cairo</option>
-          <option value="Giza">Giza</option>
-          <option value="Alexandria">Alexandria</option>
-          <option value="Aswan">Aswan</option>
-        </select>
-      </div>
-      <div>
-        <input type="text" id="zip_code"
-          class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          placeholder="Zip Code (optional)" />
-      </div>
-    </div>
-    <div class="col-span-2">
-      <input type="tel" id="phone"
-        class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        placeholder="Phone" required />
-    </div>
-    <div class="flex col-span-2">
-      <div class="h-5">
-        <input id="remember" type="checkbox" value=""
-          class="w-4 h-4 border border-gray-300 rounded focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800" />
-      </div>
-      <label for="remember" class="ms-2 mt-1 text-sm font-medium text-gray-900 dark:text-gray-300">Save this
-        information for next time.</label>
-    </div>
-  </div>
-}
+      @if (savedAddresses.length) {
+      <form>
+        @for (address of savedAddresses; track $index) {
+        <section class="flex mb-3 p-4 capitalize rounded-md">
+          <input [id]="address.id" type="radio" value="" name="default-radio"
+            class="w-4 h-4 mr-3 text-indigo-800 border-gray-300 focus:ring-indigo-800" [checked]="address.is_default">
+          <label [for]="address.id" class="flex flex-col">
+            <span class="w-full text-lg font-medium text-gray-900 dark:text-gray-300">{{address.apartment}},
+              {{address.address}}</span>
+            <span class="text-gray-400 text-sm">{{address.governorate}}, {{address.postal_code}}</span>
+          </label>
+        </section>
+        }
+      </form>
+      }
+      @else {
+      <form [formGroup]="addressForm" (ngSubmit)="onSubmit()">
+        <div class="grid gap-6 mb-6 md:grid-cols-2">
+          <div>
+            <input type="text" id="first_name"
+              class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="First Name" required formControlName="first_name" />
+          </div>
+          <div>
+            <input type="text" id="last_name"
+              class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Last Name" required formControlName="last_name" />
+          </div>
+          <div class="col-span-2">
+            <input type="text" id="address"
+              class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Address" required formControlName="address" />
+          </div>
+          <div class="col-span-2">
+            <input type="tel" id="apartment"
+              class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Apartment, suite, etc." required formControlName="apartment" />
+          </div>
+          <div class="grid grid-cols-3 gap-4 col-span-2">
+            <div>
+              <input type="text" id="city"
+                class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="City" required formControlName="city" />
+            </div>
+            <div>
+              <select id="governorate" formControlName="governorate_id" class="bg-gray-50 border border-black text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                <option value="" disabled selected>Select your governorate</option>
+                @if (governorates) {
+                  @for (governorate of governorates; track $index) {
+                    <option [value]="governorate.id">{{ governorate.name }}</option>
+                  }
+                }
+              </select>
+            </div>
+            <div>
+              <input type="text" id="zip_code"
+                class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="Zip Code (optional)" />
+            </div>
+          </div>
+          <div class="col-span-2">
+            <input type="tel" id="phone"
+              class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Phone" required />
+          </div>
+          <div class="flex col-span-2">
+            <div class="h-5">
+              <input id="remember" type="checkbox" value=""
+                class="w-4 h-4 border border-gray-300 rounded focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800" />
+            </div>
+            <label for="remember" class="ms-2 mt-1 text-sm font-medium text-gray-900 dark:text-gray-300">Save this
+              information for next time.</label>
+          </div>
+        </div>
+      </form>
+      }
 
 
       <form>

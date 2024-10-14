@@ -26,7 +26,7 @@ export class CheckoutComponent implements OnInit {
   totalPrice :number = 0;
   savedAddresses !: any[];
 
-  constructor(private router: Router, private paymentService: PaymentService, private cartService: CartService, private addressService: AddressService) {}
+  constructor(private router: Router, private paymentService: PaymentService, private cartService: CartService, private addressService: AddressService, private governorateService: GovernorateService) {}
 
   toggleDropdown() {
     this.dropdownVisible = !this.dropdownVisible;
