@@ -3,14 +3,16 @@ import { RouterLink } from '@angular/router';
 import { Router } from '@angular/router';
 import { PaymentService } from './services/payment.service';
 import { CartService } from '../../services/cart.service';
-import { AddressService } from '../account-overview/address.service';
-import { AddressFormComponent } from "./address-form/address-form.component";
+import { AddressService } from '../profile/address.service';
+import { GovernorateService } from '../profile/governorate.service';
+
+
 declare var Stripe: any;
 
 @Component({
   selector: 'app-checkout',
   standalone: true,
-  imports: [RouterLink, AddressFormComponent],
+  imports: [RouterLink],
   templateUrl: './checkout.component.html',
   styleUrl: './checkout.component.css',
 })
@@ -25,6 +27,7 @@ export class CheckoutComponent implements OnInit {
   items !:any[];
   totalPrice :number = 0;
   savedAddresses !: any[];
+  governorates: any;
 
   constructor(private router: Router, private paymentService: PaymentService, private cartService: CartService, private addressService: AddressService, private governorateService: GovernorateService) {}
 
@@ -92,6 +95,12 @@ export class CheckoutComponent implements OnInit {
       this.savedAddresses = addresses.data;
     })
 
+    //Get stored governerates 
+    this.governorateService.getGovernorates().subscribe((res: any) => {
+      this.governorates = res.data;
+      console.log(this.governorates);
+    });
+    
     // Initialize Stripe.js
     const elements = this.stripe.elements();
     this.card = elements.create('card');
