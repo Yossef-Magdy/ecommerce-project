@@ -4,12 +4,13 @@ import { Router } from '@angular/router';
 import { PaymentService } from './services/payment.service';
 import { CartService } from '../../services/cart.service';
 import { AddressService } from '../account-overview/address.service';
+import { AddressFormComponent } from "./address-form/address-form.component";
 declare var Stripe: any;
 
 @Component({
   selector: 'app-checkout',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, AddressFormComponent],
   templateUrl: './checkout.component.html',
   styleUrl: './checkout.component.css',
 })
@@ -23,6 +24,7 @@ export class CheckoutComponent implements OnInit {
   orderSummary!: any;
   items !:any[];
   totalPrice :number = 0;
+  savedAddresses !: any[];
 
   constructor(private router: Router, private paymentService: PaymentService, private cartService: CartService, private addressService: AddressService) {}
 
@@ -70,21 +72,25 @@ export class CheckoutComponent implements OnInit {
   isLoading: boolean = false; // Loading state for payment
 
   ngOnInit() {
+
+    //get items from cart
     this.cartService.getItems().subscribe(items =>{
       this.orderSummary = items;
-
       this.items = [];
-
       for (let item of this.orderSummary){
         this.items.push({
           product_detail_id: item.productDetailId,
           quantity: item.quantity,
         });
-        
         this.totalPrice += (item.price * item.quantity);
       }
-      
     });
+
+    //Check for addresses
+    this.addressService.getAddresses().subscribe(addresses =>{
+      console.log("address", addresses.data);
+      this.savedAddresses = addresses.data;
+    })
 
     // Initialize Stripe.js
     const elements = this.stripe.elements();
@@ -97,16 +103,6 @@ export class CheckoutComponent implements OnInit {
     event.preventDefault();
     this.isLoading = true;
     this.paymentStatus = '';
-
-
-    // Items to be ordered
-
-    // let items = [
-    //   {
-    //     product_detail_id: 1, // Hardcoded product detail ID
-    //     quantity: 1,
-    //   },
-    // ];
 
     // Process payment
     switch(this.paymentMethod) {

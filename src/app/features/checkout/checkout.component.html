@@ -45,66 +45,83 @@
       </div>
       <hr class="mt-3" />
 
+      <!-- Delivery Form -->
       <h3 class="text-xl font-medium mb-2 mt-4">Delivery</h3>
+@if (savedAddresses.length) {
+  <form>
+    @for (address of savedAddresses; track $index) {
+      <section class="flex mb-3 p-4 capitalize rounded-md">
+        <input [id]="address.id" type="radio" value="" name="default-radio" class="w-4 h-4 mr-3 text-indigo-800 border-gray-300 focus:ring-indigo-800" [checked]="address.is_default">
+        <label [for]="address.id" class="flex flex-col">
+          <span  class="w-full text-lg font-medium text-gray-900 dark:text-gray-300">{{address.apartment}}, {{address.address}}</span>
+          <span class="text-gray-400 text-sm">{{address.governorate}}, {{address.postal_code}}</span>
+        </label>
+      </section>
+    }
+  </form>
+}
+@else {
+  <div class="grid gap-6 mb-6 md:grid-cols-2">
+    <div>
+      <input type="text" id="first_name"
+        class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        placeholder="First Name" required />
+    </div>
+    <div>
+      <input type="text" id="last_name"
+        class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        placeholder="Last Name" required />
+    </div>
+    <div class="col-span-2">
+      <input type="text" id="address"
+        class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        placeholder="Address" required />
+    </div>
+    <div class="col-span-2">
+      <input type="tel" id="apartment"
+        class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        placeholder="Apartment, suite, etc." required />
+    </div>
+    <div class="grid grid-cols-3 gap-4 col-span-2">
+      <div>
+        <input type="text" id="city"
+          class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          placeholder="City" required />
+      </div>
+      <div>
+        <select id="Governorate"
+          class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <option disabled selected>Governorate</option>
+          <option value="Cairo">Cairo</option>
+          <option value="Giza">Giza</option>
+          <option value="Alexandria">Alexandria</option>
+          <option value="Aswan">Aswan</option>
+        </select>
+      </div>
+      <div>
+        <input type="text" id="zip_code"
+          class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          placeholder="Zip Code (optional)" />
+      </div>
+    </div>
+    <div class="col-span-2">
+      <input type="tel" id="phone"
+        class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        placeholder="Phone" required />
+    </div>
+    <div class="flex col-span-2">
+      <div class="h-5">
+        <input id="remember" type="checkbox" value=""
+          class="w-4 h-4 border border-gray-300 rounded focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800" />
+      </div>
+      <label for="remember" class="ms-2 mt-1 text-sm font-medium text-gray-900 dark:text-gray-300">Save this
+        information for next time.</label>
+    </div>
+  </div>
+}
+
 
       <form>
-        <div class="grid gap-6 mb-6 md:grid-cols-2">
-          <div>
-            <input type="text" id="first_name"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="First Name" required />
-          </div>
-          <div>
-            <input type="text" id="last_name"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Last Name" required />
-          </div>
-          <div class="col-span-2">
-            <input type="text" id="address"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Address" required />
-          </div>
-          <div class="col-span-2">
-            <input type="tel" id="apartment"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Apartment, suite, etc." required />
-          </div>
-          <div class="grid grid-cols-3 gap-4 col-span-2">
-            <div>
-              <input type="text" id="city"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="City" required />
-            </div>
-            <div>
-              <select id="Governorate"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                <option disabled selected>Governorate</option>
-                <option value="Cairo">Cairo</option>
-                <option value="Giza">Giza</option>
-                <option value="Alexandria">Alexandria</option>
-                <option value="Aswan">Aswan</option>
-              </select>
-            </div>
-            <div>
-              <input type="text" id="zip_code"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Zip Code (optional)" />
-            </div>
-          </div>
-          <div class="col-span-2">
-            <input type="tel" id="phone"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Phone" required />
-          </div>
-          <div class="flex col-span-2">
-            <div class="h-5">
-              <input id="remember" type="checkbox" value=""
-                class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800" />
-            </div>
-            <label for="remember" class="ms-2 mt-1 text-sm font-medium text-gray-900 dark:text-gray-300">Save this
-              information for next time.</label>
-          </div>
-        </div>
         <div></div>
         <h3 class="text-base font-medium mb-2">Shipping Method</h3>
         <div id="accordion-arrow-icon" class="mb-8">
@@ -144,86 +161,26 @@
               <span class="{{errorMessage ? 'text-red-500' : 'text-green-500'}} text-sm red">{{paymentStatus}}</span>
               }
 
-              <!-- <div class="payment-form" id="card-element">
-                
-                <input
-                  class="payment-input"
-                  id="card-number"
-                  type="text"
-                  placeholder="Card number"
-                />
+              <div class="payment-form" id="card-element">
+
+                <input class="payment-input" id="card-number" type="text" placeholder="Card number" />
                 <div class="flex gap-6">
-                  <input
-                    class="payment-input"
-                    id="card-expiration"
-                    type="text"
-                    placeholder="Expiration date (MM / YY)"
-                  />
-                  <input
-                    class="payment-input"
-                    id="card-security-code"
-                    type="text"
-                    placeholder="Security code"
-                  />
+                  <input class="payment-input" id="card-expiration" type="text"
+                    placeholder="Expiration date (MM / YY)" />
+                  <input class="payment-input" id="card-security-code" type="text" placeholder="Security code" />
                 </div>
-                <input
-                  class="payment-input"
-                  id="card-name"
-                  type="text"
-                  placeholder="Name on card"
-                />
+                <input class="payment-input" id="card-name" type="text" placeholder="Name on card" />
                 <div class="flex">
                   <div class="h-5">
-                    <input
-                      id="remember2"
-                      type="checkbox"
-                      value=""
-                      (change)="onShippingOptionChange($event)"
-                      checked
-                      class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
-                    />
+                    <input id="remember2" type="checkbox" value="" (change)="onShippingOptionChange($event)" checked
+                      class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800" />
                   </div>
-                  <label
-                    for="remember2"
-                    class="ms-2 mt-1 text-sm font-medium text-gray-900 dark:text-gray-300"
-                    >Use shipping address as billing address</label
-                  >
+                  <label for="remember2" class="ms-2 mt-1 text-sm font-medium text-gray-900 dark:text-gray-300">Use
+                    shipping address as billing address</label>
                 </div>
-              </div> -->
+              </div>
             </div>
           </div>
-
-          <!-- <div class="accordion-item">
-            <input type="radio" id="wallets" name="payment-method" value="wallets"
-              (change)="onPaymentMethodChange('wallets')" />
-            <label for="wallets" class="accordion-label">
-              <span class="custom-radio"></span>
-              <span class="payment-span">Pay via (Debit/Credit cards/Wallets/Installments)</span>
-              <div class="payment-logos">
-                <img src="https://cdn.shopify.com/shopifycloud/checkout-web/assets/c1.en/assets/mada.B18Lw7s7.svg"
-                  alt="Visa" />
-                <img src="https://cdn.shopify.com/shopifycloud/checkout-web/assets/c1.en/assets/omannet.DA0vueZ7.svg"
-                  alt="Mastercard" />
-                <img src="https://cdn.shopify.com/shopifycloud/checkout-web/assets/c1.en/assets/mastercard.1c4_lyMp.svg"
-                  alt="Mada" />
-              </div>
-            </label>
-            <div class="accordion-content">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="-270.8 371 102 52" class="zjrzY">
-                <path fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2"
-                  d="M-182 404v16.8c0 .7-.4 1.2-1 1.2h-75.7c-.7 0-1.2-.6-1.2-1.2v-47.6c0-.7.6-1.2 1.2-1.2h75.7c.7 0 1 .6 1 1.2V395m-78-14h78m-17 18h27m-3.9-4.6 4.5 4.6-4.5 4.6">
-                </path>
-                <circle cx="-255.5" cy="376.5" r="1.5" fill="currentColor"></circle>
-                <circle cx="-250.5" cy="376.5" r="1.5" fill="currentColor"></circle>
-                <circle cx="-245.5" cy="376.5" r="1.5" fill="currentColor"></circle>
-              </svg>
-              <p class="text-center mt-6">
-                After clicking “Pay now”, you will be redirected to Pay via
-                (Debit/Credit cards/Wallets/Installments) to complete your
-                purchase securely.
-              </p>
-            </div>
-          </div> -->
 
           <div class="accordion-item">
             <input type="radio" id="cod" name="payment-method" value="cod" (change)="onPaymentMethodChange('cod')" />
@@ -325,24 +282,24 @@
     <div class="second w-full md:w-1/2 bg-gray-100">
       <div class="order-summary p-10">
         @for (item of orderSummary; track $index) {
-          <div class="flex justify-between items-center border-b pb-4 mb-4">
-            <div class="flex items-center space-x-4">
+        <div class="flex justify-between items-center border-b pb-4 mb-4">
+          <div class="flex items-center space-x-4">
 
-              <div class="img">
-                @if (item.quantity>1){
-                    <div class="counter absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-black border-2 border-white rounded-full dark:border-gray-900">{{ item.quantity }}</div>
-                }
-                <img
-                  [src]="item.coverImg"
-                  [alt]="item.name" class="w-16 h-16 object-cover" />
+            <div class="img">
+              @if (item.quantity>1){
+              <div
+                class="counter absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-black border-2 border-white rounded-full dark:border-gray-900">
+                {{ item.quantity }}</div>
+              }
+              <img [src]="item.coverImg" [alt]="item.name" class="w-16 h-16 object-cover" />
             </div>
-              <div>
-                <p class="text-sm font-medium">{{item.name}}</p>
-                <p class="text-gray-500 text-sm">{{item.color}} / {{item.size}}</p>
-              </div>
+            <div>
+              <p class="text-sm font-medium">{{item.name}}</p>
+              <p class="text-gray-500 text-sm">{{item.color}} / {{item.size}}</p>
             </div>
-            <p class="text-sm">LE {{item.price * item.quantity}}</p>
           </div>
+          <p class="text-sm">LE {{item.price * item.quantity}}</p>
+        </div>
         }
         <div class="flex justify-between items-center mb-4">
           <input type="text" placeholder="Discount code"
