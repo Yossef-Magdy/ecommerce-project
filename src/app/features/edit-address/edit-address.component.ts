@@ -18,6 +18,8 @@ export class EditAddressComponent {
   @Input() governorates: any;
   addressForm!: FormGroup;
   addressId: number = 0;
+  successMessage: string = '';
+  failMessage: string = '';
   @Output() tabChange = new EventEmitter<string>();
 
 
@@ -81,9 +83,20 @@ export class EditAddressComponent {
       this.addressService.updateAddress(this.addressId, this.addressForm.value).subscribe({
         next: (response) => {
           console.log('Address updated successfully:', response);
-          alert('Address updated successfully');
+          this.successMessage = 'Address has been updated successfully';
+          
+          setTimeout(() => {
+            this.successMessage = '';
+            this.router.navigate(['/profile']);
+          }, 1000);
         },
         error: (error) => {
+          this.failMessage = 'Something went wrong';
+
+          setTimeout(() => {
+            this.failMessage = '';
+            this.router.navigate(['/profile']);
+          }, 1000);
           console.error('Error updating address:', error);
         }
       });

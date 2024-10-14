@@ -12,6 +12,16 @@
 </div>
 
 <div class="p-6">
+
+    @if (successMessage) {
+    <div class="success-message">
+        {{ successMessage }}
+    </div>
+    }@else if (failMessage) {
+    <div class="fail-message">
+        {{ failMessage }}
+    </div>
+    }
     <h3 class="text-2xl font-normal">EDIT ADDRESS</h3>
 
     <form [formGroup]="addressForm" (ngSubmit)="onSubmit()" class="mt-6 ">
