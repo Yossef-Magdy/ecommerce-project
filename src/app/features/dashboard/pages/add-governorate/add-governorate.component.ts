@@ -21,9 +21,6 @@ export class AddGovernorateComponent {
     });
   }
 
-  message?: string;
-  isErrorMessage?: boolean;
-
   get name() {
     return this.governorateForm.controls['name'];
   }
@@ -36,15 +33,11 @@ export class AddGovernorateComponent {
     if (this.governorateForm.invalid) {
       return;
     }
-    this.governorateService.addGovernorate(this.governorateForm.value).subscribe((response: any) => {
-      if (response.message) {
-        this.isErrorMessage = false;
-        this.message = response.message;
-      } else {
-        this.isErrorMessage = true;
-        const key = Object.keys(response)[0];
-        this.message = response[key][0];
+    this.governorateService.addGovernorate(this.governorateForm.value).subscribe((result: boolean) => {
+      if (result) {
+        this.governorateForm.reset();
       }
     });
+      
   }
 }

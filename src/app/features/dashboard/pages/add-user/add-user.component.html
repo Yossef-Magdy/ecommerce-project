@@ -61,15 +61,6 @@
             formControlName="permissions">
             </ng-select>        
         </div>
-
-        @if (message) {
-            @if (isErrorMessage) {
-                <p role="alert" class="text-red-800 text-xs col-span-full">{{message}}</p>
-            } @else {
-                <p role="alert" class="text-green-800 text-xs col-span-full">{{message}}</p>
-            }
-        }
-
         <app-black-button text="create" (click)="submit()"/>
     </form>  
 </div>

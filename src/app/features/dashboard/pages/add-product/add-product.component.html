@@ -37,19 +37,11 @@
         </div>
         <div class="flex flex-col gap-2">
             <app-label for="cover-image" text="cover image"/>
-            <input type="file" id="cover-image" [writeFile]="true" accept=".webp, .jpg, .png" class="px-4 text-xs h-12" (change)="handleFileInput($event)" formControlName="cover_image">
+            <input type="file" id="cover-image" accept=".webp, .jpg, .png" class="px-4 text-xs h-12" (change)="handleFileInput($event)" #cover_image>
             @if (imageUrl) {
                 <img width="100%" [src]="imageUrl" class="border size-52">
             }
-        </div>    
-        @if (message) {
-            @if (isErrorMessage) {
-                <p role="alert" class="text-red-800 text-xs col-span-full">{{message}}</p>
-            } @else {
-                <p role="alert" class="text-green-800 text-xs col-span-full">{{message}}</p>
-            }
-        }
-
+        </div>
         <app-black-button text="create" (click)="submit()"/>
     </form>  
 </div>

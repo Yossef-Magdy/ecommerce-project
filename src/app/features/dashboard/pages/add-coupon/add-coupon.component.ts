@@ -28,9 +28,6 @@ export class AddCouponComponent {
     });
   }
 
-  message?: string;
-  isErrorMessage?: boolean;
-
   get couponCode() {
     return this.couponForm.controls['couponCode'];
   }
@@ -79,14 +76,9 @@ export class AddCouponComponent {
     if (this.couponForm.invalid) {
       return;
     }
-    this.couponSerivce.addCoupon(this.couponForm.value).subscribe((response: any) => {
-      if (response.message) {
-        this.isErrorMessage = false;
-        this.message = response.message;
-      } else {
-        this.isErrorMessage = true;
-        const key = Object.keys(response)[0];
-        this.message = response[key][0];
+    this.couponSerivce.addCoupon(this.couponForm.value).subscribe((result: boolean) => {
+      if (result) {
+        this.couponForm.reset();
       }
     });
   }

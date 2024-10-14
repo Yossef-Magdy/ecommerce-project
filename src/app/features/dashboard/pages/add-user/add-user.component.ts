@@ -60,14 +60,9 @@ export class AddUserComponent {
     if (this.userForm.invalid) {
       return;
     }
-    this.userSerivce.addUser(this.userForm.value).subscribe((response: any) => {
-      if (response.message) {
-        this.isErrorMessage = false;
-        this.message = response.message;
-      } else {
-        this.isErrorMessage = true;
-        const key = Object.keys(response)[0];
-        this.message = response[key][0];
+    this.userSerivce.addUser(this.userForm.value).subscribe((result: boolean) => {
+      if (result) {
+        this.userForm.reset();
       }
     });
   }
