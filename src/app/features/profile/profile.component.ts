@@ -8,6 +8,7 @@ import { EditAddressComponent } from "../edit-address/edit-address.component";
 import { AuthService } from '../../core/auth/services/auth.service';
 import { AddressService } from './address.service';
 import { GovernorateService } from './governorate.service';
+import { UserService } from './user.service';
 
 @Component({
   selector: 'app-profile',
@@ -17,11 +18,11 @@ import { GovernorateService } from './governorate.service';
   styleUrl: './profile.component.css'
 })
 export class ProfileComponent {
-
+  user: any;
   addresses: any;
   governorates: any;
   selectedTab: string = 'overview';
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private userService: UserService) {}
   ngOnInit() {
     if (this.selectedTab === 'address') {
       this.selectedTab = 'address';
@@ -33,6 +34,11 @@ export class ProfileComponent {
     else {
       this.selectedTab = 'overview';
     }
+
+    this.userService.getUserData().subscribe((res: any) => {
+      this.user = res;
+    });
+    
   }
   changeTab(tab: string) {
     this.selectedTab = tab;
@@ -40,7 +46,7 @@ export class ProfileComponent {
 
 
 
-  name = 'Hadeer'.toUpperCase();
+  
 
   logout() {
     this.authService.logout();
