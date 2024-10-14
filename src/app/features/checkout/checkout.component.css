@@ -12,7 +12,11 @@
   position: sticky;
   top: 20px;
   max-height: calc(100vh - 300px);
-  overflow-y: auto;
+}
+
+.img .counter{
+  top: 30px;
+  left: 29px;
 }
 
 .btn {
@@ -146,6 +150,10 @@ svg {
 
 a {
   cursor: pointer;
+}
+
+section:has(input[type="radio"]:checked){
+  background-color: rgb(239, 236, 240);
 }
 
 @media screen and (max-width: 768px) {
