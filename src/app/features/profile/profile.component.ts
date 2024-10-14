@@ -20,11 +20,27 @@ export class ProfileComponent {
 
   addresses: any;
   governorates: any;
+  selectedTab: string = 'overview';
   constructor(private authService: AuthService) {}
+  ngOnInit() {
+    if (this.selectedTab === 'address') {
+      this.selectedTab = 'address';
+    } else if (this.selectedTab === 'add-address') {
+      this.selectedTab = 'add-address';
+    }else if (this.selectedTab === 'edit-address') {
+      this.selectedTab = 'edit-address';
+    }
+    else {
+      this.selectedTab = 'overview';
+    }
+  }
+  changeTab(tab: string) {
+    this.selectedTab = tab;
+  }
+
 
 
   name = 'Hadeer'.toUpperCase();
-  selectedTab: string = 'overview';
 
   logout() {
     this.authService.logout();

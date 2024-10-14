@@ -29,8 +29,9 @@ export class AddressBookComponent {
   changeTab(tab: string) {
     this.tabChange.emit(tab);
   }
+  
   onEditAddress(addressId: number) {
-    this.router.navigate(['/edit-address', addressId], { relativeTo: this.route });
+    this.router.navigate(['/edit-address', addressId]);
   }
 
 }

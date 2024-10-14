@@ -57,7 +57,7 @@
                 </div>
                 }@else if (selectedTab === 'address') {
                 <div>
-                    <app-address-book (tabChange)="selectedTab = $event"></app-address-book>
+                    <app-address-book  (tabChange)="selectedTab = $event"></app-address-book>
                 </div>
                 }@else if (selectedTab === 'add-address') {
                 <div>
@@ -65,7 +65,7 @@
                 </div>
                 }@else if (selectedTab === 'edit-address') {
                 <div>
-                    <app-edit-address [selectedTab]="selectedTab" (tabChange)="selectedTab = $event" ></app-edit-address>
+                    <app-edit-address [selectedTab]="selectedTab" (tabChange)="selectedTab = $event"></app-edit-address>
                 </div>
                 }
             </div>
