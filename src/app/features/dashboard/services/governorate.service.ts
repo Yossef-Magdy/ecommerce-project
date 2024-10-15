@@ -24,7 +24,7 @@ export class GovernorateService {
   }
 
   getGovernorates() {
-    return this.http.get('/governorates').pipe(
+    return this.http.get(this.baseURL).pipe(
       catchError ((error) => {
         this.toastService.showToast('an error occurred when getting governorates', 'error');
         return of ([])

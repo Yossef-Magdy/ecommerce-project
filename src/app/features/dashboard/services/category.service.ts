@@ -1,6 +1,6 @@
 import { HttpClient, HttpStatusCode } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, map, of } from 'rxjs';
+import { catchError, map, of, share } from 'rxjs';
 import { ToastService } from '../../../core/services/toast.service';
 
 
@@ -41,7 +41,7 @@ export class CategoryService {
   }
 
   getCategories() {
-    return this.http.get('/categories').pipe(
+    return this.http.get(this.categoryURL).pipe(
       catchError ((error) => {
         this.toastService.showToast('an error occurred when getting categories', 'error');
         return of ([])
@@ -50,7 +50,7 @@ export class CategoryService {
   }
 
   getSubcategories() {
-    return this.http.get('/subcategories').pipe(
+    return this.http.get(this.subcategoryURL).pipe(
       catchError ((error) => {
         this.toastService.showToast('an error occurred when getting subcategories', 'error');
         return of ([])
