@@ -5,6 +5,8 @@ import { PaymentService } from './services/payment.service';
 import { CartService } from '../../services/cart.service';
 import { AddressService } from '../profile/address.service';
 import { GovernorateService } from '../profile/governorate.service';
+import { AddressFormComponent } from "./address-form/address-form.component";
+import { NgClass } from '@angular/common';
 
 
 declare var Stripe: any;
@@ -12,11 +14,12 @@ declare var Stripe: any;
 @Component({
   selector: 'app-checkout',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, AddressFormComponent, NgClass],
   templateUrl: './checkout.component.html',
   styleUrl: './checkout.component.css',
 })
 export class CheckoutComponent implements OnInit {
+[x: string]: any;
   isUserLoggedIn: boolean = true;
   userEmail: string = 'user@gmail.com';
   dropdownVisible: boolean = false;
@@ -27,9 +30,22 @@ export class CheckoutComponent implements OnInit {
   items !:any[];
   totalPrice :number = 0;
   savedAddresses !: any[];
-  governorates: any;
+  isAddressFormSubmitted: boolean = false;
+  shipping_detail_id!: number;
 
-  constructor(private router: Router, private paymentService: PaymentService, private cartService: CartService, private addressService: AddressService, private governorateService: GovernorateService) {}
+  constructor(private router: Router, private paymentService: PaymentService, private cartService: CartService, private addressService: AddressService) {}
+
+  onAddressFormSubmit(submitted: boolean) {
+    if (submitted) {
+      this.isAddressFormSubmitted = true; // Show the next section after form submission
+          //Check for address that newly added
+      this.addressService.getAddresses().subscribe(addresses =>{
+        this.savedAddresses = addresses.data;
+        this.shipping_detail_id = addresses.data[0].id;
+    })
+
+    }
+  }
 
   toggleDropdown() {
     this.dropdownVisible = !this.dropdownVisible;
@@ -93,13 +109,8 @@ export class CheckoutComponent implements OnInit {
     this.addressService.getAddresses().subscribe(addresses =>{
       console.log("address", addresses.data);
       this.savedAddresses = addresses.data;
+      this.shipping_detail_id = addresses.data[0].id;
     })
-
-    //Get stored governerates 
-    this.governorateService.getGovernorates().subscribe((res: any) => {
-      this.governorates = res.data;
-      console.log(this.governorates);
-    });
     
     // Initialize Stripe.js
     const elements = this.stripe.elements();
@@ -145,7 +156,7 @@ export class CheckoutComponent implements OnInit {
     const order = {
       token: this.generateRandomToken(6), // Radnomly generated token
       items: this.items,
-      shipping_detail_id: 1, // Hardcoded shipping detail ID
+      shipping_detail_id: this.shipping_detail_id, // Hardcoded shipping detail ID
       coupon: null, // If coupon is applied !
       payment_method: 'stripe',
       stripeToken: token.id, // From Stripe API in front end
@@ -153,6 +164,7 @@ export class CheckoutComponent implements OnInit {
     };
 
     this.paymentService.order(order).subscribe(
+      
       (response: any) => {
         if (response.success) {
           console.log('Payment successful:', response);
@@ -168,6 +180,7 @@ export class CheckoutComponent implements OnInit {
         }
       },
       (err) => {
+        console.log("shipping Id", this.shipping_detail_id);
         console.error('Error processing payment:', err);
         this.paymentStatus = err.error.message;
         this.isLoading = false;
@@ -179,7 +192,7 @@ export class CheckoutComponent implements OnInit {
     const order = {
       token: this.generateRandomToken(6), // Radnomly generated token
       items: items,
-      shipping_detail_id: 1, // Hardcoded shipping detail ID
+      shipping_detail_id: this.shipping_detail_id, // Hardcoded shipping detail ID
       coupon: null, // If coupon is applied !
       payment_method: 'cod',
       currency: 'egp', // Currency of payment
