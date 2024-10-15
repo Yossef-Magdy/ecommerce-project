@@ -15,7 +15,7 @@ export class AddSubcategoryComponent {
 
   subcategoryForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
-    categoryName: new FormControl('', [Validators.required]),
+    category_id: new FormControl('', [Validators.required]),
   });
 
   categories?: any;

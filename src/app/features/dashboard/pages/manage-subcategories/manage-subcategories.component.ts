@@ -38,7 +38,6 @@ export class ManageSubcategoriesComponent {
   ngOnInit() {
     this.categoryService.getSubcategories().subscribe((result: any) => {
       this.subcategories = result.data;
-      console.log(result);
       this.buildPagination(result);
       setTimeout(() => {
         initModals();

@@ -1,6 +1,6 @@
 import { HttpClient, HttpStatusCode } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, map, of } from 'rxjs';
+import { catchError, map, of, tap } from 'rxjs';
 import { ToastService } from '../../../core/services/toast.service';
 
 @Injectable({
@@ -14,12 +14,11 @@ export class GovernorateService {
 
   addGovernorate(governorate: any) {
     return this.http.post(this.baseURL, governorate).pipe(
-      map((result: any) => {
+      tap((result: any) => {
         this.toastService.showToast(result.message, 'success');
-        return true;
-      }), catchError((error: any) => {
-        return of(false);
-      })
+      }),
+      map((result: any) => true),
+      catchError((error: any) => of(false))
     );
   }
 
@@ -34,23 +33,20 @@ export class GovernorateService {
 
   updateGovernorate(data: any, governorateId: number) {
     return this.http.put(`${this.baseURL}/${governorateId}`, data).pipe(
-      map((result: any) => {
+      tap((result: any) => {
         this.toastService.showToast(result.message, 'success');
-        return result;
-      }), catchError((error: any) => {
-        return of(false);
-      })
+      }),
+      catchError((error: any) => of(false))
     );
   }
 
   deleteGovernorate(governorateId: number) {
     return this.http.delete(`${this.baseURL}/${governorateId}`).pipe(
-      map((result: any) => {
+      tap((result: any) => {
         this.toastService.showToast(result.message, 'success');
-        return true;
-      }), catchError((error: any) => {
-        return of(false);
-      })
+      }),
+      map((result: any) => true),
+      catchError((error: any) => of(false))
     );
   }
 }

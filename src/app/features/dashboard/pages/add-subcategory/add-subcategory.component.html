@@ -10,7 +10,7 @@
         </div>
         <div class="flex flex-col gap-2 group">
             <app-label for="category-name" text="category name*"/>
-            <select id="category-name" class="group-hover:border-black border px-4 text-xs h-12" formControlName="categoryName">
+            <select id="category-name" class="group-hover:border-black border px-4 text-xs h-12" formControlName="category_id">
                 <option value="" disabled>Select Category</option>
                 @for (category of categories; track $index) {
                     <option value="{{category.id}}">{{category.name}}</option>

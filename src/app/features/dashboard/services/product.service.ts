@@ -1,6 +1,6 @@
 import { HttpClient, HttpStatusCode } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, map, of, share } from 'rxjs';
+import { catchError, map, of, share, tap } from 'rxjs';
 import { ToastService } from '../../../core/services/toast.service';
 
 @Injectable({
@@ -14,12 +14,11 @@ export class ProductService {
   
   addProduct(data: any) {
     return this.http.post(this.baseURL, data).pipe(
-      map((result: any) => {
+      tap((result: any) => {
         this.toastService.showToast(result.message, 'success');
-        return true;
-      }), catchError((error: any) => {
-        return of(false);
-      })
+      }),
+      map((result: any) => true),
+      catchError((error: any) => of(false))
     );
   }
 
@@ -35,9 +34,8 @@ export class ProductService {
 
   updateProduct(data: any, productId: number) {
     return this.http.post(`${this.baseURL}/${productId}`, data).pipe(
-      map((result: any) => {
+      tap((result: any) => {
         this.toastService.showToast(result.message, 'success');
-        return result;
       }), catchError((error: any) => {
         return of(false);
       })
@@ -46,12 +44,11 @@ export class ProductService {
 
   deleteProduct(productId: number) {
     return this.http.delete(`${this.baseURL}/${productId}`).pipe(
-      map((result: any) => {
+      tap((result: any) => {
         this.toastService.showToast(result.message, 'success');
-        return true;
-      }), catchError((error: any) => {
-        return of(false);
-      })
+      }),
+      map((result: any) => true),
+      catchError((error: any) => of(false))
     );
   }
 }

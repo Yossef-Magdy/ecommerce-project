@@ -17,8 +17,8 @@ export class AddUserComponent {
   constructor(private userSerivce: UserService) {}
 
   userForm = new FormGroup({
-    firstName: new FormControl('', [Validators.required]),
-    lastName: new FormControl('', [Validators.required]),
+    first_name: new FormControl('', [Validators.required]),
+    last_name: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required]),
     roles: new FormControl([]),
@@ -45,11 +45,11 @@ export class AddUserComponent {
   }
 
   get firstName() {
-    return this.userForm.controls['firstName'];
+    return this.userForm.controls['first_name'];
   }
 
   get lastName() {
-    return this.userForm.controls['lastName'];
+    return this.userForm.controls['last_name'];
   }
 
   get password() {

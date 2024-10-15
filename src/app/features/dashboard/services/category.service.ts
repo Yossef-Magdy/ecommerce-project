@@ -1,6 +1,6 @@
 import { HttpClient, HttpStatusCode } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, map, of, share } from 'rxjs';
+import { catchError, map, of, share, tap } from 'rxjs';
 import { ToastService } from '../../../core/services/toast.service';
 
 
@@ -16,27 +16,21 @@ export class CategoryService {
 
   addCategory(data: any) {
     return this.http.post(this.categoryURL, data).pipe(
-      map((result: any) => {
+      tap((result: any) => {
         this.toastService.showToast(result.message, 'success');
-        return true;
-      }), catchError((error: any) => {
-        return of(false);
-      })
+      }),
+      map((result: any) => true),
+      catchError((error: any) => of(false))
     );  
   }
 
   addSubcategory(data: any) {
-    data = {
-      name: data.name,
-      category_id: data.categoryName,
-    };
     return this.http.post(this.subcategoryURL, data).pipe(
-      map((result: any) => {
+      tap((result: any) => {
         this.toastService.showToast(result.message, 'success');
-        return true;
-      }), catchError((error: any) => {
-        return of(false);
-      })
+      }),
+      map((result: any) => true),
+      catchError((error: any) => of(false))
     );  
   }
 
@@ -60,9 +54,8 @@ export class CategoryService {
 
   updateCategory(data: any, categoryId: number) {
     return this.http.put(`${this.categoryURL}/${categoryId}`, data).pipe(
-      map((result: any) => {
+      tap((result: any) => {
         this.toastService.showToast(result.message, 'success');
-        return result;
       }), catchError((error: any) => {
         return of(false);
       })
@@ -71,9 +64,8 @@ export class CategoryService {
 
   updateSubcategory(data: any, subcategoryId: number) {
     return this.http.put(`${this.subcategoryURL}/${subcategoryId}`, data).pipe(
-      map((result: any) => {
+      tap((result: any) => {
         this.toastService.showToast(result.message, 'success');
-        return result;
       }), catchError((error: any) => {
         return of(false);
       })
@@ -82,23 +74,21 @@ export class CategoryService {
 
   deleteCategory(categoryId: number) {
     return this.http.delete(`${this.categoryURL}/${categoryId}`).pipe(
-      map((result: any) => {
+      tap((result: any) => {
         this.toastService.showToast(result.message, 'success');
-        return true;
-      }), catchError((error: any) => {
-        return of(false);
-      })
+      }),
+      map((result: any) => true),
+      catchError((error: any) => of(false))
     );  
   }
 
   deleteSubcategory(subcategoryId: number) {
     return this.http.delete(`${this.subcategoryURL}/${subcategoryId}`).pipe(
-      map((result: any) => {
+      tap((result: any) => {
         this.toastService.showToast(result.message, 'success');
-        return true;
-      }), catchError((error: any) => {
-        return of(false);
-      })
+      }),
+      map((result: any) => true),
+      catchError((error: any) => of(false))
     );  
   }
 

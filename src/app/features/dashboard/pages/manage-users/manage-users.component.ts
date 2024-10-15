@@ -33,8 +33,8 @@ export class ManageUsersComponent {
   lastPage: number = 1;
   userForm = new FormGroup({
     id: new FormControl(-1),
-    firstName: new FormControl({value: '', disabled: true}),
-    lastName: new FormControl({value: '', disabled: true}),
+    first_name: new FormControl({value: '', disabled: true}),
+    last_name: new FormControl({value: '', disabled: true}),
     roles: new FormControl([]),
     permissions: new FormControl([]),
   });
@@ -84,8 +84,8 @@ export class ManageUsersComponent {
     if (this.currentUser) {
       this.userForm.patchValue({
         id: this.currentUser.id,
-        firstName: this.currentUser.first_name,
-        lastName: this.currentUser.last_name,
+        first_name: this.currentUser.first_name,
+        last_name: this.currentUser.last_name,
         roles: this.currentUser.roles.map((role: any) => role.id),
         permissions: this.currentUser.permissions.map((permission: any) => permission.id),
       });
@@ -93,7 +93,8 @@ export class ManageUsersComponent {
   }
 
   updateUser() {
-    this.userService.updateUser(this.userForm.value).subscribe((response: any) => {
+    const id = this.currentUser.id; 
+    this.userService.updateUser(this.userForm.value, id).subscribe((response: any) => {
       const data = response.data;
       this.users = this.users.map((user: any) => user.id == data.id ? data : user);
     });

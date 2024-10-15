@@ -35,7 +35,6 @@ export class ManageCategoriesComponent {
   ngOnInit() {
     this.categoryService.getCategories().subscribe((result: any) => {
       this.categories = result.data;
-      console.log('on init');
       this.buildPagination(result);
       setTimeout(() => {
         initModals();
