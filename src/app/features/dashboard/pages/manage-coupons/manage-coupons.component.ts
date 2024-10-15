@@ -125,7 +125,7 @@ export class ManageCouponsComponent {
   }
 
   displayDiscount(coupon: any) {
-    return coupon.discount_value + (coupon.discount_type == 'fixed' ? '' : '%');
+    return `${coupon.discount_value}${(coupon.discount_type == 'fixed' ? ' EGP' : '%')}`;
   }
 
   updateCoupon() {

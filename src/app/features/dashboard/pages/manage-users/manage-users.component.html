@@ -1,9 +1,9 @@
 <div class="p-4 max-h-dvh overflow-x-auto">
     <h1 class="text-4xl uppercase font-light mb-4">Users Data</h1>
     @if (users) {
-        <div class="border border-slate-500">
-            <table class="text-left min-w-max overflow-y-auto w-full table-auto relative overflow-x-auto">
-                <thead class="capitalize">
+        <div class="text-sm border border-slate-500">
+            <table class="font text-left min-w-max overflow-y-auto w-full table-auto relative overflow-x-auto">
+                <thead class="capitalize bg-gray-50">
                     <th class="font-medium border-b border-slate-500 p-1.5">name</th>
                     <th class="font-medium border-b border-slate-500 p-1.5">role</th>
                     <th class="font-medium border-b border-slate-500 p-1.5">email</th>
@@ -12,11 +12,11 @@
                 </thead>
                 <tbody>
                     @for (user of users; track $index) {
-                        <tr>
-                            <td class="capitalize border-b border-slate-500 p-1.5">{{user.first_name}} {{user.last_name}}</td>
-                            <td class="capitalize border-b border-slate-500 p-1.5">{{getRole(user)}}</td>
-                            <td class="border-b border-slate-500 p-1.5">{{user.email}}</td>
-                            <td class="border-b border-slate-500 p-1.5">{{user.created_at | date}}</td>
+                        <tr class="even:bg-gray-50 odd:bg-white">
+                            <td class="font-medium capitalize border-b border-slate-500 p-1.5">{{user.first_name}} {{user.last_name}}</td>
+                            <td class="text-gray-700 capitalize border-b border-slate-500 p-1.5">{{getRole(user)}}</td>
+                            <td class="text-gray-700 border-b border-slate-500 p-1.5">{{user.email}}</td>
+                            <td class="text-gray-700 border-b border-slate-500 p-1.5">{{user.created_at | date}}</td>
                             <td class="border-b border-slate-500 p-1.5">
                                 <div class="flex gap-1 justify-end">
                                     <button data-modal-target="update-modal" data-modal-toggle="update-modal" 

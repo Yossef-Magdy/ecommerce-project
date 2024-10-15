@@ -1,9 +1,9 @@
 <div class="p-4 max-h-dvh overflow-x-auto">
     <h1 class="text-4xl uppercase font-light mb-4">coupons Data</h1>
     @if (coupons) {
-        <div class="border border-slate-500">
+        <div class="text-sm  border border-slate-500">
             <table class="text-left overflow-y-auto w-full table-auto relative overflow-x-auto">
-                <thead class="capitalize">
+                <thead class="capitalize bg-gray-50">
                     <th class="font-medium border-b border-slate-500 p-1.5">coupon code</th>
                     <th class="font-medium border-b border-slate-500 p-1.5">uses count</th>
                     <th class="font-medium border-b border-slate-500 p-1.5">discount</th>
@@ -13,12 +13,18 @@
                 </thead>
                 <tbody>
                     @for (coupon of coupons; track $index) {
-                        <tr>
-                            <td class="border-b border-slate-500 p-1.5">{{coupon.coupon_code}}</td>
-                            <td class="border-b border-slate-500 p-1.5">{{coupon.uses_count}}</td>
-                            <td class="capitalize border-b border-slate-500 p-1.5">{{displayDiscount(coupon)}}</td>
-                            <td class="capitalize border-b border-slate-500 p-1.5">{{coupon.status}}</td>
-                            <td class="capitalize border-b border-slate-500 p-1.5">{{coupon.expiry_date | date}}</td>
+                        <tr class="even:bg-gray-50 odd:bg-white">
+                            <td class="font-medium border-b border-slate-500 p-1.5">{{coupon.coupon_code}}</td>
+                            <td class="text-gray-700 border-b border-slate-500 p-1.5">{{coupon.uses_count}}</td>
+                            <td class="text-gray-700 capitalize border-b border-slate-500 p-1.5">{{displayDiscount(coupon)}}</td>
+                            <td class="text-black capitalize border-b border-slate-500 p-1.5">
+                                @if (coupon.status == 'active') {
+                                    <span class="p-1.5 rounded bg-green-200">{{coupon.status}}</span>
+                                } @else {
+                                    <span class="p-1.5 rounded bg-red-200">{{coupon.status}}</span>
+                                }
+                            </td>
+                            <td class="text-gray-700 capitalize border-b border-slate-500 p-1.5">{{coupon.expiry_date | date}}</td>
                             <td class="border-b border-slate-500 p-1.5">
                                 <div class="flex gap-1 justify-end min-w-max">
                                     <button data-modal-target="update-modal" data-modal-toggle="update-modal" 
