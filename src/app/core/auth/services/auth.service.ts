@@ -18,7 +18,7 @@ export class AuthService {
   hasRolesOrPermissions = this.hasRolesOrPermissionsSubject.asObservable();
   validLogin = this.validLoginSubject.asObservable();
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router) { }
 
   login(userData: any) {
     return this.http.post('/login', userData).pipe(
@@ -36,6 +36,42 @@ export class AuthService {
     );
   }
 
+  loginWithGoogle(): Observable<boolean> {
+    return new Observable<boolean>((observer) => {
+      window['google']?.accounts.id.initialize({
+        client_id: '477510205315-ocqa7sib513v9gn5ffjpqi91m20r3dh2.apps.googleusercontent.com',
+        scope: 'profile email',
+        callback: (response: any) => this.handleResponse(response, observer),
+      });
+
+      window['google']?.accounts.id.prompt();
+    });
+  }
+
+  private handleResponse(response: any, observer: any) {
+    if (response.credential) {
+      const idToken = response.credential;
+
+      this.http.post('/auth/callback/google', { token: idToken }).pipe(
+        tap((res: any) => {
+          this.saveToken(res.token);
+          this.userDataSubject.next(res.data);
+          this.hasRolesOrPermissionsSubject.next(res.data?.roles?.length || res.data?.permissions?.length || false);
+          this.validLoginSubject.next(true);
+          this.goHome();
+          observer.next(true);
+          observer.complete();
+        }),
+        catchError((error) => {
+          observer.error(error);
+          return of(false);
+        })
+      ).subscribe();
+    } else {
+      observer.error('No credential received');
+    }
+  }
+
   register(userData: any) {
     return this.http.post('/register', userData).pipe(
       concatMap((token: any) => {
@@ -50,7 +86,7 @@ export class AuthService {
       })
     );
   }
-  
+
   logout() {
     this.removeToken();
     this.setUserData(null);
@@ -75,7 +111,7 @@ export class AuthService {
       })
     );
   }
-  
+
   canAccessDashboard(): Observable<boolean> {
     return this.http.get('/user').pipe(
       map((response: any) => {
@@ -102,7 +138,7 @@ export class AuthService {
   getToken() {
     return localStorage.getItem('token');
   }
-  
+
   tokenExists() {
     const token = this.getToken();
     return token == null ? false : true;
