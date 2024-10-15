@@ -1,0 +1,98 @@
+<form [formGroup]="addressForm" (ngSubmit)="onSubmit()">
+<div class="grid gap-6 mb-6 md:grid-cols-2">
+    <div>
+        <input type="text" id="first_name"
+            class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="First Name" required formControlName="first_name" />
+    </div>
+    <div>
+        <input type="text" id="last_name"
+            class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Last Name" required formControlName="last_name" />
+    </div>
+    <div class="col-span-2">
+        <input type="text" id="address"
+            class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            [ngClass]="{'border-red-500': address.hasError('required')}" placeholder="Address" required formControlName="address" />
+        @if (address.hasError('required')) {
+            <div>
+                <small class="text-red-600">Enter an address</small>
+            </div>
+        }
+    </div>
+    <div class="col-span-2">
+        <input type="tel" id="apartment"
+            class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Apartment, suite, etc." required formControlName="apartment" 
+            [ngClass]="{'border-red-500': apartment.hasError('required')}"/>
+        @if (apartment.hasError('required')) {
+            <div>
+                <small class="text-red-600">Enter an apartment, suite, etc</small>
+            </div>
+        }
+    </div>
+    <div class="grid grid-cols-3 gap-4 col-span-2">
+        <div>
+            <input type="text" id="city"
+                class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="City" required formControlName="city" 
+                [ngClass]="{'border-red-500': city.hasError('required')}"/>
+            @if (city.hasError('required')) {
+                <div>
+                    <small class="text-red-600">Enter a city</small>
+                </div>
+            }
+        </div>
+        <div>
+            <select id="governorate" formControlName="governorate_id" class="border border-gray-300  text-gray-600 capitalize rounded-lg text-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" [ngClass]="{'border-red-500': governorate_id.hasError('required')}">
+                <option value="" disabled selected>Governorate</option>
+                @if (governorates) {
+                    @for (governorate of governorates; track $index) {
+                    <option class="text-gray-600" [value]="governorate.id">{{ governorate.name }}</option>
+                    }
+                }
+            </select>
+            @if (governorate_id.hasError('required')) {
+                <div>
+                    <small class="text-red-600">Choose Governorate</small>
+                </div>
+            }
+        </div>
+        <div>
+            <input type="text" id="zip_code"
+                class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="Zip Code" formControlName="postal_code" 
+                [ngClass]="{'border-red-600': postal_code.hasError('required') || postal_code.hasError('minlength') }"/>
+            @if (postal_code.hasError('minlength') || postal_code.hasError('required')) {
+                <div>
+                    <small class="text-red-600">Enter atleast 5 digits code</small>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="col-span-2">
+        <input type="tel" id="phone" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Phone" required formControlName="phone_number"
+            [ngClass]="{'border-red-600': phone_number.hasError('required') || phone_number.hasError('pattern') }"/>
+            
+            <!-- validation -->
+            @if (phone_number.hasError('required') || phone_number.hasError('pattern') ) {
+                <div>
+                    <small class="text-red-600">Enter a valid phone number that starts with 010, 011, 012, or 015
+                        and has 11 digits.</small>
+                </div>
+            }
+    </div>
+    <!-- <div class="flex col-span-2">
+        <div class="h-5">
+            <input id="remember" type="checkbox" value=""
+                class="w-4 h-4 border border-gray-300 rounded focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800" />
+        </div>
+        <label for="remember" type="submit" class="ms-2 mt-1 text-sm font-medium text-gray-900 dark:text-gray-300">Save this
+            information for next time.</label>
+    </div> -->
+    <div class="col-span-2">
+        <button [disabled]="!addressForm.valid" class="continue-btn uppercase text-sm font-light border border-black bg-black text-white hover:bg-white hover:text-black h-12 px-10 w-max flex flex-nowrap items-center"> Continue </button>
+    </div>
+</div>
+</form>

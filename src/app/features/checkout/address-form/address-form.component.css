@@ -1,0 +1,5 @@
+.continue-btn:disabled{
+    color: white;
+    background-color: rgb(82, 82, 82);
+    pointer-events: none;
+}

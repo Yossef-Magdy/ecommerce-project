@@ -63,226 +63,103 @@
       </form>
       }
       @else {
-      <!-- <form [formGroup]="addressForm" (ngSubmit)="onSubmit()"> -->
-        <div class="grid gap-6 mb-6 md:grid-cols-2">
-          <div>
-            <input type="text" id="first_name"
-              class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="First Name" required formControlName="first_name" />
-          </div>
-          <div>
-            <input type="text" id="last_name"
-              class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Last Name" required formControlName="last_name" />
-          </div>
-          <div class="col-span-2">
-            <input type="text" id="address"
-              class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Address" required formControlName="address" />
-          </div>
-          <div class="col-span-2">
-            <input type="tel" id="apartment"
-              class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Apartment, suite, etc." required formControlName="apartment" />
-          </div>
-          <div class="grid grid-cols-3 gap-4 col-span-2">
-            <div>
-              <input type="text" id="city"
-                class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="City" required formControlName="city" />
-            </div>
-            <div>
-              <select id="governorate" formControlName="governorate_id" class="bg-gray-50 border border-black text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
-                <option value="" disabled selected>Select your governorate</option>
-                @if (governorates) {
-                  @for (governorate of governorates; track $index) {
-                    <option [value]="governorate.id">{{ governorate.name }}</option>
-                  }
-                }
-              </select>
-            </div>
-            <div>
-              <input type="text" id="zip_code"
-                class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Zip Code (optional)" />
-            </div>
-          </div>
-          <div class="col-span-2">
-            <input type="tel" id="phone"
-              class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Phone" required />
-          </div>
-          <div class="flex col-span-2">
-            <div class="h-5">
-              <input id="remember" type="checkbox" value=""
-                class="w-4 h-4 border border-gray-300 rounded focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800" />
-            </div>
-            <label for="remember" class="ms-2 mt-1 text-sm font-medium text-gray-900 dark:text-gray-300">Save this
-              information for next time.</label>
-          </div>
-        </div>
-      <!-- </form> -->
+        <app-address-form (submitted)="onAddressFormSubmit($event)"></app-address-form>
       }
-
-
-      <form>
-        <div></div>
-        <h3 class="text-base font-medium mb-2">Shipping Method</h3>
-        <div id="accordion-arrow-icon" class="mb-8">
-          <h2 id="accordion-arrow-icon-heading-1">
-            <button type="button"
-              class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-900 bg-gray-100 border border-b-0 border-gray-200 rounded-t-xl focus:ring-4 focus:ring-cyan-700 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3"
-              data-accordion-target="#accordion-arrow-icon-body-1" aria-expanded="true"
-              aria-controls="accordion-arrow-icon-body-1">
-              <span>Standard Shipping</span>
-              <span>LE 55.00</span>
-            </button>
-          </h2>
-        </div>
-        <h3 class="text-xl font-medium">Payment</h3>
-        <span class="text-gray-500 text-sm">All transactions are secure and encrypted.</span>
-
-        <div class="mt-4">
-          <div class="accordion-item">
-            <input type="radio" id="credit-card" name="payment-method" value="credit-card"
-              (change)="onPaymentMethodChange('credit-card')" checked />
-            <label for="credit-card" class="accordion-label">
-              <span class="custom-radio"></span>
-              <span class="payment-span">Credit card</span>
-              <div class="payment-logos">
-                <img src="https://cdn.shopify.com/shopifycloud/checkout-web/assets/c1.en/assets/mada.B18Lw7s7.svg"
-                  alt="Visa" />
-                <img src="https://cdn.shopify.com/shopifycloud/checkout-web/assets/c1.en/assets/omannet.DA0vueZ7.svg"
-                  alt="Mastercard" />
-                <img src="https://cdn.shopify.com/shopifycloud/checkout-web/assets/c1.en/assets/mastercard.1c4_lyMp.svg"
-                  alt="Mada" />
-              </div>
-            </label>
-            <div class="accordion-content">
-              <!-- Stripe Initialization -->
-              <div id="card-element" class="payment-input flex flex-col"></div>
-              @if(paymentStatus && paymentMethod === 'credit-card') {
-              <span class="{{errorMessage ? 'text-red-500' : 'text-green-500'}} text-sm red">{{paymentStatus}}</span>
-              }
-
-              <div class="payment-form" id="card-element">
-
-                <input class="payment-input" id="card-number" type="text" placeholder="Card number" />
-                <div class="flex gap-6">
-                  <input class="payment-input" id="card-expiration" type="text"
-                    placeholder="Expiration date (MM / YY)" />
-                  <input class="payment-input" id="card-security-code" type="text" placeholder="Security code" />
+        <!-- controled via submitted -->
+        <form>
+          <div></div>
+          <h3 class="text-base font-medium mb-2">Shipping Method</h3>
+          <div id="accordion-arrow-icon" class="mb-8">
+            <h2 id="accordion-arrow-icon-heading-1">
+              <button type="button"
+                class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-900 bg-gray-100 border border-b-0 border-gray-200 rounded-t-xl focus:ring-4 focus:ring-cyan-700 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3"
+                data-accordion-target="#accordion-arrow-icon-body-1" aria-expanded="true"
+                aria-controls="accordion-arrow-icon-body-1">
+                <span>Standard Shipping</span>
+                <span>LE 55.00</span>
+              </button>
+            </h2>
+          </div>
+          <h3 class="text-xl font-medium">Payment</h3>
+          <span class="text-gray-500 text-sm">All transactions are secure and encrypted.</span>
+  
+          <div class="mt-4">
+            <div class="accordion-item">
+              <input type="radio" id="credit-card" name="payment-method" value="credit-card"
+                (change)="onPaymentMethodChange('credit-card')" checked />
+              <label for="credit-card" class="accordion-label">
+                <span class="custom-radio"></span>
+                <span class="payment-span">Credit card</span>
+                <div class="payment-logos">
+                  <img src="https://cdn.shopify.com/shopifycloud/checkout-web/assets/c1.en/assets/mada.B18Lw7s7.svg"
+                    alt="Visa" />
+                  <img src="https://cdn.shopify.com/shopifycloud/checkout-web/assets/c1.en/assets/omannet.DA0vueZ7.svg"
+                    alt="Mastercard" />
+                  <img src="https://cdn.shopify.com/shopifycloud/checkout-web/assets/c1.en/assets/mastercard.1c4_lyMp.svg"
+                    alt="Mada" />
                 </div>
-                <input class="payment-input" id="card-name" type="text" placeholder="Name on card" />
-                <div class="flex">
-                  <div class="h-5">
-                    <input id="remember2" type="checkbox" value="" (change)="onShippingOptionChange($event)" checked
-                      class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800" />
+              </label>
+              <div class="accordion-content">
+
+                <!-- Stripe Initialization -->
+                <div id="card-element" class="payment-input flex flex-col"></div>
+                @if(paymentStatus && paymentMethod === 'credit-card') {
+                  <span class="{{errorMessage ? 'text-red-500' : 'text-green-500'}} text-sm red">{{paymentStatus}}</span>
+                }
+                <div class="payment-form" id="card-element">
+                  <div class="flex">
+                    <div class="h-5">
+                    </div>
                   </div>
-                  <label for="remember2" class="ms-2 mt-1 text-sm font-medium text-gray-900 dark:text-gray-300">Use
-                    shipping address as billing address</label>
                 </div>
               </div>
             </div>
-          </div>
-
-          <div class="accordion-item">
-            <input type="radio" id="cod" name="payment-method" value="cod" (change)="onPaymentMethodChange('cod')" />
-            <label for="cod" class="accordion-label">
-              <span class="custom-radio"></span>
-              <span class="payment-span">Cash on Delivery (COD)</span>
-            </label>
-            <div class="accordion-content">
-              <p>Cash On Delivery(Extra 10 EGP will be applied).</p>
+  
+            <div class="accordion-item">
+              <input type="radio" id="cod" name="payment-method" value="cod" (change)="onPaymentMethodChange('cod')" />
+              <label for="cod" class="accordion-label">
+                <span class="custom-radio"></span>
+                <span class="payment-span">Cash on Delivery (COD)</span>
+              </label>
+              <div class="accordion-content">
+                <p>Cash On Delivery(Extra 10 EGP will be applied).</p>
+              </div>
             </div>
           </div>
-        </div>
-
-        @if (showBillingAddress) {
-        <h3 class="text-base font-medium mb-2 mt-6">Billing Address</h3>
-
-        <div id="billing-address" class="mb-2">
-          <label for="sameAddress" class="accordion-label">
-            <input type="radio" id="sameAddress" name="billing-option" (change)="onBillingOptionChange('same')"
-              [checked]="selectedBillingOption === 'same'" />
-            <span class="payment-span">Same as shipping address</span>
-          </label>
-
-          <label for="differentAddress" class="accordion-label">
-            <input type="radio" id="differentAddress" name="billing-option"
-              (change)="onBillingOptionChange('different')" [checked]="selectedBillingOption === 'different'" />
-            <span class="payment-span">Use a different billing address</span>
-          </label>
-
-          @if (selectedBillingOption === 'different') {
-          <div class="billing-form mb-9">
-            <form>
-              <div class="grid gap-6 mb-6 md:grid-cols-2">
-                <div>
-                  <input type="text" id="first_name"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="First Name" required />
-                </div>
-                <div>
-                  <input type="text" id="last_name"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Last Name" required />
-                </div>
-                <div class="col-span-2">
-                  <input type="text" id="address"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Address" required />
-                </div>
-                <div class="col-span-2">
-                  <input type="tel" id="apartment"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Apartment, suite, etc." required />
-                </div>
-                <div class="grid grid-cols-3 gap-4 col-span-2">
-                  <div>
-                    <input type="text" id="city"
-                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                      placeholder="City" required />
-                  </div>
-                  <div>
-                    <select id="Governorate"
-                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                      <option disabled selected>Governorate</option>
-                      <option value="Cairo">Cairo</option>
-                      <option value="Giza">Giza</option>
-                      <option value="Alexandria">Alexandria</option>
-                      <option value="Aswan">Aswan</option>
-                    </select>
-                  </div>
-                  <div>
-                    <input type="text" id="zip_code"
-                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                      placeholder="Zip Code (optional)" />
-                  </div>
-                </div>
-                <div class="col-span-2">
-                  <input type="tel" id="phone"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Phone" required />
-                </div>
-              </div>
-            </form>
+  
+          @if (showBillingAddress) {
+          <h3 class="text-base font-medium mb-2 mt-6">Billing Address</h3>
+  
+          <div id="billing-address" class="mb-2">
+            <label for="sameAddress" class="accordion-label">
+              <input type="radio" id="sameAddress" name="billing-option" (change)="onBillingOptionChange('same')"
+                [checked]="selectedBillingOption === 'same'" />
+              <span class="payment-span">Same as shipping address</span>
+            </label>
+  
+            <label for="differentAddress" class="accordion-label">
+              <input type="radio" id="differentAddress" name="billing-option"
+                (change)="onBillingOptionChange('different')" [checked]="selectedBillingOption === 'different'" />
+              <span class="payment-span">Use a different billing address</span>
+            </label>
+            
           </div>
           }
-        </div>
-        }
+  
+          <button type="submit"
+            class="btn w-full text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-lg px-5 py-2.5 text-center"
+            (click)="pay($event)" [disabled]="isLoading">
+            {{ isLoading ? 'Processing...' : 'Pay Now' }}
+          </button>
+  
+          @if(paymentStatus && paymentMethod === 'cod') {
+          <span class="{{errorMessage ? 'text-red-500' : 'text-green-500'}} text-sm red">{{paymentStatus}}</span>
+          }
+        </form>
 
-        <button type="submit"
-          class="btn w-full text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-lg px-5 py-2.5 text-center"
-          (click)="pay($event)" [disabled]="isLoading">
-          {{ isLoading ? 'Processing...' : 'Pay Now' }}
-        </button>
-
-        @if(paymentStatus && paymentMethod === 'cod') {
-        <span class="{{errorMessage ? 'text-red-500' : 'text-green-500'}} text-sm red">{{paymentStatus}}</span>
-        }
-      </form>
     </div>
+
+    <!-- right section -->
     <div class="second w-full md:w-1/2 bg-gray-100">
       <div class="order-summary p-10">
         @for (item of orderSummary; track $index) {
@@ -327,13 +204,6 @@
         </div>
       </div>
     </div>
+
   </div>
 </div>
-
-<!-- <form (submit)="pay($event)" class="payment-form flex flex-col md:flex-row gap-8"  id="checkout-form">
-  <div id="card-element" class="payment-input flex flex-col"></div>
-  <button type="submit" class="btn block w-1/4 text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-lg px-5 py-2.5 text-center" [disabled]="isLoading">{{ isLoading ? 'Processing...' : 'Pay Now' }}</button>
-  @if(paymentStatus) {
-    <span class="text-red-500 text-sm red">{{paymentStatus}}</span>
-  }
-</form> -->
