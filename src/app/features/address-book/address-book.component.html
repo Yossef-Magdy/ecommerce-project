@@ -14,7 +14,17 @@
                 <p class="text-gray-500">{{ address.address }}</p>
                 <p class="text-gray-500">{{ address.city }}</p>
                 <div class="mt-10 flex gap-6">
-                    <a href="#" class="text-sm">Delete</a>
+                    <a  (click)="onEditAddress(address.id)" class="text-sm">Edit</a>
+                    <a (click)="openDeleteModal(address.id, i)" class="text-sm">Delete</a>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="showDeleteModal" class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50">
+            <div class="bg-white p-6 rounded-md shadow-lg w-full max-w-sm">
+                <h3 class="text-xl mb-4">Are you sure you want to delete this address?</h3>
+                <div class="flex justify-end gap-4">
+                    <button class="px-4 py-2 bg-red-500 text-white rounded" (click)="confirmDelete()">Delete</button>
+                    <button class="px-4 py-2 bg-gray-300 rounded" (click)="closeDeleteModal()">Cancel</button>
                 </div>
             </div>
         </div>

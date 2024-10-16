@@ -33,7 +33,7 @@
                 d="m11.9 5.6-4.653 4.653a.35.35 0 0 1-.495 0L2.1 5.6"></path>
             </svg>
           </a>
-          <p class="mb-3">{{ userEmail }}</p>
+          <p class="mb-3">{{ user? user.email: "" }}</p>
 
           @if (dropdownVisible) {
           <span>
@@ -127,29 +127,10 @@
             </div>
           </div>
   
-          @if (showBillingAddress) {
-          <h3 class="text-base font-medium mb-2 mt-6">Billing Address</h3>
-  
-          <div id="billing-address" class="mb-2">
-            <label for="sameAddress" class="accordion-label">
-              <input type="radio" id="sameAddress" name="billing-option" (change)="onBillingOptionChange('same')"
-                [checked]="selectedBillingOption === 'same'" />
-              <span class="payment-span">Same as shipping address</span>
-            </label>
-  
-            <label for="differentAddress" class="accordion-label">
-              <input type="radio" id="differentAddress" name="billing-option"
-                (change)="onBillingOptionChange('different')" [checked]="selectedBillingOption === 'different'" />
-              <span class="payment-span">Use a different billing address</span>
-            </label>
-            
-          </div>
-          }
-  
           <button type="submit"
             class="btn w-full text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-lg px-5 py-2.5 text-center"
             (click)="pay($event)" [disabled]="isLoading">
-            {{ isLoading ? 'Processing...' : 'Pay Now' }}
+            {{ isLoading ? 'Processing...' : 'Place Order'}}
           </button>
   
           @if(paymentStatus && paymentMethod === 'cod') {

@@ -35,6 +35,8 @@ import { ShippingComponent } from './features/shipping/shipping.component';
 import { EditAddressComponent } from './features/edit-address/edit-address.component';
 import { SearchComponent } from './features/search/search.component';
 import { ProductDetailsComponent as DashboardProductDetails } from './features/dashboard/pages/product-details/product-details.component';
+import { AddressBookComponent } from './features/address-book/address-book.component';
+
 
 export const routes: Routes = [
     {
@@ -84,6 +86,11 @@ export const routes: Routes = [
         component: EditAddressComponent,
         title: 'Edit Address',
     },
+    // {
+    //     path: 'address-book',
+    //     component: AddressBookComponent,
+    //     title: 'Address Book',
+    // },
     {
         path: 'products/:slug',
         component: ProductDetailsComponent,

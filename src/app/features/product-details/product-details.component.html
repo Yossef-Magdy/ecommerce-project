@@ -128,7 +128,7 @@
 <!-- Product Description Drawer -->
 <div class="flex flex-col justify-center container m-auto">
     <div class="drawer-item border-b">
-        <app-right-drawer [title]="'Description'" [text]="data?.description || ''"></app-right-drawer>
+        <app-right-drawer [title]="'Description'" [text]="data? data.description : ''"></app-right-drawer>
     </div>
 </div>
 

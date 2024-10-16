@@ -55,4 +55,17 @@ export class LoginComponent {
       },
     });
   }
+
+  loginWithGoogle() {
+    this.authService.loginWithGoogle().subscribe({
+      error: (error) => {
+        if (error.status == HttpStatusCode.Unauthorized) {
+          this.errorMessage = error.error.message;
+        } else if (error.status == HttpStatusCode.BadRequest) {
+          console.error('Google login failed', error);
+          this.errorMessage = 'Google login failed';
+        }
+      },
+    });
+  }
 }
