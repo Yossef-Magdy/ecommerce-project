@@ -1,1 +1,94 @@
-<p>manage-orders works!</p>
+<div class="p-4 max-h-dvh overflow-x-auto">
+    <h1 class="text-4xl uppercase font-light mb-4">Orders Data</h1>
+    @if (orders) {
+        <div class="text-sm border border-slate-500">
+            <table class="text-left overflow-y-auto w-full table-auto relative overflow-x-auto">
+                <thead class="capitalize bg-gray-50">
+                    <th class="font-medium border-b border-slate-500 p-1.5">no.</th>
+                    <th class="font-medium border-b border-slate-500 p-1.5">customer</th>
+                    <th class="font-medium border-b border-slate-500 p-1.5">total price</th>
+                    <th class="font-medium border-b border-slate-500 p-1.5">payment method</th>
+                    <th class="font-medium border-b border-slate-500 p-1.5">payment status</th>
+                    <th class="font-medium border-b border-slate-500 p-1.5">shipping status</th>
+                    <th class="font-medium border-b border-slate-500 p-1.5">created at</th>
+                    <th class="font-medium border-b border-slate-500 p-1.5"></th>
+                </thead>
+                <tbody>
+                    @for (order of orders; track $index) {
+                        <tr class="even:bg-gray-50 odd:bg-white">
+                            <td class="font-medium capitalize border-b border-slate-500 p-1.5">#{{order.id}}</td>
+                            <td class="text-gray-700 capitalize border-b border-slate-500 p-1.5">
+                                <div class="flex flex-col gap-1">
+                                    <span>{{order.customer.first_name}} {{order.customer.last_name}}</span>
+                                    <span class="text-sm text-gray-500">{{order.customer.email}}</span>
+                                </div>
+                            </td>
+                            <td class="text-gray-700 capitalize border-b border-slate-500 p-1.5">{{order.total_price}} EGP</td>
+                            <td class="text-gray-700 capitalize border-b border-slate-500 p-1.5">
+                                @if (order.payment.method === 'cod') {
+                                    cash on delivery
+                                } @else {
+                                    {{order.payment.method}}
+                                }
+                            </td>
+                            <td class="text-gray-700 capitalize border-b border-slate-500 p-1.5">{{order.payment.status}}</td>
+                            <td class="text-gray-700 capitalize border-b border-slate-500 p-1.5">{{order.shipping.status}}</td>
+                            <td class="text-gray-700 capitalize border-b border-slate-500 p-1.5">{{order.created_at | date}}</td>
+                            <td class="border-b border-slate-500 p-1.5">
+                                <div class="flex gap-1 justify-end min-w-max">
+                                    <button data-modal-target="update-modal" data-modal-toggle="update-modal" 
+                                    type="button" class="hover:bg-slate-200 rounded px-2 py-1"
+                                    (click)="selectOrder(order)" (click)="updateForm()">
+                                        <img src="assets/icons/pen.svg" class="size-6"/>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <app-pagination [from]="from" [to]="to" [total]="total" [next]="next" [prev]="prev" [load]="load"/>        </div>
+    }
+    <div id="update-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div class="relative p-4 w-full max-w-2xl max-h-full">
+            <div class="relative bg-white shadow dark:bg-gray-700">
+                <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                        Update location
+                    </h3>
+                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="update-modal">
+                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                        </svg>
+                        <span class="sr-only">Close modal</span>
+                    </button>
+                </div>
+                <div class="p-4 md:p-5 space-y-4">
+                    <form class="grid items-start gap-6" [formGroup]="orderForm">
+                    <input type="text" formControlName="id" hidden>                            
+                    <div class="flex flex-col gap-2 group">
+                        <app-label for="shipping_status" text="shipping status"/>
+                        <select id="shipping_status" class="group-hover:border-black border px-4 text-xs h-12" formControlName="shipping_status"> 
+                            @for (status of shippingStatus; track $index) {
+                                <option value="{{status}}">{{status}}</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="flex flex-col gap-2 group">
+                        <app-label for="payment_status" text="payment status"/>
+                        <select id="payment_status" class="group-hover:border-black border px-4 text-xs h-12" formControlName="payment_status"> 
+                            @for (status of paymentStatus; track $index) {
+                                <option value="{{status}}">{{status}}</option>
+                            }
+                        </select>
+                    </div>
+                    </form>
+                </div>
+                <div class="flex items-center gap-2 p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
+                    <app-black-button text="update" data-modal-hide="update-modal" (click)="updateOrder()"/>
+                    <app-button text="cancel" data-modal-hide="update-modal"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
