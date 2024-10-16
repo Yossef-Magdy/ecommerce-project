@@ -11,11 +11,12 @@ import { RxReactiveFormsModule } from "@rxweb/reactive-form-validators";
 import { CategoryService } from '../../services/category.service';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { Renderer2 } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-manage-products',
   standalone: true,
-  imports: [ReactiveFormsModule, BlackButtonComponent, ButtonComponent, LabelComponent, PaginationComponent, RxReactiveFormsModule, NgSelectModule],
+  imports: [ReactiveFormsModule, BlackButtonComponent, ButtonComponent, LabelComponent, PaginationComponent, RxReactiveFormsModule, NgSelectModule, RouterLink],
   templateUrl: './manage-products.component.html',
   styleUrl: './manage-products.component.css'
 })
@@ -34,8 +35,6 @@ export class ManageProductsComponent {
     categories: new FormControl([]),
   });
 
-  message?: string;
-  isErrorMessage?: boolean;
   products?: any = [];
   currentProduct: any;
   fileToUpload: any;
