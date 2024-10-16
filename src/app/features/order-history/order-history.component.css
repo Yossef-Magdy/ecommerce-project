@@ -1,5 +1,6 @@
 .order-item {
     transition: transform 0.2s, box-shadow 0.2s;
+    
 }
 
 .order-item:hover {
