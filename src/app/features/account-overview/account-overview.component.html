@@ -1,21 +1,33 @@
-<div class="flex p-6  w-full justify-between">
-    <div class="">
-        <h2 class="text-2xl font-normal pb-10">ACCOUNT DETAILS</h2>
-        <p class="text-md text-gray-500">You have no orders yet.</p>
-    </div>
-    <div class="flex items-start">
-        <div class="p-6 border-l border-stone-300">
-            <h3 class="text-lg font-light pb-2">Address details</h3>
-            @if (addresses) {
-            @for (address of addresses; track $index) {
-            @if (address.is_default) {
-            <p class="text-md text-gray-500 mb-2">{{address.address}}</p>
-            <p class="text-md text-gray-500 mb-6">{{address.city}}</p>
-            }
-            }
+<h2 class="text-2xl font-normal pb-10">ACCOUNT DETAILS</h2>
+<div class="flex flex-col md:flex-row p-6 w-full justify-between">
+    <div class="md:w-3/4">
+        <h3 class="text-lg font-light pb-2 mb-2">Orders Received</h3>
 
-            }@else {
-            <p class="text-md text-gray-500 mb-2">No addresses</p>
+        @if (!receivedOrders || receivedOrders.length === 0) {
+            <p class="text-md text-gray-500 py-10 text-center">You have no received orders yet.</p>
+        } @else {
+            @for (order of receivedOrders; track $index) {
+                <div class="order-item mb-6 p-4 border rounded-lg shadow-md bg-gray-50">
+                    <h3 class="text-lg font-semibold">Order #{{ order.id }}</h3>
+                    <p class="text-sm text-gray-600">Order Date: <span class="font-medium">{{ order.created_at | date: 'shortDate' }}</span></p>
+                    <p class="text-sm text-gray-600">Shipping Status: <span class="text-green-600">Received</span></p>
+                </div>
+            }
+        }
+    </div>
+
+    <div class="md:w-1/4 flex justify-center mt-6 md:mt-0">
+        <div class="p-6">
+            <h3 class="text-lg font-light pb-2">Address details</h3>
+            @if (addresses && addresses.length > 0) {
+                @for (address of addresses; track $index) {
+                    @if (address.is_default) {
+                        <p class="text-md text-gray-500 mb-2">{{ address.address }}</p>
+                        <p class="text-md text-gray-500 mb-6">{{ address.city }}</p>
+                    }
+                }
+            } @else {
+                <p class="text-md text-gray-500 mb-2">No addresses</p>
             }
             <a (click)="changeTab('address')" class="text-sm">View addresses (1)</a>
         </div>
