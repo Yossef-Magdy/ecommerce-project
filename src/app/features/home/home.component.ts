@@ -8,11 +8,12 @@ import { IProduct } from '../../data-interfaces';
 import { ProductDetailsService } from '../product-details/product-details.service';
 import { ArrowsUpdatedComponent } from "../../shared/arrows-updated/arrows-updated.component";
 import { NgClass } from '@angular/common';
+import { MarqueeComponent } from "./marquee/marquee.component";
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [ButtonComponent, ArrowsComponent, RouterLink, ArrowsUpdatedComponent, NgClass],
+  imports: [ButtonComponent, ArrowsComponent, RouterLink, ArrowsUpdatedComponent, NgClass, MarqueeComponent],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
