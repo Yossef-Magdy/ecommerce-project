@@ -29,7 +29,7 @@ export class CheckoutComponent implements OnInit {
   orderSummary!: any;
   items !:any[];
   totalPrice :number = 0;
-  savedAddresses !: any[];
+  savedAddresses : any[] = [{}];
   isAddressFormSubmitted: boolean = false;
   shipping_detail_id!: number;
 
@@ -83,7 +83,7 @@ export class CheckoutComponent implements OnInit {
   }
 
   // Payment methods
-  STRIPE_PUBLISHABLE_KEY = 'pk_test_51Q8SaRAYDkqV8OSb7CBmUOUII185BHQ98c7m36pxUrm8S6KZCbThC7oukcr2ihfQIzpLq1btA19H4Si0EvgFIMqK00Jif1q77f';
+  STRIPE_PUBLISHABLE_KEY = 'pk_test_51QAMOHK0H3MHKtq78x5KWPHhFMCP2JK8uAWmkn2F7I6YpaNpV1R7dayKEgNDoXumdureLwRx4gSAs1hNPd2vwNoT00PZqzHu5F';
   stripe = Stripe(this.STRIPE_PUBLISHABLE_KEY);
   card: any; // Card instance
   paymentStatus: string = '';
