@@ -1,0 +1,32 @@
+.order-item {
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.order-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.product-image img {
+    border-radius: 10px;
+}
+
+@media (max-width: 768px) {
+    .order-item {
+        padding: 1rem;
+    }
+
+    .product-details {
+        margin-top: 1rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .order-item {
+        flex-direction: column;
+    }
+
+    .product-details {
+        text-align: left;
+    }
+}

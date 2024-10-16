@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AccountOverviewComponent } from "../account-overview/account-overview.component";
-import { OrderHistoryComponent } from "../../order-history/order-history.component";
+import { OrderHistoryComponent } from "../order-history/order-history.component";
 import { AddressBookComponent } from "../address-book/address-book.component";
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { AddAddressComponent } from "../add-address/add-address.component";

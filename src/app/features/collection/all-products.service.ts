@@ -14,6 +14,10 @@ export class AllProductsService {
     return this.http.get(`/products`);
   }
 
+  getProductBySlug(slug: string): Observable<any> {
+    return this.http.get(`/products/${slug}`);
+  }
+
   getProductsByCategoryName(categoryName: string): Observable<any> {
     return this.http.get(`/collections/${categoryName}`);
   }
