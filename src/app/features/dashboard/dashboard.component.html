@@ -4,7 +4,8 @@
         <p class="capitalize text-2xl text-gray-700">welcome {{userData.first_name}}</p>
     </div>
     @if (analytics) {
-        <div class="mb-4 flex justify-end">
+        <div class="mb-4 flex justify-between items-center">
+            <p class="first-letter:capitalize">last update {{analytics.last_update}}</p>
             <button class="border border-slate-500 p-2 rounded" (click)="refresh()">
                 <img src="assets/icons/refresh.svg" alt="">
             </button>
