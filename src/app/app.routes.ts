@@ -34,6 +34,7 @@ import { SubCategoriesComponent } from './features/sub-categories/sub-categories
 import { ShippingComponent } from './features/shipping/shipping.component';
 import { EditAddressComponent } from './features/edit-address/edit-address.component';
 import { SearchComponent } from './features/search/search.component';
+import { ProductDetailsComponent as DashboardProductDetails } from './features/dashboard/pages/product-details/product-details.component';
 
 export const routes: Routes = [
     {
@@ -207,6 +208,11 @@ export const routes: Routes = [
                 component: ManageOrdersComponent,
                 title: 'Manage Orders'
             },
+            {
+                path: 'product-details/:id',
+                component: DashboardProductDetails,
+                title: 'Product Details'
+            }
         ]
     },
     {
