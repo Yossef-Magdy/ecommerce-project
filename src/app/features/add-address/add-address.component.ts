@@ -17,6 +17,8 @@ export class AddAddressComponent {
   @Input() addresses: any;
   @Input() governorates: any;
   addressForm: FormGroup;
+  successMessage: string = '';
+  failMessage: string = '';
 
   @Output() tabChange = new EventEmitter<string>();
 
@@ -51,15 +53,25 @@ export class AddAddressComponent {
       if(!this.postal_code.value){
         delete address_data.postal_code;
       }
-      this.addressService.addAddress(address_data).subscribe(
-        () => {
-          alert('Address added successfully');
+      this.addressService.addAddress(address_data).subscribe({
+        next: (response) => {
+          console.log('Address Added successfully:', response);
+          this.successMessage = 'Address has been Added successfully';
           this.addressForm.reset();
+
+          setTimeout(() => {
+            this.successMessage = '';
+          }, 2000);
         },
-        (error) => {
-          console.error('Error adding address', error);
+        error: (error) => {
+          this.failMessage = 'Something went wrong';
+          setTimeout(() => {
+            this.failMessage = '';
+          }, 2000);
+          console.error('Error updating address:', error);
         }
-      );
+      });
+
     } else {
       console.log('Form is invalid');
     }

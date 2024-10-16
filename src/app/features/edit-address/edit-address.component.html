@@ -8,10 +8,20 @@
             </svg>
         </a>
     </div>
-    <a (click)="changeTab('address')"><button class="text-sm font-light">BACK TO ADDRESSES</button></a>
+    <a (click)="changeTab('address')"><button class="text-sm font-light">BACK TO PROFILE</button></a>
 </div>
 
 <div class="p-6">
+
+    @if (successMessage) {
+    <div class="success-message">
+        {{ successMessage }}
+    </div>
+    }@else if (failMessage) {
+    <div class="fail-message">
+        {{ failMessage }}
+    </div>
+    }
     <h3 class="text-2xl font-normal">EDIT ADDRESS</h3>
 
     <form [formGroup]="addressForm" (ngSubmit)="onSubmit()" class="mt-6 ">
@@ -19,7 +29,7 @@
             <div>
                 <label for="address" class="block mb-2 text-sm font-medium text-gray-900 ">Address</label>
                 <input formControlName="address" type="text" id="address"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                    class="bg-gray-50 border border-balck text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                     placeholder="Enter your address" required />
             </div>
             <div>
@@ -31,7 +41,7 @@
             <div>
                 <label for="city" class="block mb-2 text-sm font-medium text-gray-900 ">City</label>
                 <input formControlName="city" type="text" id="city"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                    class="bg-gray-50 border border-balck text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                     placeholder="Enter your city" required />
             </div>
             <div>
@@ -75,6 +85,6 @@
             </div>
         </div>
 
-        <app-black-button text="Edit Address"></app-black-button>
+        <app-black-button type="submit" text="Edit Address"></app-black-button>
     </form>
 </div>

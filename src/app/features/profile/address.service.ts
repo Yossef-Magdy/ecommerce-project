@@ -25,6 +25,8 @@ export class AddressService {
     return this.http.patch(`/shipping-details/${addressId}`, addressData);
   }
 
-  
+  deleteAddress(addressId: number): Observable<any> {
+    return this.http.delete(`/shipping-details/${addressId}`);
+  }
   
 }

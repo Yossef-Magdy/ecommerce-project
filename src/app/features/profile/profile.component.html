@@ -1,6 +1,6 @@
 <div class="profile mt-20 mx-auto w-full">
     <div class="flex flex-row w-full justify-between mb-10 items-center">
-        <h1 class="text-3xl font-normal ">WELCOME, {{ name }}</h1>
+        <h1 class="text-3xl font-normal ">WELCOME, {{ user?.first_name }}</h1>
         <button type="button"
             (click)="logout()"
             class="flex items-center p-2 text-base font-normal transition duration-75">
@@ -45,7 +45,7 @@
             </ul>
         </div>
         <div class="flex flex-col md:flex-row ">
-            <div class="w-full md:w-2/3">
+            <div class="w-full">
                 @if (selectedTab === 'overview') {
                 <div>
                     <app-account-overview [selectedTab]="selectedTab"
@@ -57,7 +57,7 @@
                 </div>
                 }@else if (selectedTab === 'address') {
                 <div>
-                    <app-address-book (tabChange)="selectedTab = $event"></app-address-book>
+                    <app-address-book  (tabChange)="selectedTab = $event"></app-address-book>
                 </div>
                 }@else if (selectedTab === 'add-address') {
                 <div>
@@ -65,7 +65,7 @@
                 </div>
                 }@else if (selectedTab === 'edit-address') {
                 <div>
-                    <app-edit-address [selectedTab]="selectedTab" (tabChange)="selectedTab = $event" ></app-edit-address>
+                    <app-edit-address [selectedTab]="selectedTab" (tabChange)="selectedTab = $event"></app-edit-address>
                 </div>
                 }
             </div>
