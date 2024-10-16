@@ -37,7 +37,6 @@ export class ProductDetailsComponent {
     const id = this.activatedRoute.snapshot.params['id'];
     this.productService.getProduct(id).subscribe((result: any) => {
       this.product = result.data;
-      console.log(this.product.details);
       setTimeout(() => {
         initModals();
       }, 50);
