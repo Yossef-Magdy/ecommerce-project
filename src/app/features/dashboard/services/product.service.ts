@@ -32,6 +32,14 @@ export class ProductService {
     );
   }
 
+  getProduct(productId: number) {
+    return this.http.get(`${this.baseURL}/${productId}`).pipe(
+      catchError ((error) => {
+        return of (false);
+      })
+    );
+  }
+
   updateProduct(data: any, productId: number) {
     return this.http.post(`${this.baseURL}/${productId}`, data).pipe(
       tap((result: any) => {
