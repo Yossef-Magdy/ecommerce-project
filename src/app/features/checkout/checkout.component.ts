@@ -7,6 +7,8 @@ import { AddressService } from '../profile/address.service';
 import { GovernorateService } from '../profile/governorate.service';
 import { AddressFormComponent } from "./address-form/address-form.component";
 import { NgClass } from '@angular/common';
+import { UserService } from '../profile/user.service';
+import { AuthService } from '../../core/auth/services/auth.service';
 
 
 declare var Stripe: any;
@@ -29,11 +31,12 @@ export class CheckoutComponent implements OnInit {
   orderSummary!: any;
   items !:any[];
   totalPrice :number = 0;
-  savedAddresses : any[] = [{}];
+  savedAddresses !: any[];
   isAddressFormSubmitted: boolean = false;
   shipping_detail_id!: number;
+  user: any;
 
-  constructor(private router: Router, private paymentService: PaymentService, private cartService: CartService, private addressService: AddressService) {}
+  constructor(private router: Router, private paymentService: PaymentService, private cartService: CartService, private addressService: AddressService, private authService: AuthService) {}
 
   onAddressFormSubmit(submitted: boolean) {
     if (submitted) {
@@ -79,7 +82,7 @@ export class CheckoutComponent implements OnInit {
 
   onLogout() {
     this.isUserLoggedIn = false;
-    this.router.navigate(['/auth/login']);
+    this.authService.logout();
   }
 
   // Payment methods
@@ -91,17 +94,31 @@ export class CheckoutComponent implements OnInit {
   isLoading: boolean = false; // Loading state for payment
 
   ngOnInit() {
+    //get user data
+    this.authService.checkUser().subscribe((res:any) => {
+      if (res){
+        this.user = res;
+      }
+      else{
+        this.router.navigate(['/auth/login']);
+      }
+    });
 
     //get items from cart
     this.cartService.getItems().subscribe(items =>{
-      this.orderSummary = items;
-      this.items = [];
-      for (let item of this.orderSummary){
-        this.items.push({
-          product_detail_id: item.productDetailId,
-          quantity: item.quantity,
-        });
-        this.totalPrice += (item.price * item.quantity);
+      if (items.length){
+        this.orderSummary = items;
+        this.items = [];
+        for (let item of this.orderSummary){
+          this.items.push({
+            product_detail_id: item.productDetailId,
+            quantity: item.quantity,
+          });
+          this.totalPrice += (item.price * item.quantity);
+        }
+      }
+      else{
+        // this.router.navigate(['/']);
       }
     });
 
@@ -156,7 +173,7 @@ export class CheckoutComponent implements OnInit {
     const order = {
       token: this.generateRandomToken(6), // Radnomly generated token
       items: this.items,
-      shipping_detail_id: this.shipping_detail_id, // Hardcoded shipping detail ID
+      shipping_detail_id: this.shipping_detail_id, 
       coupon: null, // If coupon is applied !
       payment_method: 'stripe',
       stripeToken: token.id, // From Stripe API in front end

@@ -20,7 +20,9 @@
 }
 
 .btn {
-  background-color: hsl(203.92deg 76.88% 39.02%);
+  /* background-color: hsl(203.92deg 76.88% 39.02%); */
+  background-color: rgb(51, 4, 85);
+  color: white;
 }
 
 .btn:hover {
