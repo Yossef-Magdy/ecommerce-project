@@ -15,11 +15,9 @@ export class AddSubcategoryComponent {
 
   subcategoryForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
-    categoryName: new FormControl('', [Validators.required]),
+    category_id: new FormControl('', [Validators.required]),
   });
 
-  message?: string;
-  isErrorMessage?: boolean;
   categories?: any;
 
   ngOnInit() {
@@ -36,14 +34,9 @@ export class AddSubcategoryComponent {
     if (this.subcategoryForm.invalid) {
       return;
     }
-    this.categorySerivce.addSubcategory(this.subcategoryForm.value).subscribe((response: any) => {
-      if (response.message) {
-        this.isErrorMessage = false;
-        this.message = response.message;
-      } else {
-        this.isErrorMessage = true;
-        const key = Object.keys(response)[0];
-        this.message = response[key][0];
+    this.categorySerivce.addCategory(this.subcategoryForm.value).subscribe((result: boolean) => {
+      if (result) {
+        this.subcategoryForm.reset();
       }
     });
   }

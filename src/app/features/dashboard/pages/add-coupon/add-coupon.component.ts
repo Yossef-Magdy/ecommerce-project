@@ -17,41 +17,38 @@ export class AddCouponComponent {
 
   constructor(private couponSerivce: CouponService) {
     this.couponForm = new FormGroup({
-      couponCode: new FormControl('', [Validators.required]),
-      usesCount: new FormControl(50, [Validators.min(50)]),
-      discountType: new FormControl('fixed'),
-      discountValue: new FormControl(0, [Validators.min(0), this.invalidPercent()]),
-      expiryDate: new FormControl(new Date().toISOString().substring(0, 10), [this.pastDate()]),
+      coupon_code: new FormControl('', [Validators.required]),
+      uses_count: new FormControl(50, [Validators.min(50)]),
+      discount_type: new FormControl('fixed'),
+      discount_value: new FormControl(0, [Validators.min(0), this.invalidPercent()]),
+      expiry_date: new FormControl(new Date().toISOString().substring(0, 10), [this.pastDate()]),
     });
     this.discountType?.valueChanges.subscribe(() => {
       this.discountValue.updateValueAndValidity();
     });
   }
 
-  message?: string;
-  isErrorMessage?: boolean;
-
   get couponCode() {
-    return this.couponForm.controls['couponCode'];
+    return this.couponForm.controls['coupon_code'];
   }
 
   get usesCount() {
-    return this.couponForm.controls['usesCount'];
+    return this.couponForm.controls['uses_count'];
   }
 
   get expiryDate() {
-    return this.couponForm.controls['expiryDate'];
+    return this.couponForm.controls['expiry_date'];
   }
 
   get discountType() {
     if (this.couponForm) {
-      return this.couponForm.controls['discountType'];
+      return this.couponForm.controls['discount_type'];
     }
     return null;
   }
 
   get discountValue() {
-    return this.couponForm.controls['discountValue'];
+    return this.couponForm.controls['discount_value'];
   }
 
   pastDate(): ValidatorFn {
@@ -79,14 +76,9 @@ export class AddCouponComponent {
     if (this.couponForm.invalid) {
       return;
     }
-    this.couponSerivce.addCoupon(this.couponForm.value).subscribe((response: any) => {
-      if (response.message) {
-        this.isErrorMessage = false;
-        this.message = response.message;
-      } else {
-        this.isErrorMessage = true;
-        const key = Object.keys(response)[0];
-        this.message = response[key][0];
+    this.couponSerivce.addCoupon(this.couponForm.value).subscribe((result: boolean) => {
+      if (result) {
+        this.couponForm.reset();
       }
     });
   }

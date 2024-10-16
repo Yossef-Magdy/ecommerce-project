@@ -33,8 +33,8 @@ export class ManageUsersComponent {
   lastPage: number = 1;
   userForm = new FormGroup({
     id: new FormControl(-1),
-    firstName: new FormControl({value: '', disabled: true}),
-    lastName: new FormControl({value: '', disabled: true}),
+    first_name: new FormControl({value: '', disabled: true}),
+    last_name: new FormControl({value: '', disabled: true}),
     roles: new FormControl([]),
     permissions: new FormControl([]),
   });
@@ -44,12 +44,7 @@ export class ManageUsersComponent {
   ngOnInit() {
     this.userService.getUsers().subscribe((result: any) => {
       this.users = result.data;
-      this.currentPage = result.meta.current_page;
-      this.from = result.meta.from;
-      this.to = result.meta.to;
-      this.total = result.meta.total;
-      this.prev = result.links.prev;
-      this.next = result.links.next;
+      this.buildPagination(result);
       setTimeout(() => {
         initModals();
       }, 50);
@@ -66,11 +61,7 @@ export class ManageUsersComponent {
     if (url) {
       this.paginationService.load(url).subscribe((result: any) => {
         this.users = result.data;
-        this.currentPage = result.meta.current_page;
-        this.from = result.meta.from;
-        this.to = result.meta.to;
-        this.prev = result.links.prev;
-        this.next = result.links.next;
+        this.buildPagination(result);
         setTimeout(() => {
           initModals();
         }, 50);
@@ -93,8 +84,8 @@ export class ManageUsersComponent {
     if (this.currentUser) {
       this.userForm.patchValue({
         id: this.currentUser.id,
-        firstName: this.currentUser.first_name,
-        lastName: this.currentUser.last_name,
+        first_name: this.currentUser.first_name,
+        last_name: this.currentUser.last_name,
         roles: this.currentUser.roles.map((role: any) => role.id),
         permissions: this.currentUser.permissions.map((permission: any) => permission.id),
       });
@@ -102,14 +93,35 @@ export class ManageUsersComponent {
   }
 
   updateUser() {
-    this.userService.updateUser(this.userForm.value).subscribe((response) => {
-      console.log(response);
+    const id = this.currentUser.id; 
+    this.userService.updateUser(this.userForm.value, id).subscribe((response: any) => {
+      const data = response.data;
+      this.users = this.users.map((user: any) => user.id == data.id ? data : user);
     });
   }
 
   removeUser() {
-    if (this.currentUser) {
-        this.userService.deleteUser(this.currentUser.id);
+    if (!this.currentUser) {
+      return;
     }
+    const id = this.currentUser.id;
+    this.userService.deleteUser(id).subscribe((response) => {
+      this.userService.getUsers().subscribe((result: any) => {
+        this.users = result.data;
+        this.buildPagination(result);
+        setTimeout(() => {
+          initModals();
+        }, 50);
+      });
+    });
+  }
+
+  buildPagination(data: any) {
+    this.currentPage = data.meta.current_page;
+    this.from = data.meta.from;
+    this.to = data.meta.to;
+    this.total = data.meta.total;
+    this.prev = data.links.prev;
+    this.next = data.links.next;
   }
 }

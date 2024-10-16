@@ -21,10 +21,6 @@ export class AddCategoryComponent {
     });
   }
 
-
-  message?: string;
-  isErrorMessage?: boolean;
-
   get name() {
     return this.categoryForm.controls['name'];
   }
@@ -33,14 +29,9 @@ export class AddCategoryComponent {
     if (this.categoryForm.invalid) {
       return;
     }
-    this.categorySerivce.addCategory(this.categoryForm.value).subscribe((response: any) => {
-      if (response.message) {
-        this.isErrorMessage = false;
-        this.message = response.message;
-      } else {
-        this.isErrorMessage = true;
-        const key = Object.keys(response)[0];
-        this.message = response[key][0];
+    this.categorySerivce.addCategory(this.categoryForm.value).subscribe((result: boolean) => {
+      if (result) {
+        this.categoryForm.reset();
       }
     });
   }

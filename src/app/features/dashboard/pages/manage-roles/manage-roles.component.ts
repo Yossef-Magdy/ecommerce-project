@@ -7,6 +7,7 @@ import { LabelComponent } from "../../../../core/auth/components/label/label.com
 import { NgSelectModule } from '@ng-select/ng-select';
 import { BlackButtonComponent } from "../../../../shared/black-button/black-button.component";
 import { ButtonComponent } from "../../../../shared/button/button.component";
+import { PaginationService } from '../../../../shared/pagination/services/pagination.service';
 
 @Component({
   selector: 'app-manage-roles',
@@ -26,12 +27,19 @@ export class ManageRolesComponent {
     permissions: new FormControl([]),
   });
 
-  constructor(private userService: UserService) {}
+  from: number = 0;
+  to: number = 0;
+  total: number = 0;
+  currentPage: number = 1;
+  prev?: any;
+  next?: any;
+
+  constructor(private userService: UserService, private paginationService: PaginationService) {}
 
   ngOnInit() {
     this.userService.getRoles().subscribe((result: any) => {
       this.roles = result.data;
-      console.log(result);
+      this.buildPagination(result);
       setTimeout(() => {
         initModals();
       }, 50);
@@ -39,6 +47,18 @@ export class ManageRolesComponent {
     this.userService.getPermissions().subscribe((value: any) => {
       this.permissions = value.data;
     });
+  }
+
+  load = (url: any) => {
+    if (url) {
+      this.paginationService.load(url).subscribe((result: any) => {
+        this.roles = result.data;
+        this.buildPagination(result);
+        setTimeout(() => {
+          initModals();
+        }, 50);
+      });
+    }
   }
 
   selectRole(role: any) {
@@ -57,15 +77,31 @@ export class ManageRolesComponent {
 
   updateRole() {
     const id = this.currentRole.id;
-    this.userService.updateRole(this.roleForm.value, id).subscribe((response) => {
-      console.log(response);
+    this.userService.updateRole(this.roleForm.value, id).subscribe((response: any) => {
+      const data = response.data;
+      this.roles = this.roles.map((role: any) => role.id == data.id ? data : role);
     });
   }
 
   removeRole() {
     const id = this.currentRole.id;
     this.userService.deleteRole(id).subscribe((response) => {
-      console.log(response);
+      this.userService.getRoles().subscribe((result: any) => {
+        this.roles = result.data;
+        this.buildPagination(result);
+        setTimeout(() => {
+          initModals();
+        }, 50);
+      });
     });
+  }
+
+  buildPagination(data: any) {
+    this.currentPage = data.meta.current_page;
+    this.from = data.meta.from;
+    this.to = data.meta.to;
+    this.total = data.meta.total;
+    this.prev = data.links.prev;
+    this.next = data.links.next;
   }
 }

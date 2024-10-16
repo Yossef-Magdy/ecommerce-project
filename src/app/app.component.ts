@@ -5,11 +5,12 @@ import { FooterComponent } from './core/layout/footer/footer.component';
 import { SidebarComponent } from './core/layout/sidebar/sidebar.component';
 import { initFlowbite } from 'flowbite';
 import { Router } from '@angular/router';
+import { ToastComponent } from "./core/layout/toast/toast.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent, FooterComponent, SidebarComponent],
+  imports: [RouterOutlet, HeaderComponent, FooterComponent, SidebarComponent, ToastComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

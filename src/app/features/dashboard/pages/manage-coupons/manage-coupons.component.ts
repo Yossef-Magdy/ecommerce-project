@@ -31,11 +31,11 @@ export class ManageCouponsComponent {
   constructor(private couponService: CouponService, private paginationService: PaginationService) {
     this.couponForm = new FormGroup({
       id: new FormControl(-1),
-      couponCode: new FormControl('', [Validators.required]),
-      usesCount: new FormControl(50, [Validators.min(50)]),
-      discountType: new FormControl('fixed'),
-      discountValue: new FormControl(0, [Validators.min(0), this.invalidPercent()]),
-      expiryDate: new FormControl(new Date().toISOString().substring(0, 10), [this.pastDate()]),
+      coupon_code: new FormControl('', [Validators.required]),
+      uses_count: new FormControl(50, [Validators.min(50)]),
+      discount_type: new FormControl('fixed'),
+      discount_value: new FormControl(0, [Validators.min(0), this.invalidPercent()]),
+      expiry_date: new FormControl(new Date().toISOString().substring(0, 10), [this.pastDate()]),
     });
     this.discountType?.valueChanges.subscribe(() => {
       this.discountValue.updateValueAndValidity();
@@ -45,13 +45,7 @@ export class ManageCouponsComponent {
   ngOnInit() {
     this.couponService.getCoupons().subscribe((result: any) => {
       this.coupons = result.data;
-      this.currentPage = result.meta.current_page;
-      this.from = result.meta.from;
-      this.to = result.meta.to;
-      this.total = result.meta.total;
-      this.prev = result.links.prev;
-      this.next = result.links.next;
-      console.log(result);
+      this.buildPagination(result);
       setTimeout(() => {
         initModals();
       }, 50);
@@ -62,11 +56,7 @@ export class ManageCouponsComponent {
     if (url) {
         this.paginationService.load(url).subscribe((result: any) => {
         this.coupons = result.data;
-        this.currentPage = result.meta.current_page;
-        this.from = result.meta.from;
-        this.to = result.meta.to;
-        this.prev = result.links.prev;
-        this.next = result.links.next;
+        this.buildPagination(result);
         setTimeout(() => {
           initModals();
         }, 50);
@@ -75,26 +65,26 @@ export class ManageCouponsComponent {
   }
 
   get couponCode() {
-    return this.couponForm.controls['couponCode'];
+    return this.couponForm.controls['coupon_code'];
   }
 
   get usesCount() {
-    return this.couponForm.controls['usesCount'];
+    return this.couponForm.controls['uses_count'];
   }
 
   get expiryDate() {
-    return this.couponForm.controls['expiryDate'];
+    return this.couponForm.controls['expiry_date'];
   }
 
   get discountType() {
     if (this.couponForm) {
-      return this.couponForm.controls['discountType'];
+      return this.couponForm.controls['discount_type'];
     }
     return null;
   }
 
   get discountValue() {
-    return this.couponForm.controls['discountValue'];
+    return this.couponForm.controls['discount_value'];
   }
 
   pastDate(): ValidatorFn {
@@ -125,30 +115,46 @@ export class ManageCouponsComponent {
     if (this.currentCoupon) {
       this.couponForm.patchValue({
         id: this.currentCoupon.id,
-        couponCode: this.currentCoupon.coupon_code,
-        usesCount: this.currentCoupon.uses_count,
-        discountType: this.currentCoupon.discount_type,
-        discountValue: this.currentCoupon.discount_value,
-        expiryDate: this.currentCoupon.expiry_date,
+        coupon_code: this.currentCoupon.coupon_code,
+        uses_count: this.currentCoupon.uses_count,
+        discount_type: this.currentCoupon.discount_type,
+        discount_value: this.currentCoupon.discount_value,
+        expiry_date: this.currentCoupon.expiry_date,
       });
     }
   }
 
   displayDiscount(coupon: any) {
-    return coupon.discount_value + (coupon.discount_type == 'fixed' ? '' : '%');
+    return `${coupon.discount_value}${(coupon.discount_type == 'fixed' ? ' EGP' : '%')}`;
   }
 
   updateCoupon() {
     const id = this.currentCoupon.id;
-    this.couponService.updateCoupon(this.couponForm.value, id).subscribe((response) => {
-      console.log(response);
+    this.couponService.updateCoupon(this.couponForm.value, id).subscribe((response: any) => {
+      const data = response.data;
+      this.coupons = this.coupons.map((coupon: any) => coupon.id == data.id ? data : coupon);
     })
   }
 
   removeCoupon() {
     const id = this.currentCoupon.id;
     this.couponService.deleteCoupon(id).subscribe((response) => {
-      console.log(response);
+      this.couponService.getCoupons().subscribe((result: any) => {
+        this.coupons = result.data;
+        this.buildPagination(result);
+        setTimeout(() => {
+          initModals();
+        }, 50);
+      });
     })
+  }
+
+  buildPagination(data: any) {
+    this.currentPage = data.meta.current_page;
+    this.from = data.meta.from;
+    this.to = data.meta.to;
+    this.total = data.meta.total;
+    this.prev = data.links.prev;
+    this.next = data.links.next;
   }
 }

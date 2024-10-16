@@ -1,6 +1,6 @@
 @if (inDashboard()) {
-    <div class="grid grid-cols-[minmax(20%,260px),_auto,_1fr]">
-        <app-sidebar/>
+    <div class="grid grid-cols-[auto, _1fr] sm:grid-cols-[270px,_auto,_1fr]">
+        <app-sidebar class="relative"/>
         <router-outlet/>
     </div>
 } @else {
@@ -8,3 +8,4 @@
     <router-outlet/>
     <app-footer/>
 }
+<app-toast/>

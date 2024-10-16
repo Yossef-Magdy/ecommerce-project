@@ -1,37 +1,35 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { LabelComponent } from "../../../../core/auth/components/label/label.component";
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BlackButtonComponent } from "../../../../shared/black-button/black-button.component";
 import { ProductService } from '../../services/product.service';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { CategoryService } from '../../services/category.service';
-import { RxReactiveFormsModule } from "@rxweb/reactive-form-validators";
+import { Renderer2 } from '@angular/core';
 
 @Component({
   selector: 'app-add-product',
   standalone: true,
-  imports: [LabelComponent, ReactiveFormsModule, BlackButtonComponent, NgSelectModule, RxReactiveFormsModule],
+  imports: [LabelComponent, ReactiveFormsModule, BlackButtonComponent, NgSelectModule],
   templateUrl: './add-product.component.html',
   styleUrl: './add-product.component.css'
 })
 export class AddProductComponent {
-  constructor(private productService: ProductService, private categoryService: CategoryService) {}
+  constructor(private productService: ProductService, private categoryService: CategoryService, private renderer: Renderer2) {}
 
   productForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
     description: new FormControl('', [Validators.required]),
     price: new FormControl('', [Validators.required, Validators.min(0)]),
-    categories: new FormControl([]),
-    cover_image: new FormControl(),
+    categories: new FormControl([]),    
   });
-  categories?: any = [{
-    id: -1,
-    name: 'no category',
-  }];
-  message?: string;
-  isErrorMessage?: boolean;
-  fileToUpload: any;
-  imageUrl: any;
+  coverImageFile: any;
+  coverImageUrl: any;
+  productImagesFiles: any;
+  productImagesUrls: any = [];
+  @ViewChild('cover_image') coverImage: any;
+  @ViewChild('product_images') productImages: any;
+  categories?: any;
 
   ngOnInit() {
     this.categoryService.getCategories().subscribe((result: any) => {
@@ -51,18 +49,31 @@ export class AddProductComponent {
     return this.productForm.controls['description'];
   }
 
-  get coverImage() {
-    return this.productForm.controls['cover_image'];
+  get productCategories() {
+    return this.productForm.controls['categories'];
   }
-  
-  handleFileInput(event: any) {
+
+  handleCoverImage(event: any) {
     const file: FileList = event.target.files;
-    this.fileToUpload = file.item(0);
+    this.coverImageFile = file.item(0);
     let reader = new FileReader();
     reader.onload = (event: any) => {
-      this.imageUrl = event.target.result;
+      this.coverImageUrl = reader.result;
     }
-    reader.readAsDataURL(this.fileToUpload);
+    reader.readAsDataURL(this.coverImageFile);
+  }
+
+  handleProductImages(event: any) {
+    const files: FileList = event.target.files;
+    this.productImagesFiles = Array.from(files);
+    this.productImagesUrls = [];
+    for (const file of this.productImagesFiles) {
+      let reader = new FileReader();
+      reader.onload = () => {
+        this.productImagesUrls.push(reader.result);
+      }
+      reader.readAsDataURL(file);
+    }
   }
 
   submit() {
@@ -70,18 +81,25 @@ export class AddProductComponent {
     if (this.productForm.invalid) {
       return;
     }
-    const data = this.productForm.value;
-    if (!this.coverImage.value) {
-      delete data.cover_image;
+    const data = new FormData();
+    data.append('name', this.name.value || '');
+    data.append('price', this.price.value || '');
+    data.append('description', this.description.value || '');
+    data.append('categories', JSON.stringify(this.productCategories.value));
+    if (this.coverImageFile) {
+      data.append('cover_image', this.coverImageFile);
     }
-    this.productService.addProduct(data).subscribe((response: any) => {
-      if (response.message) {
-        this.isErrorMessage = false;
-        this.message = response.message;
-      } else {
-        this.isErrorMessage = true;
-        const key = Object.keys(response)[0];
-        this.message = response[key][0];
+    if (this.productImagesFiles) {
+      for (let image of this.productImagesFiles) {
+        data.append('product_images[]', image);
+      }
+    }
+    this.productService.addProduct(data).subscribe((result: boolean) => {
+      if (result) {
+        this.productForm.reset();
+        this.coverImageFile = null;
+        this.coverImageUrl = null;
+        this.renderer.setProperty(this.coverImage.nativeElement, 'value', '');
       }
     });
   }

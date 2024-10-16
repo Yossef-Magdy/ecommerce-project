@@ -1,12 +1,12 @@
 <div class="p-4 max-h-dvh overflow-x-auto">
     <h1 class="text-4xl uppercase font-light mb-4">Products Data</h1>
     @if (products) {
-        <div class="border border-slate-500">
+        <div class="text-sm border border-slate-500">
             <div class="text-left w-full grid grid-cols-[auto,1fr,auto,auto,auto]">
                 @for (product of products; track $index) {
-                    <div class="grid grid-cols-subgrid grid-rows-[repeat(4,auto)] col-span-full border-b border-slate-500 gap-2 p-2">
+                    <div class="even:bg-gray-50 odd:bg-white grid grid-cols-subgrid grid-rows-[repeat(4,auto)] col-span-full border-b border-slate-500 gap-x-4 gap-y-2 p-2">
                         <div class="flex flex-col row-span-full">
-                            <img src="{{product.cover_image}}" alt="product image" class="border border-slate-500 size-28">
+                            <img src="{{product.cover_image}}" alt="product image" class="border border-slate-500 size-40">
                         </div>
                         <div class="flex flex-col">
                             <span class="capitalize font-medium">name</span>
@@ -14,10 +14,10 @@
                         </div>
                         <div class="flex flex-col">
                             <span class="capitalize font-medium">price</span>
-                            <span>{{product.price}}</span>
+                            <span>{{product.price}} EGP</span>
                         </div>
                         <div class="flex flex-col">
-                            <span class="capitalize font-medium">stock</span>
+                            <span class="capitalize font-medium">in stock</span>
                             <span>{{product.stock}}</span>
                         </div>
                         <div>
@@ -41,9 +41,9 @@
                         <div class="flex flex-col col-span-full col-start-2">
                             <span class="capitalize font-medium">categories</span>
                             @if (product.categories.length) {
-                                <div class="flex gap-2 mt-1">
+                                <div class="flex flex-wrap gap-2 mt-1">
                                     @for (category of product.categories; track $index) {
-                                        <span class="capitalize border border-slate-500 p-1.5">{{category.name}}</span>
+                                        <span class="capitalize border bg-white rounded border-slate-500 p-1.5">{{category.name}}</span>
                                     }
                                 </div>
                             } @else {
@@ -51,9 +51,10 @@
                             }
                         </div>
                         <div class="flex flex-col col-span-full col-start-2">
-                            <a>Click here for more details</a>
-                        </div>
-                        
+                            <button [routerLink]="['/dashboard/product-details/', product.id]" class="flex items-center p-1.5 w-fit border border-slate-500 rounded hover:bg-gray-200">
+                                click to view more details
+                            </button>
+                        </div>                        
                     </div>
                 }
             </div>
@@ -112,7 +113,7 @@
                         </div>
                         <div class="flex flex-col gap-2 col-span-full">
                             <app-label for="cover-image" text="cover image"/>
-                            <input type="file" [writeFile]="true" id="cover-image" class="px-4 text-xs h-12" (change)="handleFileInput($event)" formControlName="cover_image">
+                            <input type="file" [writeFile]="true" id="cover-image" class="px-4 text-xs h-12" (change)="handleFileInput($event)" #cover_image>
                             <div class="flex gap-4">
                                 @if (imageUrl) {
                                     <div>
@@ -126,13 +127,6 @@
                                 </div>
                             </div>
                         </div>
-                        @if (message) {
-                            @if (isErrorMessage) {
-                                <p role="alert" class="text-red-800 text-xs col-span-full">{{message}}</p>
-                            } @else {
-                                <p role="alert" class="text-green-800 text-xs col-span-full">{{message}}</p>
-                            }
-                        }
                     </form>
                 </div>
                 <div class="flex items-center gap-2 p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">

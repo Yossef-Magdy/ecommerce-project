@@ -1,35 +1,38 @@
 <div class="p-4 max-h-dvh overflow-x-auto">
-    <h1 class="text-4xl uppercase font-light mb-4">Categories Data</h1>
+    <h1 class="text-4xl uppercase font-light mb-4">Subcategories Data</h1>
     @if (subcategories) {
-        <table class="border border-slate-500 text-left overflow-y-auto w-full table-auto relative overflow-x-auto">
-            <thead class="capitalize">
-                <th class="font-medium border-b border-slate-500 p-1.5">name</th>
-                <th class="font-medium border-b border-slate-500 p-1.5">category</th>
-                <th class="font-medium border-b border-slate-500 p-1.5"></th>
-            </thead>
-            <tbody>
-                @for (subcategory of subcategories; track $index) {
-                    <tr>
-                        <td class="capitalize border-b border-slate-500 p-1.5">{{subcategory.name}}</td>
-                        <td class="capitalize border-b border-slate-500 p-1.5">{{subcategory.category.name}}</td>
-                        <td class="border-b border-slate-500 p-1.5">
-                            <div class="flex gap-1 justify-end min-w-max">
-                                <button data-modal-target="update-modal" data-modal-toggle="update-modal" 
-                                type="button" class="hover:bg-slate-200 rounded px-2 py-1"
-                                (click)="selectSubcategory(subcategory)" (click)="updateForm()">
-                                    <img src="assets/icons/pen.svg" class="size-6"/>
-                                </button>
-                                <button data-modal-target="delete-modal" data-modal-toggle="delete-modal"
-                                type="button" class="hover:bg-red-200 rounded p-1.5"
-                                (click)="selectSubcategory(subcategory)">
-                                    <img src="assets/icons/trash.svg" class="size-6"/>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+        <div class="text-sm border border-slate-500">
+            <table class="text-left overflow-y-auto w-full table-auto relative overflow-x-auto">
+                <thead class="capitalize bg-gray-50">
+                    <th class="font-medium border-b border-slate-500 p-1.5">name</th>
+                    <th class="font-medium border-b border-slate-500 p-1.5">category</th>
+                    <th class="font-medium border-b border-slate-500 p-1.5"></th>
+                </thead>
+                <tbody>
+                    @for (subcategory of subcategories; track $index) {
+                        <tr class="even:bg-gray-50 odd:bg-white">
+                            <td class="font-medium capitalize border-b border-slate-500 p-1.5">{{subcategory.name}}</td>
+                            <td class="text-gray-700 capitalize border-b border-slate-500 p-1.5">{{subcategory.category.name}}</td>
+                            <td class="border-b border-slate-500 p-1.5">
+                                <div class="flex gap-1 justify-end min-w-max">
+                                    <button data-modal-target="update-modal" data-modal-toggle="update-modal" 
+                                    type="button" class="hover:bg-slate-200 rounded px-2 py-1"
+                                    (click)="selectSubcategory(subcategory)" (click)="updateForm()">
+                                        <img src="assets/icons/pen.svg" class="size-6"/>
+                                    </button>
+                                    <button data-modal-target="delete-modal" data-modal-toggle="delete-modal"
+                                    type="button" class="hover:bg-red-200 rounded p-1.5"
+                                    (click)="selectSubcategory(subcategory)">
+                                        <img src="assets/icons/trash.svg" class="size-6"/>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <app-pagination [from]="from" [to]="to" [total]="total" [next]="next" [prev]="prev" [load]="load"/>
+        </div>
     }
     <div id="update-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
         <div class="relative p-4 w-full max-w-2xl max-h-full">

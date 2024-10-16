@@ -1,6 +1,7 @@
 import { HttpClient, HttpStatusCode } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, of } from 'rxjs';
+import { catchError, map, of, share, tap } from 'rxjs';
+import { ToastService } from '../../../core/services/toast.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,42 +10,53 @@ export class ProductService {
 
   private baseURL = '/control/products';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private toastService: ToastService) { }
   
   addProduct(data: any) {
     return this.http.post(this.baseURL, data).pipe(
-      catchError((error) => {
-        if (error.status == HttpStatusCode.BadRequest || error.status == HttpStatusCode.UnprocessableEntity) {
-          return of(error.error.errors);
-        }
-        return of("an error occured when adding the product");
-      })
+      tap((result: any) => {
+        this.toastService.showToast(result.message, 'success');
+      }),
+      map((result: any) => true),
+      catchError((error: any) => of(false))
     );
   }
 
   getProducts() {
-    return this.http.get(this.baseURL);
+    return this.http.get(this.baseURL).pipe(
+      catchError ((error) => {
+        this.toastService.showToast('an error occurred when getting products', 'error');
+        return of ([])
+      }),
+      share()
+    );
+  }
+
+  getProduct(productId: number) {
+    return this.http.get(`${this.baseURL}/${productId}`).pipe(
+      catchError ((error) => {
+        return of (false);
+      })
+    );
   }
 
   updateProduct(data: any, productId: number) {
-    return this.http.put(`${this.baseURL}/${productId}`, data).pipe(
-      catchError((error) => {
-        if (error.status == HttpStatusCode.BadRequest || error.status == HttpStatusCode.UnprocessableEntity) {
-          return of(error.error.errors);
-        }
-        return of("an error occured when updating the product");
+    return this.http.post(`${this.baseURL}/${productId}`, data).pipe(
+      tap((result: any) => {
+        this.toastService.showToast(result.message, 'success');
+      }), catchError((error: any) => {
+        return of(false);
       })
     );
   }
 
   deleteProduct(productId: number) {
     return this.http.delete(`${this.baseURL}/${productId}`).pipe(
-      catchError((error) => {
-        if (error.status == HttpStatusCode.BadRequest || error.status == HttpStatusCode.UnprocessableEntity) {
-          return of(error.error.errors);
-        }
-        return of("an error occured when deleting the product");
-      })
+      tap((result: any) => {
+        this.toastService.showToast(result.message, 'success');
+      }),
+      map((result: any) => true),
+      catchError((error: any) => of(false))
     );
   }
 }

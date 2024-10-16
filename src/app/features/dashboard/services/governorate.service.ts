@@ -1,6 +1,7 @@
 import { HttpClient, HttpStatusCode } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, of } from 'rxjs';
+import { catchError, map, of, tap } from 'rxjs';
+import { ToastService } from '../../../core/services/toast.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,42 +10,43 @@ export class GovernorateService {
 
   private baseURL = '/control/governorates';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private toastService: ToastService) { }
 
   addGovernorate(governorate: any) {
     return this.http.post(this.baseURL, governorate).pipe(
-      catchError((error) => {
-        if (error.status == HttpStatusCode.BadRequest || error.status == HttpStatusCode.UnprocessableEntity) {
-          return of(error.error.errors);
-        }
-        return of("an error occured when adding the governorate");
-      })
+      tap((result: any) => {
+        this.toastService.showToast(result.message, 'success');
+      }),
+      map((result: any) => true),
+      catchError((error: any) => of(false))
     );
   }
 
   getGovernorates() {
-    return this.http.get('/governorates');
+    return this.http.get(this.baseURL).pipe(
+      catchError ((error) => {
+        this.toastService.showToast('an error occurred when getting governorates', 'error');
+        return of ([])
+      })
+    );
   }
 
   updateGovernorate(data: any, governorateId: number) {
     return this.http.put(`${this.baseURL}/${governorateId}`, data).pipe(
-      catchError((error) => {
-        if (error.status == HttpStatusCode.BadRequest || error.status == HttpStatusCode.UnprocessableEntity) {
-          return of(error.error.errors);
-        }
-        return of("an error occured when updating the governorate");
-      })
+      tap((result: any) => {
+        this.toastService.showToast(result.message, 'success');
+      }),
+      catchError((error: any) => of(false))
     );
   }
 
   deleteGovernorate(governorateId: number) {
     return this.http.delete(`${this.baseURL}/${governorateId}`).pipe(
-      catchError((error) => {
-        if (error.status == HttpStatusCode.BadRequest || error.status == HttpStatusCode.UnprocessableEntity) {
-          return of(error.error.errors);
-        }
-        return of("an error occured when deleting the governorate");
-      })
+      tap((result: any) => {
+        this.toastService.showToast(result.message, 'success');
+      }),
+      map((result: any) => true),
+      catchError((error: any) => of(false))
     );
   }
 }

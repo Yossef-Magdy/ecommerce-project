@@ -20,8 +20,6 @@ export class AddRolesComponent {
     permissions: new FormControl('', [Validators.required]),
   });
 
-  message?: string;
-  isErrorMessage?: boolean;
   permissions?: any;
 
   ngOnInit() {
@@ -38,14 +36,9 @@ export class AddRolesComponent {
     if (this.roleForm.invalid) {
       return;
     }
-    this.userSerivce.addRole(this.roleForm.value).subscribe((response: any) => {
-      if (response.message) {
-        this.isErrorMessage = false;
-        this.message = response.message;
-      } else {
-        this.isErrorMessage = true;
-        const key = Object.keys(response)[0];
-        this.message = response[key][0];
+    this.userSerivce.addRole(this.roleForm.value).subscribe((result: boolean) => {
+      if (result) {
+        this.roleForm.reset();
       }
     });
   }
