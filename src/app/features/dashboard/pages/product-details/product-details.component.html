@@ -1,4 +1,5 @@
 <div class="p-4 max-h-dvh overflow-y-auto">
+    <h1 class="text-4xl uppercase font-light mb-4">Product details</h1>
     @if (product) {
         <div class="grid grid-cols-[auto,1fr] grid-rows-[repeat(4,auto)] gap-x-4 gap-y-2 p-2">
             <div class="flex flex-col row-span-full">
@@ -49,9 +50,21 @@
                 }
             </div>
             <div class="flex flex-col col-span-full gap-1.5">
+                <span class="capitalize font-medium">images</span>
+                @if (product.images.length) {
+                    <div class="text-gray-700 flex flex-wrap gap-2">
+                        @for (image of product.product_images; track $index) {
+                            <img class="border border-slate-500" src="{{image}}" alt="">
+                        }
+                    </div>
+                } @else {
+                    <span class="text-gray-700">No images for this product</span>  
+                }
+            </div>
+            <div class="flex flex-col col-span-full gap-1.5">
                 <span class="capitalize font-medium">product details</span>
                 <div class="border border-slate-500">
-                    <table class="text-left min-w-max w-full table-auto relative overflow-x-auto">
+                    <table class="text-left w-full table-auto relative overflow-auto">
                         <thead class="capitalize bg-gray-50">
                             <th class="font-medium border-b border-slate-500 p-1.5">id</th>
                             <th class="font-medium border-b border-slate-500 p-1.5">color</th>
@@ -71,7 +84,7 @@
                                     <td class="text-gray-700 border-b border-slate-500 p-1.5">{{details.stock}}</td>
                                     <td class="text-gray-700 border-b border-slate-500 p-1.5">{{details.price}} EGP</td>
                                     <td class="text-gray-700 border-b border-slate-500 p-1.5">
-                                        <div class="flex justify-end">
+                                        <div class="w-max flex justify-end">
                                             <button data-modal-target="update-modal" data-modal-toggle="update-modal" 
                                             type="button" class="hover:bg-slate-200 rounded px-2 py-1"
                                             (click)="selectDetails(details)" (click)="updateForm()">
