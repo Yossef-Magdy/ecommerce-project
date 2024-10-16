@@ -1,15 +1,28 @@
-a{
+a {
     cursor: pointer;
 }
 
 .order-item {
     transition: transform 0.2s, box-shadow 0.2s;
-    
+
 }
 
 .order-item:hover {
     transform: translateY(-5px);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.flex {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.order {
+    flex: 0 0 75%
+}
+
+.address {
+    flex: 0 0 25%;
 }
 
 
@@ -21,6 +34,12 @@ a{
 
     .product-details {
         margin-top: 1rem;
+    }
+
+    .order,
+    .address {
+        flex: 0 0 100%;
+        justify-content: start;
     }
 }
 
