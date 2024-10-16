@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../core/auth/services/auth.service';
+import { AnalyticsService } from './services/analytics.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,11 +10,20 @@ import { AuthService } from '../../core/auth/services/auth.service';
   styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent {
-  userData: any;
-  constructor(private authService: AuthService) {}
+  userData?: any;
+  analytics?: any;
+  constructor(private authService: AuthService, private analyticsService: AnalyticsService) {}
   ngOnInit() {
-    this.authService.userData.subscribe((response: any) => {
-      this.userData = response;
+    this.authService.userData.subscribe((result: any) => {
+      this.userData = result;
+    });
+    this.analyticsService.getAnalytics().subscribe((result: any) => {
+      this.analytics = result;
+    });
+  }
+  refresh() {
+    this.analyticsService.getUpdatedAnalytics().subscribe((result: any) => {
+      this.analytics = result;
     });
   }
 }

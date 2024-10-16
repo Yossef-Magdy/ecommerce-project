@@ -18,7 +18,8 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
           router.navigate(['/forbidden']);
           break;
         case HttpStatusCode.NotFound:
-          router.navigate(['/not-found']);
+          // router.navigate(['/not-found']);
+          toast.showToast('Not found', 'error');
           break;
         case HttpStatusCode.BadRequest:
         case HttpStatusCode.UnprocessableEntity:
