@@ -23,9 +23,12 @@ export class AddProductComponent {
     price: new FormControl('', [Validators.required, Validators.min(0)]),
     categories: new FormControl([]),    
   });
-  fileToUpload: any;
-  imageUrl: any;
+  coverImageFile: any;
+  coverImageUrl: any;
+  productImagesFiles: any;
+  productImagesUrls: any = [];
   @ViewChild('cover_image') coverImage: any;
+  @ViewChild('product_images') productImages: any;
   categories?: any;
 
   ngOnInit() {
@@ -50,14 +53,27 @@ export class AddProductComponent {
     return this.productForm.controls['categories'];
   }
 
-  handleFileInput(event: any) {
+  handleCoverImage(event: any) {
     const file: FileList = event.target.files;
-    this.fileToUpload = file.item(0);
+    this.coverImageFile = file.item(0);
     let reader = new FileReader();
     reader.onload = (event: any) => {
-      this.imageUrl = event.target.result;
+      this.coverImageUrl = reader.result;
     }
-    reader.readAsDataURL(this.fileToUpload);
+    reader.readAsDataURL(this.coverImageFile);
+  }
+
+  handleProductImages(event: any) {
+    const files: FileList = event.target.files;
+    this.productImagesFiles = Array.from(files);
+    this.productImagesUrls = [];
+    for (const file of this.productImagesFiles) {
+      let reader = new FileReader();
+      reader.onload = () => {
+        this.productImagesUrls.push(reader.result);
+      }
+      reader.readAsDataURL(file);
+    }
   }
 
   submit() {
@@ -70,14 +86,19 @@ export class AddProductComponent {
     data.append('price', this.price.value || '');
     data.append('description', this.description.value || '');
     data.append('categories', JSON.stringify(this.productCategories.value));
-    if (this.fileToUpload) {
-      data.append('cover_image', this.fileToUpload);
+    if (this.coverImageFile) {
+      data.append('cover_image', this.coverImageFile);
+    }
+    if (this.productImagesFiles) {
+      for (let image of this.productImagesFiles) {
+        data.append('product_images[]', image);
+      }
     }
     this.productService.addProduct(data).subscribe((result: boolean) => {
       if (result) {
         this.productForm.reset();
-        this.fileToUpload = null;
-        this.imageUrl = null;
+        this.coverImageFile = null;
+        this.coverImageUrl = null;
         this.renderer.setProperty(this.coverImage.nativeElement, 'value', '');
       }
     });

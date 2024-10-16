@@ -22,7 +22,7 @@
                 <p role="alert" class="text-red-800 text-xs">Description is required</p>
             }
         </div>
-        <div class="flex flex-col gap-2">
+        <div class="flex flex-col gap-2 col-span-full">
             <app-label text="categories"/>
             <ng-select 
             [items]="categories"
@@ -35,11 +35,22 @@
             formControlName="categories">
             </ng-select>  
         </div>
-        <div class="flex flex-col gap-2">
+        <div class="flex flex-col gap-2 col-span-full">
             <app-label for="cover-image" text="cover image"/>
-            <input type="file" id="cover-image" accept=".webp, .jpg, .png" class="px-4 text-xs h-12" (change)="handleFileInput($event)" #cover_image>
-            @if (imageUrl) {
-                <img width="100%" [src]="imageUrl" class="border size-52">
+            <input type="file" id="cover-image" accept=".webp, .jpg, .png" class="px-4 text-xs h-12" (change)="handleCoverImage($event)" #cover_image>
+            @if (coverImageUrl) {
+                <img width="100%" [src]="coverImageUrl" class="border border-slate-500 size-52">
+            }
+        </div>
+        <div class="flex flex-col gap-2 col-span-full">
+            <app-label for="product-images" text="product images"/>
+            <input type="file" multiple id="product-images" accept=".webp, .jpg, .png" class="px-4 text-xs h-12" (change)="handleProductImages($event)" #product_images>
+            @if (productImagesUrls) {
+                <div class="flex gap-2 flex-wrap">
+                    @for (imageUrl of productImagesUrls; track $index) {
+                        <img width="100%" [src]="imageUrl" class="border border-slate-500 size-52">
+                    }
+                </div>
             }
         </div>
         <app-black-button text="create" (click)="submit()"/>
