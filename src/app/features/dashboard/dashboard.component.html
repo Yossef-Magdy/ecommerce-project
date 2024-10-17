@@ -1,9 +1,9 @@
 <div class="p-4">
-    <div class="mb-4">
-        <h1 class="text-4xl uppercase font-light ">Dashboard</h1>
-        <p class="capitalize text-2xl text-gray-700">welcome {{userData.first_name}}</p>
-    </div>
-    @if (analytics) {
+    @if (userData && analytics) {
+        <div class="mb-4">
+            <h1 class="text-4xl uppercase font-light ">Dashboard</h1>
+            <p class="capitalize text-2xl text-gray-700">welcome {{userData.first_name}}</p>
+        </div>
         <div class="mb-4 flex justify-between items-center">
             <p class="first-letter:capitalize">last update {{analytics.last_update}}</p>
             <button class="border border-slate-500 p-2 rounded" (click)="refresh()">
@@ -11,55 +11,55 @@
             </button>
         </div>
         <div class="grid grid-cols-3 gap-4">
-            <div class="border border-slate-500 rounded p-4 flex flex-col justify-center ">
+            <div class="border border-slate-500 bg-purple-200 shadow-lg rounded p-4 flex flex-col justify-center">
                 <span class="capitalize">total number of products</span>
                 <span class="text-2xl">
                     {{analytics.total_products}}
                 </span>
             </div>
-            <div class="border border-slate-500 rounded p-4 flex flex-col justify-center ">
+            <div class="border border-slate-500 bg-purple-200 shadow-lg rounded p-4 flex flex-col justify-center">
                 <span class="capitalize">total number of categories</span>
                 <span class="text-2xl">
                     {{analytics.total_categories}}
                 </span>
             </div>
-            <div class="border border-slate-500 rounded p-4 flex flex-col justify-center ">
+            <div class="border border-slate-500 bg-purple-200 shadow-lg rounded p-4 flex flex-col justify-center">
                 <span class="capitalize">total number of orders</span>
                 <span class="text-2xl">
                     {{analytics.total_orders}}
                 </span>
             </div>
-            <div class="border border-slate-500 rounded p-4 flex flex-col justify-center ">
+            <div class="border border-slate-500 bg-purple-200 shadow-lg rounded p-4 flex flex-col justify-center">
                 <span class="capitalize">total eranings</span>
                 <span class="text-2xl">
                     {{analytics.total_earning}} EGP
                 </span>
             </div>
-            <div class="border border-slate-500 rounded p-4 flex flex-col justify-center ">
+            <div class="border border-slate-500 bg-purple-200 shadow-lg rounded p-4 flex flex-col justify-center">
                 <span class="capitalize">total refunded</span>
                 <span class="text-2xl">
                     {{analytics.total_refunded}} EGP
                 </span>
             </div>
-            <div class="border border-slate-500 rounded p-4 flex flex-col justify-center ">
+            <div class="border border-slate-500 bg-purple-200 shadow-lg rounded p-4 flex flex-col justify-center">
                 <span class="capitalize">total number of users</span>
                 <span class="text-2xl">
                     {{analytics.total_users}}
                 </span>
             </div>
-            <div class="border border-slate-500 rounded p-4 flex flex-col justify-center ">
+            <div class="border border-slate-500 bg-purple-200 shadow-lg rounded p-4 flex flex-col justify-center">
                 <span class="capitalize">today's orders</span>
                 <span class="text-2xl">
                     {{analytics.today_orders}}
                 </span>
             </div>
-            <div class="border border-slate-500 rounded p-4 flex flex-col justify-center ">
+            <div class="border border-slate-500 bg-purple-200 shadow-lg rounded p-4 flex flex-col justify-center">
                 <span class="capitalize">this month's orders</span>
                 <span class="text-2xl">
                     {{analytics.month_orders}}
                 </span>
             </div>
-            <div class="border border-slate-500 rounded p-4 flex flex-col justify-center ">
+            <div class="border border-slate-500 bg-purple-200 shadow-lg rounded p-4 flex flex-col justify-center">
                 <span class="capitalize">this year's orders</span>
                 <span class="text-2xl">
                     {{analytics.year_orders}}
