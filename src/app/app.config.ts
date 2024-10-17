@@ -6,6 +6,7 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { baseUrlInterceptor } from './core/interceptors/base-url.interceptor';
 import { authTokenInterceptor } from './core/interceptors/auth-token.interceptor';
 import { errorInterceptor } from './core/interceptors/error.interceptor';
+import { spinnerInterceptor } from './core/interceptors/spinner.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -16,7 +17,8 @@ export const appConfig: ApplicationConfig = {
         baseUrlInterceptor,
         authTokenInterceptor,
         errorInterceptor,
-      ])
-    ),
+        spinnerInterceptor,
+      ]),
+    )
   ],
 };
