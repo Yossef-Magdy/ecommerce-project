@@ -30,6 +30,9 @@ export class AuthService {
             this.setUserData(response);
             this.setHasRolesOrPermissions(response.roles.length || response.permissions.length);
             this.setValidLogin(true);
+            if (this.hasRolesOrPermissionsSubject.value) {
+              this.goDashboard();
+            }
           })
         );
       })
@@ -150,6 +153,10 @@ export class AuthService {
 
   private goHome() {
     this.router.navigate(['/']);
+  }
+
+  private goDashboard() {
+    this.router.navigate(['/dashboard']);
   }
 
   private saveToken(response: any) {
