@@ -6,9 +6,9 @@ import { CartService } from '../../services/cart.service';
 import { AddressService } from '../profile/address.service';
 import { GovernorateService } from '../profile/governorate.service';
 import { AddressFormComponent } from "./address-form/address-form.component";
-import { NgClass } from '@angular/common';
-import { UserService } from '../profile/user.service';
+import { CurrencyPipe, DecimalPipe, NgClass } from '@angular/common';
 import { AuthService } from '../../core/auth/services/auth.service';
+import { MyCurrencyPipe } from '../../pipes/my-currency.pipe';
 
 
 declare var Stripe: any;
@@ -16,7 +16,7 @@ declare var Stripe: any;
 @Component({
   selector: 'app-checkout',
   standalone: true,
-  imports: [RouterLink, AddressFormComponent, NgClass],
+  imports: [RouterLink, AddressFormComponent, NgClass, DecimalPipe, CurrencyPipe, MyCurrencyPipe],
   templateUrl: './checkout.component.html',
   styleUrl: './checkout.component.css',
 })
@@ -35,8 +35,9 @@ export class CheckoutComponent implements OnInit {
   isAddressFormSubmitted: boolean = false;
   shipping_detail_id!: number;
   user: any;
+  shippingFee: number = 0;
 
-  constructor(private router: Router, private paymentService: PaymentService, private cartService: CartService, private addressService: AddressService, private authService: AuthService) {}
+  constructor(private router: Router, private paymentService: PaymentService, private cartService: CartService, private addressService: AddressService, private authService: AuthService, private governerateService: GovernorateService) {}
 
   onAddressFormSubmit(submitted: boolean) {
     if (submitted) {
@@ -126,6 +127,7 @@ export class CheckoutComponent implements OnInit {
     this.addressService.getAddresses().subscribe(addresses =>{
       this.savedAddresses = addresses.data;
       this.shipping_detail_id = addresses.data[0].id;
+      this.getShippingCustomFee(addresses.data[0].governorate);
     })
     
     // Initialize Stripe.js
@@ -133,6 +135,14 @@ export class CheckoutComponent implements OnInit {
     this.card = elements.create('card');
     this.card.mount('#card-element');
   }
+
+  getShippingCustomFee(governorate: string): any{
+    this.governerateService.getGovernorates().subscribe(govs => {
+      const fee = govs.data.filter((g: any) => g.name === governorate)[0].fee;
+      this.shippingFee = fee;
+    })
+  }
+  
 
   async pay(event: Event) {
     // Prevent form from submitting
@@ -241,7 +251,8 @@ export class CheckoutComponent implements OnInit {
   }
 
   //get selected address
-  onAddressChange(id:number){
+  onAddressChange(id:number, governorate:string){
     this.shipping_detail_id = id;
+    this.getShippingCustomFee(governorate);
   }
 }
