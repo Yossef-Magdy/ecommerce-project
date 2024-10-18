@@ -52,7 +52,7 @@
         @for (address of savedAddresses; track $index) {
         <section class="flex mb-3 p-4 capitalize rounded-md">
           <input [id]="address.id" type="radio" value="" name="default-radio"
-            class="w-4 h-4 mr-3 text-indigo-800 border-gray-300 focus:ring-indigo-800" [checked]="address.is_default">
+            class="w-4 h-4 mr-3 text-indigo-800 border-gray-300 focus:ring-indigo-800" [checked]="address.is_default" (change)="onAddressChange(address.id)">
           <label [for]="address.id" class="flex flex-col">
             <span class="w-full text-lg font-medium text-gray-900 dark:text-gray-300">{{address.apartment}},
               {{address.address}}</span>

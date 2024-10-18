@@ -124,7 +124,6 @@ export class CheckoutComponent implements OnInit {
 
     //Check for addresses
     this.addressService.getAddresses().subscribe(addresses =>{
-      console.log("address", addresses.data);
       this.savedAddresses = addresses.data;
       this.shipping_detail_id = addresses.data[0].id;
     })
@@ -220,6 +219,8 @@ export class CheckoutComponent implements OnInit {
         if (response.success) {
           console.log('Payment successful:', response);
           this.paymentStatus = 'Payment successful!';
+          console.log("address", this.shipping_detail_id );
+          
           this.isLoading = false;
           this.errorMessage = false;
           // Link recet response.charge.receipt_url for customer
@@ -237,5 +238,10 @@ export class CheckoutComponent implements OnInit {
         this.errorMessage = true;
       }
     );
+  }
+
+  //get selected address
+  onAddressChange(id:number){
+    this.shipping_detail_id = id;
   }
 }
