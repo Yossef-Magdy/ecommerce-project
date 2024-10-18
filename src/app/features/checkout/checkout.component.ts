@@ -31,6 +31,7 @@ export class CheckoutComponent implements OnInit {
   orderSummary!: any;
   items !:any[];
   totalPrice :number = 0;
+  subTotalPrice: number = 0;
   savedAddresses !: any[];
   isAddressFormSubmitted: boolean = false;
   shipping_detail_id!: number;
@@ -115,7 +116,7 @@ export class CheckoutComponent implements OnInit {
             product_detail_id: item.productDetailId,
             quantity: item.quantity,
           });
-          this.totalPrice += (item.price * item.quantity);
+          this.subTotalPrice += (item.price * item.quantity);
         }
       }
       else{
@@ -140,6 +141,7 @@ export class CheckoutComponent implements OnInit {
     this.governerateService.getGovernorates().subscribe(govs => {
       const fee = govs.data.filter((g: any) => g.name === governorate)[0].fee;
       this.shippingFee = fee;
+      this.totalPrice = Number(this.subTotalPrice) + Number(fee);
     })
   }
   
