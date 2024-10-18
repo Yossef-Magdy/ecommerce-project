@@ -9,6 +9,7 @@ import { AddressFormComponent } from "./address-form/address-form.component";
 import { CurrencyPipe, DecimalPipe, NgClass } from '@angular/common';
 import { AuthService } from '../../core/auth/services/auth.service';
 import { MyCurrencyPipe } from '../../pipes/my-currency.pipe';
+import { CouponService } from '../dashboard/services/coupon.service';
 
 
 declare var Stripe: any;
@@ -38,7 +39,7 @@ export class CheckoutComponent implements OnInit {
   user: any;
   shippingFee: number = 0;
 
-  constructor(private router: Router, private paymentService: PaymentService, private cartService: CartService, private addressService: AddressService, private authService: AuthService, private governerateService: GovernorateService) {}
+  constructor(private router: Router, private paymentService: PaymentService, private cartService: CartService, private addressService: AddressService, private authService: AuthService, private governerateService: GovernorateService, private couponService: CouponService) {}
 
   onAddressFormSubmit(submitted: boolean) {
     if (submitted) {
@@ -256,5 +257,13 @@ export class CheckoutComponent implements OnInit {
   onAddressChange(id:number, governorate:string){
     this.shipping_detail_id = id;
     this.getShippingCustomFee(governorate);
+  }
+
+  //check if coupon exists
+  checkCoupon(coupon_code:string){
+    this.couponService.getCoupons().subscribe(res => {
+      console.log(res);
+      
+    })
   }
 }
