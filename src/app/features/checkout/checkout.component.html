@@ -52,7 +52,7 @@
         @for (address of savedAddresses; track $index) {
         <section class="flex mb-3 p-4 capitalize rounded-md">
           <input [id]="address.id" type="radio" value="" name="default-radio"
-            class="w-4 h-4 mr-3 text-indigo-800 border-gray-300 focus:ring-indigo-800" [checked]="address.is_default" (change)="onAddressChange(address.id)">
+            class="w-4 h-4 mr-3 text-indigo-800 border-gray-300 focus:ring-0 focus:border-transparent" [checked]="address.is_default" (change)="onAddressChange(address.id)">
           <label [for]="address.id" class="flex flex-col">
             <span class="w-full text-lg font-medium text-gray-900 dark:text-gray-300">{{address.apartment}},
               {{address.address}}</span>
@@ -69,16 +69,9 @@
         <form>
           <div></div>
           <h3 class="text-base font-medium mb-2">Shipping Method</h3>
-          <div id="accordion-arrow-icon" class="mb-8">
-            <h2 id="accordion-arrow-icon-heading-1">
-              <button type="button"
-                class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-900 bg-gray-100 border border-b-0 border-gray-200 rounded-t-xl focus:ring-4 focus:ring-cyan-700 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3"
-                data-accordion-target="#accordion-arrow-icon-body-1" aria-expanded="true"
-                aria-controls="accordion-arrow-icon-body-1">
+          <div class="flex flex-row justify-between mb-3 p-4 capitalize rounded-md shipping_fee text-gray-900 border border-indigo-900">
                 <span>Standard Shipping</span>
-                <span>LE 55.00</span>
-              </button>
-            </h2>
+                <span class="font-bold text-lg font-medium">LE 55.00</span>
           </div>
           <h3 class="text-xl font-medium">Payment</h3>
           <span class="text-gray-500 text-sm">All transactions are secure and encrypted.</span>
