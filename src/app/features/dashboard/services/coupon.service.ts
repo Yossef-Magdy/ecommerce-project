@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpStatusCode } from '@angular/common/http';
-import { catchError, of } from 'rxjs';
+import { catchError, Observable, of } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -24,6 +24,17 @@ export class CouponService {
 
   getCoupons() {
     return this.http.get('/control/coupons');
+  }
+
+  getCouponByCode(couponCode: string):Observable<any>{
+    return this.http.get(`${this.baseURL}/${couponCode}`).pipe(
+      catchError((error) => {
+        if (error.status == HttpStatusCode.BadRequest || error.status == HttpStatusCode.UnprocessableEntity) {
+          return of(error.error.errors);
+        }
+        return of("coupon not found");
+      })
+    );
   }
 
   updateCoupon(coupon: any, couponId: number) {

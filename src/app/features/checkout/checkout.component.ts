@@ -261,7 +261,9 @@ export class CheckoutComponent implements OnInit {
 
   //check if coupon exists
   checkCoupon(coupon_code:string){
-    this.couponService.getCoupons().subscribe(res => {
+    console.log("user code", coupon_code);
+    
+    this.couponService.getCouponByCode(coupon_code).subscribe(res => {
       console.log(res);
       
     })
