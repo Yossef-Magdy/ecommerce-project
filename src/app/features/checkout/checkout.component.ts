@@ -10,6 +10,7 @@ import { CurrencyPipe, DecimalPipe, NgClass } from '@angular/common';
 import { AuthService } from '../../core/auth/services/auth.service';
 import { MyCurrencyPipe } from '../../pipes/my-currency.pipe';
 import { CouponService } from '../dashboard/services/coupon.service';
+import { FireworksComponent } from "./fireworks/fireworks.component";
 
 
 declare var Stripe: any;
@@ -17,7 +18,7 @@ declare var Stripe: any;
 @Component({
   selector: 'app-checkout',
   standalone: true,
-  imports: [RouterLink, AddressFormComponent, NgClass, DecimalPipe, CurrencyPipe, MyCurrencyPipe],
+  imports: [RouterLink, AddressFormComponent, NgClass, DecimalPipe, CurrencyPipe, MyCurrencyPipe, FireworksComponent],
   templateUrl: './checkout.component.html',
   styleUrl: './checkout.component.css',
 })
@@ -38,6 +39,7 @@ export class CheckoutComponent implements OnInit {
   shipping_detail_id!: number;
   user: any;
   shippingFee: number = 0;
+  validCoupon: boolean = false;
 
   constructor(private router: Router, private paymentService: PaymentService, private cartService: CartService, private addressService: AddressService, private authService: AuthService, private governerateService: GovernorateService, private couponService: CouponService) {}
 
@@ -261,11 +263,21 @@ export class CheckoutComponent implements OnInit {
 
   //check if coupon exists
   checkCoupon(coupon_code:string){
-    console.log("user code", coupon_code);
-    
-    this.couponService.getCouponByCode(coupon_code).subscribe(res => {
-      console.log(res);
-      
-    })
+    this.couponService.getCouponByCode(coupon_code).subscribe(
+      (res : any)=>{
+        this.validCoupon = true;
+        if (res.data.discount_type === 'fixed'){
+
+        }
+        else if (res.data.discount_type === 'percentage'){
+
+        }
+      },
+      (err)=>{
+        this.validCoupon = false;
+        console.log("not found");
+        
+      }
+    );
   }
 }

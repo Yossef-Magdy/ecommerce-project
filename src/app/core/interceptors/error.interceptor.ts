@@ -14,9 +14,9 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
         case HttpStatusCode.Forbidden:
           router.navigate(['/forbidden']);
           break;
-        case HttpStatusCode.NotFound:
-          router.navigate(['/not-found']);
-          break;
+        // case HttpStatusCode.NotFound:
+        //   router.navigate(['/not-found']);
+        //   break;
         default:
           console.error('HTTP error:', error);
       }

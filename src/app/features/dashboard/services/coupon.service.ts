@@ -27,7 +27,7 @@ export class CouponService {
   }
 
   getCouponByCode(couponCode: string):Observable<any>{
-    return this.http.get(`${this.baseURL}/${couponCode}`).pipe(
+    return this.http.get(`/coupons/${couponCode}/`).pipe(
       catchError((error) => {
         if (error.status == HttpStatusCode.BadRequest || error.status == HttpStatusCode.UnprocessableEntity) {
           return of(error.error.errors);
