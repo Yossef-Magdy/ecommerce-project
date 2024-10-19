@@ -32,7 +32,7 @@ export class CouponService {
         if (error.status == HttpStatusCode.BadRequest || error.status == HttpStatusCode.UnprocessableEntity) {
           return of(error.error.errors);
         }
-        return of("coupon not found");
+        return of([]);
       })
     );
   }

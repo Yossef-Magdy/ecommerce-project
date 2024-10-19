@@ -19,13 +19,13 @@ export class FireworksComponent {
 
   startInterval() {
     // Show the component for 2 seconds using RxJS interval
-    const timerObservable = timer(100); // timer every 2 seconds
+    const timerObservable = timer(100); 
 
     this.subscription = timerObservable.subscribe(() => {
       this.isVisible = true;
       setTimeout(() => {
         this.isVisible = false;
-      }, 4000); // Hide after 2 seconds
+      }, 5000); // Hide after 5 seconds
 
       // Unsubscribe immediately after execution since we only need it once
       if (this.subscription) {

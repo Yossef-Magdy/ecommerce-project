@@ -6,7 +6,7 @@ import { CartService } from '../../services/cart.service';
 import { AddressService } from '../profile/address.service';
 import { GovernorateService } from '../profile/governorate.service';
 import { AddressFormComponent } from "./address-form/address-form.component";
-import { CurrencyPipe, DecimalPipe, NgClass } from '@angular/common';
+import { CurrencyPipe, DecimalPipe, NgClass, NgIf } from '@angular/common';
 import { AuthService } from '../../core/auth/services/auth.service';
 import { MyCurrencyPipe } from '../../pipes/my-currency.pipe';
 import { CouponService } from '../dashboard/services/coupon.service';
@@ -18,7 +18,7 @@ declare var Stripe: any;
 @Component({
   selector: 'app-checkout',
   standalone: true,
-  imports: [RouterLink, AddressFormComponent, NgClass, DecimalPipe, CurrencyPipe, MyCurrencyPipe, FireworksComponent],
+  imports: [RouterLink, AddressFormComponent,NgIf ,NgClass, DecimalPipe, CurrencyPipe, MyCurrencyPipe, FireworksComponent],
   templateUrl: './checkout.component.html',
   styleUrl: './checkout.component.css',
 })
@@ -40,6 +40,9 @@ export class CheckoutComponent implements OnInit {
   user: any;
   shippingFee: number = 0;
   validCoupon: boolean = false;
+  coupon!: any;
+  totalDiscounts : number = 0;
+
 
   constructor(private router: Router, private paymentService: PaymentService, private cartService: CartService, private addressService: AddressService, private authService: AuthService, private governerateService: GovernorateService, private couponService: CouponService) {}
 
@@ -265,18 +268,29 @@ export class CheckoutComponent implements OnInit {
   checkCoupon(coupon_code:string){
     this.couponService.getCouponByCode(coupon_code).subscribe(
       (res : any)=>{
-        this.validCoupon = true;
-        if (res.data.discount_type === 'fixed'){
-
+        if (res && Object.keys(res).length){
+          console.log("Valid coupon", res.data);
+          
+          this.coupon = res.data;
+          this.validCoupon = true;
+          coupon_code = '';
+          if (res.data.discount_type === 'fixed'){
+            this.totalDiscounts += Number(res.data.discount_value);
+            this.totalPrice = Number(this.totalPrice) - Number(res.data.discount_value);
+          }
+          else if (res.data.discount_type === 'percentage'){
+            this.totalDiscounts += Number(res.data.discount_value) * Number(this.subTotalPrice);
+          }
+        }else {
+          this.validCoupon = false; // Reset to false if not valid
+          this.coupon = null; // Optionally clear coupon data
+          console.log("Invalid coupon");
         }
-        else if (res.data.discount_type === 'percentage'){
-
-        }
-      },
-      (err)=>{
-        this.validCoupon = false;
-        console.log("not found");
-        
+      }, 
+      (error) => {
+        this.validCoupon = false; // Reset to false on error
+        this.coupon = null; // Optionally clear coupon data
+        console.error("Error fetching coupon", error);
       }
     );
   }

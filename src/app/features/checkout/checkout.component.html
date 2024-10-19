@@ -161,26 +161,44 @@
           @if (validCoupon){
             <app-fireworks></app-fireworks>
           }
+
+          <div *ngIf="validCoupon" class="text-indigo-800 absolute left-12 text-xl duration-700 flex flex-row justify-around">
+            <div>
+              <i class="fa-solid fa-circle-check"></i>
+              <span class="px-2">{{ coupon?.coupon_code }}</span>
+            </div>
+          </div>
+          
           <input #coupon_code type="text" placeholder="Discount code"
             class="w-3/4 bg-gray-100 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-            [ngClass]="validCoupon? 'valid_coupon' : 'bg'"/>
+            [ngClass]="validCoupon ? 'valid_coupon' : 'bg'" [readonly]="validCoupon" />
+          
           <button
             class="btn w-1/4 ml-4 text-white bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            [ngClass]="validCoupon ? 'hidden' : 'block'"
             type="button"
             (click)="checkCoupon(coupon_code.value)">
             Apply
           </button>
         </div>
 
-        <div class="flex justify-between items-center border-b pb-4 mb-4">
+        <div class="flex justify-between items-center pb-2 mb-4">
           <p class="text-sm">Subtotal</p>
           <p class="text-sm">{{subTotalPrice | myCurrency:'EGP':'symbol':'1.2-2':'en-US'}}</p>
         </div>
-        <div class="flex justify-between items-center border-b pb-4 mb-4">
+        <div class="flex justify-between items-center pb-2 mb-4">
           <p class="text-sm">Shipping</p>
           <p class="text-sm">{{shippingFee | myCurrency:'EGP':'symbol':'1.2-2':'en-US'}}</p>
         </div>
-        <div class="flex justify-between items-center mb-4">
+
+        @if (validCoupon){
+          <div class="flex justify-between items-center pb-2 mb-4">
+            <p class="text-sm">Discount</p>
+            <p class="text-sm text-indigo-800">- {{totalDiscounts | myCurrency:'EGP':'symbol':'1.2-2':'en-US'}}</p>
+          </div>
+        }
+
+        <div class="flex justify-between border-t pt-4 border-gray-300 items-center mb-4">
           <p class="text-lg font-medium">Total</p>
           <p class="text-lg font-medium">{{totalPrice | myCurrency:'EGP':'symbol':'1.2-2':'en-US'}}</p>
         </div>
