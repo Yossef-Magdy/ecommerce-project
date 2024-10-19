@@ -53,8 +53,8 @@ export class CheckoutComponent implements OnInit {
       this.addressService.getAddresses().subscribe(addresses =>{
         this.savedAddresses = addresses.data;
         this.shipping_detail_id = addresses.data[0].id;
-    })
-
+        this.getShippingCustomFee(addresses.data[0].governorate);
+      })
     }
   }
 
@@ -133,8 +133,12 @@ export class CheckoutComponent implements OnInit {
     //Check for addresses
     this.addressService.getAddresses().subscribe(addresses =>{
       this.savedAddresses = addresses.data;
-      this.shipping_detail_id = addresses.data[0].id;
-      this.getShippingCustomFee(addresses.data[0].governorate);
+      console.log("address", addresses);
+      
+      if(addresses.data.length){
+        this.shipping_detail_id = addresses.data[0].id;
+        this.getShippingCustomFee(addresses.data[0].governorate);
+      }
     })
     
     // Initialize Stripe.js
@@ -191,7 +195,7 @@ export class CheckoutComponent implements OnInit {
       token: this.generateRandomToken(6), // Radnomly generated token
       items: this.items,
       shipping_detail_id: this.shipping_detail_id, 
-      coupon: null, // If coupon is applied !
+      coupon: this.validCoupon? this.coupon.coupon_code : null, // If coupon is applied !
       payment_method: 'stripe',
       stripeToken: token.id, // From Stripe API in front end
       currency: 'egp', // Currency of payment
@@ -227,7 +231,7 @@ export class CheckoutComponent implements OnInit {
       token: this.generateRandomToken(6), // Radnomly generated token
       items: items,
       shipping_detail_id: this.shipping_detail_id, // Hardcoded shipping detail ID
-      coupon: null, // If coupon is applied !
+      coupon: this.validCoupon? this.coupon.coupon_code : null, // If coupon is applied !
       payment_method: 'cod',
       currency: 'egp', // Currency of payment
     };

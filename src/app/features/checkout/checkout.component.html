@@ -47,7 +47,7 @@
 
       <!-- Delivery Form -->
       <h3 class="text-xl font-medium mb-2 mt-4">Delivery</h3>
-      @if (savedAddresses.length) {
+      @if (savedAddresses? savedAddresses.length: false) {
       <form>
         @for (address of savedAddresses; track $index) {
         <section class="flex mb-3 p-4 capitalize rounded-md">
