@@ -18,6 +18,7 @@ export interface CartItem {
   providedIn: 'root'
 })
 export class CartService {
+
   private items = new BehaviorSubject<CartItem[]>([]);
 
   addToCart(cartItem: CartItem) {
@@ -79,4 +80,9 @@ export class CartService {
     );
     this.items.next(updatedItems);
   }
+
+  clearItems(): void{
+    this.items.next([]);
+  }
+
 }
