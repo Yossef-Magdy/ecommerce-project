@@ -6,11 +6,12 @@ import { SidebarComponent } from './core/layout/sidebar/sidebar.component';
 import { initFlowbite } from 'flowbite';
 import { Router } from '@angular/router';
 import { ToastComponent } from "./core/layout/toast/toast.component";
+import { MyCurrencyPipe } from './pipes/my-currency.pipe';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent, FooterComponent, SidebarComponent, ToastComponent],
+  imports: [RouterOutlet, HeaderComponent, FooterComponent, SidebarComponent, ToastComponent, MyCurrencyPipe],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
