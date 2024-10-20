@@ -1,4 +1,7 @@
 <div class=" p-6 bg-white rounded-lg shadow-md ">
+    <div *ngIf="(toastService.isVisible | async)" class="toast" [ngClass]="toastService.type | async">
+        {{ toastService.message | async }}
+      </div>
     <h2 class="text-2xl font-normal pb-10">Order History</h2>
 
     @if (!orders) {
@@ -48,7 +51,11 @@
 
             @if (order.shipping.status === 'received') {
             <div class="ml-4">
-                <app-black-button text="Write your review"></app-black-button>
+                <app-black-button *ngIf="!reviewedProducts.has(item.product.product_id)" (click)="onAddReview(item.product.product_id)" text="Write your review"></app-black-button>
+            </div>
+            }@else if (order.shipping.status !== 'shipped' || order.shipping.status !== 'received') {
+            <div class="ml-4">
+                <button  class="uppercase text-sm font-light border border-white bg-red-500 text-white hover:bg-red-600 hover:text-white h-12 px-10 w-max flex flex-nowrap items-center" (click)="openCancelModal(order.id)">Cancel Order</button>
             </div>
             }
         </div>
@@ -58,5 +65,17 @@
         }
         }
     </div>
+    }
+
+    @if(showCancelModal) {
+        <div class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50">
+            <div class="bg-white p-6 rounded-md shadow-lg w-full max-w-sm">
+                <h3 class="text-xl mb-4">Are you sure you want to cancel this order?</h3>
+                <div class="flex justify-end gap-4">
+                    <button class="px-4 py-2 bg-red-500 text-white rounded" (click)="confirmCancel()">Cancel Order</button>
+                    <button class="px-4 py-2 bg-gray-300 rounded" (click)="closeCancelModal()">Cancel</button>
+                </div>
+            </div>
+        </div>
     }
 </div>

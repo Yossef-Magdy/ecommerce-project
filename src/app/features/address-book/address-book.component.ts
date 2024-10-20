@@ -21,35 +21,45 @@ export class AddressBookComponent {
   addressIdToDelete: number | null = null;
   addressIndexToDelete: number | null = null;
 
-  constructor(private addressService: AddressService, private router: Router, private route: ActivatedRoute) { }
+  constructor(private addressService: AddressService, private router: Router) { }
 
   ngOnInit() {
+    this.loadAddresses();
+  }
+
+  loadAddresses() {
     this.addressService.getAddresses().subscribe((res: any) => {
       this.addresses = res.data;
+      this.sortAddresses();
     });
   }
 
-  // لفتح المودال عندما يتم الضغط على زر الحذف
   openDeleteModal(addressId: number, index: number) {
     this.showDeleteModal = true;
     this.addressIdToDelete = addressId;
     this.addressIndexToDelete = index;
   }
 
-  // لغلق المودال
   closeDeleteModal() {
     this.showDeleteModal = false;
     this.addressIdToDelete = null;
     this.addressIndexToDelete = null;
   }
 
-  // لتأكيد الحذف
+  sortAddresses() {
+    if (this.addresses && this.addresses.length > 0) {
+      this.addresses.sort((a: any, b: any) => {
+        return b.is_default - a.is_default;
+      });
+    }
+  }
+
   confirmDelete() {
     if (this.addressIdToDelete !== null && this.addressIndexToDelete !== null) {
       this.addressService.deleteAddress(this.addressIdToDelete).subscribe(() => {
-        // إزالة العنوان من القائمة بعد الحذف
         this.addresses.splice(this.addressIndexToDelete, 1);
-        this.closeDeleteModal(); // غلق المودال بعد الحذف
+        this.sortAddresses();
+        this.closeDeleteModal();
         console.log('Address deleted successfully');
       }, (error) => {
         console.error('Error deleting address:', error);
@@ -62,4 +72,3 @@ export class AddressBookComponent {
     this.router.navigate(['/edit-address', addressId]);
   }
 }
-

@@ -11,4 +11,10 @@ export class OrderService {
   getOrders() {
     return this.http.get('/orders');
   }
+
+  cancelOrder(orderId: number) {
+    const url = `/orders/${orderId}`;
+    const body = {status: 'canceled'};
+    return this.http.put(url, body);
+  }
 }
