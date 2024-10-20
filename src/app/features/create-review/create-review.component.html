@@ -1,0 +1,39 @@
+<div class="review-container p-6 bg-white rounded-lg shadow-md mt-4">
+    <h2 class="text-2xl font-normal pb-4 text-center">Write a Review</h2>
+
+    <div class="product-details flex items-center mb-6">
+        <div class="product-image w-24 h-24">
+            <img [src]="product.cover_image" alt="Product Image" class="w-full h-full object-cover rounded-lg shadow-sm">
+        </div>
+        <div class="product-info ml-6">
+            <h3 class="text-xl font-semibold">{{ product.name }}</h3>
+        </div>
+    </div>
+
+    <div class="star-rating mb-6">
+        <label class="text-lg font-medium mb-2">Rating:</label>
+        <div class="stars flex gap-2 mt-2">
+            <div *ngFor="let star of [1, 2, 3, 4, 5]; let i = index" 
+                 (click)="setRating(i + 1)" 
+                 class="cursor-pointer">
+
+                <svg class="h-6 w-6"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 22 20"
+                    fill="currentColor"
+                    [ngClass]="{'text-indigo-800': rating >= i + 1, 'text-gray-300': rating < i + 1}">
+                    <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+                </svg>
+            </div>
+        </div>
+    </div>
+
+    <div class="review-text mb-6">
+        <label for="reviewText" class="text-lg font-medium">Your Review:</label>
+        <textarea id="reviewText" (input)="onReviewTextChange($event)" 
+            class="w-full p-4 border border-gray-300 rounded-lg shadow-sm" rows="4"
+            placeholder="Write your review here..."></textarea>
+    </div>
+
+    <button (click)="submitReview()" class="submit-btn bg-black text-white px-4 py-2 rounded-lg">Submit Review</button>
+</div>

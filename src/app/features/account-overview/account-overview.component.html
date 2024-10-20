@@ -29,7 +29,9 @@
             } @else {
                 <p class="text-md text-gray-500 mb-2">No addresses</p>
             }
-            <a (click)="changeTab('address')" class="text-sm">View addresses (1)</a>
+            @if (addresses) {
+                <a (click)="changeTab('address')" class="text-sm">View addresses ({{ addresses.length }})</a>
+            }
         </div>
     </div>
 </div>
