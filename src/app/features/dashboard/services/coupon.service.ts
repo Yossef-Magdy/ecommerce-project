@@ -34,7 +34,7 @@ export class CouponService {
     return this.http.put(`${this.baseURL}/${couponId}`, coupon).pipe(
       tap((result: any) => {
         this.toastService.showToast(result.message, 'success');
-      }), 
+      }),
       catchError((error: any) => of(false))
     );
   }
