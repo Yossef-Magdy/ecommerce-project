@@ -57,6 +57,7 @@ export class AddUserComponent {
   }
 
   submit() {
+    this.userForm.markAllAsTouched();
     if (this.userForm.invalid) {
       return;
     }

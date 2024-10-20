@@ -71,7 +71,9 @@ export class ManageCategoriesComponent {
     const id = this.currentCategory.id;
     this.categoryService.updateCategory(this.categoryForm.value, id).subscribe((response: any) => {
       const data = response.data;
-      this.categories = this.categories.map((category: any) => category.id == data.id ? data : category);
+      if (data) {
+        this.categories = this.categories.map((category: any) => category.id == data.id ? data : category);
+      }
     })
   }
 

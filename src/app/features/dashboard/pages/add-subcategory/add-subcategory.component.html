@@ -4,7 +4,7 @@
         <div class="flex flex-col gap-2 group">
             <app-label for="name" text="subcategory name*"/>
             <input type="text" id="name" placeholder="Name" class="group-hover:border-black border px-4 text-xs h-12" formControlName="name">
-            @if ((name.touched || name.dirty) && name.hasError('required')) {
+            @if ((category_id.touched || category_id.dirty) && category_id.hasError('required')) {
                 <p role="alert" class="text-red-800 text-xs">Name is required</p>
             }
         </div>
@@ -16,7 +16,10 @@
                     <option value="{{category.id}}">{{category.name}}</option>
                 }
             </select>
+            @if ((category_id.touched || category_id.dirty) && category_id.hasError('required')) {
+                <p role="alert" class="text-red-800 text-xs">Please select a category</p>
+            }
         </div>
-        <app-black-button text="create" (click)="submit()"/>
+        <app-black-button text="create" (click)="submit()" class="w-fit"/>
     </form>  
 </div>

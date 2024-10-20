@@ -61,8 +61,8 @@ export class ManageSubcategoriesComponent {
     }
   }
 
-  selectSubcategory(category: any) {
-    this.currentSubcategory = category;
+  selectSubcategory(subcategory: any) {
+    this.currentSubcategory = subcategory;
   }
 
   updateForm() {
@@ -79,7 +79,9 @@ export class ManageSubcategoriesComponent {
     const id = this.currentSubcategory.id;
     this.categoryService.updateSubcategory(this.subcategoryForm.value, id).subscribe((response: any) => {
       const data = response.data;
-      this.subcategories = this.subcategories.map((subcategory: any) => subcategory.id == data.id ? data : subcategory);
+      if (data) {
+        this.subcategories = this.subcategories.map((subcategory: any) => subcategory.id == data.id ? data : subcategory);
+      }
     })
   }
 

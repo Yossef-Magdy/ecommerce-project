@@ -2,62 +2,60 @@
     <h1 class="text-4xl uppercase font-light mb-4">Products Data</h1>
     @if (products) {
         <div class="text-sm border border-slate-500">
-            <div class="text-left w-full grid grid-cols-[auto,1fr,auto,auto,auto]">
-                @for (product of products; track $index) {
-                    <div class="even:bg-gray-50 odd:bg-white grid grid-cols-subgrid grid-rows-[repeat(4,auto)] col-span-full border-b border-slate-500 gap-x-4 gap-y-2 p-2">
-                        <div class="flex flex-col row-span-full">
-                            <img src="{{product.cover_image}}" alt="product image" class="border border-slate-500 size-40">
-                        </div>
-                        <div class="flex flex-col">
-                            <span class="capitalize font-medium">name</span>
-                            <span>{{product.name}}</span>
-                        </div>
-                        <div class="flex flex-col">
-                            <span class="capitalize font-medium">price</span>
-                            <span>{{product.price}} EGP</span>
-                        </div>
-                        <div class="flex flex-col">
-                            <span class="capitalize font-medium">in stock</span>
-                            <span>{{product.stock}}</span>
-                        </div>
-                        <div>
-                            <div class="flex justify-end">
-                                <button data-modal-target="update-modal" data-modal-toggle="update-modal" 
-                                type="button" class="hover:bg-slate-200 rounded px-2 py-1"
-                                (click)="selectProduct(product)" (click)="updateForm()">
-                                    <img src="assets/icons/pen.svg" class="size-6"/>
-                                </button>
-                                <button data-modal-target="delete-modal" data-modal-toggle="delete-modal"
-                                type="button" class="hover:bg-red-200 rounded p-1.5"
-                                (click)="selectProduct(product)">
-                                    <img src="assets/icons/trash.svg" class="size-6"/>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="flex flex-col col-span-full col-start-2">
-                            <span class="capitalize font-medium">description</span>
-                            <p>{{product.description}}</p>
-                        </div>
-                        <div class="flex flex-col col-span-full col-start-2">
-                            <span class="capitalize font-medium">categories</span>
-                            @if (product.categories.length) {
-                                <div class="flex flex-wrap gap-2 mt-1">
-                                    @for (category of product.categories; track $index) {
-                                        <span class="capitalize border bg-white rounded border-slate-500 p-1.5">{{category.name}}</span>
-                                    }
+            <table class="text-left overflow-y-auto min-w-max w-full table-auto relative overflow-x-auto">
+                <thead class="capitalize bg-gray-50">
+                    <th class="font-medium border-b border-slate-500 p-1.5">image</th>
+                   <th class="font-medium border-b border-slate-500 p-1.5">name</th>
+                    <th class="font-medium border-b border-slate-500 p-1.5">price</th>
+                    <th class="font-medium border-b border-slate-500 p-1.5">category</th>
+                    <th class="font-medium border-b border-slate-500 p-1.5">status</th>
+                    <th class="font-medium border-b border-slate-500 p-1.5"></th>
+                </thead>
+                <tbody>
+                    @for (product of products; track $index) {
+                        <tr class="even:bg-gray-50 odd:bg-white">
+                            <td class="border-b border-slate-500 p-1.5 w-16">
+                                <div class="w-fit">
+                                    <img src="{{product.cover_image}}" alt="" class="size-12 border border-slate-500 rounded">
                                 </div>
-                            } @else {
-                                <span>No categories for this product</span>  
-                            }
-                        </div>
-                        <div class="flex flex-col col-span-full col-start-2">
-                            <button [routerLink]="['/dashboard/product-details/', product.id]" class="flex items-center p-1.5 w-fit border border-slate-500 rounded hover:bg-gray-200">
-                                click to view more details
-                            </button>
-                        </div>                        
-                    </div>
-                }
-            </div>
+                            </td>
+                            <td class="font-medium capitalize border-b border-slate-500 p-1.5">{{product.name}}</td>
+                            <td class="border-b border-slate-500 p-1.5">{{product.price}} EGP</td>
+                            <td class="border-b border-slate-500 p-1.5">
+                                @if (product.categories.length) {
+                                    <span class="w-fit block border border-slate-500 bg-white p-1.5 rounded capitalize">{{product.categories[0].name}}</span>
+                                } @else {
+                                    <span class="w-fit block border border-slate-500 bg-white p-1.5 rounded capitalize">no categories</span>
+                                }
+                            </td>
+                            <td class="border-b border-slate-500 p-1.5">
+                                @if (product.stock > 0) {
+                                    <span class="w-fit block bg-green-300 p-1.5 rounded">In Stock</span>
+                                } @else {
+                                    <span class="w-fit block bg-red-300 p-1.5 rounded">Out of Stock</span>
+                                }
+                            </td>
+                            <td class="border-b border-slate-500 p-1.5">
+                                <div class="flex gap-1 justify-end min-w-max">
+                                    <button [routerLink]="['/dashboard/product-details/', product.id]" class="capitalize bg-blue-200 flex items-center p-1.5 w-fit border border-slate-500 rounded hover:bg-blue-300">
+                                        more details
+                                    </button>
+                                    <button data-modal-target="update-modal" data-modal-toggle="update-modal" 
+                                    type="button" class="hover:bg-slate-200 rounded px-2 py-1"
+                                    (click)="selectProduct(product)" (click)="updateForm()">
+                                    <img src="assets/icons/pen.svg" class="size-6"/>
+                                    </button>
+                                    <button data-modal-target="delete-modal" data-modal-toggle="delete-modal"
+                                        type="button" class="hover:bg-red-200 rounded p-1.5"
+                                        (click)="selectProduct(product)">
+                                        <img src="assets/icons/trash.svg" class="size-6"/>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
             <app-pagination [from]="from" [to]="to" [total]="total" [next]="next" [prev]="prev" [load]="load"/>
         </div>
     }
@@ -91,14 +89,7 @@
                                 <p role="alert" class="text-red-800 text-xs">price is required</p>
                             }
                         </div>
-                        <div class="flex flex-col gap-2 group col-span-full">
-                            <app-label for="description" text="description*"/>
-                            <textarea id="description" rows="10" placeholder="Description" class="group-hover:border-black border px-4 text-xs min-h-12 resize-none" formControlName="description"></textarea>
-                            @if ((description.touched || description.dirty) && description.hasError('required')) {
-                                <p role="alert" class="text-red-800 text-xs">Description is required</p>
-                            }
-                        </div>
-                        <div class="flex flex-col gap-2">
+                        <div class="flex flex-col gap-2 col-span-full">
                             <app-label text="categories"/>
                             <ng-select 
                             [items]="categories"
@@ -111,7 +102,7 @@
                             formControlName="categories">
                             </ng-select>  
                         </div>
-                        <div class="flex flex-col gap-2 col-span-full">
+                        <div class="flex flex-col gap-2 col-span-full w-fit">
                             <app-label for="cover-image" text="cover image"/>
                             <input type="file" [writeFile]="true" id="cover-image" class="px-4 text-xs h-12" (change)="handleFileInput($event)" #cover_image>
                             <div class="flex gap-4">

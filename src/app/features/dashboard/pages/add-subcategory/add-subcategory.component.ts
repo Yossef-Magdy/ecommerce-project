@@ -26,17 +26,21 @@ export class AddSubcategoryComponent {
     });
   }
 
-  get name() {
+  get category_id() {
     return this.subcategoryForm.controls['name'];
   }
 
   submit() {
+    this.subcategoryForm.markAllAsTouched();
     if (this.subcategoryForm.invalid) {
       return;
     }
-    this.categorySerivce.addCategory(this.subcategoryForm.value).subscribe((result: boolean) => {
+    this.categorySerivce.addSubcategory(this.subcategoryForm.value).subscribe((result: boolean) => {
       if (result) {
         this.subcategoryForm.reset();
+        this.subcategoryForm.patchValue({
+          category_id: '',
+        });
       }
     });
   }

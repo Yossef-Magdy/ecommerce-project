@@ -30,7 +30,6 @@ export class ManageProductsComponent {
   productForm = new FormGroup({
     id: new FormControl(-1),
     name: new FormControl('', [Validators.required]),
-    description: new FormControl('', [Validators.required]),
     price: new FormControl('', [Validators.required, Validators.min(0)]),
     categories: new FormControl([]),
   });
@@ -75,10 +74,6 @@ export class ManageProductsComponent {
     return this.productForm.controls['price'];
   }
 
-  get description() {
-    return this.productForm.controls['description'];
-  }
-
   get productCategories() {
     return this.productForm.controls['categories'];
   }
@@ -119,7 +114,6 @@ export class ManageProductsComponent {
       this.productForm.patchValue({
         id: this.currentProduct.id,
         name: this.currentProduct.name,
-        description: this.currentProduct.description,
         price: this.currentProduct.price,
         categories: this.currentProduct.categories.map((category: any) => category.id),
       });
@@ -131,7 +125,6 @@ export class ManageProductsComponent {
     const data = new FormData();
     data.append('name', this.name.value || '');
     data.append('price', this.price.value || '');
-    data.append('description', this.description.value || '');
     data.append('categories', JSON.stringify(this.productCategories.value));
     data.append('_method', 'put');
     if (this.fileToUpload) {
