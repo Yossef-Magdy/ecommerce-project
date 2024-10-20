@@ -22,10 +22,7 @@ export class UserService {
     return this.cartService.getItems().pipe(
       take(1),
       switchMap((cartItems) => {
-        console.log("user cart items", cartItems);
-
         requestData.items = cartItems;
-  
         // Return the HTTP POST request observable
         return this.http.post('/cart', requestData).pipe(
           catchError((error) => {

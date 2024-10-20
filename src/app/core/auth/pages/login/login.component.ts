@@ -50,7 +50,6 @@ export class LoginComponent {
     this.authService.login(this.loginForm.value).subscribe({
       next: (res) =>{
         this.userService.getCartItems().subscribe((items) => {
-          console.log("Cart items of user:", items);
           if (items.length){
             items.forEach((item: CartItem) => {
               this.cartService.addToCart({

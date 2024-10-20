@@ -11,6 +11,7 @@ import { AuthService } from '../../core/auth/services/auth.service';
 import { MyCurrencyPipe } from '../../pipes/my-currency.pipe';
 import { CouponService } from '../dashboard/services/coupon.service';
 import { FireworksComponent } from "./fireworks/fireworks.component";
+import { UserService } from '../profile/user.service';
 
 
 declare var Stripe: any;
@@ -44,7 +45,7 @@ export class CheckoutComponent implements OnInit {
   totalDiscounts : number = 0;
 
 
-  constructor(private router: Router, private paymentService: PaymentService, private cartService: CartService, private addressService: AddressService, private authService: AuthService, private governerateService: GovernorateService, private couponService: CouponService) {}
+  constructor(private router: Router, private paymentService: PaymentService, private cartService: CartService, private addressService: AddressService, private authService: AuthService, private governerateService: GovernorateService, private couponService: CouponService, private userService: UserService) {}
 
   onAddressFormSubmit(submitted: boolean) {
     if (submitted) {
@@ -89,6 +90,15 @@ export class CheckoutComponent implements OnInit {
   }
 
   onLogout() {
+    this.userService.sendCartItems().subscribe({
+      next: (response) => {
+        console.log("Request successful", response);
+      },
+      error: (err) => {
+        console.error("Error sending cart items", err);
+      }
+    });
+    this.cartService.clearItems();
     this.isUserLoggedIn = false;
     this.authService.logout();
   }
