@@ -286,6 +286,7 @@ export class CheckoutComponent implements OnInit {
   // navigate to home after payment done successfully
   navigateAfterDelay() {
     setTimeout(() => {
+      this.cartService.clearItems();
       this.router.navigate(['/']); 
     }, 4000);
   }
