@@ -12,6 +12,7 @@ import { MyCurrencyPipe } from '../../pipes/my-currency.pipe';
 import { CouponService } from '../dashboard/services/coupon.service';
 import { FireworksComponent } from "./fireworks/fireworks.component";
 import { UserService } from '../profile/user.service';
+import { ToastService } from '../../core/services/toast.service';
 
 
 declare var Stripe: any;
@@ -45,7 +46,7 @@ export class CheckoutComponent implements OnInit {
   totalDiscounts : number = 0;
 
 
-  constructor(private router: Router, private paymentService: PaymentService, private cartService: CartService, private addressService: AddressService, private authService: AuthService, private governerateService: GovernorateService, private couponService: CouponService, private userService: UserService) {}
+  constructor(private router: Router, private paymentService: PaymentService, private cartService: CartService, private addressService: AddressService, private authService: AuthService, private governerateService: GovernorateService, private couponService: CouponService, private userService: UserService, private toastService: ToastService) {}
 
   onAddressFormSubmit(submitted: boolean) {
     if (submitted) {
@@ -72,21 +73,12 @@ export class CheckoutComponent implements OnInit {
       this.selectedBillingOption = 'same';
     }
 
-    // Message Error
-    this.paymentStatus = '';
-    this.errorMessage = false;
   }
   onShippingOptionChange(event: Event) {
     const target = event.target as HTMLInputElement;
     if (target) {
       this.showBillingAddress = !target.checked;
     }
-  }
-
-  onBillingOptionChange(option: string) {
-    this.selectedBillingOption = option;
-
-    this.showBillingAddress = option === 'different';
   }
 
   onLogout() {
@@ -107,8 +99,6 @@ export class CheckoutComponent implements OnInit {
   STRIPE_PUBLISHABLE_KEY = 'pk_test_51QAMOHK0H3MHKtq78x5KWPHhFMCP2JK8uAWmkn2F7I6YpaNpV1R7dayKEgNDoXumdureLwRx4gSAs1hNPd2vwNoT00PZqzHu5F';
   stripe = Stripe(this.STRIPE_PUBLISHABLE_KEY);
   card: any; // Card instance
-  paymentStatus: string = '';
-  errorMessage: boolean = false;
   isLoading: boolean = false; // Loading state for payment
 
   ngOnInit() {
@@ -170,7 +160,6 @@ export class CheckoutComponent implements OnInit {
     // Prevent form from submitting
     event.preventDefault();
     this.isLoading = true;
-    this.paymentStatus = '';
 
     // Process payment
     switch(this.paymentMethod) {
@@ -183,26 +172,17 @@ export class CheckoutComponent implements OnInit {
     }
   }
 
-  private generateRandomToken(length: number): string {
-    const array = new Uint8Array(length);
-    window.crypto.getRandomValues(array);
-    return Array.from(array, (byte) =>
-      ('0' + byte.toString(16)).slice(-2)
-    ).join('');
-  }
 
   private async stripePayment(items: Array<object>) {
     const { token, error } = await this.stripe.createToken(this.card);
     if (error) {
+      this.toastService.showToast(error.message, 'error');
       console.error('Error creating token:', error);
-      this.paymentStatus = error.message;
       this.isLoading = false;
-      this.errorMessage = true;
       return;
     }
 
     const order = {
-      token: this.generateRandomToken(6), // Radnomly generated token
       items: this.items,
       shipping_detail_id: this.shipping_detail_id, 
       coupon: this.validCoupon? this.coupon.coupon_code : null, // If coupon is applied !
@@ -216,58 +196,51 @@ export class CheckoutComponent implements OnInit {
       (response: any) => {
         if (response.success) {
           console.log('Payment successful:', response);
-          this.paymentStatus = 'Payment successful!';
+          this.toastService.showToast('Payment successful!', 'success');
           this.isLoading = false;
-          this.errorMessage = false;
+          this.navigateAfterDelay();
           // Link recet response.charge.receipt_url for customer
         } else {
           console.error('Payment failed:', response.message);
-          this.paymentStatus = 'Payment failed: ' + response.message;
+          this.toastService.showToast('Payment failed: ' + response.message, 'error');
           this.isLoading = false;
-          this.errorMessage = true;
         }
       },
       (err) => {
-        console.log("shipping Id", this.shipping_detail_id);
         console.error('Error processing payment:', err);
-        this.paymentStatus = err.error.message;
+        this.toastService.showToast(err.error.message, 'error');
         this.isLoading = false;
-        this.errorMessage = true;
       }
     );
   }
+
   private async codPayment(items: Array<object>) {
     const order = {
-      token: this.generateRandomToken(6), // Radnomly generated token
       items: items,
       shipping_detail_id: this.shipping_detail_id, // Hardcoded shipping detail ID
       coupon: this.validCoupon? this.coupon.coupon_code : null, // If coupon is applied !
       payment_method: 'cod',
-      currency: 'egp', // Currency of payment
+      currency: 'egp',
     };
 
     this.paymentService.order(order).subscribe(
       (response: any) => {
         if (response.success) {
           console.log('Payment successful:', response);
-          this.paymentStatus = 'Payment successful!';
-          console.log("address", this.shipping_detail_id );
-          
+          this.toastService.showToast('Payment successful!', 'success');
           this.isLoading = false;
-          this.errorMessage = false;
+          this.navigateAfterDelay();
           // Link recet response.charge.receipt_url for customer
         } else {
           console.error('Payment failed:', response.message);
-          this.paymentStatus = 'Payment failed: ' + response.message;
+          this.toastService.showToast('Payment failed: ' + response.message, 'error');
           this.isLoading = false;
-          this.errorMessage = true;
         }
       },
       (err) => {
         console.error('Error processing payment:', err);
-        this.paymentStatus = err.error.message;
+        this.toastService.showToast(err.error.message, 'error');
         this.isLoading = false;
-        this.errorMessage = true;
       }
     );
   }
@@ -284,7 +257,7 @@ export class CheckoutComponent implements OnInit {
       (res : any)=>{
         if (res && Object.keys(res).length){
           console.log("Valid coupon", res.data);
-          
+          this.toastService.showToast("Valid coupon", 'success');
           this.coupon = res.data;
           this.validCoupon = true;
           coupon_code = '';
@@ -298,6 +271,7 @@ export class CheckoutComponent implements OnInit {
         }else {
           this.validCoupon = false; // Reset to false if not valid
           this.coupon = null; // Optionally clear coupon data
+          this.toastService.showToast("Invalid coupon", 'error');
           console.log("Invalid coupon");
         }
       }, 
@@ -307,5 +281,12 @@ export class CheckoutComponent implements OnInit {
         console.error("Error fetching coupon", error);
       }
     );
+  }
+
+  // navigate to home after payment done successfully
+  navigateAfterDelay() {
+    setTimeout(() => {
+      this.router.navigate(['/']); 
+    }, 4000);
   }
 }

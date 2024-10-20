@@ -96,9 +96,6 @@
 
                 <!-- Stripe Initialization -->
                 <div id="card-element" class="payment-input flex flex-col"></div>
-                @if(paymentStatus && paymentMethod === 'credit-card') {
-                  <span class="{{errorMessage ? 'text-red-500' : 'text-green-500'}} text-sm red">{{paymentStatus}}</span>
-                }
                 <div class="payment-form" id="card-element">
                   <div class="flex">
                     <div class="h-5">
@@ -125,10 +122,6 @@
             (click)="pay($event)" [disabled]="isLoading">
             {{ isLoading ? 'Processing...' : 'Place Order'}}
           </button>
-  
-          @if(paymentStatus && paymentMethod === 'cod') {
-          <span class="{{errorMessage ? 'text-red-500' : 'text-green-500'}} text-sm red">{{paymentStatus}}</span>
-          }
         </form>
 
     </div>
