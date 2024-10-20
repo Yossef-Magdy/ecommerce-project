@@ -1,7 +1,7 @@
 import { HttpClient, HttpStatusCode } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, of, switchMap, take } from 'rxjs';
-import { CartService } from '../../services/cart.service';
+import { CartItem, CartService } from '../../services/cart.service';
 
 @Injectable({
   providedIn: 'root'
@@ -37,6 +37,10 @@ export class UserService {
         );
       })
     );
+  }
+
+  getCartItems():Observable<CartItem[]>{
+    return this.http.get<CartItem[]>('/cart');
   }
 
 }
