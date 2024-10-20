@@ -18,6 +18,7 @@ import { SpinnerComponent } from "./core/layout/spinner/spinner.component";
 export class AppComponent {
   title = 'ecommerce';
   inDashboard: null | boolean = null;
+  dashboardLogin: null | boolean = null;
 
   constructor (private router: Router) {}
 
@@ -26,7 +27,11 @@ export class AppComponent {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         window.scrollTo({top:0, left:0, behavior:'smooth'});  // Scrolls to the top-left corner when route changes
-        this.inDashboard = this.router.url.startsWith('/dashboard');
+        const url = this.router.url;
+        this.inDashboard = url.startsWith('/dashboard');
+        if (this.inDashboard) {
+          this.dashboardLogin = url.includes('login');
+        }
       }
     });
   }

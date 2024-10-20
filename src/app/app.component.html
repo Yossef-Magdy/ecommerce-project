@@ -1,9 +1,13 @@
 @if (inDashboard != null) {
     @if (inDashboard) {
-        <div class="grid grid-cols-[auto, _1fr] sm:grid-cols-[270px,_auto,_1fr]">
-            <app-sidebar class="relative"/>
+        @if (dashboardLogin) {
             <router-outlet/>
-        </div>
+        } @else {
+            <div class="grid grid-cols-[auto, _1fr] sm:grid-cols-[250px,_auto,_1fr]">
+                <app-sidebar class="relative"/>
+                <router-outlet/>
+            </div>
+        }
     } @else {
         <app-header/>
         <router-outlet/>
