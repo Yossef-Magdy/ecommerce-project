@@ -25,18 +25,29 @@ export class CartService {
   private items = new BehaviorSubject<CartItem[]>([]);
 
   addToCart(cartItem: CartItem) {
-    const updatedItem = this.items.value.find((item) => item.productDetailId === cartItem.productDetailId);
-    console.log("updated item", updatedItem);
+    const currentItems = this.items.value;
     
-    if (!updatedItem) {
-      return this.items.value.push(cartItem);
+    const existingItem = currentItems.find((item) => item.productDetailId === cartItem.productDetailId);
+  
+    if (existingItem) {
+      // If the item exists, update its quantity
+      const newQuantity = existingItem.quantity + cartItem.quantity;
+
+      if (newQuantity > existingItem.stock) {
+        this.toastService.showToast("Not enough stock", 'error');
+      }
+      else{
+        // Ensure the new quantity doesn't exceed the stock
+        existingItem.quantity = newQuantity > existingItem.stock ? existingItem.stock : newQuantity;
+      }
+      
+    } else {
+      // If the item does not exist, add it to the cart
+      currentItems.push(cartItem);
     }
-
-    const newQuantity = updatedItem.quantity + cartItem.quantity;
-    if (newQuantity > updatedItem.stock) return this.toastService.showToast("not enough stock", 'error');
-    updatedItem.quantity = newQuantity > updatedItem.stock ? updatedItem.stock : newQuantity;
-
-    this.items.next(this.items.value);
+  
+    // Emit the updated cart items
+    this.items.next([...currentItems]);
   }
 
   updateQuantity(productDetailId: number, quantity: number) {
@@ -50,7 +61,6 @@ export class CartService {
       }
       return item;
     });
-
     this.items.next(updatedItems);
   }
 
