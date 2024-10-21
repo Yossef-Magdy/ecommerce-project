@@ -12,8 +12,9 @@ import { IProduct, IProductDetail } from '../../data-interfaces';
 import { ProductDetailsService } from './product-details.service';
 import { initFlowbite } from 'flowbite';
 import { ProductReviewsComponent } from "./product-reviews/product-reviews.component";
-import { NgFor, NgIf } from '@angular/common';
+import { NgClass, NgFor, NgIf } from '@angular/common';
 import { RecentlyViewedServiceService } from '../../services/recently-viewed-service.service';
+import { ToastService } from '../../core/services/toast.service';
 
 @Component({
   selector: 'app-product-details',
@@ -29,7 +30,8 @@ import { RecentlyViewedServiceService } from '../../services/recently-viewed-ser
     RightDrawerComponent,
     ProductReviewsComponent,
     NgFor,
-    NgIf
+    NgIf,
+    NgClass
   ],
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.css',
@@ -57,7 +59,8 @@ export class ProductDetailsComponent {
     private activatedRoute: ActivatedRoute,
     private productDetails: ProductDetailsService,
     private recentlyViewedService: RecentlyViewedServiceService,
-    private router: Router
+    private router: Router,
+    private toastService: ToastService,
   ) {}
 
   onAddToCart() {
@@ -77,10 +80,10 @@ export class ProductDetailsComponent {
 
         this.cartService.addToCart(cartItem);
       } else {
-        alert('Not enough stock available');
+        this.toastService.showToast("Not enough stock available", 'error')
       }
     } else {
-      alert('Please select a valid color and size');
+      this.toastService.showToast("select a valid color and size", 'error')
     }
   }
 
@@ -118,9 +121,9 @@ export class ProductDetailsComponent {
         this.selectedColor = this.colors[0];
         this.availableSizes = this.getSizesByColor(this.selectedColor);
         this.selectedSize = this.availableSizes[0];
-        this.updatePrice(); 
+        this.updatePrice();
 
-        console.log(product);
+        // console.log("colors",this.availableColors, "sizes", this.availableSizes);
 
         this.recentlyViewedService.addToRecentlyViewed(this.data); // Add product to recently viewed
         this.loadRecentlyViewedProducts(); // Load recently viewed products
@@ -131,8 +134,6 @@ export class ProductDetailsComponent {
     });
     });
     console.log("slug",routeSlug);
-    
-    
   }
 
   ngOnInit() {
