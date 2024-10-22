@@ -25,26 +25,31 @@ export class HomeComponent {
   categoryCards?: any;
   products: any = [];
   colors: string[] = [];
+  discount_value: number = 0;
 
 
   constructor(private categoryService: CategoriesService, private productsService: AllProductsService) {}
   ngOnInit() {
     this.categoryService.getAllCategories().subscribe((res:any) => {
-      console.log(res.data);
       this.categoryCards = res.data;
 
     });
     this.productsService.getProducts().subscribe((res:any)=>{
-      console.log(res.data);
       this.products = res.data;
+      this.products.forEach((product: any) =>{
+        if (product.discount_value){
+          product.priceAfterDiscount = this.productsService.calculateDiscount(product.discount_type, product.discount_value, product.price);
+        }
+        else{
+          product.discount_value = 0;
+        }
+      });
   });
 
   this.updateMaxVisibleCards(); 
     window.addEventListener('resize', this.updateMaxVisibleCards.bind(this)); 
   }
   
-
- 
 
   getTransform() {
     return `translateX(-${this.categoryCurrentIndex * 33.33}%)`;

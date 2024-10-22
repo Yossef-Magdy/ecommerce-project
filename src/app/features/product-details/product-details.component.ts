@@ -15,6 +15,7 @@ import { ProductReviewsComponent } from "./product-reviews/product-reviews.compo
 import { NgClass, NgFor, NgIf } from '@angular/common';
 import { RecentlyViewedServiceService } from '../../services/recently-viewed-service.service';
 import { ToastService } from '../../core/services/toast.service';
+import { AllProductsService } from '../collection/all-products.service';
 
 @Component({
   selector: 'app-product-details',
@@ -61,6 +62,7 @@ export class ProductDetailsComponent {
     private recentlyViewedService: RecentlyViewedServiceService,
     private router: Router,
     private toastService: ToastService,
+    private allProductsService: AllProductsService,
   ) {}
 
   onAddToCart() {
@@ -195,17 +197,17 @@ export class ProductDetailsComponent {
       this.selectedPrice = selectedDetail.price;
       this.selectedStock = selectedDetail.stock;  // Update the stock
       this.selectedProductDetailId = selectedDetail.product_detail_id;
-      console.log(this.selectedProductDetailId);
-      
-      if (this.data.discount_value !== 0){
-        this.discountPrice = this.selectedPrice - this.data.discount_value;
+      if (this.data.discount_value){
+          this.discountPrice = this.allProductsService.calculateDiscount(this.data.discount_type, this.data.discount_value, this.selectedPrice);
       }
 
-    } else {
+    } 
+    else {
+      // user didn't change default details selection
       this.selectedPrice = 0;
       this.selectedStock = 0;
-      if (this.data.discount_value !== 0){
-        this.discountPrice = this.data.price - this.data.discount_value;
+      if (this.data.discount_value){
+        this.discountPrice = this.allProductsService.calculateDiscount(this.data.discount_type, this.data.discount_value, this.selectedPrice);
       }
     }
   }

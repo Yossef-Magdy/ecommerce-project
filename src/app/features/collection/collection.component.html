@@ -20,7 +20,7 @@
         <!--In case of discount-->
         @if (card.discount_value) {
         <span class="me-2 old-price">LE {{ card.price }}</span>
-        <span class="price">LE {{ card.price - card.discount_value }}</span>
+        <span class="price">LE {{ card.priceAfterDiscount }}</span>
         } @else {
         <span class="me-2 price">LE {{ card.price }}</span>
         }
