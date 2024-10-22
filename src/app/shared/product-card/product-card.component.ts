@@ -4,6 +4,7 @@ import { RecentlyViewedServiceService } from '../../services/recently-viewed-ser
 import { RouterLink } from '@angular/router';
 import { NgClass } from '@angular/common';
 import { ArrowsUpdatedComponent } from "../arrows-updated/arrows-updated.component";
+import { AllProductsService } from '../../features/collection/all-products.service';
 
 @Component({
   selector: 'app-product-card',
@@ -18,14 +19,19 @@ export class ProductCardComponent {
   clothsCurrentIndex = 0;
   maxClothsVisibleCards = 4;
 
-  constructor(private recentlyViewedService: RecentlyViewedServiceService){}
+  constructor(private recentlyViewedService: RecentlyViewedServiceService, private productsService: AllProductsService){}
 
   ngOnInit(){
     this.recentlyViewedService.getRecentlyViewed().subscribe((products: any) => {
       this.clothsCards = products; 
-      console.log(this.clothsCards);
       this.clothsCards.forEach((card) => {
         card.current_image = card.cover_image;
+        if (card.discount_value){
+          card.priceAfterDiscount = this.productsService.calculateDiscount(card.discount_type, card.discount_value, card.price);
+        }
+        else{
+          card.discount_value = 0;
+        }
       });
     });
 
@@ -58,7 +64,5 @@ export class ProductCardComponent {
     } else {
       this.maxClothsVisibleCards = 2; // Small and XS screens
     }
-
-    console.log('Max visible cards: ', this.maxClothsVisibleCards);
   }
 }
