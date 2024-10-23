@@ -1,0 +1,48 @@
+<div class="tracking-wider grid grid-rows-[auto,1fr] grid-cols-1 justify-items-center">
+    <header class="w-full z-30 text-black bg-white shadow-md py-5 lg:px-14 md:px-10 px-6">
+        <nav class="grid grid-cols-3">
+            <ul class="flex gap-6 capitalize font-light">
+                <li><a routerLink="/">home</a></li>
+            </ul>
+            <div class="flex justify-center relative">
+                <span class="logo">
+                    <span class="elegant">ELEGANT</span>
+                    <span class="wear">wear</span>
+                </span>
+                
+                <style>
+                    .logo svg {
+                        max-width: 150px;  /* Set the max width to fit well in the header */
+                        max-height: 100px; /* Set the max height to fit within header height */
+                    }
+                </style>
+                
+            </div>
+        </nav>
+    </header>
+    <div class="p-4 w-[400px] mt-8">
+        <h1 class="text-4xl uppercase font-light text-center mb-4">dashboard login</h1>
+        <form class="flex flex-col gap-6 w-full" [formGroup]="loginForm">
+            <div class="flex flex-col gap-2 group">
+                <app-label for="email" text="email*"/>
+                <input type="email" id="email" placeholder="Enter your email" class="group-hover:border-black border px-4 text-xs h-12" formControlName="email">
+                @if (email.touched || email.dirty) {
+                    @if (email.hasError('required')) {
+                        <p role="alert" class="text-red-800 text-xs">Email is required</p>
+                    }
+                    @if (email.hasError('email')) {
+                        <p role="alert" class="text-red-800 text-xs">Please enter an email</p>
+                    }
+                }
+            </div>
+            <div class="flex flex-col gap-2 group">
+                <app-label for="password" text="password*"/>
+                <input type="password" id="password" placeholder="Enter your password" class="group-hover:border-black border px-4 text-xs h-12" formControlName="password">
+                @if ((password.touched || password.dirty) && password.hasError('required')) {
+                    <p role="alert" class="text-red-800 text-xs">Password is required</p>
+                }
+            </div>
+            <app-black-button text="login" class="w-fit" (click)="submit()"/>
+        </form>
+    </div>
+</div>

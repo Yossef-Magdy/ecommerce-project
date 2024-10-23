@@ -99,7 +99,10 @@ export class AddProductComponent {
         this.productForm.reset();
         this.coverImageFile = null;
         this.coverImageUrl = null;
+        this.productImagesFiles = null;
+        this.productImagesUrls = null;
         this.renderer.setProperty(this.coverImage.nativeElement, 'value', '');
+        this.renderer.setProperty(this.productImages.nativeElement, 'value', '');
       }
     });
   }

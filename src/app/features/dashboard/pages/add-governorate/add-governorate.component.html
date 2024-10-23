@@ -1,5 +1,5 @@
 <div class="p-4">
-    <h1 class="text-4xl uppercase font-light mb-4">create a new governorate</h1>
+    <h1 class="text-4xl uppercase font-light mb-4">create a new location</h1>
     <form class="grid items-start gap-6" [formGroup]="governorateForm">
         <div class="flex flex-col gap-2 group">
             <app-label for="name" text="governorate name*"/>
@@ -14,13 +14,13 @@
             <input type="number" id="fee" placeholder="Name" class="group-hover:border-black border px-4 text-xs h-12" formControlName="fee">
             @if ((fee.touched || fee.dirty)) {
                 @if (fee.hasError('required')) {
-                    <p role="alert" class="text-red-800 text-xs">fee is required</p>
+                    <p role="alert" class="text-red-800 text-xs">Fee is required</p>
                 }
                 @if (fee.hasError('min')) {
-                    <p role="alert" class="text-red-800 text-xs">fee must be greater than 0</p>
+                    <p role="alert" class="text-red-800 text-xs">Fee must be greater than 0</p>
                 }
             }
         </div>
-        <app-black-button text="create" (click)="submit()"/>
+        <app-black-button text="create" (click)="submit()" class="w-fit"/>
     </form>  
 </div>

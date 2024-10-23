@@ -4,16 +4,26 @@
         <div class="flex flex-col gap-2 group col-span-full">
             <app-label for="coupon-code" text="coupon code*"/>
             <input type="text" id="coupon-code" placeholder="Coupon Code" class="group-hover:border-black border px-4 text-xs h-12" formControlName="coupon_code">
-            @if ((couponCode.touched || couponCode.dirty) && couponCode.hasError('required')) {
-                <p role="alert" class="text-red-800 text-xs">Coupon code is required</p>
+            @if (couponCode.touched || couponCode.dirty) {
+                @if (couponCode.hasError('required')) {
+                    <p role="alert" class="text-red-800 text-xs">Coupon code is required</p>
+                }
+                @if (couponCode.hasError('notAlphaDash')) {
+                    <p role="alert" class="text-red-800 text-xs">Coupon code contain only lowercase and uppercase letters, digits, - and _  </p>
+                }
             }
         </div>
 
         <div class="flex flex-col gap-2 group col-span-full">
             <app-label for="uses-count" text="uses count"/>
             <input type="number" id="uses-count" placeholder="Uses Count" class="group-hover:border-black border px-4 text-xs h-12" formControlName="uses_count">
-            @if ((usesCount.touched || usesCount.dirty) && usesCount.hasError('min')) {
-                <p role="alert" class="text-red-800 text-xs">Uses count should not be less than 50</p>
+            @if ((usesCount.touched || usesCount.dirty)) {
+                @if (usesCount.hasError('required')) {
+                    <p role="alert" class="text-red-800 text-xs">Uses count is required</p>
+                }
+                @if (usesCount.hasError('min')) {
+                    <p role="alert" class="text-red-800 text-xs">Uses count should not be less than 50</p>
+                }
             }
         </div>
 
@@ -36,10 +46,7 @@
         <div class="flex flex-col gap-2 group col-span-full">
             <app-label for="expiry-date" text="expiry date"/>
             <input type="date" id="expiry-date" placeholder="Expiry Date" class="group-hover:border-black border px-4 text-xs h-12" formControlName="expiry_date">
-            @if ((expiryDate.touched || expiryDate.dirty) && expiryDate.hasError('pastDate')) {
-                <p role="alert" class="text-red-800 text-xs">Expiry date should be a future date</p>
-            }
         </div>
-        <app-black-button text="create" (click)="submit()"/>
+        <app-black-button text="create" (click)="submit()" class="w-fit"/>
     </form>  
 </div>
