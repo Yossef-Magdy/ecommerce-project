@@ -76,6 +76,7 @@ export class ProductDetailsComponent {
           color: this.selectedColor,
           size: this.selectedSize,
           price: this.selectedPrice,
+          priceAfterDiscount: this.discountPrice,
           stock: this.selectedStock,
           quantity: this.quantity,
         };

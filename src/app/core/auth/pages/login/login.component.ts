@@ -60,6 +60,7 @@ export class LoginComponent {
                 color: item.color,
                 size: item.size,
                 price: item.price,
+                priceAfterDiscount: item.priceAfterDiscount,
                 stock: item.stock,
                 quantity: item.quantity,
               });

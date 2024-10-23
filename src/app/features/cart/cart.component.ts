@@ -14,25 +14,26 @@ import { Subject, takeUntil } from 'rxjs';
 })
 export class CartComponent {
   data : CartItem[] = [];
-  totalPrice: number = 0;
+  subTotalPrice: number = 0;
   private destroy$ = new Subject<void>();
   
   constructor(private cartService: CartService){}
 
   updateQuantity(updatedItem: { productDetailId: number, quantity: number }) {
     this.cartService.updateQuantity(updatedItem.productDetailId, updatedItem.quantity);
-    this.calculateTotalPrice();
+    this.calculatesubTotalPrice();
   }
 
-  calculateTotalPrice() {
-    this.totalPrice = this.data.reduce((total, item) => {
+  calculatesubTotalPrice() {
+    this.subTotalPrice = this.data.reduce((total, item) => {
+      if (item.priceAfterDiscount) return total + item.priceAfterDiscount * item.quantity;
       return total + item.price * item.quantity;
     }, 0);
   }
 
   deleteItem(productDetailId: number){
     this.cartService.deleteItem(productDetailId);
-    this.calculateTotalPrice();
+    this.calculatesubTotalPrice();
   }
 
 
@@ -40,7 +41,7 @@ export class CartComponent {
     this.cartService.getItems().pipe(takeUntil(this.destroy$))
     .subscribe((items:CartItem[])=>{
       this.data = items;
-      this.calculateTotalPrice();
+      this.calculatesubTotalPrice();
     });
   }
 

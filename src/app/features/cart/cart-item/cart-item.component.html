@@ -8,9 +8,14 @@
         <h2 class="text-lg my-2">{{cartItem.name}}</h2>
         <p class="my-2">Color: {{cartItem.color}}</p>
         <p class="my-2">Size: {{cartItem.size}}</p>
-        <span class="block my-2">
-            LE {{cartItem.price}}
-        </span>
+        <div>
+            @if (cartItem.priceAfterDiscount) {
+                <span class="me-2 old-price">LE {{ cartItem.price }}</span>
+                <span class="price">LE {{ cartItem.priceAfterDiscount}}</span>
+            } @else {
+                <span class="me-2 price">LE {{ cartItem.price }}</span>
+            }
+        </div>
         <!-- counter -->
         <div class="inline-flex items-center gap-4 border p-2 my-2">
             <button aria-label="minus-btn" (click)="decreaseQuantity()">

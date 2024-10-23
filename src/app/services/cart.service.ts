@@ -11,6 +11,7 @@ export interface CartItem {
   color: string;
   size: string;
   price: number;
+  priceAfterDiscount: number | null;
   stock: number;
   quantity: number;
 }
@@ -44,6 +45,7 @@ export class CartService {
     } else {
       // If the item does not exist, add it to the cart
       currentItems.push(cartItem);
+      this.toastService.showToast("Product is added successfully", "success");
     }
   
     // Emit the updated cart items
