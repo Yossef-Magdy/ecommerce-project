@@ -7,7 +7,6 @@ import { LabelComponent } from "../../../../core/auth/components/label/label.com
 import { PaginationComponent } from "../../../../shared/pagination/pagination.component";
 import { PaginationService } from '../../../../shared/pagination/services/pagination.service';
 import { initModals } from 'flowbite';
-import { RxReactiveFormsModule } from "@rxweb/reactive-form-validators";
 import { CategoryService } from '../../services/category.service';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { Renderer2 } from '@angular/core';
@@ -16,7 +15,7 @@ import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-manage-products',
   standalone: true,
-  imports: [ReactiveFormsModule, BlackButtonComponent, ButtonComponent, LabelComponent, PaginationComponent, RxReactiveFormsModule, NgSelectModule, RouterLink],
+  imports: [ReactiveFormsModule, BlackButtonComponent, ButtonComponent, LabelComponent, PaginationComponent, NgSelectModule, RouterLink],
   templateUrl: './manage-products.component.html',
   styleUrl: './manage-products.component.css'
 })
