@@ -25,6 +25,12 @@ export class CollectionComponent {
         this.length = this.clothsCards.length;
         this.clothsCards.forEach((card) => {
           card.current_image = card.cover_image;
+          if (card.discount_value){
+            card.priceAfterDiscount = this.allProducts.calculateDiscount(card.discount_type, card.discount_value, card.price);
+          }
+          else{
+            card.discount_value = 0;
+          }
         });
       }
     );
