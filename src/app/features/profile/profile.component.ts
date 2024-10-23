@@ -24,6 +24,7 @@ export class ProfileComponent {
   addresses: any;
   governorates: any;
   selectedTab: string = 'overview';
+  cartEmpty: boolean = true;
   constructor(private authService: AuthService, private userService: UserService, private cartService: CartService) {}
   ngOnInit() {
     if (this.selectedTab === 'address') {
@@ -47,15 +48,22 @@ export class ProfileComponent {
   }
 
   logout() {
-    this.userService.sendCartItems().subscribe({
-      next: (response) => {
-        console.log("Request successful", response);
-      },
-      error: (err) => {
-        console.error("Error sending cart items", err);
-      }
+    this.cartService.getItems().subscribe((res)=>{
+      if (res.length) this.cartEmpty = false;
     });
-    this.cartService.clearItems();
+
+    //checks if the cart empty don't send request
+    if (!this.cartEmpty){
+      this.userService.sendCartItems().subscribe({
+        next: (response) => {
+          console.log("Request successful", response);
+        },
+        error: (err) => {
+          console.error("Error sending cart items", err);
+        }
+      });
+      this.cartService.clearItems();
+    }
     this.authService.logout();
   }
 }

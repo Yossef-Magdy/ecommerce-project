@@ -44,6 +44,7 @@ export class CheckoutComponent implements OnInit {
   validCoupon: boolean = false;
   coupon!: any;
   totalDiscounts : number = 0;
+  cartEmpty: boolean = true;
 
 
   constructor(private router: Router, private paymentService: PaymentService, private cartService: CartService, private addressService: AddressService, private authService: AuthService, private governerateService: GovernorateService, private couponService: CouponService, private userService: UserService, private toastService: ToastService) {}
@@ -82,15 +83,22 @@ export class CheckoutComponent implements OnInit {
   }
 
   onLogout() {
-    this.userService.sendCartItems().subscribe({
-      next: (response) => {
-        console.log("Request successful", response);
-      },
-      error: (err) => {
-        console.error("Error sending cart items", err);
-      }
+    this.cartService.getItems().subscribe((res)=>{
+      if (res.length) this.cartEmpty = false;
     });
-    this.cartService.clearItems();
+
+    //checks if the cart empty don't send request
+    if (!this.cartEmpty){
+      this.userService.sendCartItems().subscribe({
+        next: (response) => {
+          console.log("Request successful", response);
+        },
+        error: (err) => {
+          console.error("Error sending cart items", err);
+        }
+      });
+      this.cartService.clearItems();
+    }
     this.isUserLoggedIn = false;
     this.authService.logout();
   }
