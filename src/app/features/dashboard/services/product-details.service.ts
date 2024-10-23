@@ -39,4 +39,13 @@ export class ProductDetailsService {
       catchError((error: any) => of(false))
     );
   }
+
+  getPossibleSubcategories(product_id: number) {
+    return this.http.get(`/control/possible-subcategories/${product_id}`).pipe(
+      catchError ((error) => {
+        this.toastService.showToast('an error occurred when getting possible subcategories', 'error');
+        return of ([])
+      })
+    )
+  }
 }

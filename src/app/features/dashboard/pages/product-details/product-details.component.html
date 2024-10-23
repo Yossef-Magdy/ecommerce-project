@@ -338,6 +338,20 @@
                                 formControlName="categories">
                                 </ng-select>  
                             </div>
+                            <div class="flex flex-col gap-2 col-span-full">
+                                <app-label text="subcategories"/>
+                                <ng-select 
+                                [items]="subcategories"
+                                [clearable]="true"
+                                [multiple]="true"
+                                bindLabel="name"
+                                bindValue="id"
+                                [closeOnSelect]="false"
+                                [groupBy]="subcategoriesHelper"
+                                placeholder="Subcategories"
+                                formControlName="subcategories">
+                                </ng-select>  
+                            </div>
                             <div class="flex flex-col gap-2 col-span-full w-fit">
                                 <app-label for="cover-image" text="cover image"/>
                                 <input type="file" id="cover-image" class="px-4 text-xs h-12" (change)="handleCoverImage($event)" #cover_image>

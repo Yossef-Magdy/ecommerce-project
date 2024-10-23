@@ -36,6 +36,7 @@ export class ProductDetailsComponent {
     id: -1,
     name: 'no category',
   }];
+  subcategories?: any;
 
   constructor(private activatedRoute: ActivatedRoute, 
     private productService: ProductService,
@@ -57,6 +58,7 @@ export class ProductDetailsComponent {
       price: new FormControl('', [Validators.required, Validators.min(0)]),
       description: new FormControl('', [Validators.required]),
       categories: new FormControl([]),
+      subcategories: new FormControl([]),
     });
     this.discountForm = new FormGroup({
       status: new FormControl(''),
@@ -73,6 +75,7 @@ export class ProductDetailsComponent {
     const id = this.activatedRoute.snapshot.params['id'];
     this.productService.getProduct(id).subscribe((result: any) => {
       this.product = result.data;
+      this.getPossibleSubcategories();
       setTimeout(() => {
         initModals();
       }, 50);
@@ -98,6 +101,10 @@ export class ProductDetailsComponent {
     return this.productForm.controls['categories'];
   }
 
+  get productSubcategories() {
+    return this.productForm.controls['subcategories'];
+  }
+
   get discountStatus() {
     return this.discountForm.controls['status'];
   }
@@ -115,6 +122,10 @@ export class ProductDetailsComponent {
 
   get expiryDate() {
     return this.discountForm.controls['expiry_date'];
+  }
+
+  subcategoriesHelper(item: any) {
+    return item.category.name;
   }
 
   invalidPercent(): ValidatorFn {
@@ -243,6 +254,7 @@ export class ProductDetailsComponent {
       price: this.product.price,
       description: this.product.description,
       categories: this.product.categories.map((category: any) => category.id),
+      subcategories: this.product.subcategories.map((subcategory: any) => subcategory.id),
     });
     this.coverImageFile = null;
     this.coverImageUrl = null;
@@ -260,6 +272,8 @@ export class ProductDetailsComponent {
     data.append('price', this.price.value || '');
     data.append('description', this.description.value || '');
     data.append('categories', JSON.stringify(this.productCategories.value));
+    data.append('subcategories', JSON.stringify(this.productSubcategories.value));
+
     data.append('_method', 'put');
     if (this.coverImageFile) {
       data.append('cover_image', this.coverImageFile);
@@ -271,12 +285,21 @@ export class ProductDetailsComponent {
     }
     this.productService.updateProduct(data, id).subscribe((response: any) => {
       const data = response.data;
+      console.log('product', this.product);
+      console.log('data', data);
       for (let key of Object.keys(this.product)) {
         if (data[key]) {
           this.product[key] = data[key];
         }
       }
+      this.getPossibleSubcategories();
     })
+  }
+
+  getPossibleSubcategories() {
+    this.productDetailsService.getPossibleSubcategories(this.product.id).subscribe((result: any) => {
+      this.subcategories = result;
+    });
   }
 
   updateDetails() {
