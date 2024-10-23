@@ -4,8 +4,9 @@ import {
   HttpErrorResponse,
   HttpStatusCode,
 } from '@angular/common/http';
-import { BehaviorSubject, catchError, concatMap, map, Observable, of, tap } from 'rxjs';
+import { BehaviorSubject, catchError, concatMap, map, Observable, of, take, tap } from 'rxjs';
 import { Router } from '@angular/router';
+import { ToastService } from '../../services/toast.service';
 @Injectable({
   providedIn: 'root',
 })
@@ -18,7 +19,7 @@ export class AuthService {
   hasRolesOrPermissions = this.hasRolesOrPermissionsSubject.asObservable();
   validLogin = this.validLoginSubject.asObservable();
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private toastService: ToastService) { }
 
   login(userData: any) {
     return this.http.post('/login', userData).pipe(
@@ -101,11 +102,17 @@ export class AuthService {
   }
 
   logout() {
-    this.removeToken();
-    this.setUserData(null);
-    this.setHasRolesOrPermissions(false);
-    this.setValidLogin(false);
-    this.goHome();
+    this.http.post('/logout', {}).pipe(
+      take(1),
+      tap((response: any) => {
+        this.removeToken();
+        this.setUserData(null);
+        this.setHasRolesOrPermissions(false);
+        this.setValidLogin(false);
+        this.toastService.showToast(response.message, "success");
+        this.goHome();
+      })
+    ).subscribe();
   }
   checkUser(): Observable<boolean> {
     return this.http.get('/user').pipe(
