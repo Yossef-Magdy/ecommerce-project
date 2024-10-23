@@ -288,6 +288,6 @@ export class CheckoutComponent implements OnInit {
     setTimeout(() => {
       this.cartService.clearItems();
       this.router.navigate(['/']); 
-    }, 4000);
+    }, 1000);
   }
 }

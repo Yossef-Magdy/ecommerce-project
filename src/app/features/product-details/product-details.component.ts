@@ -68,6 +68,7 @@ export class ProductDetailsComponent {
   onAddToCart() {
     if (this.selectedColor && this.selectedSize && this.quantity > 0) {
       if (this.quantity <= this.selectedStock) {
+        this.toastService.showToast("Product is added successfully", "success");
         const cartItem: CartItem = {
           productDetailId: this.selectedProductDetailId,
           productSlug:this.data.slug,
@@ -130,7 +131,12 @@ export class ProductDetailsComponent {
 
         this.recentlyViewedService.addToRecentlyViewed(this.data); // Add product to recently viewed
         this.loadRecentlyViewedProducts(); // Load recently viewed products
+
+        setTimeout(() => {
+          initFlowbite();
+        }, 1000);
       });
+
 
     this.cartService.getItems().subscribe((items) => {
       this.cartItems = items;
@@ -143,9 +149,6 @@ export class ProductDetailsComponent {
     this.getProduct();
   }
 
-  ngAfterViewInit() {
-    initFlowbite();
-  }
 
   // Get available sizes based on selected color
   getSizesByColor(color: string): string[] {
