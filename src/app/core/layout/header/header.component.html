@@ -9,32 +9,6 @@
                 aria-controls="navbar-default" aria-expanded="false">
                 <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
                     <path stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M1 1h15M1 7h15M1 13h15"/>
-
-        <ul class="flex gap-6 capitalize font-light">
-            <li><a routerLink="/">home</a></li>
-            <li><a routerLink="/collections">shop</a></li>
-            <li><a routerLink="/contact">contact</a></li>
-        </ul>
-        <div class="flex justify-center">
-            <span class="logo m-auto">
-                <img class="m-auto" src="assets/logo.png" alt="">
-            </span>
-            
-            <style>
-                .logo svg {
-                    max-width: 150px;  /* Set the max width to fit well in the header */
-                    max-height: 100px; /* Set the max height to fit within header height */
-                }
-            </style>
-            
-        </div>
-        <ul class="flex gap-6 capitalize font-light justify-end">
-            <li>
-                <a routerLink="search">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M14.8398 15.1072L20.143 21" stroke="#111111"></path>
-                    <path d="M10.7146 16.7143C14.5017 16.7143 17.5717 13.6442 17.5717 9.85714C17.5717 6.07005 14.5017 3 10.7146 3C6.92747 3 3.85742 6.07005 3.85742 9.85714C3.85742 13.6442 6.92747 16.7143 10.7146 16.7143Z" stroke="#111111" data-ignore-fill=""></path>
-
                 </svg>
             </button>
             <a routerLink="/" class="logo m-auto block lg:hidden">
@@ -62,9 +36,6 @@
                 <li><a routerLink="/">home</a></li>
                 <li><a routerLink="/collections">shop</a></li>
                 <li><a routerLink="/contact">contact</a></li>
-                @if (hasRolesOrPermissions) {
-                <li><a routerLink="/dashboard">dashboard</a></li>
-                }
             </ul>
             <a routerLink="/" class="logo m-auto hidden lg:block">
                 <img class="m-auto" src="assets/logo.png" alt="Logo" />
