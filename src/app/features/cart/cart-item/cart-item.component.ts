@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CartItem } from '../../../services/cart.service';
+import { ToastService } from '../../../core/services/toast.service';
 
 export interface CartEmitter {
   index: number;
@@ -20,6 +21,8 @@ export class CartItemComponent {
   @Output() quantityChangeEmitter = new EventEmitter<{ productDetailId: number, quantity: number }>();
   @Output() deleteItemEmitter = new EventEmitter<number>();
 
+  constructor(private toastService: ToastService){}
+
   decreaseQuantity(){
     if (this.cartItem.quantity > 1){
       this.cartItem.quantity--;
@@ -32,6 +35,9 @@ export class CartItemComponent {
       this.cartItem.quantity++;
       this.onUpdateQuantity();
     }
+    else{
+      this.toastService.showToast("Not enough stock", "error");
+    }
   }
 
   deleteItem() {
@@ -40,5 +46,9 @@ export class CartItemComponent {
 
   onUpdateQuantity() {
     this.quantityChangeEmitter.emit({ productDetailId: this.cartItem.productDetailId, quantity: this.cartItem.quantity });
+  }
+
+  ngOnInit(){
+    console.log(this.cartItem);
   }
 }

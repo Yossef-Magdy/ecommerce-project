@@ -45,7 +45,7 @@
                 }
             </div>
             <p class="shipping my-3">
-                <a [routerLink]="['/shipping-policy']" routerLinkActive="router-link-active">
+                <a [routerLink]="['/policies/shipping-policy']" routerLinkActive="router-link-active">
                     Shipping
                 </a> calculated at checkout.
             </p>
@@ -71,24 +71,13 @@
             <label for="size">Size</label>
             <ul class="flex flex-row gap-1 my-3">
                 @for(size of sizes; track $index){
-                    @if (availableSizes.includes(size)){
-                        <li class="size_icon">
-                            <input type="radio" class="visually-hidden" name="size" [id]="size" [value]="size"
-                                (change)="onSizeSelect(size)" [checked]="size === selectedSize" />
-                            <label [for]="size" class="swatch" [title]="size">
-                                <span class="size">{{ size }}</span>
-                            </label>
-                        </li>
-                    }
-                    @else {
-                        <li class="size_icon">
-                            <input type="radio" class="visually-hidden" name="size" [id]="size" [value]="size"
-                                (change)="onSizeSelect(size)" [checked]="size === selectedSize" />
-                            <label [for]="size" class="swatch sold-out" [title]="size">
-                                <span class="size">{{ size }}</span>
-                            </label>
-                        </li>
-                    }
+                    <li class="size_icon">
+                        <input type="radio" class="visually-hidden" name="size" [id]="size" [value]="size"
+                            (change)="onSizeSelect(size)" [checked]="size === selectedSize" />
+                        <label [for]="size" class="swatch" [ngClass]="{'sold-out': !availableSizes.includes(size)}" [title]="size">
+                            <span class="size">{{ size }}</span>
+                        </label>
+                    </li>
                 }
             </ul>
             }

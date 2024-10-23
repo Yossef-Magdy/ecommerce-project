@@ -4,6 +4,7 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angul
 import { Router, ActivatedRoute, RouterLink } from '@angular/router';
 import { debounceTime, isEmpty, of, Subject, switchMap, takeUntil } from 'rxjs';
 import { NgFor } from '@angular/common';
+import { AllProductsService } from '../collection/all-products.service';
 
 @Component({
   selector: 'app-search',
@@ -19,7 +20,7 @@ export class SearchComponent {
   searched: boolean = false;
   private destroy$ = new Subject<void>();
 
-  constructor(private searchService: SearchService, private router: Router, private activatedRoute: ActivatedRoute ){}
+  constructor(private searchService: SearchService, private router: Router, private activatedRoute: ActivatedRoute, private allProducts: AllProductsService ){}
 
   searchForm = new FormGroup({
     productName : new FormControl(''),
@@ -46,6 +47,12 @@ export class SearchComponent {
 
       this.products.forEach((product) => {
         product.current_image = product.cover_image;
+        if (product.discount_value){
+          product.priceAfterDiscount = this.allProducts.calculateDiscount(product.discount_type, product.discount_value, product.price);
+        }
+        else{
+          product.discount_value = 0;
+        }
       });
 
     });

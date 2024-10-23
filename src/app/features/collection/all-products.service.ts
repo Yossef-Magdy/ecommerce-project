@@ -25,4 +25,15 @@ export class AllProductsService {
   getProductsBySubCategoryName(subcategoryName: string): Observable<any> {
     return this.http.get(`/collections/${subcategoryName}`);
   }
+
+  calculateDiscount(discount_type: string, discount_value: number, price: number): number{
+    let priceAfterDiscount = 0;
+    if (discount_type === 'fixed'){
+      priceAfterDiscount = Number(price) - Number(discount_value);
+    }
+    else if (discount_type === 'percentage'){
+      priceAfterDiscount = Number(price) - (Number(price) * Number(discount_value) / 100);
+    }
+    return priceAfterDiscount;
+  }
 }

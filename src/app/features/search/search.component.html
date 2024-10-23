@@ -41,7 +41,7 @@
 
             @if (product.discount_value) {
             <span class="me-2 old-price">LE {{ product.price }}</span>
-            <span class="price">LE {{ product.price - product.discount_value }}</span>
+            <span class="price">LE {{ product.priceAfterDiscount }}</span>
             } @else {
             <span class="me-2 price">LE {{ product.price }}</span>
             }

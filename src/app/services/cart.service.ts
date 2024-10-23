@@ -1,15 +1,17 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { IProduct } from '../data-interfaces';
+import { ToastService } from '../core/services/toast.service';
 
 export interface CartItem {
   productDetailId: number;
   productSlug: string;
-  coverImg:string;
+  coverImg: string;
   name: string;
   color: string;
   size: string;
   price: number;
+  priceAfterDiscount: number | null;
   stock: number;
   quantity: number;
 }
@@ -19,33 +21,35 @@ export interface CartItem {
 })
 export class CartService {
 
+  constructor(private toastService: ToastService) { }
+
   private items = new BehaviorSubject<CartItem[]>([]);
 
   addToCart(cartItem: CartItem) {
-    const updatedItems = this.items.value.map((item) => {
-      if (
-        item.productDetailId === cartItem.productDetailId
-      ) {
-        const newQuantity = item.quantity + cartItem.quantity;
-        return {
-          ...item,
-          quantity: newQuantity > item.price ? item.price : newQuantity,
-        };
+    const currentItems = this.items.value;
+    
+    const existingItem = currentItems.find((item) => item.productDetailId === cartItem.productDetailId);
+  
+    if (existingItem) {
+      // If the item exists, update its quantity
+      const newQuantity = existingItem.quantity + cartItem.quantity;
+
+      if (newQuantity > existingItem.stock) {
+        this.toastService.showToast("Not enough stock", 'error');
       }
-      return item;
-    });
-
-    // If the item with the same color and size doesn't exist, add it to the cart
-    if (
-      !updatedItems.find(
-        (item) =>
-          item.productDetailId === cartItem.productDetailId
-      )
-    ) {
-      updatedItems.push(cartItem);
+      else{
+        // Ensure the new quantity doesn't exceed the stock
+        existingItem.quantity = newQuantity > existingItem.stock ? existingItem.stock : newQuantity;
+      }
+      
+    } else {
+      // If the item does not exist, add it to the cart
+      currentItems.push(cartItem);
+      this.toastService.showToast("Product is added successfully", "success");
     }
-
-    this.items.next(updatedItems);
+  
+    // Emit the updated cart items
+    this.items.next([...currentItems]);
   }
 
   updateQuantity(productDetailId: number, quantity: number) {
@@ -54,12 +58,11 @@ export class CartService {
         return {
           ...item,
           quantity:
-            quantity > item.price ? item.price : quantity,
+            quantity > item.stock ? item.stock : quantity,
         };
       }
       return item;
     });
-
     this.items.next(updatedItems);
   }
 
@@ -81,7 +84,7 @@ export class CartService {
     this.items.next(updatedItems);
   }
 
-  clearItems(): void{
+  clearItems(): void {
     this.items.next([]);
   }
 
