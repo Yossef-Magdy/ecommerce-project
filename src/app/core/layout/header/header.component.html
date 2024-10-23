@@ -1,62 +1,97 @@
 <header class="sticky top-0 z-30 text-black bg-white shadow-md py-5 lg:px-14 md:px-10 px-6">
     <nav class="grid grid-cols-3">
-        <ul class="flex gap-6 capitalize font-light">
-            <li><a routerLink="/">home</a></li>
-            <li><a routerLink="/collections">shop</a></li>
-            <li><a routerLink="/contact">contact</a></li>
-            @if (hasRolesOrPermissions) {
-                <li><a routerLink="/dashboard">dashboard</a></li>
-            }
-        </ul>
-        <div class="flex justify-center">
-            <span class="logo m-auto">
-                <img class="m-auto" src="assets/logo.png" alt="">
-            </span>
-            
-            <style>
-                .logo svg {
-                    max-width: 150px;  /* Set the max width to fit well in the header */
-                    max-height: 100px; /* Set the max height to fit within header height */
-                }
-            </style>
-            
-        </div>
-        <ul class="flex gap-6 capitalize font-light justify-end">
-            <li>
-                <a routerLink="search">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M14.8398 15.1072L20.143 21" stroke="#111111"></path>
-                    <path d="M10.7146 16.7143C14.5017 16.7143 17.5717 13.6442 17.5717 9.85714C17.5717 6.07005 14.5017 3 10.7146 3C6.92747 3 3.85742 6.07005 3.85742 9.85714C3.85742 13.6442 6.92747 16.7143 10.7146 16.7143Z" stroke="#111111" data-ignore-fill=""></path>
+        <!-- Collapse button, Logo and cart for small screens -->
+        <div class="flex justify-between items-center col-span-3 lg:col-span-0">
+            <!-- Button to toggle navbar on small screens -->
+            <button data-collapse-toggle="navbar-default" type="button"
+                class="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
+                aria-controls="navbar-default" aria-expanded="false">
+                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+                    <path stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M1 1h15M1 7h15M1 13h15"/>
                 </svg>
+            </button>
+            <a routerLink="/" class="logo m-auto block lg:hidden">
+                <img class="m-auto" src="assets/logo.png" alt="Logo" />
             </a>
-            </li>
-            <li>
-                @if (validLogin) {
-                    <a routerLink="profile">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M4.00029 21C3.98298 18.9558 4.74365 16.9788 6.13358 15.4554C6.77735 14.7397 7.5675 14.1648 8.45267 13.7683C9.33783 13.3718 10.2982 13.1624 11.2713 13.1538H12.729C13.689 13.1538 14.6401 13.3587 15.5112 13.7554C16.4108 14.1706 17.2129 14.7643 17.8667 15.499C18.5551 16.2405 19.0922 17.1047 19.4489 18.0446C19.8094 18.99 19.996 19.9907 20 21M12.0002 10.4621C12.5046 10.4697 13.0055 10.3788 13.4738 10.1947C13.9421 10.0106 14.3683 9.73698 14.7278 9.38978C15.0872 9.04259 15.3727 8.62875 15.5675 8.17235C15.7623 7.71594 15.8627 7.22608 15.8627 6.73128C15.8627 6.23648 15.7623 5.74663 15.5675 5.29022C15.3727 4.83381 15.0872 4.41997 14.7278 4.07278C14.3683 3.72559 13.9421 3.45198 13.4738 3.26788C13.0055 3.08379 12.5046 2.99287 12.0002 3.00044C10.9912 3.00044 10.0235 3.39355 9.31006 4.0933C8.5966 4.79305 8.19579 5.74212 8.19579 6.73172C8.19579 7.72132 8.5966 8.67038 9.31006 9.37013C10.0235 10.0699 10.9912 10.4621 12.0002 10.4621Z" stroke="#111111" stroke-linecap="square" data-ignore-fill=""></path>
-                        </svg>
-                    </a>
-                } @else {
-                    <a routerLink="auth/login">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M4.00029 21C3.98298 18.9558 4.74365 16.9788 6.13358 15.4554C6.77735 14.7397 7.5675 14.1648 8.45267 13.7683C9.33783 13.3718 10.2982 13.1624 11.2713 13.1538H12.729C13.689 13.1538 14.6401 13.3587 15.5112 13.7554C16.4108 14.1706 17.2129 14.7643 17.8667 15.499C18.5551 16.2405 19.0922 17.1047 19.4489 18.0446C19.8094 18.99 19.996 19.9907 20 21M12.0002 10.4621C12.5046 10.4697 13.0055 10.3788 13.4738 10.1947C13.9421 10.0106 14.3683 9.73698 14.7278 9.38978C15.0872 9.04259 15.3727 8.62875 15.5675 8.17235C15.7623 7.71594 15.8627 7.22608 15.8627 6.73128C15.8627 6.23648 15.7623 5.74663 15.5675 5.29022C15.3727 4.83381 15.0872 4.41997 14.7278 4.07278C14.3683 3.72559 13.9421 3.45198 13.4738 3.26788C13.0055 3.08379 12.5046 2.99287 12.0002 3.00044C10.9912 3.00044 10.0235 3.39355 9.31006 4.0933C8.5966 4.79305 8.19579 5.74212 8.19579 6.73172C8.19579 7.72132 8.5966 8.67038 9.31006 9.37013C10.0235 10.0699 10.9912 10.4621 12.0002 10.4621Z" stroke="#111111" stroke-linecap="square" data-ignore-fill=""></path>
-                        </svg>
-                    </a>
-                }
-            </li>
-            <li class="flex flex-row">
+            <li class="flex flex-row block lg:hidden">
                 <a routerLink="/cart" class="relative inline-flex items-center">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M20.5 20.5H3.5V9H20.5V20.5Z" stroke="#111111" data-ignore-fill=""></path>
-                        <path d="M16.5 7.5C16.5 5.01472 14.4853 3 12 3C9.51472 3 7.5 5.01472 7.5 7.5" stroke="#111111" data-ignore-fill=""></path>
+                        <path d="M16.5 7.5C16.5 5.01472 14.4853 3 12 3C9.51472 3 7.5 5.01472 7.5 7.5" stroke="#111111"
+                            data-ignore-fill=""></path>
                     </svg>
                     <span class="sr-only">quantity</span>
                     @if (totalQuantity > 0){
-                        <div class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-black border-2 border-white rounded-full -top-2 -end-4 dark:border-gray-900">{{ totalQuantity }}</div>
+                    <div
+                        class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-black border-2 border-white rounded-full -top-2 -end-4 dark:border-gray-900">
+                        {{ totalQuantity }}</div>
                     }
                 </a>
             </li>
-        </ul>
+        </div>
+        <!-- Items in large screen -->
+        <div class="hidden justify-between items-center w-full lg:flex lg:w-auto col-span-3 lg:col-span-3" id="navbar-default">
+            <ul class="flex flex-col lg:flex-row gap-6 capitalize font-light mt-6 lg:mt-0">
+                <li><a routerLink="/">home</a></li>
+                <li><a routerLink="/collections">shop</a></li>
+                <li><a routerLink="/contact">contact</a></li>
+                @if (hasRolesOrPermissions) {
+                <li><a routerLink="/dashboard">dashboard</a></li>
+                }
+            </ul>
+            <a routerLink="/" class="logo m-auto hidden lg:block">
+                <img class="m-auto" src="assets/logo.png" alt="Logo" />
+            </a>
+            <!-- Right section for search, profile, and cart -->
+            <ul class="flex flex-col lg:flex-row gap-6 capitalize font-light justify-end mt-6 lg:mt-0">
+                <li>
+                    <a routerLink="search">
+                        <svg class="hidden lg:block" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M14.8398 15.1072L20.143 21" stroke="#111111"></path>
+                            <path
+                                d="M10.7146 16.7143C14.5017 16.7143 17.5717 13.6442 17.5717 9.85714C17.5717 6.07005 14.5017 3 10.7146 3C6.92747 3 3.85742 6.07005 3.85742 9.85714C3.85742 13.6442 6.92747 16.7143 10.7146 16.7143Z"
+                                stroke="#111111" data-ignore-fill=""></path>
+                        </svg>
+                        <span class="block lg:hidden">Search</span>
+                    </a>
+                </li>
+                <li>
+                    @if (validLogin) {
+                    <a routerLink="profile">
+                        <svg class="hidden lg:block" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M4.00029 21C3.98298 18.9558 4.74365 16.9788 6.13358 15.4554C6.77735 14.7397 7.5675 14.1648 8.45267 13.7683C9.33783 13.3718 10.2982 13.1624 11.2713 13.1538H12.729C13.689 13.1538 14.6401 13.3587 15.5112 13.7554C16.4108 14.1706 17.2129 14.7643 17.8667 15.499C18.5551 16.2405 19.0922 17.1047 19.4489 18.0446C19.8094 18.99 19.996 19.9907 20 21M12.0002 10.4621C12.5046 10.4697 13.0055 10.3788 13.4738 10.1947C13.9421 10.0106 14.3683 9.73698 14.7278 9.38978C15.0872 9.04259 15.3727 8.62875 15.5675 8.17235C15.7623 7.71594 15.8627 7.22608 15.8627 6.73128C15.8627 6.23648 15.7623 5.74663 15.5675 5.29022C15.3727 4.83381 15.0872 4.41997 14.7278 4.07278C14.3683 3.72559 13.9421 3.45198 13.4738 3.26788C13.0055 3.08379 12.5046 2.99287 12.0002 3.00044C10.9912 3.00044 10.0235 3.39355 9.31006 4.0933C8.5966 4.79305 8.19579 5.74212 8.19579 6.73172C8.19579 7.72132 8.5966 8.67038 9.31006 9.37013C10.0235 10.0699 10.9912 10.4621 12.0002 10.4621Z"
+                                stroke="#111111" stroke-linecap="square" data-ignore-fill=""></path>
+                        </svg>
+                        <span class="block lg:hidden">Profile</span>
+                    </a>
+                    } @else {
+                    <a routerLink="auth/login">
+                        <svg class="hidden lg:block" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M4.00029 21C3.98298 18.9558 4.74365 16.9788 6.13358 15.4554C6.77735 14.7397 7.5675 14.1648 8.45267 13.7683C9.33783 13.3718 10.2982 13.1624 11.2713 13.1538H12.729C13.689 13.1538 14.6401 13.3587 15.5112 13.7554C16.4108 14.1706 17.2129 14.7643 17.8667 15.499C18.5551 16.2405 19.0922 17.1047 19.4489 18.0446C19.8094 18.99 19.996 19.9907 20 21M12.0002 10.4621C12.5046 10.4697 13.0055 10.3788 13.4738 10.1947C13.9421 10.0106 14.3683 9.73698 14.7278 9.38978C15.0872 9.04259 15.3727 8.62875 15.5675 8.17235C15.7623 7.71594 15.8627 7.22608 15.8627 6.73128C15.8627 6.23648 15.7623 5.74663 15.5675 5.29022C15.3727 4.83381 15.0872 4.41997 14.7278 4.07278C14.3683 3.72559 13.9421 3.45198 13.4738 3.26788C13.0055 3.08379 12.5046 2.99287 12.0002 3.00044C10.9912 3.00044 10.0235 3.39355 9.31006 4.0933C8.5966 4.79305 8.19579 5.74212 8.19579 6.73172C8.19579 7.72132 8.5966 8.67038 9.31006 9.37013C10.0235 10.0699 10.9912 10.4621 12.0002 10.4621Z"
+                                stroke="#111111" stroke-linecap="square" data-ignore-fill=""></path>
+                        </svg>
+                        <span class="block lg:hidden">Login</span>
+                    </a>
+                    }
+                </li>
+                <li class="flex flex-row hidden lg:block">
+                    <a routerLink="/cart" class="relative inline-flex items-center">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20.5 20.5H3.5V9H20.5V20.5Z" stroke="#111111" data-ignore-fill=""></path>
+                            <path d="M16.5 7.5C16.5 5.01472 14.4853 3 12 3C9.51472 3 7.5 5.01472 7.5 7.5" stroke="#111111"
+                                data-ignore-fill=""></path>
+                        </svg>
+                        <span class="sr-only">quantity</span>
+                        @if (totalQuantity > 0){
+                        <div
+                            class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-black border-2 border-white rounded-full -top-2 -end-4 dark:border-gray-900">
+                            {{ totalQuantity }}</div>
+                        }
+                    </a>
+                </li>
+            </ul>
+        </div>
     </nav>
 </header>
