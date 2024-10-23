@@ -3,6 +3,7 @@ import { RouterLink } from '@angular/router';
 import { CartEmitter, CartItemComponent } from "./cart-item/cart-item.component";
 import { BlackButtonComponent } from "../../shared/black-button/black-button.component";
 import { CartService, CartItem } from '../../services/cart.service';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-cart',
@@ -14,6 +15,8 @@ import { CartService, CartItem } from '../../services/cart.service';
 export class CartComponent {
   data : CartItem[] = [];
   totalPrice: number = 0;
+  private destroy$ = new Subject<void>();
+  
   constructor(private cartService: CartService){}
 
   updateQuantity(updatedItem: { productDetailId: number, quantity: number }) {
@@ -34,9 +37,15 @@ export class CartComponent {
 
 
   ngOnInit(){
-    this.cartService.getItems().subscribe((items:CartItem[])=>{
+    this.cartService.getItems().pipe(takeUntil(this.destroy$))
+    .subscribe((items:CartItem[])=>{
       this.data = items;
       this.calculateTotalPrice();
     });
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

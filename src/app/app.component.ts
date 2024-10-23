@@ -7,11 +7,12 @@ import { initFlowbite } from 'flowbite';
 import { Router } from '@angular/router';
 import { ToastComponent } from "./core/layout/toast/toast.component";
 import { SpinnerComponent } from "./core/layout/spinner/spinner.component";
+import { MyCurrencyPipe } from './pipes/my-currency.pipe';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent, FooterComponent, SidebarComponent, ToastComponent, SpinnerComponent],
+  imports: [RouterOutlet, HeaderComponent, FooterComponent, SidebarComponent, ToastComponent, SpinnerComponent, MyCurrencyPipe],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

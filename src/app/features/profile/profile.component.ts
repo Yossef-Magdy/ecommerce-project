@@ -9,6 +9,8 @@ import { AuthService } from '../../core/auth/services/auth.service';
 import { AddressService } from './address.service';
 import { GovernorateService } from './governorate.service';
 import { UserService } from './user.service';
+import { CartService } from '../../services/cart.service';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-profile',
@@ -22,7 +24,7 @@ export class ProfileComponent {
   addresses: any;
   governorates: any;
   selectedTab: string = 'overview';
-  constructor(private authService: AuthService, private userService: UserService) {}
+  constructor(private authService: AuthService, private userService: UserService, private cartService: CartService) {}
   ngOnInit() {
     if (this.selectedTab === 'address') {
       this.selectedTab = 'address';
@@ -44,11 +46,16 @@ export class ProfileComponent {
     this.selectedTab = tab;
   }
 
-
-
-  
-
   logout() {
+    this.userService.sendCartItems().subscribe({
+      next: (response) => {
+        console.log("Request successful", response);
+      },
+      error: (err) => {
+        console.error("Error sending cart items", err);
+      }
+    });
+    this.cartService.clearItems();
     this.authService.logout();
   }
 }

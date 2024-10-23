@@ -37,6 +37,7 @@ import { SearchComponent } from './features/search/search.component';
 import { ProductDetailsComponent as DashboardProductDetails } from './features/dashboard/pages/product-details/product-details.component';
 import { AddressBookComponent } from './features/address-book/address-book.component';
 import { DashboarLoginComponent } from './core/auth/pages/dashboar-login/dashboar-login.component';
+import { CreateReviewComponent } from './features/create-review/create-review.component';
 
 
 export const routes: Routes = [
@@ -82,8 +83,8 @@ export const routes: Routes = [
         title: 'Profile',
         canActivate: [authGuard],
     },
-    { 
-        path: 'edit-address/:id', 
+    {
+        path: 'edit-address/:id',
         component: EditAddressComponent,
         title: 'Edit Address',
     },
@@ -111,6 +112,11 @@ export const routes: Routes = [
         path: 'reviews/:id',
         component: ProductReviewsComponent,
         title: 'Reviews',
+    },
+    {
+        path: 'create-review/:slug',
+        component: CreateReviewComponent,
+        title: 'Create Review'
     },
     {
         path: 'subcategories',

@@ -12,4 +12,8 @@ export class ProductReviewsServiceService {
   getReviewsById(producId:number):Observable<any>{
     return this.http.get(`/reviews?product_id=${producId}`)
   }
+
+  createReview(reviewData: any): Observable<any> {
+    return this.http.post(`/reviews`, reviewData);
+  }
 }
