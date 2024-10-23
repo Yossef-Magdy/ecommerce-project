@@ -35,7 +35,7 @@ export class ManageCouponsComponent {
       uses_count: new FormControl(50, [Validators.min(50)]),
       discount_type: new FormControl('fixed'),
       discount_value: new FormControl(0, [Validators.min(0), this.invalidPercent()]),
-      expiry_date: new FormControl(new Date().toISOString().substring(0, 10), [this.pastDate()]),
+      expiry_date: new FormControl(''),
     });
     this.discountType?.valueChanges.subscribe(() => {
       this.discountValue.updateValueAndValidity();
@@ -87,17 +87,6 @@ export class ManageCouponsComponent {
     return this.couponForm.controls['discount_value'];
   }
 
-  pastDate(): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-      const today = new Date()
-      const date = new Date(control.value);
-      if (date < today ) {
-        return { pastDate: true };
-      }
-      return null;
-    }
-  }
-
   invalidPercent(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       if (this.discountType?.value != 'fixed' && control.value > 100) {
@@ -132,7 +121,9 @@ export class ManageCouponsComponent {
     const id = this.currentCoupon.id;
     this.couponService.updateCoupon(this.couponForm.value, id).subscribe((response: any) => {
       const data = response.data;
-      this.coupons = this.coupons.map((coupon: any) => coupon.id == data.id ? data : coupon);
+      if (data) {
+        this.coupons = this.coupons.map((coupon: any) => coupon.id == data.id ? data : coupon);
+      }
     })
   }
 

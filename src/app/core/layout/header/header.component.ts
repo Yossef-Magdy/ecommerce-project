@@ -14,7 +14,6 @@ export class HeaderComponent {
   cartItems: CartItem[] = [];
   totalQuantity: number = 0;
   validLogin: boolean = false;
-  hasRolesOrPermissions: boolean = false;
 
   constructor(private cartService:CartService, private authService: AuthService){}
 
@@ -27,9 +26,6 @@ export class HeaderComponent {
     this.authService.validLogin.subscribe((value: boolean) => {
       this.validLogin = value;
     })
-    this.authService.hasRolesOrPermissions.subscribe((value: boolean) => {
-      this.hasRolesOrPermissions = value;
-    });
   }
 
   calculateTotalQuantity(): void{

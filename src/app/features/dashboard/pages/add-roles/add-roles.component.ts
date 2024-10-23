@@ -17,7 +17,7 @@ export class AddRolesComponent {
 
   roleForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
-    permissions: new FormControl('', [Validators.required]),
+    permissions: new FormControl(''),
   });
 
   permissions?: any;
@@ -33,6 +33,7 @@ export class AddRolesComponent {
   }
 
   submit() {
+    this.roleForm.markAllAsTouched();
     if (this.roleForm.invalid) {
       return;
     }
