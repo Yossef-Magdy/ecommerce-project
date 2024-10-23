@@ -208,7 +208,7 @@ export class ProductDetailsComponent {
       this.selectedPrice = 0;
       this.selectedStock = 0;
       if (this.data.discount_value){
-        this.discountPrice = this.allProductsService.calculateDiscount(this.data.discount_type, this.data.discount_value, this.selectedPrice);
+        this.discountPrice = this.allProductsService.calculateDiscount(this.data.discount_type, this.data.discount_value, this.data.price);
       }
     }
   }
