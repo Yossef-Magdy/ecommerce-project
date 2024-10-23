@@ -38,8 +38,8 @@
 
 <div class="cards-wrapper">
   <div class="product-cards" class="cards-container" [ngClass]="{'justify-center': products.length <= 2}" [style.transform]="getClothsTransform()">
-    @if (products && products.length > 0) {
-    @for (product of products; track $index) {
+    @if (onSaleProducts && onSaleProducts.length > 0) {
+    @for (product of onSaleProducts; track $index) {
     <div class="product-card">
       <a [routerLink]="['/products', product.slug]">
         <div class="img relative">
@@ -67,7 +67,7 @@
   </div>
 </div>
 
-<app-arrows-updated [cards]="products" [currentIndex]="clothsCurrentIndex" [maxVisibleCards]="maxClothsVisibleCards"
+<app-arrows-updated [cards]="onSaleProducts" [currentIndex]="clothsCurrentIndex" [maxVisibleCards]="maxClothsVisibleCards"
   (arrowClick)="onClothsArrowClick($event)"></app-arrows-updated>
 
 <div class="swiper-buttons">

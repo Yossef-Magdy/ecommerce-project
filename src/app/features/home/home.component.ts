@@ -24,6 +24,7 @@ export class HomeComponent {
   maxClothsVisibleCards = 4;
   categoryCards?: any;
   products: any = [];
+  onSaleProducts: any = [];
   colors: string[] = [];
   discount_value: number = 0;
 
@@ -39,6 +40,7 @@ export class HomeComponent {
       this.products.forEach((product: any) =>{
         if (product.discount_value){
           product.priceAfterDiscount = this.productsService.calculateDiscount(product.discount_type, product.discount_value, product.price);
+          this.onSaleProducts.push(product);
         }
         else{
           product.discount_value = 0;
