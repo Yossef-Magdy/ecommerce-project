@@ -4,11 +4,12 @@ import { AnalyticsService } from './services/analytics.service';
 import { ChartModule } from 'primeng/chart';
 import { BestSellerService } from './services/best-seller.service';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { MyCurrencyPipe } from '../../pipes/my-currency.pipe';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [ChartModule, ReactiveFormsModule],
+  imports: [ChartModule, ReactiveFormsModule, MyCurrencyPipe],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })

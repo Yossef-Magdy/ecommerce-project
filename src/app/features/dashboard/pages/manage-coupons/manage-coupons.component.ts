@@ -8,10 +8,11 @@ import { ButtonComponent } from "../../../../shared/button/button.component";
 import { DatePipe } from '@angular/common';
 import { PaginationComponent } from "../../../../shared/pagination/pagination.component";
 import { PaginationService } from '../../../../shared/pagination/services/pagination.service';
+import { MyCurrencyPipe } from '../../../../pipes/my-currency.pipe';
 @Component({
   selector: 'app-manage-coupons',
   standalone: true,
-  imports: [ReactiveFormsModule, LabelComponent, BlackButtonComponent, ButtonComponent, DatePipe, PaginationComponent],
+  imports: [ReactiveFormsModule, LabelComponent, BlackButtonComponent, ButtonComponent, DatePipe, PaginationComponent, MyCurrencyPipe],
   templateUrl: './manage-coupons.component.html',
   styleUrl: './manage-coupons.component.css'
 })
@@ -111,10 +112,6 @@ export class ManageCouponsComponent {
         expiry_date: this.currentCoupon.expiry_date,
       });
     }
-  }
-
-  displayDiscount(coupon: any) {
-    return `${coupon.discount_value}${(coupon.discount_type == 'fixed' ? ' EGP' : '%')}`;
   }
 
   updateCoupon() {

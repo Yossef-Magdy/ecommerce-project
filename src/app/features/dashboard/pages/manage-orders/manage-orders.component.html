@@ -23,7 +23,7 @@
                                     <span class="text-sm text-gray-500">{{order.customer.email}}</span>
                                 </div>
                             </td>
-                            <td class="text-gray-700 capitalize border-b border-slate-500 p-1.5">{{order.total_price}} EGP</td>
+                            <td class="text-gray-700 capitalize border-b border-slate-500 p-1.5">{{order.total_price | myCurrency:'EGP':'symbol':'1.2-2':'en-US'}}</td>
                             <td class="text-gray-700 capitalize border-b border-slate-500 p-1.5">
                                 @if (order.payment.method === 'cod') {
                                     cash on delivery

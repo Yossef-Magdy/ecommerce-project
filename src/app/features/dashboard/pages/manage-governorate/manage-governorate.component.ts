@@ -7,10 +7,11 @@ import { BlackButtonComponent } from "../../../../shared/black-button/black-butt
 import { ButtonComponent } from "../../../../shared/button/button.component";
 import { PaginationComponent } from "../../../../shared/pagination/pagination.component";
 import { PaginationService } from '../../../../shared/pagination/services/pagination.service';
+import { MyCurrencyPipe } from '../../../../pipes/my-currency.pipe';
 @Component({
   selector: 'app-manage-governorate',
   standalone: true,
-  imports: [ReactiveFormsModule, LabelComponent, BlackButtonComponent, ButtonComponent, PaginationComponent],
+  imports: [ReactiveFormsModule, LabelComponent, BlackButtonComponent, ButtonComponent, PaginationComponent, MyCurrencyPipe],
   templateUrl: './manage-governorate.component.html',
   styleUrl: './manage-governorate.component.css'
 })

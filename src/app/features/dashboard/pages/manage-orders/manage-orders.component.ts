@@ -8,11 +8,12 @@ import { ButtonComponent } from "../../../../shared/button/button.component";
 import { PaginationComponent } from "../../../../shared/pagination/pagination.component";
 import { PaginationService } from '../../../../shared/pagination/services/pagination.service';
 import { DatePipe } from '@angular/common';
+import { MyCurrencyPipe } from '../../../../pipes/my-currency.pipe';
 
 @Component({
   selector: 'app-manage-orders',
   standalone: true,
-  imports: [ReactiveFormsModule, LabelComponent, BlackButtonComponent, ButtonComponent, PaginationComponent, DatePipe],
+  imports: [ReactiveFormsModule, LabelComponent, BlackButtonComponent, ButtonComponent, PaginationComponent, DatePipe, MyCurrencyPipe],
   templateUrl: './manage-orders.component.html',
   styleUrl: './manage-orders.component.css'
 })

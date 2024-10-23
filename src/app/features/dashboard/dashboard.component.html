@@ -27,13 +27,13 @@
                     <div class="border border-slate-500 bg-purple-200 shadow-lg rounded p-4 flex flex-col justify-center">
                         <span class="capitalize">total eranings</span>
                         <span class="text-2xl">
-                            {{analytics.total_earning}} EGP
+                            {{analytics.total_earning | myCurrency:'EGP':'symbol':'1.2-2':'en-US'}}
                         </span>
                     </div>
                     <div class="border border-slate-500 bg-purple-200 shadow-lg rounded p-4 flex flex-col justify-center">
                         <span class="capitalize">total refunded</span>
                         <span class="text-2xl">
-                            {{analytics.total_refunded}} EGP
+                            {{analytics.total_refunded | myCurrency:'EGP':'symbol':'1.2-2':'en-US'}}
                         </span>
                     </div>
                     <div class="border border-slate-500 bg-purple-200 shadow-lg rounded p-4 flex flex-col justify-center">

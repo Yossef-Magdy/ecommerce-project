@@ -12,7 +12,7 @@
                     @for (governorate of governorates; track $index) {
                         <tr class="even:bg-gray-50 odd:bg-white">
                             <td class="font-medium capitalize border-b border-slate-500 p-1.5">{{governorate.name}}</td>
-                            <td class="text-gray-700 capitalize border-b border-slate-500 p-1.5">{{governorate.fee}} EGP</td>
+                            <td class="text-gray-700 capitalize border-b border-slate-500 p-1.5">{{governorate.fee | myCurrency:'EGP':'symbol':'1.2-2':'en-US'}}</td>
                             <td class="border-b border-slate-500 p-1.5">
                                 <div class="flex gap-1 justify-end min-w-max">
                                     <button data-modal-target="update-modal" data-modal-toggle="update-modal" 

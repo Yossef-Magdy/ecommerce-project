@@ -20,7 +20,7 @@
                                 </div>
                             </td>
                             <td class="font-medium capitalize border-b border-slate-500 p-1.5">{{product.name}}</td>
-                            <td class="border-b border-slate-500 p-1.5">{{product.price}} EGP</td>
+                            <td class="border-b border-slate-500 p-1.5">{{product.price | myCurrency:'EGP':'symbol':'1.2-2':'en-US'}}</td>
                             <td class="border-b border-slate-500 p-1.5">
                                 @if (product.categories.length) {
                                     <span class="w-fit block border border-slate-500 bg-white p-1.5 rounded capitalize">{{product.categories[0].name}}</span>

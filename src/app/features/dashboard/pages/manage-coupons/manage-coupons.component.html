@@ -16,7 +16,13 @@
                         <tr class="even:bg-gray-50 odd:bg-white">
                             <td class="font-medium border-b border-slate-500 p-1.5">{{coupon.coupon_code}}</td>
                             <td class="text-gray-700 border-b border-slate-500 p-1.5">{{coupon.uses_count}}</td>
-                            <td class="text-gray-700 capitalize border-b border-slate-500 p-1.5">{{displayDiscount(coupon)}}</td>
+                            <td class="text-gray-700 capitalize border-b border-slate-500 p-1.5">
+                                @if (coupon.discount_type == 'fixed'){
+                                    {{coupon.discount_value | myCurrency:'EGP':'symbol':'1.2-2':'en-US'}}
+                                } @else {
+                                    {{coupon.discount_value}}%
+                                }
+                            </td>
                             <td class="text-black capitalize border-b border-slate-500 p-1.5">
                                 @if (coupon.status == 'active') {
                                     <span class="p-1.5 rounded bg-green-200">{{coupon.status}}</span>

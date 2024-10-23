@@ -11,11 +11,12 @@ import { ProductDetailsService } from '../../services/product-details.service';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { CategoriesService } from '../../../home/categories.service';
 import { DiscountService } from '../../services/discount.service';
+import { MyCurrencyPipe } from '../../../../pipes/my-currency.pipe';
 
 @Component({
   selector: 'app-product-details',
   standalone: true,
-  imports: [LabelComponent, BlackButtonComponent, ButtonComponent, ReactiveFormsModule, NgSelectModule],
+  imports: [LabelComponent, BlackButtonComponent, ButtonComponent, ReactiveFormsModule, NgSelectModule, MyCurrencyPipe],
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.css'
 })

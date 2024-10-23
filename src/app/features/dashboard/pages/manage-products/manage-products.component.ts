@@ -11,11 +11,12 @@ import { CategoryService } from '../../services/category.service';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { Renderer2 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { MyCurrencyPipe } from '../../../../pipes/my-currency.pipe';
 
 @Component({
   selector: 'app-manage-products',
   standalone: true,
-  imports: [ReactiveFormsModule, BlackButtonComponent, ButtonComponent, LabelComponent, PaginationComponent, NgSelectModule, RouterLink],
+  imports: [ReactiveFormsModule, BlackButtonComponent, ButtonComponent, LabelComponent, PaginationComponent, NgSelectModule, RouterLink, MyCurrencyPipe],
   templateUrl: './manage-products.component.html',
   styleUrl: './manage-products.component.css'
 })
