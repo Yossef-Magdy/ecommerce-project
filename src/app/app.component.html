@@ -1,11 +1,18 @@
-@if (inDashboard()) {
-    <div class="grid grid-cols-[auto, _1fr] sm:grid-cols-[270px,_auto,_1fr]">
-        <app-sidebar class="relative"/>
+@if (inDashboard != null) {
+    @if (inDashboard) {
+        @if (dashboardLogin) {
+            <router-outlet/>
+        } @else {
+            <div class="grid grid-cols-[auto, _1fr] sm:grid-cols-[250px,_auto,_1fr]">
+                <app-sidebar class="relative"/>
+                <router-outlet/>
+            </div>
+        }
+    } @else {
+        <app-header/>
         <router-outlet/>
-    </div>
-} @else {
-    <app-header/>
-    <router-outlet/>
-    <app-footer/>
+        <app-footer/>
+    }
 }
 <app-toast/>
+<app-spinner/>

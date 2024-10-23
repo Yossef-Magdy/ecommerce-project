@@ -22,16 +22,30 @@ export class AuthService {
 
   login(userData: any) {
     return this.http.post('/login', userData).pipe(
-      concatMap((token: any) => {
+      tap((response: any) => {
+        const {token, data} = response;
         this.saveToken(token);
         this.goHome();
-        return this.http.get('/user').pipe(
-          tap((response: any) => {
-            this.setUserData(response);
-            this.setHasRolesOrPermissions(response.roles.length || response.permissions.length);
-            this.setValidLogin(true);
-          })
-        );
+        this.setUserData(data);
+        this.setValidLogin(true);
+      })
+    );
+  }
+
+  dashboardLogin(userData: any) {
+    return this.http.post('/login', userData).pipe(
+      tap((response: any) => {
+        const {token, data} = response;
+        if (data.roles.length || data.permissions.length) {
+          this.saveToken(token);
+          this.goDashboard();
+          this.setUserData(data);
+        } else {
+          this.router.navigate(['/forbidden']);
+        }
+      }), catchError((error: any) => {
+        this.router.navigate(['/forbidden']);
+        return of(false);
       })
     );
   }
@@ -56,7 +70,6 @@ export class AuthService {
         tap((res: any) => {
           this.saveToken(res.token);
           this.userDataSubject.next(res.data);
-          this.hasRolesOrPermissionsSubject.next(res.data?.roles?.length || res.data?.permissions?.length || false);
           this.validLoginSubject.next(true);
           this.goHome();
           observer.next(true);
@@ -115,9 +128,14 @@ export class AuthService {
   canAccessDashboard(): Observable<boolean> {
     return this.http.get('/user').pipe(
       map((response: any) => {
-        this.setHasRolesOrPermissions(response.roles.length || response.permissions.length);
-        return response.roles.length || response.permissions.length;
+        const canAccess = response.roles.length || response.permissions.length;
+        this.setHasRolesOrPermissions(canAccess);
+        if (!canAccess) {
+          this.router.navigate(['/forbidden']);
+        }
+        return canAccess;
       }), catchError((error: HttpErrorResponse) => {
+        this.router.navigate(['dashboard-login']);
         return of(false);
       })
     );
@@ -150,6 +168,10 @@ export class AuthService {
 
   private goHome() {
     this.router.navigate(['/']);
+  }
+
+  private goDashboard() {
+    this.router.navigate(['/dashboard']);
   }
 
   private saveToken(response: any) {

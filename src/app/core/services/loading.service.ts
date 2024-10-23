@@ -5,6 +5,7 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class LoadingService {
+  activeRequests: number = 0;
 
   constructor() { }
 
@@ -18,5 +19,17 @@ export class LoadingService {
 
   loadingOff() {
     this.loadingSubject.next(false);
+  }
+
+  addRequest() {
+    this.activeRequests++;
+  }
+
+  removeRequest() {
+    this.activeRequests--;
+  }
+
+  isAllCompleted() {
+    return this.activeRequests == 0;
   }
 }

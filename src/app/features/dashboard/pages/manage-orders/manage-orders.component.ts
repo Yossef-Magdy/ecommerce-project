@@ -18,7 +18,7 @@ import { DatePipe } from '@angular/common';
 })
 export class ManageOrdersComponent {
   shippingStatus = ['pending', 'processing', 'shipped', 'delivered', 'canceled'];
-  paymentStatus = ['pending', 'processing', 'completed', 'canceled', 'incomplete'];
+  paymentStatus = ['pending', 'processing', 'completed', 'canceled', 'incomplete', 'succeeded'];
   orders?: any;
   currentOrder: any;
 

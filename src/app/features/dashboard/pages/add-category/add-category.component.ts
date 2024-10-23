@@ -26,6 +26,7 @@ export class AddCategoryComponent {
   }
 
   submit() {
+    this.categoryForm.markAllAsTouched();
     if (this.categoryForm.invalid) {
       return;
     }

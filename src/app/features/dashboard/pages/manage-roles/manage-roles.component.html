@@ -11,7 +11,7 @@
                 <tbody>
                     @for (role of roles; track $index) {
                         <tr class="even:bg-gray-50 odd:bg-white">
-                            <td class="font-medium capitalize border-b border-slate-500 p-1.5">{{role.name}}</td>
+                            <td class="font-medium capitalize border-b border-slate-500 p-1.5 text-nowrap">{{role.name}}</td>
                             <td class="text-gray-700 border-b border-slate-500 p-1.5">
                                 <div class="flex gap-2 w-full flex-wrap">
                                     @for (permission of role.permissions; track $index) {

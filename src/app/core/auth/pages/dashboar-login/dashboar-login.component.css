@@ -1,0 +1,18 @@
+.elegant{
+    font-family: "Playfair Display SC", serif;
+    font-weight: 700;
+    color: rebeccapurple;
+}
+.wear{
+    font-family: "Pacifico", cursive;
+    font-weight: 400;
+    font-size: 15px;
+    margin-left: -3px;
+    position: absolute;
+    bottom: 20px;
+}
+.login-form {
+    display: grid;
+    grid-template-rows: auto, 1fr;
+    grid-template-columns: 1fr;
+}
