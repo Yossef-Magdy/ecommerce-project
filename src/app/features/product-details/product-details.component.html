@@ -33,15 +33,15 @@
             <div class="my-2 flex flex-row justify-between">
                 @if(data.discount_value){
                     <div>
-                        <span class="line-through text-gray-600 text-sm">LE {{ selectedPrice || data.price }}</span>
-                        <span class="ml-1 text-red-500">LE {{ discountPrice }}</span>
+                        <span class="line-through text-gray-600 text-sm"> {{ selectedPrice || data.price }}</span>
+                        <span class="ml-1 text-red-500"> {{ discountPrice }}</span>
                     </div>
                     <div>
                         <span class="text-red-500 text-xs capitalizee mx-2 font-semibold">sale</span>
                     </div>
                 }
                 @else {
-                    <p>LE {{ selectedPrice || data.price }}</p>
+                    <p> {{ selectedPrice || data.price }}</p>
                 }
             </div>
             <p class="shipping my-3">

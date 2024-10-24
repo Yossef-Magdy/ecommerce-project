@@ -13,10 +13,10 @@
         <h3 class="mt-3">{{ item.name }}</h3>
         
         @if (item.discount_value) {
-          <span class="me-2 old-price">LE {{ item.price }}</span>
-          <span class="price">LE {{ item.priceAfterDiscount }}</span>
+          <span class="me-2 old-price"> {{ item.price }}</span>
+          <span class="price"> {{ item.priceAfterDiscount }}</span>
           } @else {
-          <span class="me-2 price">LE {{ item.price }}</span>
+          <span class="me-2 price"> {{ item.price }}</span>
         }
       </a>
     </div>
