@@ -2,7 +2,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { StarRatingComponent } from '../../shared/star-rating/star-rating.component';
 import { ButtonComponent } from '../../shared/button/button.component';
 import { GallerySwiperComponent } from './gallery-swiper/gallery-swiper.component';
-import { ActivatedRoute, NavigationStart, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { SizeChartComponent } from './size-chart/size-chart.component';
 import { ProductCardComponent } from '../../shared/product-card/product-card.component';
 import { ZoomComponent } from './zoom/zoom.component';
@@ -16,6 +16,7 @@ import { NgClass, NgFor, NgIf } from '@angular/common';
 import { RecentlyViewedServiceService } from '../../services/recently-viewed-service.service';
 import { ToastService } from '../../core/services/toast.service';
 import { AllProductsService } from '../collection/all-products.service';
+import { MyCurrencyPipe } from '../../pipes/my-currency.pipe';
 
 @Component({
   selector: 'app-product-details',
@@ -32,7 +33,8 @@ import { AllProductsService } from '../collection/all-products.service';
     ProductReviewsComponent,
     NgFor,
     NgIf,
-    NgClass
+    NgClass,
+    MyCurrencyPipe
   ],
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.css',

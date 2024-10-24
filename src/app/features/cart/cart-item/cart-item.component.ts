@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CartItem } from '../../../services/cart.service';
 import { ToastService } from '../../../core/services/toast.service';
+import { MyCurrencyPipe } from '../../../pipes/my-currency.pipe';
 
 export interface CartEmitter {
   index: number;
@@ -11,7 +12,7 @@ export interface CartEmitter {
 @Component({
   selector: 'app-cart-item',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, MyCurrencyPipe],
   templateUrl: './cart-item.component.html',
   styleUrl: './cart-item.component.css',
 })

@@ -7,11 +7,12 @@ import { Router } from '@angular/router';
 import { ToastService } from '../../core/services/toast.service';
 import { ProductReviewsServiceService } from '../product-details/product-reviews/product-reviews-service.service';
 import { UserService } from '../profile/user.service';
+import { MyCurrencyPipe } from '../../pipes/my-currency.pipe';
 
 @Component({
   selector: 'app-order-history',
   standalone: true,
-  imports: [NgClass, BlackButtonComponent, NgSwitch, DatePipe, CommonModule],
+  imports: [NgClass, BlackButtonComponent, NgSwitch, DatePipe, CommonModule, MyCurrencyPipe],
   templateUrl: './order-history.component.html',
   styleUrl: './order-history.component.css'
 })

@@ -10,10 +10,10 @@
         <p class="my-2">Size: {{cartItem.size}}</p>
         <div>
             @if (cartItem.priceAfterDiscount) {
-                <span class="me-2 old-price"> {{ cartItem.price }}</span>
-                <span class="price"> {{ cartItem.priceAfterDiscount}}</span>
+                <span class="me-2 old-price"> {{ cartItem.price | myCurrency:'EGP':'symbol':'1.2-2':'en-US'}}</span>
+                <span class="price"> {{ cartItem.priceAfterDiscount | myCurrency:'EGP':'symbol':'1.2-2':'en-US'}}</span>
             } @else {
-                <span class="me-2 price"> {{ cartItem.price }}</span>
+                <span class="me-2 price"> {{ cartItem.price | myCurrency:'EGP':'symbol':'1.2-2':'en-US'}}</span>
             }
         </div>
         <!-- counter -->

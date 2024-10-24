@@ -5,11 +5,12 @@ import { Router, ActivatedRoute, RouterLink } from '@angular/router';
 import { debounceTime, isEmpty, of, Subject, switchMap, takeUntil } from 'rxjs';
 import { NgFor } from '@angular/common';
 import { AllProductsService } from '../collection/all-products.service';
+import { MyCurrencyPipe } from '../../pipes/my-currency.pipe';
 
 @Component({
   selector: 'app-search',
   standalone: true,
-  imports: [ReactiveFormsModule, FormsModule, RouterLink, NgFor],
+  imports: [ReactiveFormsModule, FormsModule, RouterLink, NgFor, MyCurrencyPipe],
   templateUrl: './search.component.html',
   styleUrl: './search.component.css'
 })

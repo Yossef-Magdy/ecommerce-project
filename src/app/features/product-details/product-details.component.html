@@ -33,7 +33,7 @@
             <div class="my-2 flex flex-row justify-between">
                 @if(data.discount_value){
                     <div>
-                        <span class="line-through text-gray-600 text-sm"> {{ selectedPrice || data.price }}</span>
+                        <span class="line-through text-gray-600 text-sm"> {{ (selectedPrice || data.price) | myCurrency:'EGP':'symbol':'1.2-2':'en-US' }}</span>
                         <span class="ml-1 text-red-500"> {{ discountPrice }}</span>
                     </div>
                     <div>
@@ -41,7 +41,7 @@
                     </div>
                 }
                 @else {
-                    <p> {{ selectedPrice || data.price }}</p>
+                    <p> {{ (selectedPrice || data.price) | myCurrency:'EGP':'symbol':'1.2-2':'en-US' }}</p>
                 }
             </div>
             <p class="shipping my-3">

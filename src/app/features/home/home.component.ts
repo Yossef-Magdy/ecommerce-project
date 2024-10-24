@@ -1,19 +1,18 @@
 import { Component } from '@angular/core';
 import { ButtonComponent } from '../../shared/button/button.component';
 import { ArrowsComponent } from '../../shared/arrows/arrows.component';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { CategoriesService } from './categories.service';
 import { AllProductsService } from '../collection/all-products.service';
-import { IProduct } from '../../data-interfaces';
-import { ProductDetailsService } from '../product-details/product-details.service';
 import { ArrowsUpdatedComponent } from "../../shared/arrows-updated/arrows-updated.component";
 import { NgClass } from '@angular/common';
 import { MarqueeComponent } from "./marquee/marquee.component";
+import { MyCurrencyPipe } from '../../pipes/my-currency.pipe';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [ButtonComponent, ArrowsComponent, RouterLink, ArrowsUpdatedComponent, NgClass, MarqueeComponent],
+  imports: [ButtonComponent, ArrowsComponent, RouterLink, ArrowsUpdatedComponent, NgClass, MarqueeComponent, MyCurrencyPipe],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })

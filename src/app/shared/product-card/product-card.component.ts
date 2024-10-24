@@ -5,11 +5,12 @@ import { RouterLink } from '@angular/router';
 import { NgClass } from '@angular/common';
 import { ArrowsUpdatedComponent } from "../arrows-updated/arrows-updated.component";
 import { AllProductsService } from '../../features/collection/all-products.service';
+import { MyCurrencyPipe } from '../../pipes/my-currency.pipe';
 
 @Component({
   selector: 'app-product-card',
   standalone: true,
-  imports: [ArrowsComponent, RouterLink, NgClass, ArrowsUpdatedComponent],
+  imports: [ArrowsComponent, RouterLink, NgClass, ArrowsUpdatedComponent, MyCurrencyPipe],
   templateUrl: './product-card.component.html',
   styleUrl: './product-card.component.css'
 })

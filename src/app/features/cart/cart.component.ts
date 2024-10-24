@@ -4,11 +4,12 @@ import { CartEmitter, CartItemComponent } from "./cart-item/cart-item.component"
 import { BlackButtonComponent } from "../../shared/black-button/black-button.component";
 import { CartService, CartItem } from '../../services/cart.service';
 import { Subject, takeUntil } from 'rxjs';
+import { MyCurrencyPipe } from '../../pipes/my-currency.pipe';
 
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [RouterLink, CartItemComponent, BlackButtonComponent],
+  imports: [RouterLink, CartItemComponent, BlackButtonComponent, MyCurrencyPipe],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css'
 })
