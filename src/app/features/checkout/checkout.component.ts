@@ -263,19 +263,19 @@ export class CheckoutComponent implements OnInit {
   checkCoupon(coupon_code:string){
     this.couponService.getCouponByCode(coupon_code).subscribe(
       (res : any)=>{
-        if (res && Object.keys(res).length){
+        if (res && Object.keys(res).length && res.data.status !== 'expired'){
           console.log("Valid coupon", res.data);
-          this.toastService.showToast("Valid coupon", 'success');
-          this.coupon = res.data;
-          this.validCoupon = true;
+            this.toastService.showToast("Valid coupon", 'success');
+            this.coupon = res.data;
+            this.validCoupon = true;
+            if (res.data.discount_type === 'fixed'){
+              this.totalDiscounts += Number(res.data.discount_value);
+              this.totalPrice = Number(this.totalPrice) - Number(res.data.discount_value);
+            }
+            else if (res.data.discount_type === 'percentage'){
+              this.totalDiscounts += Number(res.data.discount_value) * Number(this.subTotalPrice);
+            }
           coupon_code = '';
-          if (res.data.discount_type === 'fixed'){
-            this.totalDiscounts += Number(res.data.discount_value);
-            this.totalPrice = Number(this.totalPrice) - Number(res.data.discount_value);
-          }
-          else if (res.data.discount_type === 'percentage'){
-            this.totalDiscounts += Number(res.data.discount_value) * Number(this.subTotalPrice);
-          }
         }else {
           this.validCoupon = false; // Reset to false if not valid
           this.coupon = null; // Optionally clear coupon data
