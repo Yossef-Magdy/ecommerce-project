@@ -52,7 +52,7 @@ export class ProductDetailsComponent {
   availableSizes: string[] = [];
   availableColors: string[] = [];
   selectedStock: number = 0;  // Add stock
-  discountPrice: number | null = null;
+  discountPrice: number = 0;
   selectedProductDetailId!: number;
 
   recentlyViewedProducts: IProduct[] = [];

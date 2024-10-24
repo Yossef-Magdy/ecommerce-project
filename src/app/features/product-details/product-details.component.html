@@ -34,7 +34,7 @@
                 @if(data.discount_value){
                     <div>
                         <span class="line-through text-gray-600 text-sm"> {{ (selectedPrice || data.price) | myCurrency:'EGP':'symbol':'1.2-2':'en-US' }}</span>
-                        <span class="ml-1 text-red-500"> {{ discountPrice }}</span>
+                        <span class="ml-1 text-red-500"> {{ discountPrice | myCurrency:'EGP':'symbol':'1.2-2':'en-US' }}</span>
                     </div>
                     <div>
                         <span class="text-red-500 text-xs capitalizee mx-2 font-semibold">sale</span>
