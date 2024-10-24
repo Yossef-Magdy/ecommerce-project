@@ -28,13 +28,11 @@
 }
 
 .product-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     padding: 2rem;
     width: 100%;
-    gap: 3px;
-    margin: auto;
+    gap: 0.25rem;
 }
 
 .product-card {
@@ -44,9 +42,9 @@
     transition: scale 400ms ease-in-out;
 }
 
-.product-card:hover {
+/* .product-card:hover {
     scale: 1.02;
-}
+} */
 
 .product-card h3 {
     font-family: var(--font-body-family);
@@ -67,8 +65,10 @@
 .colors {
     display: flex;
     justify-content: center;
-    gap: 12px;
-    padding: 15px;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.5rem;
+    min-height: 2rem;
 }
 
 .product-card a {
@@ -86,7 +86,7 @@
 
 .color:hover {
     border-color: black;
-    scale: 1.1;
+    /* scale: 1.1; */
 }
 
 .price {

@@ -18,12 +18,8 @@ export class AllProductsService {
     return this.http.get(`/products/${slug}`);
   }
 
-  getProductsByCategoryName(categoryName: string): Observable<any> {
-    return this.http.get(`/collections/${categoryName}`);
-  }
-
-  getProductsBySubCategoryName(subcategoryName: string): Observable<any> {
-    return this.http.get(`/collections/${subcategoryName}`);
+  getProductsByCategory(category: string): Observable<any> {
+    return this.http.get(`/collections/${category}`);
   }
 
   calculateDiscount(discount_type: string, discount_value: number, price: number): number{

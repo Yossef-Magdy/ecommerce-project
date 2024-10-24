@@ -99,12 +99,7 @@ export const routes: Routes = [
         title: 'Products',
     },
     {
-        path: 'collections/:category_name',
-        component: CollectionComponent,
-        title: 'Collections',
-    },
-    {
-        path: 'collections/:subcategory_name',
+        path: 'collections/:category',
         component: CollectionComponent,
         title: 'Collections',
     },
