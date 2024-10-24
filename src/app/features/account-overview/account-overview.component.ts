@@ -35,7 +35,7 @@ export class AccountOverviewComponent {
       .subscribe((res: any) => {
         console.log(res.data);
         this.orders = res.data;
-        this.receivedOrders = res.data.filter((order: any) => order.shipping.status === 'received');
+        this.receivedOrders = res.data.filter((order: any) => order.shipping.status === 'delivered');
         console.log(this.receivedOrders);
       });
 
