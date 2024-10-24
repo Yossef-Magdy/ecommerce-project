@@ -67,9 +67,8 @@
   </div>
 </div>
 
-<app-arrows-updated [cards]="onSaleProducts" [currentIndex]="clothsCurrentIndex" [maxVisibleCards]="maxClothsVisibleCards"
-  (arrowClick)="onClothsArrowClick($event)"></app-arrows-updated>
-
-<div class="swiper-buttons">
-  <app-button text="View All" routerLink="collections"></app-button>
+<div class="mb-[50px]">
+  <app-arrows-updated [cards]="onSaleProducts" [currentIndex]="clothsCurrentIndex" [maxVisibleCards]="maxClothsVisibleCards"
+    (arrowClick)="onClothsArrowClick($event)">
+  </app-arrows-updated>
 </div>
