@@ -11,12 +11,17 @@
                 <div class="grid grid-cols-[1fr,auto,auto] gap-2 col-span-full">
                     <h2 class="text-3xl uppercase font-light">overview</h2>
                     <form [formGroup]="durationForm">
-                        <select class="border border-slate-500 p-2 rounded capitalize" formControlName="duration">
-                            <option value="week">Last Week</option>
-                            <option value="month">Last Month</option>
-                            <option value="6months">Last 6 Months</option>
-                            <option value="year">Last Year</option>
-                        </select>
+                        <div class="flex items-center">
+                            <div class="border border-slate-500 p-2 border-r-0 rounded-l min-w-fit">
+                                <img src="assets/icons/date.svg" alt="" class="size-6">
+                            </div>
+                            <select class="border border-slate-500 p-2 rounded-r border-l-0 capitalize" formControlName="duration">
+                                <option value="week">Last Week</option>
+                                <option value="month">Last Month</option>
+                                <option value="6months">Last 6 Months</option>
+                                <option value="year">Last Year</option>
+                            </select>
+                        </div>
                     </form>
                     <button class="border border-slate-500 p-2 rounded capitalize flex gap-1" (click)="getAnalytics()">
                         <img src="assets/icons/refresh.svg" alt="">
