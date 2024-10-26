@@ -38,6 +38,8 @@ import { ProductDetailsComponent as DashboardProductDetails } from './features/d
 import { AddressBookComponent } from './features/address-book/address-book.component';
 import { DashboarLoginComponent } from './core/auth/pages/dashboar-login/dashboar-login.component';
 import { CreateReviewComponent } from './features/create-review/create-review.component';
+import { ChangePasswordComponent } from './features/change-password/change-password.component';
+import { ChangeUsernameComponent } from './features/change-username/change-username.component';
 
 
 export const routes: Routes = [
@@ -84,15 +86,20 @@ export const routes: Routes = [
         canActivate: [authGuard],
     },
     {
+        path: 'change-password',
+        component: ChangePasswordComponent,
+        title: 'Change Password',
+    },
+    {
+        path: 'change-username',
+        component: ChangeUsernameComponent,
+        title: 'Change Username',
+    },
+    {
         path: 'edit-address/:id',
         component: EditAddressComponent,
         title: 'Edit Address',
     },
-    // {
-    //     path: 'address-book',
-    //     component: AddressBookComponent,
-    //     title: 'Address Book',
-    // },
     {
         path: 'products/:slug',
         component: ProductDetailsComponent,
