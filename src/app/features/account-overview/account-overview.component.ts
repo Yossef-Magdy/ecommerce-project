@@ -5,11 +5,12 @@ import { OrderHistoryComponent } from "../order-history/order-history.component"
 import { Subject, takeUntil } from 'rxjs';
 import { OrderService } from '../order-history/order.service';
 import { DatePipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-account-overview',
   standalone: true,
-  imports: [BlackButtonComponent, OrderHistoryComponent, DatePipe],
+  imports: [BlackButtonComponent, OrderHistoryComponent, DatePipe, RouterLink],
   templateUrl: './account-overview.component.html',
   styleUrl: './account-overview.component.css'
 })
