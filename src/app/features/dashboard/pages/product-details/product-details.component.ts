@@ -322,6 +322,9 @@ export class ProductDetailsComponent {
         } 
         return detail;
       });
+      setTimeout(() => {
+        initModals();
+      }, 50);
     });
   }
 
