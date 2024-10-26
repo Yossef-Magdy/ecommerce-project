@@ -38,6 +38,7 @@ import { ProductDetailsComponent as DashboardProductDetails } from './features/d
 import { AddressBookComponent } from './features/address-book/address-book.component';
 import { DashboarLoginComponent } from './core/auth/pages/dashboar-login/dashboar-login.component';
 import { CreateReviewComponent } from './features/create-review/create-review.component';
+import { OrderSuccessComponent } from './features/order-success/order-success.component';
 
 
 export const routes: Routes = [
@@ -122,6 +123,11 @@ export const routes: Routes = [
         path: 'search',
         component: SearchComponent,
         title: 'Search Products',
+    },
+    {
+        path: 'success-order',
+        component: OrderSuccessComponent,
+        title: 'Success Order',
     },
     {
         path: 'policies',
