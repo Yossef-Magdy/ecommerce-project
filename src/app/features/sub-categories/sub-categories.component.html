@@ -4,10 +4,9 @@
     </div>
 </main>
 
-<div class="cards-wrapper">
-    <div class="flex" [style.transform]="getTransform()">
+<div class="container mx-auto p-8">
+    <div class="flex flex-wrap justify-center gap-2" [style.transform]="getTransform()">
       @if (subcategoryCards) {
-  
         @for (subcategory of subcategoryCards; track $index) {
           <a [routerLink]="['/collections', subcategory.name]" class="card">
             <img [src]="subcategory.image" [alt]="subcategory.name">

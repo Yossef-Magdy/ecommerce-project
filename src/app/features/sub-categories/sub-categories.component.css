@@ -27,20 +27,6 @@
     letter-spacing: 2px;
 }
 
-.cards-wrapper {
-    width: 100%;
-    margin: 80px auto;
-    display: flex;
-    justify-content: start;
-}
-
-.flex {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 7px;
-}
-
 .card {
     position: relative;
     flex: 1 1 calc(33.333% - 20px);
