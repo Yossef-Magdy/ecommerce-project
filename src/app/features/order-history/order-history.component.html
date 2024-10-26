@@ -48,7 +48,8 @@
                 <p class="text-sm text-gray-600 mt-2">Quantity: <span class="font-medium">{{ item.quantity }}</span></p>
                 <p class="text-sm text-gray-600">Color: <span class="font-medium">{{ item.color }}</span></p>
                 <p class="text-sm text-gray-600">Size: <span class="font-medium">{{ item.size }}</span></p>
-                <p class="text-sm text-gray-600">Total Price: <span class="font-medium"> {{ item.total_price | myCurrency:'EGP':'symbol':'1.2-2':'en-US'}}</span>
+                <p class="text-sm text-gray-600">Total Price: <span class="font-medium"> {{ item.total_price |
+                        myCurrency:'EGP':'symbol':'1.2-2':'en-US'}}</span>
                 </p>
             </div>
 
@@ -85,4 +86,11 @@
         </div>
     </div>
     }
+    <div>
+        @if (next) {
+        <div class="col-span-full flex justify-center mt-4">
+            <app-black-button text="load more" class="w-fit" (click)="loadMore()" />
+        </div>
+        }
+    </div>
 </div>
