@@ -49,7 +49,7 @@ export class ManageCouponsComponent {
       this.buildPagination(result);
       setTimeout(() => {
         initModals();
-      }, 50);
+      }, 100);
     });
   }
 

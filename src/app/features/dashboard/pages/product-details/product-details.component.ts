@@ -78,7 +78,7 @@ export class ProductDetailsComponent {
       this.getPossibleSubcategories();
       setTimeout(() => {
         initModals();
-      }, 50);
+      }, 100);
     });
     this.categoryService.getAllCategories().subscribe((result: any) => {
       this.categories = result.data;
@@ -187,7 +187,7 @@ export class ProductDetailsComponent {
       this.product.discount = response.data;
       setTimeout(() => {
         initModals();
-      }, 50);
+      }, 100);
     })
   }
 
@@ -324,7 +324,7 @@ export class ProductDetailsComponent {
       });
       setTimeout(() => {
         initModals();
-      }, 50);
+      }, 100);
     });
   }
 

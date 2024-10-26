@@ -47,7 +47,7 @@ export class ManageUsersComponent {
       this.buildPagination(result);
       setTimeout(() => {
         initModals();
-      }, 50);
+      }, 100);
     });
     this.userService.getRoles().subscribe((value: any) => {
       this.roles = value.data;
