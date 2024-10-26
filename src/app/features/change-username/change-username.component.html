@@ -1,0 +1,41 @@
+<div class="flex justify-center items-center min-h-screen">
+    <div class="w-full max-w-md bg-white p-6 rounded-lg shadow-lg">
+        <h2 class="text-2xl font-semibold mb-4 text-center">Change Username</h2>
+
+        <form (ngSubmit)="onSubmit()" [formGroup]="changeNameForm">
+            <!-- First Name Field -->
+            <div class="mb-4">
+                <label for="fname" class="block text-sm font-medium text-gray-700">First Name</label>
+                <input id="fname" type="text" formControlName="fname" class="mt-1 p-2 w-full border">
+                @if (changeNameForm.get('fname')?.errors?.['required'] && changeNameForm.get('fname')?.touched) {
+                    <div class="text-red-500 text-sm mt-1">
+                        First name is required.
+                    </div>
+                }
+            </div>
+
+            <!-- Last Name Field -->
+            <div class="mb-4">
+                <label for="lname" class="block text-sm font-medium text-gray-700">Last Name</label>
+                <input id="lname" type="text" formControlName="lname" class="mt-1 p-2 w-full border">
+                @if (changeNameForm.get('lname')?.errors?.['required'] && changeNameForm.get('lname')?.touched) {
+                    <div class="text-red-500 text-sm mt-1">
+                        Last name is required.
+                    </div>
+                }
+            </div>
+
+            <!-- Submit Button -->
+            <div class="flex justify-center">
+                <app-black-button type="submit" text="Change Username"></app-black-button>
+            </div>
+
+            <!-- Error Message -->
+            @if (errorMessage) {
+                <div class="text-red-500 text-sm mt-4 text-center">
+                    {{ errorMessage }}
+                </div>
+            }
+        </form>
+    </div>
+</div>

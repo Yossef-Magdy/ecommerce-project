@@ -185,4 +185,21 @@ export class AuthService {
     const authToken = `${response.token_type} ${response.access_token}`;
     localStorage.setItem('token', authToken);
   }
+
+  changePassword(oldPassword: string, newPassword: string): Observable<any> {
+    const requestData = {
+      old_password: oldPassword,
+      new_password: newPassword
+    };
+
+    return this.http.put('/change-password', requestData).pipe(
+      tap((response: any) => {
+        this.toastService.showToast("Password changed successfully!", "success");
+      }),
+      catchError((error: HttpErrorResponse) => {
+        this.toastService.showToast("Error changing password", "error");
+        return of(error);
+      })
+    );
+  }
 }

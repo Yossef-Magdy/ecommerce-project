@@ -42,7 +42,7 @@ export class ManageRolesComponent {
       this.buildPagination(result);
       setTimeout(() => {
         initModals();
-      }, 50);
+      }, 100);
     });
     this.userService.getPermissions().subscribe((value: any) => {
       this.permissions = value.data;

@@ -8,6 +8,7 @@ import { ToastService } from '../../core/services/toast.service';
 import { ProductReviewsServiceService } from '../product-details/product-reviews/product-reviews-service.service';
 import { UserService } from '../profile/user.service';
 import { MyCurrencyPipe } from '../../pipes/my-currency.pipe';
+import { PaginationService } from '../../shared/pagination/services/pagination.service';
 
 @Component({
   selector: 'app-order-history',
@@ -21,6 +22,7 @@ export class OrderHistoryComponent {
   reviewedProducts: Set<number> = new Set();
   showCancelModal = false;
   orderIdToCancel: number | null = null;
+  next: string | null = null;
   private destroyRef = inject(DestroyRef);
   private destroyed$ = new Subject<void>();
 
@@ -28,32 +30,35 @@ export class OrderHistoryComponent {
     private router: Router,
     public toastService: ToastService,
     private productReviewsService: ProductReviewsServiceService,
-    private userService: UserService,) { }
+    private userService: UserService,
+    private paginationService: PaginationService) { }
 
-    ngOnInit() {
-      this.destroyRef.onDestroy(() => {
-        this.destroyed$.next();
-        this.destroyed$.complete();
-      });
-      this.loadOrders();
-      this.checkUserReviews();
-    }
+  ngOnInit() {
+    this.destroyRef.onDestroy(() => {
+      this.destroyed$.next();
+      this.destroyed$.complete();
+    });
+    this.loadOrders();
+    this.checkUserReviews();
+  }
 
   loadOrders() {
     this.orderService.getOrders()
       .pipe(takeUntil(this.destroyed$))
       .subscribe((res: any) => {
         this.orders = res.data;
+        this.next = res.links.next; // حفظ الرابط للصفحة التالية إذا كان موجود
         this.checkUserReviews();
       });
   }
-  
+
+
   checkUserReviews() {
     this.userService.getUserData().pipe(takeUntil(this.destroyed$)).subscribe(userData => {
-      
+
       if (this.orders && Array.isArray(this.orders)) {
         this.orders.forEach(order => {
-          if (order.items && Array.isArray(order.items)) { 
+          if (order.items && Array.isArray(order.items)) {
             order.items.forEach((item: any) => {
               this.productReviewsService.getReviewsById(item.product.product_id)
                 .pipe(takeUntil(this.destroyed$))
@@ -63,7 +68,7 @@ export class OrderHistoryComponent {
 
                     if (Array.isArray(reviews)) {
                       const userReview = reviews.find((review: any) => review.reviewer.toLowerCase() === userData.first_name.toLowerCase() + ' ' + userData.last_name.toLowerCase());
-                      
+
                       if (userReview) {
                         this.reviewedProducts.add(item.product.product_id);
                       }
@@ -79,7 +84,7 @@ export class OrderHistoryComponent {
       }
     });
   }
-  
+
 
   openCancelModal(orderId: number) {
     this.showCancelModal = true;
@@ -108,5 +113,15 @@ export class OrderHistoryComponent {
 
   onAddReview(productId: number) {
     this.router.navigate(['/create-review', productId]);
+  }
+
+  loadMore() {
+    if (!this.next) {
+      return;
+    }
+    this.paginationService.load(this.next).subscribe((response: any) => {
+      this.next = response.links.next; // تحديث next للرابط الجديد
+      this.orders.push(...response.data); // إضافة الطلبات الجديدة
+    });
   }
 }

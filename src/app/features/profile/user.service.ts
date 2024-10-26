@@ -40,4 +40,16 @@ export class UserService {
     return this.http.get<CartItem[]>('/cart');
   }
 
+  updateUserName(data: { firstName: string, lastName: string }): Observable<any> {
+    const formattedData = {
+        first_name: data.firstName,
+        last_name: data.lastName
+    };
+    return this.http.put('/change-name', formattedData).pipe(
+        catchError(error => {
+            console.error('Error updating username:', error);
+            return of(null);
+        })
+    );
+}
 }

@@ -43,7 +43,7 @@ export class ManageOrdersComponent {
       this.buildPagination(result);
       setTimeout(() => {
         initModals();
-      }, 50);
+      }, 100);
     });
   }
 

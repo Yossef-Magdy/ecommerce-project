@@ -41,7 +41,7 @@ export class ManageSubcategoriesComponent {
       this.buildPagination(result);
       setTimeout(() => {
         initModals();
-      }, 50);
+      }, 100);
     });
     this.categoryService.getCategories().subscribe((result: any) => {
       this.categories = result.data;
