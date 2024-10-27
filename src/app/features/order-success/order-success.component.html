@@ -1,67 +1,79 @@
-<div class="flex flex-row">
-    <div class="my-5 w-7/12 mx-5 text-gray-500">
-        <div class="border border-gray-300 p-5 ">
-            <p class="">Your order is confirmed</p>
-            <p>You'll receive a confirmation email with your order number shortly.</p>
-        </div>
-        <div class="order-shipping border border-gray-300 p-5 mt-5">
-            <h2>Order Details</h2>
-            <div class="flex flex-row">
-                <div class="w-1/2">
-                    <h3>Shipping Summary</h3>
-                    <p> Status: <span>{{orderOverall.shipping.status}}</span></p>
-                    <p> Apartment no. <span>{{shipping.apartment}}</span></p>
-                    <p> Address: <span>{{shipping.address}}</span></p>
-                    <p *ngIf="shipping.postal_code"> Postal Code: <span>{{shipping.postal_code}}</span></p>
-                    <p> Phone Number: <span>{{shipping.phone_number}}</span></p>
+@if (order){
+    <div class="flex flex-wrap lg:flex-nowrap justify-center">
+        <div class="basis-full lg:w-7/12 mx-10 mt-5 text-gray-500">
+            <div>
+                <p class="m-auto">
+                    <span class="text-indigo-800 mr-2"><i class="fa-regular fa-circle-check"></i></span>
+                    <span class="text-sm text-indigo-800">Order #<span>{{orderOverall.id}}</span></span>
+                </p>
+                <p *ngIf="user">Thank You, <span>{{user.first_name}}</span></p>
+            </div>
+            <div class="border border-gray-300 p-5 my-5">
+                <p class="text-lg font-semibold">Your order is confirmed</p>
+                <p>You'll receive a confirmation email with your order number shortly.</p>
+            </div>
+    
+            <!-- shipping & address details -->
+            <div class="order-shipping border border-gray-300 p-5 mt-5">
+                <h2 class="text-xl font-semibold">Order Details</h2>
+                <div class="flex flex-row flex-wrap">
+                    <div class="basis-full md:basis-1/2">
+                        <h3 class="text-md font-semibold md:mt-0 mt-2">Shipping Summary</h3>
+                        <p> Status: <span>{{orderOverall.shipping.status}}</span></p>
+                        <p> Apartment no. <span>{{shipping.apartment}}</span></p>
+                        <p> Address: <span>{{shipping.address}}</span></p>
+                        <p *ngIf="shipping.postal_code"> Postal Code: <span>{{shipping.postal_code}}</span></p>
+                        <p> Phone Number: <span>{{shipping.phone_number}}</span></p>
+                    </div>
+                    <div class="basis-full md:basis-1/2">
+                        <h3 class="text-md font-semibold md:mt-0 mt-2">Payment Method</h3>
+                        <p> Status: <span>{{payment.status}}</span></p>
+                        <p> Method: <span>{{payment.method === 'cod'? 'Cash On Delivery (COD) - ' : 'Credit Card (Stripe) - '}}</span><span class="font-semibold">{{orderOverall.total_price | myCurrency:'EGP':'symbol':'1.2-2':'en-US'}}</span></p>
+                    </div>
                 </div>
-                <div class="w-1/2">
-                    <h3>Payment Method</h3>
-                    <p> Status: <span>{{payment.status}}</span></p>
-                    <p> Method: <span>{{payment.method === 'cod'? 'Cash On Delivery (COD) - ' : 'Credit Card (Stripe) - '}}</span><span>{{orderOverall.total_price | myCurrency:'EGP':'symbol':'1.2-2':'en-US'}}</span></p>
+            </div>
+    
+            <div class="lg:text-start text-center">
+                <button class="btn my-5 text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                type="button"><a routerLink="/">Continue Shopping</a></button>
+            </div>
+        </div>
+        
+        <!-- Items user bought -->
+        <div class="basis-full lg:w-5/12 bg-gray-100">
+            <div class="order-summary p-10">
+                @for (item of orderSummary; track $index) {
+                <div class="flex justify-between items-center border-b pb-4 mb-4">
+                    <div class="flex relative items-center space-x-4">
+        
+                        <div class="img">
+                            @if (item.quantity>1){
+                            <div
+                                class="counter absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-black border-2 border-white rounded-full dark:border-gray-900">
+                                {{ item.quantity }}</div>
+                            }
+                            <img [src]="item.product.image" [alt]="item.product.name" class="w-16 h-16 object-cover" />
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium">{{item.product.name}}</p>
+                            <p class="text-gray-500 text-sm">{{item.color}} / {{item.size}}</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-column justify-center">
+                        <span class="text-md">{{ item.total_price| myCurrency:'EGP':'symbol':'1.2-2':'en-US'}}</span>
+                    </div>
+                </div>
+                }
+        
+                <div class="flex justify-between items-center pb-2 mb-4">
+                    <p class="text-lg">Shipping</p>
+                    <p class="text-md">{{shippingFee | myCurrency:'EGP':'symbol':'1.2-2':'en-US'}}</p>
+                </div>
+                <div class="flex justify-between items-center pb-2 mb-4">
+                    <p class="text-lg">Total</p>
+                    <p class="text-xl font-semibold">{{orderOverall.total_price | myCurrency:'EGP':'symbol':'1.2-2':'en-US'}}</p>
                 </div>
             </div>
         </div>
     </div>
-    
-    <div class="second w-full md:w-5/12 bg-gray-100">
-        <div class="order-summary p-10">
-            @for (item of orderSummary; track $index) {
-            <div class="flex justify-between items-center border-b pb-4 mb-4">
-                <div class="flex relative items-center space-x-4">
-    
-                    <div class="img">
-                        @if (item.quantity>1){
-                        <div
-                            class="counter absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-black border-2 border-white rounded-full dark:border-gray-900">
-                            {{ item.quantity }}</div>
-                        }
-                        <img [src]="item.product.image" [alt]="item.product.name" class="w-16 h-16 object-cover" />
-                    </div>
-                    <div>
-                        <p class="text-sm font-medium">{{item.product.name}}</p>
-                        <p class="text-gray-500 text-sm">{{item.color}} / {{item.size}}</p>
-                    </div>
-                </div>
-                <div class="flex flex-column justify-center">
-                    <span class="text-md">{{ item.total_price| myCurrency:'EGP':'symbol':'1.2-2':'en-US'}}</span>
-                </div>
-            </div>
-            }
-    
-            <div class="flex justify-between items-center pb-2 mb-4">
-                <p class="text-sm">Total</p>
-                <p class="text-sm">{{orderOverall.total_price | myCurrency:'EGP':'symbol':'1.2-2':'en-US'}}</p>
-            </div>
-            <!-- <div class="flex justify-between items-center pb-2 mb-4">
-                <p class="text-sm">Shipping</p>
-                <p class="text-sm">{{shippingFee | myCurrency:'EGP':'symbol':'1.2-2':'en-US'}}</p>
-            </div>
-    
-            <div class="flex justify-between border-t pt-4 border-gray-300 items-center mb-4">
-                <p class="text-lg font-medium">Total</p>
-                <p class="text-lg font-medium">{{totalPrice | myCurrency:'EGP':'symbol':'1.2-2':'en-US'}}</p>
-            </div> -->
-        </div>
-    </div>
-</div>
+}
