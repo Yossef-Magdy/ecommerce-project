@@ -144,7 +144,6 @@ export class ProductDetailsComponent {
       this.cartItems = items;
     });
     });
-    console.log("slug",routeSlug);
   }
 
   ngOnInit() {

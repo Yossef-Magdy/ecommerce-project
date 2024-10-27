@@ -19,7 +19,6 @@ export class ProductReviewsComponent {
     const routeId = this.activatedRoute.snapshot.params['id'];
     this.productReviewsService.getReviewsById(routeId).subscribe((reviews:any)=>{
       this.reviews = reviews.data;
-      console.log(reviews.data);
 
     })
   }

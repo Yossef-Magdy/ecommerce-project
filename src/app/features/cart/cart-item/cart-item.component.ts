@@ -49,7 +49,5 @@ export class CartItemComponent {
     this.quantityChangeEmitter.emit({ productDetailId: this.cartItem.productDetailId, quantity: this.cartItem.quantity });
   }
 
-  ngOnInit(){
-    console.log(this.cartItem);
-  }
+  
 }

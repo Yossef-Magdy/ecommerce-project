@@ -16,7 +16,6 @@ export class ZoomComponent {
       console.error('No images available for the zoom component.');
       return;
     }
-    console.log(this.images);
   }
   
 }

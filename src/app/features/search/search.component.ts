@@ -44,7 +44,6 @@ export class SearchComponent {
     )
     .subscribe((res) => {
       this.products = res.data;
-      console.log("res", this.products);
 
       this.products.forEach((product) => {
         product.current_image = product.cover_image;

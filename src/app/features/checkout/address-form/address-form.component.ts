@@ -60,19 +60,16 @@ export class AddressFormComponent {
     //Get stored governerates 
     this.governorateService.getGovernorates().subscribe((res: any) => {
       this.governorates = res.data;
-      console.log(this.governorates);
     });
   }
 
   onSubmit(){
     if (this.addressForm.valid) {
       const address_data = this.addressForm.value;
-      console.log(address_data);
       
       this.addressService.addAddress(address_data).subscribe(
         () => {
           this.submitted.emit(true);
-          console.log('Address added successfully');
         },
         (error) => {
           console.error('Error adding address', error);
