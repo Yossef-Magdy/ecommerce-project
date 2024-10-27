@@ -17,7 +17,6 @@ export class SubCategoriesComponent {
 
   ngOnInit() {
     this.categoryService.getAllSubCategories().subscribe((res) => {
-      console.log(res.data);
       this.subcategoryCards = res.data;
     });
   }

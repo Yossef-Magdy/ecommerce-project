@@ -15,7 +15,6 @@ export class ArrowsUpdatedComponent {
 
   nextCard() {
     const maxIndex = this.cards.length - this.maxVisibleCards;
-    console.log(this.maxVisibleCards);
     
     if (this.currentIndex < maxIndex) {
       this.currentIndex++;
