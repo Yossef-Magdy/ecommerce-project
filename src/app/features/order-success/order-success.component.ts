@@ -26,8 +26,6 @@ export class OrderSuccessComponent {
 
   ngOnInit() {
     this.orderService.getOrderSummary().pipe().subscribe((order)=>{
-      console.log("order", !order);
-      
       if (!Object.keys(order).length) this.router.navigate(['/']);
       else{
         this.order = order.data;

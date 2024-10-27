@@ -18,7 +18,6 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
           router.navigate(['/forbidden']);
           break;
         case HttpStatusCode.NotFound:
-          // router.navigate(['/not-found']);
           toast.showToast('Not found', 'error');
           break;
         case HttpStatusCode.BadRequest:
@@ -28,8 +27,6 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
           const message = errors[key][0];
           toast.showToast(message, 'error');
           break;
-        default:
-          console.error('HTTP error:', error);
       }
       return throwError(() => error);
     })

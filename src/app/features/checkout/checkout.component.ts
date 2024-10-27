@@ -207,9 +207,7 @@ export class CheckoutComponent implements OnInit {
     this.paymentService.order(order).subscribe(
       
       (response: any) => {
-        if (response.success) {
-          console.log("order", response);
-          
+        if (response.success) {          
           this.toastService.showToast('Payment successful!', 'success');
           this.isLoading = false;
           this.navigateAfterDelay(response);
@@ -240,7 +238,6 @@ export class CheckoutComponent implements OnInit {
     this.paymentService.order(order).subscribe(
       (response: any) => {
         if (response.success) {
-          console.log("order", response);
           this.orderService.setOrderData(response.data);
           this.toastService.showToast('Payment successful!', 'success');
           this.isLoading = false;

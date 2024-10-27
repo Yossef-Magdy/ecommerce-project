@@ -98,8 +98,6 @@ export class EditAddressComponent {
           console.error('Error updating address:', error);
         }
       });
-    } else {
-      console.log('Form is invalid', this.addressForm.errors);
     }
   }
 }

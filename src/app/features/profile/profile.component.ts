@@ -56,10 +56,8 @@ export class ProfileComponent {
     if (!this.cartEmpty){
       this.userService.sendCartItems().subscribe({
         next: (response) => {
-          console.log("Request successful", response);
         },
         error: (err) => {
-          console.error("Error sending cart items", err);
         }
       });
       this.cartService.clearItems();

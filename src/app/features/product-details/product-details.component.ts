@@ -128,9 +128,6 @@ export class ProductDetailsComponent {
         this.availableSizes = this.getSizesByColor(this.selectedColor);
         this.selectedSize = this.availableSizes[0];
         this.updatePrice();
-
-        // console.log("colors",this.availableColors, "sizes", this.availableSizes);
-
         this.recentlyViewedService.addToRecentlyViewed(this.data); // Add product to recently viewed
         this.loadRecentlyViewedProducts(); // Load recently viewed products
 

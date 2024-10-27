@@ -72,12 +72,8 @@ export class AddressFormComponent {
           this.submitted.emit(true);
         },
         (error) => {
-          console.error('Error adding address', error);
         }
       );
-    } else {
-      console.log('Form is invalid');
     }
-
   }
 }
