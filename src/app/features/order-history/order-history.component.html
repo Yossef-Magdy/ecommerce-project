@@ -60,11 +60,12 @@
             </div>
             }
         </div>
-
-        @if ($index !== order.items.length - 1) {
         <hr class="my-4 border-gray-300">
         }
+        @if(order){
+            <p class="text-lg font-semibold">Order Total: <span class="text-gray-600">{{order.total_price | myCurrency:'EGP':'symbol':'1.2-2':'en-US'}}</span></p>
         }
+
         @if (order.shipping.status !== 'shipped' && order.shipping.status !== 'delivered') {
         <div class="ml-4 flex justify-end">
             <button

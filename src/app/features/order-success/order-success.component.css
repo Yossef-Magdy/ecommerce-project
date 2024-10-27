@@ -1,0 +1,19 @@
+.order-summary {
+    position: sticky;
+    top: 20px;
+}
+
+.img .counter {
+    top: -10px;
+    left: -10px;
+}
+
+.order-shipping p {
+    padding: 2px;
+}
+
+.btn {
+    background-color: rgb(51, 4, 85);
+    color: white;
+    border: 1px solid rgb(51, 4, 85);
+}

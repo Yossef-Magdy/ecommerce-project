@@ -19,18 +19,6 @@ export class AnalyticsService {
     return this.getAnalyticsByDays(7);
   }
 
-  getLastMonthAnalytics() {
-    return this.getAnalyticsByDays(30);
-  }
-  
-  getLastYearAnalytics() {
-    return this.getAnalyticsByDays(356);
-  }
-
-  getLast6MonthsAnalytics() {
-    return this.getAnalyticsByDays(6 * 30);
-  }
-
   getAnalyticsBetween(from: any, to: any) {
     return this.http.get(`${this.baseURL}/statistics/range`, {
       params: {

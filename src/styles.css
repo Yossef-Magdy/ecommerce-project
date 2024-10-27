@@ -30,3 +30,7 @@
     line-height: 1rem;
     color: #6B7280 !important;
 }
+
+#g_a11y_announcement {
+    inset: 0 !important;
+}

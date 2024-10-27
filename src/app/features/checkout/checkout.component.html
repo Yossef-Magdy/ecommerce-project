@@ -131,7 +131,7 @@
       <div class="order-summary p-10">
         @for (item of orderSummary; track $index) {
         <div class="flex justify-between items-center border-b pb-4 mb-4">
-          <div class="flex items-center space-x-4">
+          <div class="flex relative items-center space-x-4">
 
             <div class="img">
               @if (item.quantity>1){
@@ -146,7 +146,9 @@
               <p class="text-gray-500 text-sm">{{item.color}} / {{item.size}}</p>
             </div>
           </div>
-          <p class="text-sm">{{subTotalPrice | myCurrency:'EGP':'symbol':'1.2-2':'en-US'}}</p>
+          <div class="flex flex-column justify-center">
+            <span class="text-md" [ngClass]="{'text-indigo-800': item.priceAfterDiscount}">{{(item.priceAfterDiscount? item.priceAfterDiscount : item.price)| myCurrency:'EGP':'symbol':'1.2-2':'en-US'}}</span>
+          </div>
         </div>
         }
         <!-- Coupon -->

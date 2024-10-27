@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Router } from '@angular/router';
 import { PaymentService } from './services/payment.service';
@@ -13,6 +13,7 @@ import { CouponService } from '../dashboard/services/coupon.service';
 import { FireworksComponent } from "./fireworks/fireworks.component";
 import { UserService } from '../profile/user.service';
 import { ToastService } from '../../core/services/toast.service';
+import { OrderService } from '../order-success/service/order.service';
 
 
 declare var Stripe: any;
@@ -46,8 +47,7 @@ export class CheckoutComponent implements OnInit {
   totalDiscounts : number = 0;
   cartEmpty: boolean = true;
 
-
-  constructor(private router: Router, private paymentService: PaymentService, private cartService: CartService, private addressService: AddressService, private authService: AuthService, private governerateService: GovernorateService, private couponService: CouponService, private userService: UserService, private toastService: ToastService) {}
+  constructor(private router: Router, private paymentService: PaymentService, private cartService: CartService, private addressService: AddressService, private authService: AuthService, private governerateService: GovernorateService, private couponService: CouponService, private userService: UserService, private toastService: ToastService, private orderService: OrderService) {}
 
   onAddressFormSubmit(submitted: boolean) {
     if (submitted) {
@@ -91,7 +91,6 @@ export class CheckoutComponent implements OnInit {
     if (!this.cartEmpty){
       this.userService.sendCartItems().subscribe({
         next: (response) => {
-          console.log("Request successful", response);
         },
         error: (err) => {
           console.error("Error sending cart items", err);
@@ -130,7 +129,14 @@ export class CheckoutComponent implements OnInit {
             product_detail_id: item.productDetailId,
             quantity: item.quantity,
           });
-          this.subTotalPrice += (item.price * item.quantity);
+
+          // if there is discount on product itself
+          if (item.priceAfterDiscount){
+            this.subTotalPrice += (item.priceAfterDiscount * item.quantity);
+          }
+          else{
+            this.subTotalPrice += (item.price * item.quantity);
+          }
         }
       }
       else{
@@ -141,7 +147,6 @@ export class CheckoutComponent implements OnInit {
     //Check for addresses
     this.addressService.getAddresses().subscribe(addresses =>{
       this.savedAddresses = addresses.data;
-      console.log("address", addresses);
       
       if(addresses.data.length){
         this.shipping_detail_id = addresses.data[0].id;
@@ -203,10 +208,11 @@ export class CheckoutComponent implements OnInit {
       
       (response: any) => {
         if (response.success) {
-          console.log('Payment successful:', response);
+          console.log("order", response);
+          
           this.toastService.showToast('Payment successful!', 'success');
           this.isLoading = false;
-          this.navigateAfterDelay();
+          this.navigateAfterDelay(response);
           // Link recet response.charge.receipt_url for customer
         } else {
           console.error('Payment failed:', response.message);
@@ -234,10 +240,11 @@ export class CheckoutComponent implements OnInit {
     this.paymentService.order(order).subscribe(
       (response: any) => {
         if (response.success) {
-          console.log('Payment successful:', response);
+          console.log("order", response);
+          this.orderService.setOrderData(response.data);
           this.toastService.showToast('Payment successful!', 'success');
           this.isLoading = false;
-          this.navigateAfterDelay();
+          this.navigateAfterDelay(response);
           // Link recet response.charge.receipt_url for customer
         } else {
           console.error('Payment failed:', response.message);
@@ -264,7 +271,6 @@ export class CheckoutComponent implements OnInit {
     this.couponService.getCouponByCode(coupon_code).subscribe(
       (res : any)=>{
         if (res && Object.keys(res).length && res.data.status !== 'expired'){
-          console.log("Valid coupon", res.data);
             this.toastService.showToast("Valid coupon", 'success');
             this.coupon = res.data;
             this.validCoupon = true;
@@ -280,7 +286,6 @@ export class CheckoutComponent implements OnInit {
           this.validCoupon = false; // Reset to false if not valid
           this.coupon = null; // Optionally clear coupon data
           this.toastService.showToast("Invalid coupon", 'error');
-          console.log("Invalid coupon");
         }
       }, 
       (error) => {
@@ -292,10 +297,11 @@ export class CheckoutComponent implements OnInit {
   }
 
   // navigate to home after payment done successfully
-  navigateAfterDelay() {
+  navigateAfterDelay(order: any) {
     setTimeout(() => {
+      this.orderService.setOrderData(order);
       this.cartService.clearItems();
-      this.router.navigate(['/']); 
+      this.router.navigate(['/success-order']); 
     }, 1000);
   }
 }
