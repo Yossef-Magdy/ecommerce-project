@@ -37,7 +37,6 @@ export class AddAddressComponent {
   ngOnInit() {
     this.governorateService.getGovernorates().subscribe((res: any) => {
       this.governorates = res.data;
-      console.log(this.governorates);
     });
 
 

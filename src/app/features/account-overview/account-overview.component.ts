@@ -34,16 +34,13 @@ export class AccountOverviewComponent {
     this.orderService.getOrders()
       .pipe(takeUntil(this.destroyed$))
       .subscribe((res: any) => {
-        console.log(res.data);
         this.orders = res.data;
         this.receivedOrders = res.data.filter((order: any) => order.shipping.status === 'delivered');
-        console.log(this.receivedOrders);
       });
 
     this.addressService.getAddresses()
       .pipe(takeUntil(this.destroyed$))
       .subscribe((res: any) => {
-        console.log(res.data);
         this.addresses = res.data;
       })
   }

@@ -47,43 +47,34 @@ export class OrderHistoryComponent {
       .pipe(takeUntil(this.destroyed$))
       .subscribe((res: any) => {
         this.orders = res.data;
-        this.next = res.links.next; // حفظ الرابط للصفحة التالية إذا كان موجود
+        this.next = res.links.next;
         this.checkUserReviews();
       });
   }
 
 
   checkUserReviews() {
-    this.userService.getUserData().pipe(takeUntil(this.destroyed$)).subscribe(userData => {
-
-      if (this.orders && Array.isArray(this.orders)) {
-        this.orders.forEach(order => {
-          if (order.items && Array.isArray(order.items)) {
-            order.items.forEach((item: any) => {
-              this.productReviewsService.getReviewsById(item.product.product_id)
-                .pipe(takeUntil(this.destroyed$))
-                .subscribe({
-                  next: (response) => {
-                    const reviews = response.data;
-
-                    if (Array.isArray(reviews)) {
-                      const userReview = reviews.find((review: any) => review.reviewer.toLowerCase() === userData.first_name.toLowerCase() + ' ' + userData.last_name.toLowerCase());
-
-                      if (userReview) {
-                        this.reviewedProducts.add(item.product.product_id);
-                      }
-                    }
-                  },
-                  error: (err) => {
-                    console.error('Error fetching reviews:', err);
-                  }
-                });
-            });
+    this.productReviewsService.getUserReviews()
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe({
+        next: (userReviewedProductIds: number[]) => {
+          const reviewedProductIdsSet = new Set(userReviewedProductIds);
+          
+          if (this.orders && Array.isArray(this.orders)) {
+            this.orders.flatMap(order => order.items)
+              .forEach((item: any) => {
+                if (reviewedProductIdsSet.has(item.product.product_id)) {
+                  this.reviewedProducts.add(item.product.product_id);
+                }
+              });
           }
-        });
-      }
-    });
+        },
+        error: (err) => {
+          console.error('Error fetching user reviews:', err);
+        }
+      });
   }
+  
 
 
   openCancelModal(orderId: number) {
@@ -120,8 +111,8 @@ export class OrderHistoryComponent {
       return;
     }
     this.paginationService.load(this.next).subscribe((response: any) => {
-      this.next = response.links.next; // تحديث next للرابط الجديد
-      this.orders.push(...response.data); // إضافة الطلبات الجديدة
+      this.next = response.links.next;
+      this.orders.push(...response.data);
     });
   }
 }
