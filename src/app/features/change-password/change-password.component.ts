@@ -39,23 +39,22 @@ export class ChangePasswordComponent implements OnInit{
     if (this.changePasswordForm.valid) {
       const { oldPassword, newPassword } = this.changePasswordForm.value;
   
-      this.authService.changePassword(oldPassword, newPassword).subscribe({
-        next: (response) => {
-          if (response && response.success) {
+      this.authService.changePassword(oldPassword, newPassword).subscribe(
+        (response) => {
             this.toastService.showToast('Password updated successfully', 'success');
             this.router.navigate(['/profile']);
-          }
         },
-        error: (error) => {
-          if (error.status === 401) {
+        (error) => {
+          if (error.status === 401 && error.error?.message === "wrong password") {
             this.toastService.showToast('Incorrect old password. Please try again.', 'error');
             this.changePasswordForm.get('oldPassword')?.reset();
           } else {
-            this.toastService.showToast('An error occurred. Please try again.', 'error');
+            this.toastService.showToast('An error occurred. Please try again later.', 'error');
           }
         }
-      });
+      );
     }
   }
+  
   
 }
