@@ -39,7 +39,7 @@ export class CollectionComponent {
   }
 
   processResponse(response: any) {
-    this.clothsCards = response.data;
+    this.clothsCards.push(...response.data);
     this.next = response.links.next;
     this.clothsCards.forEach((card) => {
       card.current_image = card.cover_image;
@@ -61,8 +61,7 @@ export class CollectionComponent {
       return;
     }
     this.paginationService.load(this.next).subscribe((response: any) => {
-      this.next = response.links.next;
-      this.clothsCards.push(...response.data);
+      this.processResponse(response);
     })
   }
 }
