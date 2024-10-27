@@ -171,6 +171,9 @@ export class ProductDetailsComponent {
       const data = response.data;
       this.product.details.push(data);
       this.product.stock += +data.stock;
+      setTimeout(() => {
+        initModals();
+      }, 100);
     });
   }
 
@@ -220,7 +223,7 @@ export class ProductDetailsComponent {
         this.product.discount = null;
         setTimeout(() => {
           initModals();
-        }, 50);
+        }, 100);
       }
     });
   }
