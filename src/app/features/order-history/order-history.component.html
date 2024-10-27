@@ -53,9 +53,9 @@
                 </p>
             </div>
 
-            @if (order.shipping.status === 'delivered') {
+            @if (order.shipping.status === 'delivered' && !reviewedProducts.has(item.product.product_id)) {
             <div class="ml-4">
-                <app-black-button *ngIf="!reviewedProducts.has(item.product.product_id)"
+                <app-black-button
                     (click)="onAddReview(item.product.product_id)" text="Write your review"></app-black-button>
             </div>
             }

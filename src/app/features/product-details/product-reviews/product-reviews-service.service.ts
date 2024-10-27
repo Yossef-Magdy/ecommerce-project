@@ -16,4 +16,8 @@ export class ProductReviewsServiceService {
   createReview(reviewData: any): Observable<any> {
     return this.http.post(`/reviews`, reviewData);
   }
+
+  getUserReviews(): Observable<number[]> {
+    return this.http.get<number[]>('/user-reviews');
+  }
 }

@@ -45,7 +45,6 @@ export class EditAddressComponent {
     });
 
     this.addressService.getAddressById(this.addressId).subscribe((response: any) => {
-      console.log('Fetched address data:', response);
       const addressData = response.data;
 
       const governorate = this.governorates.find(
@@ -82,7 +81,6 @@ export class EditAddressComponent {
       }
       this.addressService.updateAddress(this.addressId, this.addressForm.value).subscribe({
         next: (response) => {
-          console.log('Address updated successfully:', response);
           this.successMessage = 'Address has been updated successfully';
           
           setTimeout(() => {

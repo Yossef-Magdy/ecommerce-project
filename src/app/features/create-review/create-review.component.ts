@@ -25,7 +25,6 @@ export class CreateReviewComponent {
   if (slug) {
     this.productService.getProductBySlug(slug).subscribe((res) => {
       this.product = res.data;
-      console.log(this.product);
     }, error => {
       console.error('Error fetching product:', error);
     });
@@ -49,7 +48,6 @@ export class CreateReviewComponent {
     };
   
     this.reviewService.createReview(reviewData).subscribe(response => {
-      console.log('Review submitted successfully:', response);
       this.router.navigate(['/reviews', this.product.id]);
     }, error => {
       console.error('Error submitting review:', error);
