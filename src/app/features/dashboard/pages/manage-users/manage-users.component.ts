@@ -64,7 +64,7 @@ export class ManageUsersComponent {
         this.buildPagination(result);
         setTimeout(() => {
           initModals();
-        }, 50);
+        }, 100);
       });
     }
   }
@@ -111,7 +111,7 @@ export class ManageUsersComponent {
         this.buildPagination(result);
         setTimeout(() => {
           initModals();
-        }, 50);
+        }, 100);
       });
     });
   }

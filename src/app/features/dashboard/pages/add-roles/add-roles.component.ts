@@ -32,12 +32,20 @@ export class AddRolesComponent {
     return this.roleForm.controls['name'];
   }
 
+  get rolePermissions() {
+    return this.roleForm.controls['permissions'];
+  }
+
   submit() {
     this.roleForm.markAllAsTouched();
     if (this.roleForm.invalid) {
       return;
     }
-    this.userSerivce.addRole(this.roleForm.value).subscribe((result: boolean) => {
+    const data = this.roleForm.value;
+    if (!this.rolePermissions.value) {
+      delete data['permissions'];
+    }
+    this.userSerivce.addRole(data).subscribe((result: boolean) => {
       if (result) {
         this.roleForm.reset();
       }

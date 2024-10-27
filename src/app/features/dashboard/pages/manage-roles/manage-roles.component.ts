@@ -56,7 +56,7 @@ export class ManageRolesComponent {
         this.buildPagination(result);
         setTimeout(() => {
           initModals();
-        }, 50);
+        }, 100);
       });
     }
   }
@@ -91,7 +91,7 @@ export class ManageRolesComponent {
         this.buildPagination(result);
         setTimeout(() => {
           initModals();
-        }, 50);
+        }, 100);
       });
     });
   }

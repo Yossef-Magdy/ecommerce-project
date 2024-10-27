@@ -54,7 +54,6 @@ export class AddAddressComponent {
       }
       this.addressService.addAddress(address_data).subscribe({
         next: (response) => {
-          // console.log('Address Added successfully:', response);
           this.successMessage = 'Address has been Added successfully';
           this.addressForm.reset();
 
@@ -67,12 +66,9 @@ export class AddAddressComponent {
           setTimeout(() => {
             this.failMessage = '';
           }, 2000);
-          // console.error('Error updating address:', error);
         }
       });
 
-    } else {
-      console.log('Form is invalid');
     }
   }
 

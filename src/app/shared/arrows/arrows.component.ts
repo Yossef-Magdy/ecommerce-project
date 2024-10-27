@@ -13,9 +13,7 @@ export class ArrowsComponent {
   @Output() arrowClick = new EventEmitter<number>();
 
   nextCard() {
-    const maxIndex = this.cards.length - this.maxVisibleCards;
-    console.log(this.maxVisibleCards);
-    
+    const maxIndex = this.cards.length - this.maxVisibleCards;    
     if (this.currentIndex < maxIndex) {
       this.currentIndex++;
       this.arrowClick.emit(this.currentIndex);

@@ -60,9 +60,7 @@ export class AddressBookComponent {
         this.addresses.splice(this.addressIndexToDelete, 1);
         this.sortAddresses();
         this.closeDeleteModal();
-        console.log('Address deleted successfully');
       }, (error) => {
-        console.error('Error deleting address:', error);
         this.closeDeleteModal();
       });
     }
