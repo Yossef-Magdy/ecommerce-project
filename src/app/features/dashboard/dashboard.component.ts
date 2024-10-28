@@ -119,7 +119,7 @@ export class DashboardComponent {
       ]
     };
     this.bestSellerData = {
-      labels: bestSeller.map((element: any) => element.product.name),
+      labels: bestSeller.map((element: any) => `${element.product.name} (${element.color}) (${element.material})`),
       datasets: [
         {
           label: 'Quantity',
