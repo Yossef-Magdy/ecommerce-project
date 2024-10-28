@@ -53,7 +53,7 @@ export class HomeComponent {
   
 
   getTransform() {
-    return `translateX(-${this.categoryCurrentIndex * 33.33}%)`;
+    return `translateX(-${this.categoryCurrentIndex * (100 / this.maxCategoryVisibleCards)}%)`;
   }
 
   getClothsTransform() {
@@ -76,12 +76,18 @@ export class HomeComponent {
     // Update the number of visible cards based on screen size
     updateMaxVisibleCards() {
       const screenWidth = window.innerWidth;
-      if (screenWidth >= 1200) {
+      if (screenWidth > 1200) {
         this.maxClothsVisibleCards = 4; // Large screens
-      } else if (screenWidth >= 768) {
-        this.maxClothsVisibleCards = 3; // Medium screens
+        this.maxCategoryVisibleCards = 3;
+      } else if (screenWidth <= 1200 && screenWidth > 768) {
+        this.maxClothsVisibleCards = 3; // Medium large screens
+        this.maxCategoryVisibleCards = 2;
+      }else if (screenWidth <= 768 && screenWidth > 430) {
+        this.maxClothsVisibleCards = 2; // Medium screens
+        this.maxCategoryVisibleCards = 2;
       } else {
-        this.maxClothsVisibleCards = 2; // Small and XS screens
+        this.maxClothsVisibleCards = 1; // Small and XS screens
+        this.maxCategoryVisibleCards = 1;
       }
     }
 }

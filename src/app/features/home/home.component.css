@@ -245,12 +245,28 @@
     flex: 0 0 calc(33.33% - 10px); /* Show 3 cards */
     margin: 0 5px;
   }
+  .card {
+    flex: calc(100% / 2) 0 0;
+  }
 }
 
 @media (max-width: 768px) {
   .product-card {
     flex: 0 0 calc(50% - 10px); /* Show 2 cards */
     margin: 0 5px;
+  }
+  .card {
+    flex: calc(100% / 2) 0 0;
+  }
+}
+
+@media (max-width: 430px){
+  .product-card {
+    flex: 0 0 calc(100% - 10px); /* Show 1 card */
+    margin: 0 5px;
+  }
+  .card {
+    flex: 100% 0 0;
   }
 }
 
