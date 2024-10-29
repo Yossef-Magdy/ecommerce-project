@@ -52,3 +52,9 @@ a {
         text-align: left;
     }
 }
+
+@media (max-width: 425px) {
+    .change{
+        align-items: start;
+    }
+}
